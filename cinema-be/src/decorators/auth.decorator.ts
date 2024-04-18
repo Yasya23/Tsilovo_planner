@@ -6,7 +6,7 @@ import { UserRoleType } from 'src/typing/common';
 export const Auth = (role: UserRoleType = 'user') => {
   return applyDecorators(
     role === 'admin'
-      ? UseGuards(AdminGuard, JwtAuthGuard)
+      ? UseGuards(JwtAuthGuard, AdminGuard)
       : UseGuards(JwtAuthGuard),
   );
 };
