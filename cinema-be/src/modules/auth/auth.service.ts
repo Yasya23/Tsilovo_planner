@@ -33,7 +33,7 @@ export class AuthService {
     const tokens = await this.createTokenPair(user.id);
 
     return {
-      userId: user.id,
+      id: user.id,
       email: user.email,
       ...tokens,
     };
@@ -58,7 +58,7 @@ export class AuthService {
     const tokens = await this.createTokenPair(createUser.id);
 
     return {
-      userId: user.id,
+      id: createUser.id,
       email: createUser.email,
       ...tokens,
     };
@@ -77,10 +77,9 @@ export class AuthService {
 
     const user = await this.UserModel.findById(result.id);
     const tokens = await this.createTokenPair(user.id);
-
     return {
       userId: user.id,
-      email: user.email,
+      isAdmin: user.isAdmin,
       ...tokens,
     };
   }

@@ -1,0 +1,12 @@
+import { applyDecorators, UseGuards } from '@nestjs/common';
+import { AdminGuard } from 'src/modules/auth/guard';
+import { JwtAuthGuard } from 'src/modules/auth/guard';
+import { UserRoleType } from 'src/typing/common';
+
+export const Auth = (role: UserRoleType = 'user') => {
+  return applyDecorators(
+    role === 'admin'
+      ? UseGuards(AdminGuard, JwtAuthGuard)
+      : UseGuards(JwtAuthGuard),
+  );
+};
