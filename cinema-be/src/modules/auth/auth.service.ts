@@ -6,7 +6,7 @@ import {
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
 import { UserModel } from 'src/models/user.model';
-import { AuthDto } from 'src/typing/dto';
+import { AuthDto, ResreshTokenDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
@@ -33,6 +33,7 @@ export class AuthService {
     const tokens = await this.createTokenPair(user.id);
 
     return {
+      userId: user.id,
       email: user.email,
       ...tokens,
     };
@@ -57,7 +58,29 @@ export class AuthService {
     const tokens = await this.createTokenPair(createUser.id);
 
     return {
+      userId: user.id,
       email: createUser.email,
+      ...tokens,
+    };
+  }
+
+  async getNewTokens({ refrehToken }: ResreshTokenDto) {
+    if (!refrehToken) {
+      throw new UnauthorizedException('Please Sing in');
+    }
+
+    const result = await this.jwtService.verifyAsync(refrehToken);
+
+    if (!result) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+
+    const user = await this.UserModel.findById(result.id);
+    const tokens = await this.createTokenPair(user.id);
+
+    return {
+      userId: user.id,
+      email: user.email,
       ...tokens,
     };
   }
