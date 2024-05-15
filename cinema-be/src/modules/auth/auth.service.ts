@@ -12,12 +12,12 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>,
+    @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
     private readonly jwtService: JwtService,
   ) {}
 
   async login(loginDto: AuthDto) {
-    const user = await this.UserModel.findOne({
+    const user = await this.userModel.findOne({
       email: loginDto.email,
     });
 
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   async register(registrationDto: AuthDto) {
-    const user = await this.UserModel.findOne({
+    const user = await this.userModel.findOne({
       email: registrationDto.email,
     });
 
@@ -50,7 +50,7 @@ export class AuthService {
     const numberForSaltGenerator = 10;
     const salt = await genSalt(numberForSaltGenerator);
 
-    const createUser = new this.UserModel({
+    const createUser = new this.userModel({
       ...registrationDto,
       password: await hash(registrationDto.password, salt),
     });
@@ -75,7 +75,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid or expired token');
     }
 
-    const user = await this.UserModel.findById(result.id);
+    const user = await this.userModel.findById(result.id);
     const tokens = await this.createTokenPair(user.id);
     return {
       userId: user.id,

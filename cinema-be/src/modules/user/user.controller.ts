@@ -1,17 +1,59 @@
-import { Controller, Get, Body } from '@nestjs/common';
-import { ApiTags, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Body,
+  Put,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
+import { User } from 'src/decorators/user.decorator';
+import { UpdateUserDto } from 'src/typing/dto';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('profile')
+  @Get()
   @Auth('admin')
-  // @ApiCreatedResponse()
-  // @ApiBody()
-  async getUserProfile() {
-    return this.userService.getByID();
+  async getAll(@Query('query') query?: string) {
+    return this.userService.getAll(query);
+  }
+
+  @Get('profile')
+  @Auth()
+  async getUserProfile(@User('id') id: string) {
+    return this.userService.getByID(id);
+  }
+
+  @Get('count')
+  @Auth('admin')
+  async getTotalCount() {
+    return this.userService.getTotalCount();
+  }
+
+  @Put('profile')
+  @Auth()
+  @ApiBody({ type: UpdateUserDto })
+  async update(@User('id') id: string, @Body() dto: UpdateUserDto) {
+    await this.userService.update(id, dto);
+    return { message: 'User profile updated successfully' };
+  }
+
+  @Put(':id')
+  @Auth('admin')
+  async updateAdmin(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    await this.userService.update(id, dto);
+    return { message: 'Profile updated successfully' };
+  }
+
+  @Delete(':id')
+  @Auth()
+  async delete(@Param('id') id: string) {
+    await this.userService.delete(id);
+    return { message: 'Profile deleted successfully' };
   }
 }
