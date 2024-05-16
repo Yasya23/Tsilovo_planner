@@ -37,7 +37,6 @@ export class UserService {
   }
 
   async update(id: string, userDto: UpdateUserDto) {
-    console.log(id, userDto);
     const user = await this.userModel.findById(id);
     if (!user) throw new NotFoundException('User not found');
     const isEmailUnique = await this.userModel.findOne({
