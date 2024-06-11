@@ -7,12 +7,10 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { UpdateUserDto } from 'src/typing/dto';
-@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -37,7 +35,6 @@ export class UserController {
 
   @Put('profile')
   @Auth()
-  @ApiBody({ type: UpdateUserDto })
   async update(@User('id') id: string, @Body() dto: UpdateUserDto) {
     await this.userService.update(id, dto);
     return { message: 'User profile updated successfully' };

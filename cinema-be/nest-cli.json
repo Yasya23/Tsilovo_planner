@@ -5,12 +5,7 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "plugins": [
-      {
-        "name": "@nestjs/swagger",
-        "options": {
-          "dtoFileNameSuffix": ".dto.ts"
-        }
-      }
+
     ]
   }
 }

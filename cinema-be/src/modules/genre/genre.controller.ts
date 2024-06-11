@@ -8,12 +8,10 @@ import {
   Query,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { GenreService } from './genre.service';
 import { UpdateGenreDto } from 'src/typing/dto';
 import { Auth } from 'src/decorators/auth.decorator';
 
-@ApiTags('genre')
 @Controller('genre')
 export class GenreController {
   constructor(private readonly genreService: GenreService) {}
