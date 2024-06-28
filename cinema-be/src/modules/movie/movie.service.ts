@@ -3,11 +3,13 @@ import { MovieModel } from 'src/models/movie.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { CreateMovieDto } from 'src/typing/dto';
+import { TelegramService } from '../telegram/telegram.service';
 
 @Injectable()
 export class MovieService {
   constructor(
     @InjectModel(MovieModel) private readonly movieModel: ModelType<MovieModel>,
+    private readonly telegramService: TelegramService,
   ) {}
 
   async getAll(query: string) {
@@ -79,6 +81,13 @@ export class MovieService {
   }
 
   async update(id: string, dto: CreateMovieDto) {
+    if (!dto.isSendToTelegram) {
+      //TODO Uncomment before production
+      // if (process.env.NODE_ENV !== 'dev') {
+      await this.telegramService.sendNotification(dto);
+      dto.isSendToTelegram = true;
+      // };
+    }
     const movie = await this.movieModel.findByIdAndUpdate(id, dto).exec();
     if (!movie) throw new NotFoundException("Movie doesn't exist");
     return movie;
