@@ -1,0 +1,15 @@
+.wrapper {
+  @apply container mx-auto max-w-[1400px] flex justify-between items-center;
+}
+
+.toggleBtn {
+  @apply block md:hidden p-2 px-4 text-xl;
+}
+
+.dekstopNavMenu {
+  @apply hidden md:block;
+}
+
+.mobileNavMenu {
+  @apply block md:hidden;
+}

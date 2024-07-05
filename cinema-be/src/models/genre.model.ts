@@ -11,5 +11,5 @@ export class GenreModel extends TimeStamps {
   description: string;
 
   @prop()
-  icon: string;
+  image: string;
 }

@@ -38,7 +38,7 @@ export class GenreService {
     const defaultGenre: UpdateGenreDto = {
       name: '',
       description: '',
-      icon: '',
+      image: '',
     };
     const newGenre = await this.genreModel.create(defaultGenre);
     return newGenre.id;

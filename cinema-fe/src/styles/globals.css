@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white flex justify-between flex-col min-h-screen;
+}
+
+main {
+  @apply w-full;
+}
+
+header,
+footer {
+  @apply w-full bg-slate-900 text-white min-h-max md:px-11 py-2.5 px-2.5;
+}
+
+a {
+  @apply text-white hover:text-red-400;
+}
