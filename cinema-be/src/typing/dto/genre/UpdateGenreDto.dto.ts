@@ -8,5 +8,5 @@ export class UpdateGenreDto {
   description: string;
 
   @IsString()
-  image: string;
+  backgroundGradient: string;
 }

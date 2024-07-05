@@ -1,5 +1,6 @@
 import { prop } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import { cardGradient } from 'src/typing/types';
 
 export interface GenreModel extends Base {}
 
@@ -11,5 +12,5 @@ export class GenreModel extends TimeStamps {
   description: string;
 
   @prop()
-  image: string;
+  backgroundGradient: cardGradient;
 }

@@ -3,7 +3,7 @@ import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { GenreModel } from 'src/models/genre.model';
 import { UpdateGenreDto } from 'src/typing/dto';
-
+import { cardGradient } from 'src/typing/types';
 @Injectable()
 export class GenreService {
   constructor(
@@ -38,7 +38,7 @@ export class GenreService {
     const defaultGenre: UpdateGenreDto = {
       name: '',
       description: '',
-      image: '',
+      backgroundGradient: '',
     };
     const newGenre = await this.genreModel.create(defaultGenre);
     return newGenre.id;

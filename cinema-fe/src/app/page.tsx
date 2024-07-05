@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 
 export default function Home() {
   return (
-    <main>
+    <main className="mx-auto max-w-[1400px]">
       <QueryClientProvider client={queryClient}>
         <GenreList />
       </QueryClientProvider>
