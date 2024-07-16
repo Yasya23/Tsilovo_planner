@@ -1,0 +1,42 @@
+.section {
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @media (min-width: 1400px) {
+    padding: 1.25rem 0;
+  }
+}
+
+.top {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  color: #ef4444;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #fca5a5;
+    }
+  }
+}
+
+.headingLink {
+  h2 {
+    transition: color ease-in-out 0.3s;
+
+    @media (hover: hover) {
+      &:hover {
+        color: #fb7185;
+      }
+    }
+  }
+}

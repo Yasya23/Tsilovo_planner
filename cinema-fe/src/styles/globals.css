@@ -1,20 +1,219 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* CSS Reset */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
 
 body {
-  @apply bg-white flex justify-between flex-col min-h-screen;
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove default padding and margin from all elements */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* Set default font styles */
+body,
+input,
+button,
+textarea,
+select {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Ensure all media elements are displayed correctly */
+img,
+video,
+audio,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove text decoration from links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Set default styles for form elements */
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: none;
+}
+
+/* Box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* General styles */
+
+body {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-  @apply w-full;
+  width: 100%;
+  flex-grow: 1;
 }
 
 header,
 footer {
-  @apply w-full bg-slate-900 text-white min-h-max md:px-11 py-2.5 px-2.5;
+  width: 100%;
+  background-color: #0f172a;
+  color: #ffffff;
+  min-height: max-content;
+  padding: 0.625rem;
+
+  @media (min-width: 768px) {
+    padding: 0.625rem 2.75rem;
+  }
 }
 
 a {
-  @apply text-white hover:text-red-400 transition-colors;
+  color: #ffffff;
+}
+
+a:hover {
+  color: #f87171;
+  transition: color ease-in-out 0.3s;
 }

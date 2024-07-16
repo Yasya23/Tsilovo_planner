@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import styles from './carousel.module.css';
 import { GrPrevious, GrNext } from 'react-icons/gr';
+
+import styles from './carousel.module.scss';
 
 const Carousel = ({ children }: { children: React.ReactNode }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

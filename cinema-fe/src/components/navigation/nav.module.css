@@ -1,7 +1,0 @@
-.nav {
-  @apply flex justify-around gap-6 items-center flex-col md:flex-row max-md:w-screen max-md:gap-8 max-md:py-5 max-md:text-xl;
-}
-
-.active a {
-  @apply text-red-400;
-}

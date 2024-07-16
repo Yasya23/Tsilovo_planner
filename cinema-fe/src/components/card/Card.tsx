@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import classNames from 'classnames';
-import styles from './card.module.css';
+import styles from './card.module.scss';
 
 interface Props {
   title: string;

@@ -1,0 +1,38 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.wrapper {
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggleBtn {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.dekstopNavMenu {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.mobileNavMenu {
+  display: block;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}

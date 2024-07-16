@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import styles from './header.module.css';
 import Logo from '@/components/logo/Logo';
 import Navigation from '@/components/navigation/Navigation';
 import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
+
+import styles from './header.module.scss';
 
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

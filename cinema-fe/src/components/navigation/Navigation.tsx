@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './nav.module.css';
+import styles from './nav.module.scss';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { navigationMenu } from '@/constants/navigationMenu';
