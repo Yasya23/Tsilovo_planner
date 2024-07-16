@@ -16,5 +16,5 @@ footer {
 }
 
 a {
-  @apply text-white hover:text-red-400;
+  @apply text-white hover:text-red-400 transition-colors;
 }

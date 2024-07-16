@@ -1,25 +1,24 @@
 import { useGenres } from '@/hooks/useGenres';
-import CardWithGradient from '../cardWithGradient/CardWithGradient';
+import Card from '@/components/card/Card';
+
 const GenreList = () => {
   const { isLoading, error, data } = useGenres();
 
   if (isLoading) return 'Loading...';
 
   if (error) return 'An error has occurred: ' + error.message;
+
   return (
     <div className="">
-      {data?.data ? (
+      {data?.data &&
         data.data.map((item) => (
-          <CardWithGradient
+          <Card
             key={item.id}
             href=""
             title={item.name}
             color={item.backgroundGradient}
           />
-        ))
-      ) : (
-        <div></div>
-      )}
+        ))}
     </div>
   );
 };

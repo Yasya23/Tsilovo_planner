@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 import classNames from 'classnames';
 import styles from './card.module.css';
 
@@ -9,7 +8,7 @@ interface Props {
   color?: string;
 }
 
-const CardWithGradient = ({ title, href, color }: Props) => {
+const Card = ({ title, href, color }: Props) => {
   return (
     <Link
       href={href}
@@ -19,4 +18,4 @@ const CardWithGradient = ({ title, href, color }: Props) => {
   );
 };
 
-export default CardWithGradient;
+export default Card;

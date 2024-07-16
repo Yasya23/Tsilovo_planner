@@ -1,9 +1,13 @@
 .card {
-  @apply flex justify-center items-center w-[200px] h-[100px] rounded-md hover:opacity-90 hover:text-slate-950 transition-colors bg-gradient-to-r from-yellow-200 to-green-500;
+  @apply flex justify-center items-center w-[200px] h-[130px] rounded-md hover:opacity-90 hover:text-slate-950 transition-all bg-gradient-to-r from-indigo-400 to-cyan-400;
+}
+
+.movie-card {
+  @apply flex justify-center items-center w-[200px] h-[400px] rounded-md hover:opacity-90 hover:text-slate-950 transition-all bg-gray-300;
 }
 
 .title {
-  @apply text-xl capitalize;
+  @apply text-2xl capitalize;
 }
 
 .pink {
@@ -12,10 +16,6 @@
 
 .violet {
   @apply bg-gradient-to-r from-pink-500 to-violet-600;
-}
-
-.blue {
-  @apply bg-gradient-to-r from-indigo-400 to-cyan-400;
 }
 
 .orange {

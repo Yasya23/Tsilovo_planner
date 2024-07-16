@@ -1,3 +1,7 @@
+.header {
+  @apply sticky top-0 z-10;
+}
+
 .wrapper {
   @apply container mx-auto max-w-[1400px] flex justify-between items-center;
 }
