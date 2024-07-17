@@ -1,2 +1,14 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/_mixin.scss';
+
 .footer {
+  width: 100%;
+  background-color: $base-dark-color;
+  color: #ffffff;
+  min-height: max-content;
+  padding: 0.625rem;
+
+  @include desktop {
+    padding: 0.625rem 2.75rem;
+  }
 }

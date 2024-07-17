@@ -104,10 +104,6 @@ section {
   display: block;
 }
 
-body {
-  line-height: 1;
-}
-
 ol,
 ul {
   list-style: none;
@@ -172,6 +168,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
   border: none;
+  line-height: 1.5;
 }
 
 /* Box-sizing reset */
@@ -194,26 +191,4 @@ body {
 main {
   width: 100%;
   flex-grow: 1;
-}
-
-header,
-footer {
-  width: 100%;
-  background-color: #0f172a;
-  color: #ffffff;
-  min-height: max-content;
-  padding: 0.625rem;
-
-  @media (min-width: 768px) {
-    padding: 0.625rem 2.75rem;
-  }
-}
-
-a {
-  color: #ffffff;
-}
-
-a:hover {
-  color: #f87171;
-  transition: color ease-in-out 0.3s;
 }

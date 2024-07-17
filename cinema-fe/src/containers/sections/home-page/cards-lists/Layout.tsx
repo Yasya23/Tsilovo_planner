@@ -10,13 +10,13 @@ interface Props {
 const Layout = ({ heading, seeAllHref, children }: Props) => {
   return (
     <section className={styles.section}>
-      <div className={styles.top}>
+      <div className={styles.topLinks}>
         {seeAllHref ? (
           <>
-            <Link href={seeAllHref} className={styles.headingLink}>
+            <Link href={seeAllHref}>
               <SectionHeading heading={heading} />
             </Link>
-            <Link href={seeAllHref} className={styles.link}>
+            <Link href={seeAllHref} className={styles.seeAllLink}>
               See all
             </Link>
           </>

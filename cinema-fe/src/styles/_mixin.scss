@@ -1,0 +1,42 @@
+@mixin small-screen {
+  @media (min-width: 568px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin large-screen {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin link-style(
+  $color: #ffffff,
+  $active-color: #ff6767,
+  $hover-color: #f87171
+) {
+  color: $color;
+
+  &.active {
+    color: $active-color;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: $hover-color;
+      transition: color ease-in-out 0.3s;
+    }
+  }
+}

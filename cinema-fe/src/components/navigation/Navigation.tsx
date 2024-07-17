@@ -1,10 +1,11 @@
 'use client';
 
-import styles from './nav.module.scss';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { navigationMenu } from '@/constants/navigationMenu';
 import classNames from 'classnames';
+
+import styles from './nav.module.scss';
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -13,12 +14,14 @@ const Navigation = () => {
     <nav>
       <ul className={styles.nav}>
         {navigationMenu.map((item) => (
-          <li
-            key={item.href}
-            className={classNames({
-              [styles.active]: pathname === item.href,
-            })}>
-            <Link href={item.href}>{item.title}</Link>
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              className={classNames({
+                [styles.active]: pathname === item.href,
+              })}>
+              {item.title}
+            </Link>
           </li>
         ))}
       </ul>

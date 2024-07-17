@@ -42,7 +42,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
           </ul>
         </div>
         <button
-          disabled
+          // disabled={false}
           onClick={nextSlide}
           className={styles.button}
           aria-label="Move to the next genres">
