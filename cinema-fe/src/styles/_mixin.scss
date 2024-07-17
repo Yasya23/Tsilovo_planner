@@ -33,7 +33,7 @@
     color: $active-color;
   }
 
-  @media (hover: hover) {
+  @include hover {
     &:hover {
       color: $hover-color;
       transition: color ease-in-out 0.3s;

@@ -37,12 +37,13 @@
 
     h2 {
       color: #2d2d2d;
-      transition: color ease-in-out 0.3s;
+      transition: opacity ease-in-out 0.3s;
       text-transform: capitalize;
 
       @include hover {
-        opacity: 0.7;
-        color: #ec9292;
+        &:hover {
+          opacity: 0.7;
+        }
       }
     }
   }

@@ -1,3 +1,5 @@
+@import '../../styles/_mixin.scss';
+
 .card {
   display: flex;
   justify-content: center;
@@ -8,8 +10,10 @@
   transition: all 0.2s ease-in-out;
   background: linear-gradient(to right, #7c3aed, #22d3ee);
 
-  &:hover {
-    opacity: 0.75;
+  @include hover {
+    &:hover {
+      opacity: 0.75;
+    }
   }
 }
 

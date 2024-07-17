@@ -25,7 +25,9 @@ const HeaderLayout = () => {
         <div className={styles.dekstopNavMenu}>
           <Navigation />
         </div>
-        <Link href="/login">LOG IN</Link>
+        <Link href="/login" className={styles.login}>
+          LOG IN
+        </Link>
       </div>
       {isMenuOpen && (
         <div className={styles.mobileNavMenu}>
