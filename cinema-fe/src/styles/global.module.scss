@@ -1,0 +1,38 @@
+@import '_variables.scss';
+
+body {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  flex-grow: 1;
+}
+
+header,
+footer {
+  width: 100%;
+  background-color: $base-dark-color;
+  color: #ffffff;
+  min-height: max-content;
+  padding: 0.625rem;
+
+  @media (min-width: 768px) {
+    padding: 0.625rem 2.75rem;
+  }
+}
+
+a {
+  color: #ffffff;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #f87171;
+      transition: color ease-in-out 0.3s;
+    }
+  }
+}

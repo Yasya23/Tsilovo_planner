@@ -1,13 +1,31 @@
-import React, { useState } from 'react';
+import { Children, ReactNode, useState, useRef, useEffect } from 'react';
 import { GrPrevious, GrNext } from 'react-icons/gr';
+import classNames from 'classnames';
 
 import styles from './carousel.module.scss';
 
-const Carousel = ({ children }: { children: React.ReactNode }) => {
+interface Props {
+  children: ReactNode;
+  type?: 'cards' | 'full';
+}
+
+const gap = 20;
+const smallCardWidth = 200 + gap;
+
+const Carousel = ({ children, type = 'cards' }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = React.Children.count(children);
-  const gap = 20;
-  const cardWidth = 200 + gap;
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselWidth, setCarouselWidth] = useState(0);
+
+  const totalSlides = Children.count(children);
+  const isFull = type === 'full';
+  const cardWidth = isFull ? carouselWidth : smallCardWidth;
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      setCarouselWidth(carouselRef.current.offsetWidth);
+    }
+  }, [carouselRef.current]);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -21,34 +39,63 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const goToSlide = (index: number) => setCurrentIndex(index);
+
   return (
     <div className={styles.carousel}>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} ref={carouselRef}>
         <button
+          disabled={currentIndex === 0}
           onClick={prevSlide}
-          className={styles.button}
-          aria-label="Move to the previous genres">
+          className={classNames(styles.button, {
+            [styles.prevButton]: isFull,
+          })}
+          aria-label="Move to the previous">
           <GrPrevious />
         </button>
-        <div className={styles.listWrapper}>
+        <div
+          className={classNames(styles.listWrapper, {
+            [styles.fullScreen]: isFull,
+          })}>
           <ul
-            className={styles.list}
+            className={classNames(styles.list, {
+              [styles.fullScreenList]: isFull,
+            })}
             style={{
               transform: `translateX(-${currentIndex * cardWidth}px)`,
             }}>
-            {React.Children.map(children, (child, index) => (
+            {Children.map(children, (child, index) => (
               <li key={index}>{child}</li>
             ))}
           </ul>
         </div>
         <button
-          // disabled={false}
+          disabled={
+            isFull
+              ? currentIndex === totalSlides - 1
+              : carouselWidth >= smallCardWidth * totalSlides
+          }
           onClick={nextSlide}
-          className={styles.button}
-          aria-label="Move to the next genres">
+          className={classNames(styles.button, {
+            [styles.nextButton]: isFull,
+          })}
+          aria-label="Move to the next">
           <GrNext />
         </button>
       </div>
+      {isFull && (
+        <div className={styles.dots}>
+          {Children.map(children, (_, index) => (
+            <span
+              key={index}
+              className={classNames(styles.dot, {
+                [styles.activeDot]: index === currentIndex,
+              })}
+              onClick={() => goToSlide(index)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useGenres } from '@/hooks/useGenres';
 import Card from '@/components/card/Card';
 import Layout from './Layout';
-import Carousel from '@/components/carousel/carousel';
+import Carousel from '@/components/carousel/Carousel';
 
 const GenreSection = () => {
   const { isLoading, error, data } = useGenres();

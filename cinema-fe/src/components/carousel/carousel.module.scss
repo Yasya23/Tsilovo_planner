@@ -7,25 +7,39 @@
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
 .listWrapper {
   overflow: hidden;
-  position: relative;
   min-height: 130px;
   width: 100%;
   display: flex;
   align-items: center;
   padding: 0.75rem;
+
+  &.fullScreen {
+    padding: 0;
+  }
 }
 
 .list {
+  position: relative;
   display: flex;
   transition: transform 0.5s ease-in-out;
   gap: 1.25rem;
   width: 100%;
+
+  &:has(.fullScreenList) li {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  &.fullScreenList {
+    gap: 0;
+  }
 }
 
 .button {
@@ -38,7 +52,15 @@
   background-color: white;
   color: #4b5563;
   font-size: 1.5rem;
-  transition: all 0.2s ease-in-out;
+  transition: all ease-in-out 0.2s;
+  cursor: pointer;
+
+  @include hover {
+    &:hover {
+      background-color: #e5e7eb;
+      border-radius: 1.5rem;
+    }
+  }
 
   &:disabled {
     color: #d1d5db;
@@ -47,15 +69,69 @@
     user-select: none;
   }
 
+  &.prevButton,
+  &.nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: #f3f8ff;
+    z-index: 1;
+
+    &:disabled {
+      background-color: transparent;
+      color: #d2d2d3;
+      cursor: not-allowed;
+      user-select: none;
+    }
+  }
+
+  &.prevButton {
+    left: 2px;
+  }
+
+  &.nextButton {
+    right: 2px;
+  }
+
   @include small-screen {
     width: 50px;
     height: 50px;
   }
+}
 
-  @include hover {
+.dots {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  padding: 20px 20px 10px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include desktop {
+    padding: 40px 40px 10px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #c8c8c8;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s ease-in-out;
+
     &:hover {
-      background-color: #e5e7eb;
-      border-radius: 1.5rem;
+      opacity: 0.9;
+      transform: scale(1.1);
     }
+  }
+
+  .activeDot {
+    background-color: #dddcdc;
+    width: 12px;
+    height: 12px;
   }
 }

@@ -13,7 +13,7 @@ const Layout = ({ heading, seeAllHref, children }: Props) => {
       <div className={styles.topLinks}>
         {seeAllHref ? (
           <>
-            <Link href={seeAllHref}>
+            <Link href={seeAllHref} className={styles.headingLink}>
               <SectionHeading heading={heading} />
             </Link>
             <Link href={seeAllHref} className={styles.seeAllLink}>

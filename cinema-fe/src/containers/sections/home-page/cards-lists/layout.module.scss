@@ -36,11 +36,13 @@
     padding: 0;
 
     h2 {
+      color: #2d2d2d;
       transition: color ease-in-out 0.3s;
       text-transform: capitalize;
 
       @include hover {
-        color: #fb7185;
+        opacity: 0.7;
+        color: #ec9292;
       }
     }
   }
