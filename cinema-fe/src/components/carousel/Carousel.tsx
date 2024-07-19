@@ -39,6 +39,15 @@ const Carousel = ({ children, type = 'cards' }: Props) => {
     );
   };
 
+  const isNextButtonDisabled = () => {
+    const allCardsWidth = smallCardWidth * totalSlides;
+    const widthWithCurrentCard = smallCardWidth + smallCardWidth * currentIndex;
+    const isAllCardsShown =
+      carouselWidth >= allCardsWidth || widthWithCurrentCard === allCardsWidth;
+
+    return isFull ? currentIndex === totalSlides - 1 : isAllCardsShown;
+  };
+
   const goToSlide = (index: number) => setCurrentIndex(index);
 
   return (
@@ -70,11 +79,7 @@ const Carousel = ({ children, type = 'cards' }: Props) => {
           </ul>
         </div>
         <button
-          disabled={
-            isFull
-              ? currentIndex === totalSlides - 1
-              : carouselWidth >= smallCardWidth * totalSlides
-          }
+          disabled={isNextButtonDisabled()}
           onClick={nextSlide}
           className={classNames(styles.button, {
             [styles.nextButton]: isFull,
