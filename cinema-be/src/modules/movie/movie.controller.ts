@@ -17,8 +17,12 @@ export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @Get()
-  async getAll(@Query('query') query?: string) {
-    return this.movieService.getAll(query);
+  async getAll(
+    @Query('query') query?: string,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
+    return this.movieService.getAll(query, page, limit);
   }
 
   @Get('by-actor/:actorId')

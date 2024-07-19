@@ -12,7 +12,7 @@ export class MovieService {
     private readonly telegramService: TelegramService,
   ) {}
 
-  async getAll(query: string) {
+  async getAll(query: string, page: number, limit: number) {
     let options = {};
 
     if (query) {
@@ -20,12 +20,27 @@ export class MovieService {
         $or: [{ title: new RegExp(query, 'i') }],
       };
     }
-    return this.movieModel
-      .find(options)
-      .select('-v')
-      .sort({ createdAt: 'desc' })
-      .populate('actors genres')
-      .exec();
+
+    const skip = (page - 1) * limit;
+
+    const [results, totalCount] = await Promise.all([
+      this.movieModel
+        .find(options)
+        .select('-v')
+        .sort({ createdAt: 'desc' })
+        .populate('actors genres')
+        .skip(skip)
+        .limit(limit)
+        .exec(),
+      this.movieModel.countDocuments(options).exec(),
+    ]);
+
+    return {
+      results,
+      totalCount,
+      page,
+      limit,
+    };
   }
 
   async getByID(id: string) {
@@ -52,7 +67,8 @@ export class MovieService {
   async getMostPopular() {
     const data = await this.movieModel
       .find({ countViews: { $gt: 0 } })
-      .sort({ coutViews: -1 })
+      .sort({ countViews: -1 })
+      .limit(10)
       .populate('genres')
       .exec();
 
