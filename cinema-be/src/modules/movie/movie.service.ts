@@ -12,15 +12,16 @@ export class MovieService {
     private readonly telegramService: TelegramService,
   ) {}
 
-  async getAll(query: string, page: number, limit: number) {
-    let options = {};
+  async getAll(query: string, page: number, limit: number, type?: string) {
+    let options: any = {};
 
     if (query) {
-      options = {
-        $or: [{ title: new RegExp(query, 'i') }],
-      };
+      options.$or = [{ title: new RegExp(query, 'i') }];
     }
 
+    if (type) {
+      options.type = type;
+    }
     const skip = (page - 1) * limit;
 
     const [results, totalCount] = await Promise.all([
@@ -91,6 +92,10 @@ export class MovieService {
       videoUrl: '',
       genres: [],
       actors: [],
+      type: '',
+      date: 0,
+      duration: 0,
+      country: '',
     };
     const newMovie = await this.movieModel.create(defaultMovie);
     return newMovie.id;

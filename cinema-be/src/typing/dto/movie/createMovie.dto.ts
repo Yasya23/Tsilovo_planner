@@ -7,17 +7,6 @@ import {
   IsObject,
 } from 'class-validator';
 
-export class Parameters {
-  @IsNumber()
-  date: number;
-
-  @IsNumber()
-  duration: number;
-
-  @IsString()
-  country: string;
-}
-
 export class CreateMovieDto {
   @IsString()
   title: string;
@@ -43,7 +32,15 @@ export class CreateMovieDto {
   @IsBoolean()
   isSendToTelegram?: boolean;
 
-  @IsOptional()
-  @IsObject()
-  parameters?: Parameters;
+  @IsNumber()
+  date: number;
+
+  @IsNumber()
+  duration: number;
+
+  @IsString()
+  country: string;
+
+  @IsString()
+  type: string;
 }

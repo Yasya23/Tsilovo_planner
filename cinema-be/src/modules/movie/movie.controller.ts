@@ -21,8 +21,9 @@ export class MovieController {
     @Query('query') query?: string,
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
+    @Query('type') type?: string,
   ) {
-    return this.movieService.getAll(query, page, limit);
+    return this.movieService.getAll(query, page, limit, type);
   }
 
   @Get('by-actor/:actorId')

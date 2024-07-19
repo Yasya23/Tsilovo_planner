@@ -3,17 +3,6 @@ import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { ActorModel } from './actor.model';
 import { GenreModel } from './genre.model';
 
-export class Parameters {
-  @prop()
-  date: number;
-
-  @prop()
-  duration: number;
-
-  @prop()
-  country: string;
-}
-
 export interface MovieModel extends Base {}
 
 export class MovieModel extends TimeStamps {
@@ -37,6 +26,18 @@ export class MovieModel extends TimeStamps {
 
   @prop({ default: 0 })
   countViews?: number;
+
+  @prop()
+  date: number;
+
+  @prop()
+  duration: number;
+
+  @prop()
+  country: string;
+
+  @prop()
+  type: string;
 
   @prop({ ref: () => GenreModel })
   genres?: Ref<GenreModel>[];
