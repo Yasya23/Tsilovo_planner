@@ -1,4 +1,4 @@
-@import '../../../../styles/_mixin.scss';
+@import '../../styles/_mixin.scss';
 
 .section {
   padding: 1.25rem 0.75rem;
@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 1.25rem;
 
-  @include large-screen {
+  @include breakpoint-xl {
     padding: 1.25rem 0;
   }
 }
@@ -17,14 +17,14 @@
   justify-content: space-between;
   align-items: center;
 
-  @include desktop {
+  @include breakpoint-md {
     padding: 0 1rem;
   }
 
   .seeAllLink {
     display: none;
 
-    @include desktop {
+    @include breakpoint-md {
       display: block;
     }
   }

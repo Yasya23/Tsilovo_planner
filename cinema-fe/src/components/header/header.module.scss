@@ -11,7 +11,11 @@
   min-height: max-content;
   padding: 0.625rem;
 
-  @include desktop {
+  a {
+    @include link-style;
+  }
+
+  @include breakpoint-md {
     padding: 0.625rem 2.75rem;
   }
 }
@@ -23,37 +27,63 @@
   align-items: center;
 }
 
-.toggleBtn {
-  display: block;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  background: none;
-
-  svg {
-    color: #ffffff;
-  }
-
-  @include desktop {
-    display: none;
-  }
-}
-
 .dekstopNavMenu {
   display: none;
 
-  @include desktop {
+  @include breakpoint-lg {
     display: block;
   }
 }
 
 .mobileNavMenu {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @include desktop {
+  & a.withIcon {
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+
+  hr {
+    width: 100%;
+    height: 1px;
+    opacity: 0.5;
+  }
+
+  @include breakpoint-lg {
     display: none;
   }
 }
 
-.login {
-  @include link-style;
+.linksWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  & a.withIcon {
+    display: none;
+  }
+
+  @include breakpoint-lg {
+    & a.withIcon {
+      display: flex;
+    }
+  }
+}
+
+.toggleBtn {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  background: none;
+  margin-right: 25px;
+
+  svg {
+    color: #ffffff;
+  }
+
+  @include breakpoint-lg {
+    display: none;
+  }
 }

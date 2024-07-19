@@ -59,7 +59,7 @@ const Carousel = ({ children, type = 'cards' }: Props) => {
           className={classNames(styles.button, {
             [styles.prevButton]: isFull,
           })}
-          aria-label="Move to the previous">
+          aria-label="Move to the previous slide">
           <GrPrevious />
         </button>
         <div
@@ -84,7 +84,7 @@ const Carousel = ({ children, type = 'cards' }: Props) => {
           className={classNames(styles.button, {
             [styles.nextButton]: isFull,
           })}
-          aria-label="Move to the next">
+          aria-label="Move to the next slide">
           <GrNext />
         </button>
       </div>

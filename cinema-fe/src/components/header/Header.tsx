@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import Logo from '@/components/logo/Logo';
 import Navigation from '@/components/navigation/Navigation';
 import Link from 'next/link';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiSearch, FiList } from 'react-icons/fi';
 
 import styles from './header.module.scss';
+import classNames from 'classnames';
 
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,12 +26,31 @@ const HeaderLayout = () => {
         <div className={styles.dekstopNavMenu}>
           <Navigation />
         </div>
-        <Link href="/login" className={styles.login}>
-          LOG IN
-        </Link>
+        <div className={styles.linksWrapper}>
+          <Link href="/search" className={styles.withIcon}>
+            <FiSearch size={20} />
+            Search
+          </Link>
+          <Link href="/filter" className={styles.withIcon}>
+            <FiList size={20} />
+            Filters
+          </Link>
+          <Link href="/login" className={styles.buttonStyle}>
+            LOG IN
+          </Link>
+        </div>
       </div>
       {isMenuOpen && (
         <div className={styles.mobileNavMenu}>
+          <Link href="/search" className={classNames(styles.withIcon)}>
+            <FiSearch size={30} />
+            Search
+          </Link>
+          <Link href="/filter" className={classNames(styles.withIcon)}>
+            <FiList size={30} />
+            Filters
+          </Link>
+          <hr />
           <Navigation />
         </div>
       )}

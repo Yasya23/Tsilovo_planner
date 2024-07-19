@@ -8,7 +8,7 @@
   min-height: max-content;
   padding: 0.625rem;
 
-  @include desktop {
+  @include breakpoint-md {
     padding: 0.625rem 2.75rem;
   }
 }

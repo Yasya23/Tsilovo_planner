@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import GenreSection from '@/containers/sections/home-page/cards-lists/GenreSection';
+import GenreSection from '@/containers/cards-carousels/home/GenreSection';
 import { useState } from 'react';
 
 const createQueryClient = () => {

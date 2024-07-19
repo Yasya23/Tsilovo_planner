@@ -1,8 +1,10 @@
+@import '../../styles/_mixin.scss';
+
 .section {
   font-size: 1.5rem;
   color: #262626;
 
-  @media (min-width: 768px) {
+  @include breakpoint-md {
     font-size: 2rem;
   }
 }

@@ -1,18 +1,24 @@
 @import '_variables.scss';
 
-@mixin small-screen {
+@mixin breakpoint-sm {
   @media (min-width: 568px) {
     @content;
   }
 }
 
-@mixin desktop {
+@mixin breakpoint-md {
   @media (min-width: 768px) {
     @content;
   }
 }
 
-@mixin large-screen {
+@mixin breakpoint-lg {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-xl {
   @media (min-width: 1400px) {
     @content;
   }
@@ -30,15 +36,32 @@
   $hover-color: #f87171
 ) {
   color: $color;
+  transition: all ease-in-out 0.3s;
 
   &.active {
     color: $active-color;
   }
 
+  &.withIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &.buttonStyle {
+    background-color: #1e90ff;
+    border-radius: 3px;
+    padding: 5px 10px;
+  }
+
   @include hover {
     &:hover {
       color: $hover-color;
-      transition: color ease-in-out 0.3s;
+    }
+
+    &.buttonStyle:hover {
+      background-color: #003366;
     }
   }
 }

@@ -22,7 +22,7 @@ footer {
   min-height: max-content;
   padding: 0.625rem;
 
-  @media (min-width: 768px) {
+  @include breakpoint-md {
     padding: 0.625rem 2.75rem;
   }
 }
