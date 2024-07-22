@@ -2,12 +2,12 @@ import { Genre } from './genre.type';
 import { Actor } from './actor.type';
 
 export type Movie = {
-  id: string;
+  _id: string;
   title: string;
   poster: string;
   description: string;
   videoUrl: string;
-  date: Date;
+  date: string;
   rating: number;
   country: string;
   type: string;

@@ -1,5 +1,5 @@
 import { useGenres } from '@/hooks/useGenres';
-import Card from '@/components/card/Card';
+import GradientCard from '@/components/cards/gradientCard/GradientCard';
 import Layout from '../Layout';
 import Carousel from '@/components/carousel/Carousel';
 import Spinner from '@/components/spinner/Spinner';
@@ -12,13 +12,13 @@ const GenreSection = () => {
   return (
     <Layout heading="Choose by genres">
       <Carousel>
-        <Card key="filter" href="/filters" title="Filters" />
-        <Card key="search" href="/search" title="Search" />
+        <GradientCard key="filter" href="/filters" title="Filters" />
+        <GradientCard key="search" href="/search" title="Search" />
         {isLoading ? (
           <Spinner />
         ) : (
           data?.data?.map((item) => (
-            <Card
+            <GradientCard
               key={item.id}
               href={`/${item.name}`}
               title={item.description}

@@ -1,4 +1,4 @@
-import Card from '@/components/card/Card';
+import Card from '@/components/cards/movieCard/MovieCard';
 import Layout from '../Layout';
 import Carousel from '@/components/carousel/Carousel';
 import Spinner from '@/components/spinner/Spinner';
@@ -16,15 +16,7 @@ const PopularMovies = () => {
         {isLoading ? (
           <Spinner />
         ) : (
-          data?.map((item: Movie) => (
-            <Card
-              key={item.id}
-              href={`/${item.id}`}
-              title={item.title}
-              movieCard={true}
-              imageSrc={item.photo}
-            />
-          ))
+          data?.map((item: Movie) => <Card key={item.id} movie={item} />)
         )}
       </Carousel>
     </Layout>

@@ -1,5 +1,5 @@
 import { useGenres } from '@/hooks/useGenres';
-import Card from '@/components/card/Card';
+import Card from '@/components/cards/Card';
 
 const GenreList = () => {
   const { isLoading, error, data } = useGenres();
