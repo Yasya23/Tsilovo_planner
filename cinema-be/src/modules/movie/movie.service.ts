@@ -45,7 +45,10 @@ export class MovieService {
   }
 
   async getByID(id: string) {
-    const movie = await this.movieModel.findById(id);
+    const movie = await this.movieModel
+      .findById(id)
+      .populate('actors genres')
+      .exec();
     if (!movie) throw new NotFoundException('Movie not found');
     return movie;
   }
@@ -92,10 +95,12 @@ export class MovieService {
       videoUrl: '',
       genres: [],
       actors: [],
-      type: '',
-      date: 0,
+      photo: '',
+      type: 'movie',
+      date: '',
       duration: 0,
       country: '',
+      ageRestricted: false,
     };
     const newMovie = await this.movieModel.create(defaultMovie);
     return newMovie.id;

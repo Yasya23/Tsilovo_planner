@@ -4,8 +4,8 @@ import {
   IsArray,
   IsBoolean,
   IsOptional,
-  IsObject,
 } from 'class-validator';
+import { MovieType } from 'src/typing/types/movie-type';
 
 export class CreateMovieDto {
   @IsString()
@@ -16,6 +16,9 @@ export class CreateMovieDto {
 
   @IsString()
   poster: string;
+
+  @IsString()
+  photo: string;
 
   @IsString()
   videoUrl: string;
@@ -32,9 +35,11 @@ export class CreateMovieDto {
   @IsBoolean()
   isSendToTelegram?: boolean;
 
-  @IsNumber()
-  date: number;
+  @IsString()
+  @IsOptional()
+  date: string;
 
+  @IsOptional()
   @IsNumber()
   duration: number;
 
@@ -42,5 +47,9 @@ export class CreateMovieDto {
   country: string;
 
   @IsString()
-  type: string;
+  type: MovieType;
+
+  @IsOptional()
+  @IsBoolean()
+  ageRestricted: boolean;
 }

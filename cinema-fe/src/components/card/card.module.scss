@@ -1,6 +1,8 @@
 @import '../../styles/_mixin.scss';
+@import '../../styles/_variables.scss';
 
 .card {
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,16 +13,69 @@
   background: linear-gradient(to right, #9c63ff, #22d3ee);
   box-shadow: 1px 2px 2px 0px #bebebe;
 
+  .title {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+
+  &.movieCard {
+    position: relative;
+    height: 300px;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    background: white;
+
+    & .noPhoto {
+      height: 250px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #d4d4d4;
+
+      svg {
+        color: #787878;
+      }
+    }
+
+    .title {
+      font-size: 1rem;
+      text-transform: capitalize;
+    }
+
+    .saveToFavorites {
+      display: none;
+    }
+
+    @include hover {
+      &:hover {
+        .saveToFavorites {
+          display: block;
+          position: absolute;
+          padding: 10px;
+          top: 0;
+          right: 0;
+
+          svg {
+            color: #ffffff;
+
+            @include hover {
+              &:hover {
+                color: $base-accent-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   @include hover {
     &:hover {
       opacity: 0.75;
     }
   }
-}
-
-.title {
-  font-size: 1.5rem;
-  text-transform: capitalize;
 }
 
 .pink {

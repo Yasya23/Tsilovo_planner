@@ -2,7 +2,7 @@ import { prop, Ref } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { ActorModel } from './actor.model';
 import { GenreModel } from './genre.model';
-
+import { MovieType } from 'src/typing/types/movie-type';
 export interface MovieModel extends Base {}
 
 export class MovieModel extends TimeStamps {
@@ -14,6 +14,9 @@ export class MovieModel extends TimeStamps {
 
   @prop()
   poster: string;
+
+  @prop()
+  photo: string;
 
   @prop()
   videoUrl: string;
@@ -28,16 +31,19 @@ export class MovieModel extends TimeStamps {
   countViews?: number;
 
   @prop()
-  date: number;
+  date?: string;
 
   @prop()
-  duration: number;
+  duration?: number;
 
   @prop()
   country: string;
 
+  @prop({ default: false })
+  ageRestricted: boolean;
+
   @prop()
-  type: string;
+  type: MovieType;
 
   @prop({ ref: () => GenreModel })
   genres?: Ref<GenreModel>[];
