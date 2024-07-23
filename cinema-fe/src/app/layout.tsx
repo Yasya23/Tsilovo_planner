@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
+import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
-import Footer from '@/components/footer/Footer';
-import Header from '@/components/header/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,9 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning={true}>
-        <Header />
-        {children}
-        <Footer />
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

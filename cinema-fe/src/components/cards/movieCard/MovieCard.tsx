@@ -5,12 +5,8 @@ import Image from 'next/image';
 import { FiCameraOff, FiBookmark, FiPlay } from 'react-icons/fi';
 import { Movie } from '@/types/movie.type';
 
-interface Props {
-  movie: Movie;
-}
-
-const Card = ({ movie }: Props) => {
-  const { title, genres, _id, photo } = movie;
+const Card = ({ movie }: { movie: Movie }) => {
+  const { title, genres, _id, photo, year, country } = movie;
   return (
     <Link href={_id} className={classNames(styles.card, styles.movieCard)}>
       <>
@@ -34,17 +30,15 @@ const Card = ({ movie }: Props) => {
             <p>Watch</p>
           </div>
         </div>
-        <div className={styles.saveToFavorites}>
-          <FiBookmark size={30} />
-        </div>
+        <FiBookmark className={styles.saveToFavorites} />
       </>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.movieInfo}>
-        {movie?.date && <span>{movie?.date}</span>}
-        {movie?.genres?.[0] && (
-          <span className={styles.genre}>{movie?.genres?.[0].name}</span>
+        {year && <span>{year}</span>}
+        {genres?.[0] && (
+          <span className={styles.genre}>{genres?.[0].name}</span>
         )}
-        {movie?.country && <span>{movie?.country}</span>}
+        {country && <span>{country}</span>}
       </p>
     </Link>
   );

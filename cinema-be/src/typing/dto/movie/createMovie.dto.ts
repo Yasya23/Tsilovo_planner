@@ -35,9 +35,9 @@ export class CreateMovieDto {
   @IsBoolean()
   isSendToTelegram?: boolean;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  date: string;
+  year: number;
 
   @IsOptional()
   @IsNumber()
@@ -50,6 +50,6 @@ export class CreateMovieDto {
   type: MovieType;
 
   @IsOptional()
-  @IsBoolean()
-  ageRestricted: boolean;
+  @IsNumber()
+  ageRestricted?: number;
 }

@@ -7,11 +7,12 @@ export type Movie = {
   poster: string;
   description: string;
   videoUrl: string;
-  date: string;
+  year: number;
   rating: number;
   country: string;
   type: string;
   photo: string;
   genres?: Genre[];
   actors?: Actor[];
+  ageRestricted?: number;
 };

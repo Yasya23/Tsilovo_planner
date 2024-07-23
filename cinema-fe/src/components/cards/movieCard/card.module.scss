@@ -46,14 +46,13 @@
         padding: 10px;
         top: 0;
         right: 0;
+        font-size: 3rem;
+        color: #ffffff;
+        transition: color 0.3s ease-in-out;
 
-        svg {
-          color: #ffffff;
-
-          @include hover {
-            &:hover {
-              color: $base-accent-color;
-            }
+        @include hover {
+          &:hover {
+            color: $base-accent-color;
           }
         }
       }

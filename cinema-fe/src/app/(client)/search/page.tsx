@@ -1,7 +1,13 @@
-import React from 'react';
+'use client';
+
+import SearchMovies from '@/components/search/SearchMovie';
 
 const page = () => {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <SearchMovies />
+    </div>
+  );
 };
 
 export default page;

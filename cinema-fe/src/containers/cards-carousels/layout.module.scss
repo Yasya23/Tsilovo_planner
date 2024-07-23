@@ -37,7 +37,7 @@
 
     h2 {
       color: #2d2d2d;
-      transition: opacity ease-in-out 0.3s;
+      transition: opacity 0.3s ease-in-out;
       text-transform: capitalize;
 
       @include hover {

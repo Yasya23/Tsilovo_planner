@@ -31,7 +31,7 @@ export class MovieModel extends TimeStamps {
   countViews?: number;
 
   @prop()
-  date?: string;
+  year?: number;
 
   @prop()
   duration?: number;
@@ -39,8 +39,8 @@ export class MovieModel extends TimeStamps {
   @prop()
   country: string;
 
-  @prop({ default: false })
-  ageRestricted: boolean;
+  @prop()
+  ageRestricted: number;
 
   @prop()
   type: MovieType;

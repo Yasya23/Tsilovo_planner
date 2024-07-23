@@ -36,7 +36,7 @@
   $hover-color: #f87171
 ) {
   color: $color;
-  transition: all ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out;
 
   &.active {
     color: $active-color;

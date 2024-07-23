@@ -97,10 +97,9 @@ export class MovieService {
       actors: [],
       photo: '',
       type: 'movie',
-      date: '',
+      year: 0,
       duration: 0,
       country: '',
-      ageRestricted: false,
     };
     const newMovie = await this.movieModel.create(defaultMovie);
     return newMovie.id;

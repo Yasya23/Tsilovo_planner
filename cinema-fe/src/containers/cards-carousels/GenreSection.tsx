@@ -1,6 +1,6 @@
 import { useGenres } from '@/hooks/useGenres';
 import GradientCard from '@/components/cards/gradientCard/GradientCard';
-import Layout from '../Layout';
+import Layout from './Layout';
 import Carousel from '@/components/carousel/Carousel';
 import Spinner from '@/components/spinner/Spinner';
 
