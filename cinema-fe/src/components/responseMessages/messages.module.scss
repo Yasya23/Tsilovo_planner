@@ -1,5 +1,8 @@
+@import '../../styles/_mixin.scss';
+
 .errorMessage,
-.noResultsMessage {
+.noResultsMessage,
+.messageWithToMainLink {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,4 +18,15 @@
 
 .noResultsMessage {
   color: #808080;
+}
+
+.messageWithToMainLink {
+  height: 100%;
+  gap: 15px;
+  flex-direction: column;
+  align-self: center;
+
+  a {
+    @include link-style();
+  }
 }

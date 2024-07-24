@@ -3,7 +3,7 @@ import Spinner from '@/components/spinner/Spinner';
 import ErrorMessage from '@/components/responseMessages/ErrorMessage';
 import NoResultsMessage from '@/components/responseMessages/NoResultsMessage';
 import Card from '@/components/cards/movieCard/MovieCard';
-import { useMovies } from '@/hooks/useMovies';
+import { useMovies, useMoviesByQuery } from '@/hooks/useMovies';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Movie } from '@/types/movie.type';
 import Input from '../input/Input';
@@ -12,7 +12,7 @@ const SearchMovies = () => {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
 
-  const { data, error, isLoading } = useMovies({
+  const { data, error, isLoading } = useMoviesByQuery({
     page: 1,
     limit: 10,
     query: debouncedQuery,

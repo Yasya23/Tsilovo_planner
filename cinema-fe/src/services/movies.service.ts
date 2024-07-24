@@ -4,7 +4,7 @@ import { Movie } from '@/types/movie.type';
 import { QueryParams } from '@/types/interfaces/queryParams';
 
 export const MovieService = {
-  async getAllMovies(params: QueryParams) {
+  async getMovies(params: QueryParams) {
     const { data } = await axiosClassic.get<Movie[]>(services.movies, {
       params: params,
     });
