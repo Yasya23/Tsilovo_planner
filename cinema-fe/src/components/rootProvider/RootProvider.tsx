@@ -2,6 +2,7 @@
 
 import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
+import { Toaster } from 'react-hot-toast';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -30,7 +31,9 @@ export const RootProvider = ({
       <QueryClientProvider client={queryClient}>
         <main>{children}</main>
       </QueryClientProvider>
+
       <Footer />
+      <Toaster position="top-right" />
     </>
   );
 };

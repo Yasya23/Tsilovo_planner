@@ -3,14 +3,16 @@ import GradientCard from '@/components/cards/gradientCard/GradientCard';
 import Layout from './Layout';
 import Carousel from '@/components/carousel/Carousel';
 import Spinner from '@/components/spinner/Spinner';
+import { setStore, useStoreSelector } from '@/app/store/Store';
 
 const GenreSection = () => {
-  const { isLoading, error, data } = useGenres();
-
-  if (error) return 'An error has occurred: ' + error.message;
+  const { isLoading, data } = useGenres();
+  const isAuth = useStoreSelector((state) => state.isAuth);
 
   return (
     <Layout heading="Choose by genres">
+      {isAuth ? 'Authenticated' : 'Not Authenticated'}
+      <button onClick={() => setStore({ isAuth: !isAuth })}>Click</button>
       <Carousel>
         <GradientCard key="filter" href="/filters" title="Filters" />
         <GradientCard key="search" href="/search" title="Search" />
