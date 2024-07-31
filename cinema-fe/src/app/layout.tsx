@@ -3,7 +3,7 @@ import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Cinema',
     title: 'Cinema - watch movies online',
     description: 'Whatch movies, cartoons, shows!',
-    url: `/`,
+    url: '/',
   },
 };
 

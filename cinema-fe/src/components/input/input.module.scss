@@ -1,18 +1,45 @@
+@import '../../styles/_mixin.scss';
+
+.fieldsWrapper {
+  width: 1200px;
+  max-width: 100%;
+
+  .successIcon {
+    color: #008000;
+    margin-right: 5px;
+  }
+}
+
 .inputWrapper {
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 1200px;
-  padding: 10px;
-  max-width: 100%;
+  width: 100%;
 }
 
-.searchIcon {
+.icon {
+  display: flex;
+  align-items: center;
   position: absolute;
-  left: 20px;
-  color: #1f1c1c;
+  left: 10px;
+  color: #615e5e;
   font-size: 1.3rem;
+
+  svg {
+    @include hover {
+      &:hover {
+        color: #a4a4a4;
+      }
+    }
+  }
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  color: #585555;
+  font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .input {
@@ -34,5 +61,18 @@
 
   &::placeholder {
     color: #aaa;
+  }
+}
+
+.messageField {
+  height: 20px;
+  p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &.error {
+      color: #ff0000;
+    }
   }
 }

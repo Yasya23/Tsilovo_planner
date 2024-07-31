@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Spinner from '@/components/spinner/Spinner';
 import ErrorMessage from '@/components/responseMessages/ErrorMessage';
 import NoResultsMessage from '@/components/responseMessages/NoResultsMessage';
@@ -7,8 +7,9 @@ import { useMovies, useMoviesByQuery } from '@/hooks/useMovies';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Movie } from '@/types/movie.type';
 import Input from '../input/Input';
+import { FiSearch } from 'react-icons/fi';
 
-const SearchMovies = () => {
+export const SearchMovies = () => {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
 
@@ -26,8 +27,12 @@ const SearchMovies = () => {
     <div>
       <Input
         value={query}
+        icon={FiSearch}
+        type="search"
         onChange={handleInputChange}
         placeholder="Search for movies..."
+        hasMessages={false}
+        label="Search"
       />
       {error && <ErrorMessage />}
       {isLoading && <Spinner />}
