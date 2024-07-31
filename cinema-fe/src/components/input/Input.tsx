@@ -41,7 +41,8 @@ const Input = ({
   const [fieldType, setFieldType] = useState(type);
   const [isFocused, setIsFocused] = useState(false);
 
-  const toggleVisibility = () => {
+  const toggleVisibility = (e: React.MouseEvent) => {
+    e.preventDefault();
     setFieldType((prevType) => (prevType === 'password' ? 'text' : 'password'));
   };
 
@@ -50,8 +51,8 @@ const Input = ({
   return (
     <div className={styles.fieldsWrapper}>
       <label className={styles.label}>
-        {showSuccessIcon && <FiCheckCircle className={styles.successIcon} />}
         {label}
+        {showSuccessIcon && <FiCheckCircle className={styles.successIcon} />}
         <div className={styles.inputWrapper}>
           {Icon && <Icon className={styles.icon} />}
           <input

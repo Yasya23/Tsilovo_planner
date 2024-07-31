@@ -1,71 +1,141 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import Input from '../input/Input';
+import Link from 'next/link';
+import { registrationSchema } from '@/utils';
 
-const registerSchema = yup.object().shape({
-  username: yup.string().required('Username is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), undefined], 'Passwords must match')
-    .required('Confirm Password is required'),
-});
+import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
+import styles from './forms.module.scss';
+import classNames from 'classnames';
 
-interface RegisterFormValues {
+interface RegistrationFormValues {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-const RegisterForm = () => {
+const RegistrationForm = () => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<RegisterFormValues>({
+    trigger,
+    watch,
+  } = useForm<RegistrationFormValues>({
+    resolver: yupResolver(registrationSchema),
     mode: 'onChange',
-    resolver: yupResolver(registerSchema),
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (values: RegisterFormValues) => {
+  const password = watch('password');
+
+  useEffect(() => {
+    trigger('confirmPassword');
+  }, [password, trigger]);
+
+  const onSubmit = (values: RegistrationFormValues) => {
+    setIsLoading(true);
     console.log(values);
+    setIsLoading(false);
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Username:</label>
-        <input type="text" {...register('username')} />
-        {errors.username && <p>{errors.username.message}</p>}
+    <div className={styles.wrapper}>
+      <div className={styles.switchPage}>
+        <Link href="/login" className={styles.button}>
+          To Login Page
+        </Link>
+        <div className={classNames(styles.button, styles.disabled)}>
+          Register Page
+        </div>
       </div>
-      <div>
-        <label>Email:</label>
-        <input type="email" {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" {...register('password')} />
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
-      <div>
-        <label>Confirm Password:</label>
-        <input type="password" {...register('confirmPassword')} />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-      </div>
-      <button type="submit">Register</button>
-    </form>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <Controller
+          name="username"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="text"
+              label="Username"
+              placeholder="Enter your username"
+              {...field}
+              icon={AiOutlineUser}
+              error={errors?.username?.message}
+              onFocus={() => trigger('username')}
+              onBlur={() => trigger('username')}
+            />
+          )}
+        />
+
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="email"
+              label="Email"
+              placeholder="Enter your email"
+              {...field}
+              icon={AiOutlineMail}
+              error={errors?.email?.message}
+              onFocus={() => trigger('email')}
+              onBlur={() => trigger('email')}
+            />
+          )}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="password"
+              label="Password"
+              placeholder="Enter your password"
+              {...field}
+              icon={AiOutlineLock}
+              hasAbilityHideValue={true}
+              error={errors?.password?.message}
+              onFocus={() => trigger('password')}
+              onBlur={() => trigger('password')}
+            />
+          )}
+        />
+
+        <Controller
+          name="confirmPassword"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="password"
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              {...field}
+              icon={AiOutlineLock}
+              hasAbilityHideValue={true}
+              error={errors?.confirmPassword?.message}
+              onFocus={() => trigger('confirmPassword')}
+              onBlur={() => trigger('confirmPassword')}
+            />
+          )}
+        />
+
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 
+export default RegistrationForm;

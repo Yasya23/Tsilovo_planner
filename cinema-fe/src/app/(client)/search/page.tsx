@@ -2,12 +2,10 @@
 
 import SearchMovies from '@/components/search/SearchMovie';
 
-const page = () => {
+export default function Page() {
   return (
     <div>
       <SearchMovies />
     </div>
   );
-};
-
-export default page;
+}

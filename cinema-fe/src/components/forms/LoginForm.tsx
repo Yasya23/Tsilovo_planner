@@ -1,32 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import Input from '../input/Input';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import Link from 'next/link';
+import { loginSchema } from '@/utils';
+
 import styles from './forms.module.scss';
 import classNames from 'classnames';
-import { useState } from 'react';
-
-const loginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
-});
 
 interface LoginFormValues {
   email: string;
   password: string;
 }
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const {
     control,
     handleSubmit,
