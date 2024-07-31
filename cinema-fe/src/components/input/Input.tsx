@@ -20,7 +20,6 @@ interface InputProps {
   label?: string;
   hasMessages?: boolean;
   error?: string;
-  successValidation?: boolean;
   hasAbilityHideValue?: boolean;
   placeholder?: string;
 }
