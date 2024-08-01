@@ -11,7 +11,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+
+  .errorField {
+    text-align: center;
+    height: 20px;
+    color: #ff0000;
+  }
 }
 
 .switchPage {

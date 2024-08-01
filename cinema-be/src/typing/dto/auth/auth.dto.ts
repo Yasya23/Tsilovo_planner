@@ -12,3 +12,9 @@ export class AuthDto {
   })
   password: string;
 }
+
+export class RegistrationDto extends AuthDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+}

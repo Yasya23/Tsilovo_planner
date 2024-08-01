@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,33 +6,36 @@ import Input from '../input/Input';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import Link from 'next/link';
 import { loginSchema } from '@/utils';
-
 import styles from './forms.module.scss';
 import classNames from 'classnames';
-
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
+import { LoginFormValues } from '@/types/interfaces/loginFormValues';
+import { useHandleLogin } from '@/hooks/useHandleLogin';
+import Spinner from '../spinner/Spinner';
+import { responseError } from '@/utils';
 const LoginForm = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
     trigger,
+    reset,
   } = useForm<LoginFormValues>({
     resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { setFormValues, isLoading, error } = useHandleLogin();
+  const [isErroMessageshown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: LoginFormValues) => {
-    setIsLoading(true);
-    console.log(values);
-    setIsLoading(false);
-    reset();
+    setFormValues(values);
+    reset(values);
+    setIsErrorMessageShown(true);
+  };
+
+  const handleOnFocus = (entity: 'email' | 'password') => {
+    setIsErrorMessageShown(false);
+    trigger(entity);
   };
 
   return (
@@ -58,8 +60,8 @@ const LoginForm = () => {
               placeholder="Enter your email"
               {...field}
               icon={AiOutlineMail}
-              error={errors?.email?.message}
-              onFocus={() => trigger('email')}
+              error={errors.email?.message}
+              onFocus={() => handleOnFocus('email')}
               onBlur={() => trigger('email')}
             />
           )}
@@ -77,13 +79,21 @@ const LoginForm = () => {
               {...field}
               icon={AiOutlineLock}
               hasAbilityHideValue={true}
-              error={errors?.password?.message}
-              onFocus={() => trigger('password')}
+              error={errors.password?.message}
+              onFocus={() => handleOnFocus('password')}
               onBlur={() => trigger('password')}
             />
           )}
         />
-
+        <div className={styles.errorField}>
+          {isLoading ? (
+            <Spinner />
+          ) : error && isErroMessageshown ? (
+            <p>{responseError(error)}</p>
+          ) : (
+            ''
+          )}
+        </div>
         <button type="submit" className={styles.button} disabled={isLoading}>
           Log In
         </button>

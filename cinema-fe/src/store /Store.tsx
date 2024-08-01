@@ -1,12 +1,12 @@
 import { Store } from '@tanstack/store';
 import { useStore } from '@tanstack/react-store';
-
+import { UserAuth } from '@/types/userAuth.type';
 interface TState {
-  isAuth: boolean;
+  userAuth: UserAuth | null;
 }
 
 const initialState: TState = {
-  isAuth: false,
+  userAuth: null,
 };
 
 export const store = new Store<TState>(initialState);

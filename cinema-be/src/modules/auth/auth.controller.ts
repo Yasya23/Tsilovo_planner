@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto, ResreshTokenDto } from 'src/typing/dto';
+import { AuthDto, RegistrationDto, RefreshTokenDto } from 'src/typing/dto';
 
 @Controller('auth')
 export class AuthController {
@@ -12,12 +12,12 @@ export class AuthController {
   }
 
   @Post('login/access-token')
-  async getNewTokens(@Body() tokensDto: ResreshTokenDto) {
+  async getNewTokens(@Body() tokensDto: RefreshTokenDto) {
     return this.authService.getNewTokens(tokensDto);
   }
 
   @Post('register')
-  async register(@Body() registrationDto: AuthDto) {
+  async register(@Body() registrationDto: RegistrationDto) {
     return this.authService.register(registrationDto);
   }
 }

@@ -76,7 +76,7 @@ const Input = ({
               role="button"
               onClick={toggleVisibility}
               className={styles.eyeIcon}>
-              {fieldType === 'password' ? <FiEye /> : <FiEyeOff />}
+              {fieldType === 'password' ? <FiEyeOff /> : <FiEye />}
             </div>
           )}
         </div>

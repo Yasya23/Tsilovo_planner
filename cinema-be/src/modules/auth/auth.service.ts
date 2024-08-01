@@ -6,7 +6,7 @@ import {
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
 import { UserModel } from 'src/models/user.model';
-import { AuthDto, ResreshTokenDto } from 'src/typing/dto';
+import { AuthDto, RefreshTokenDto, RegistrationDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
@@ -35,11 +35,13 @@ export class AuthService {
     return {
       id: user.id,
       email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
       ...tokens,
     };
   }
 
-  async register(registrationDto: AuthDto) {
+  async register(registrationDto: RegistrationDto) {
     const user = await this.userModel.findOne({
       email: registrationDto.email,
     });
@@ -60,11 +62,13 @@ export class AuthService {
     return {
       id: createUser.id,
       email: createUser.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
       ...tokens,
     };
   }
 
-  async getNewTokens({ refrehToken }: ResreshTokenDto) {
+  async getNewTokens({ refrehToken }: RefreshTokenDto) {
     if (!refrehToken) {
       throw new UnauthorizedException('Please Sing in');
     }
@@ -90,7 +94,7 @@ export class AuthService {
       expiresIn: '21d',
     });
     const accessToken = await this.jwtService.signAsync(data, {
-      expiresIn: '30min',
+      expiresIn: '10h',
     });
     return { refreshToken, accessToken };
   }

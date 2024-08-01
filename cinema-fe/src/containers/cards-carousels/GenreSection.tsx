@@ -7,12 +7,9 @@ import { setStore, useStoreSelector } from '@/store /Store';
 
 const GenreSection = () => {
   const { isLoading, data } = useGenres();
-  const isAuth = useStoreSelector((state) => state.isAuth);
 
   return (
     <Layout heading="Choose by genres">
-      {isAuth ? 'Authenticated' : 'Not Authenticated'}
-      <button onClick={() => setStore({ isAuth: !isAuth })}>Click</button>
       <Carousel>
         <GradientCard key="filter" href="/filters" title="Filters" />
         <GradientCard key="search" href="/search" title="Search" />

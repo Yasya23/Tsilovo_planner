@@ -5,4 +5,7 @@ export const services = {
   genres: '/genre',
   movies: '/movies',
   moviesPopular: '/movies/popular',
+  login: '/auth/login',
+  register: '/auth/register',
+  token: 'auth/login/access-token',
 };
