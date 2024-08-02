@@ -1,18 +1,18 @@
-'use server';
-
+import Cookies from 'js-cookie';
 import { UserAuth } from '@/types/userAuth.type';
-import { cookies } from 'next/headers';
+import { setStore } from '@/store /Store';
 
 export const setCookies = ({ refreshToken, accessToken }: UserAuth) => {
-  cookies().set('value', accessToken);
-  cookies().set('updater', refreshToken);
+  Cookies.set('accessToken', accessToken);
+  Cookies.set('refreshToken', refreshToken);
 };
 
 export const deleteCookies = () => {
-  cookies().delete('value');
-  cookies().delete('updater');
+  Cookies.remove('accessToken');
+  Cookies.remove('refreshToken');
+  setStore({ userAuth: null });
 };
 
 export const getToken = () => {
-  return cookies().get('updater');
+  return Cookies.get('refreshToken');
 };

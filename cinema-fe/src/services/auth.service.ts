@@ -16,10 +16,11 @@ export const AuthService = {
     return await axiosClassic.post<UserAuth>(services.register);
   },
 
-  async refreshToken() {
+  async getTokens(): Promise<UserAuth> {
     const refreshToken = getToken();
-    return await axiosClassic.post<UserAuth>(services.token, {
+    const response = await axiosClassic.post<UserAuth>(services.token, {
       refreshToken,
     });
+    return response.data;
   },
 };
