@@ -1,13 +1,14 @@
-import { setStore } from '@/store /Store';
 import { deleteCookies, setCookies } from '@/helpers';
 import { UserAuth } from '@/types/userAuth.type';
+import { useAuthStore } from '@/store/Store';
 
 export const deleteUserWhenLogout = () => {
-  setStore({ userAuth: null });
+  useAuthStore.getState().delete();
   deleteCookies();
 };
 
-export const saveUserWhenAuth = (data: UserAuth) => {
-  setStore({ userAuth: data });
+export const saveUserWhenAuth = async (data: UserAuth) => {
+  await useAuthStore.getState().setData(data);
+  console.log(data);
   setCookies(data);
 };

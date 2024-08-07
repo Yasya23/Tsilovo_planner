@@ -3,7 +3,6 @@ import GradientCard from '@/components/cards/gradientCard/GradientCard';
 import Layout from './Layout';
 import Carousel from '@/components/carousel/Carousel';
 import Spinner from '@/components/spinner/Spinner';
-import { setStore, useStoreSelector } from '@/store /Store';
 
 const GenreSection = () => {
   const { isLoading, data } = useGenres();

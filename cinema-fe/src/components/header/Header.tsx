@@ -5,15 +5,17 @@ import Logo from '@/components/logo/Logo';
 import Navigation from '@/components/navigation/Navigation';
 import Link from 'next/link';
 import { FiMenu, FiX, FiSearch, FiList } from 'react-icons/fi';
-import { useStoreSelector } from '@/store /Store';
-
+import { useAuthStore } from '@/store/Store';
+import { isUserAuthEmpty } from '@/helpers/storage/checkLocalStorage';
 import styles from './header.module.scss';
 import classNames from 'classnames';
 
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const user = useStoreSelector((state) => state.userAuth);
+  const user = useAuthStore((state) => state.userAuth);
+  const userExist = isUserAuthEmpty();
 
+  console.log(userExist);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -37,13 +39,13 @@ const HeaderLayout = () => {
             <FiList size={20} />
             Filters
           </Link>
-          {user ? (
+          {user && userExist ? (
             <Link href="/login" className={styles.buttonStyle}>
-              LOG IN
+              LOG OUT
             </Link>
           ) : (
             <Link href="/login" className={styles.buttonStyle}>
-              LOG out
+              LOG IN
             </Link>
           )}
         </div>
