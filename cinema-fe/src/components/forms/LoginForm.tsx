@@ -10,9 +10,9 @@ import { loginSchema } from '@/utils';
 import styles from './forms.module.scss';
 import classNames from 'classnames';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
-import { useHandleLogin } from '@/hooks/useHandleLogin';
 import Spinner from '../spinner/Spinner';
 import { responseError } from '@/utils';
+import { useAuthStore } from '@/store/Store';
 
 const LoginForm = () => {
   const {
@@ -25,13 +25,17 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
+  const [formValues, setFormValues] = useState<LoginFormValues>({
+    email: '',
+    password: '',
+  });
 
-  const { setFormValues, isLoading, error } = useHandleLogin();
+  const { userAuth, login, isLoading, error } = useAuthStore((state) => state);
   const [isErroMessageshown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: LoginFormValues) => {
     setFormValues(values);
-    reset(values);
+    login(values);
     setIsErrorMessageShown(true);
   };
 

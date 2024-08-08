@@ -1,21 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Logo from '@/components/logo/Logo';
 import Navigation from '@/components/navigation/Navigation';
 import Link from 'next/link';
 import { FiMenu, FiX, FiSearch, FiList } from 'react-icons/fi';
 import { useAuthStore } from '@/store/Store';
-import { isUserAuthEmpty } from '@/helpers/storage/checkLocalStorage';
+
 import styles from './header.module.scss';
 import classNames from 'classnames';
+import { isUserAuthEmpty } from '@/helpers/storage/checkLocalStorage';
 
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useAuthStore((state) => state.userAuth);
-  const userExist = isUserAuthEmpty();
 
-  console.log(userExist);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -39,9 +38,9 @@ const HeaderLayout = () => {
             <FiList size={20} />
             Filters
           </Link>
-          {user && userExist ? (
-            <Link href="/login" className={styles.buttonStyle}>
-              LOG OUT
+          {user ? (
+            <Link href="/profile" className={styles.buttonStyle}>
+              {user?.name?.[0] || 'A'}
             </Link>
           ) : (
             <Link href="/login" className={styles.buttonStyle}>
