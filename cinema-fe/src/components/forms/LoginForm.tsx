@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../input/Input';
@@ -13,6 +13,9 @@ import { LoginFormValues } from '@/types/interfaces/loginFormValues';
 import Spinner from '../spinner/Spinner';
 import { responseError } from '@/utils';
 import { useAuthStore } from '@/store/Store';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { getToken } from '@/helpers';
 
 const LoginForm = () => {
   const {
@@ -25,19 +28,25 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
-  const [formValues, setFormValues] = useState<LoginFormValues>({
-    email: '',
-    password: '',
-  });
-
+  const router = useRouter();
+  const token = getToken();
   const { userAuth, login, isLoading, error } = useAuthStore((state) => state);
-  const [isErroMessageshown, setIsErrorMessageShown] = useState(false);
+  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: LoginFormValues) => {
-    setFormValues(values);
-    login(values);
-    setIsErrorMessageShown(true);
+    if (values) {
+      login(values);
+      setIsErrorMessageShown(true);
+    }
   };
+
+  useEffect(() => {
+    if (!error && userAuth && token) {
+      router.push('/');
+      toast.success('You are sign in');
+      reset();
+    }
+  }, [userAuth, error, token]);
 
   const handleOnFocus = (entity: 'email' | 'password') => {
     setIsErrorMessageShown(false);
@@ -94,7 +103,7 @@ const LoginForm = () => {
         <div className={styles.errorField}>
           {isLoading ? (
             <Spinner />
-          ) : error && isErroMessageshown ? (
+          ) : error && isErrorMessageShown ? (
             <p>{responseError(error)}</p>
           ) : (
             ''

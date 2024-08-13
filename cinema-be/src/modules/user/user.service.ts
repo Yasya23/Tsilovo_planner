@@ -32,7 +32,7 @@ export class UserService {
   }
 
   async getByID(id: string) {
-    const user = await this.userModel.findById(id);
+    const user = await this.userModel.findById(id).populate('favorites').exec();
     if (!user) throw new NotFoundException('User not found');
     return user;
   }

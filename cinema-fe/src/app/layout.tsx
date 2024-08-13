@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
+import { routes } from '@/constants/routes';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Cinema',
     title: 'Cinema - watch movies online',
     description: 'Whatch movies, cartoons, shows!',
-    url: '/',
+    url: routes.home,
   },
 };
 

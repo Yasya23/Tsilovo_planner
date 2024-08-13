@@ -1,12 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
 import { Toaster } from 'react-hot-toast';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-import { useState } from 'react';
+import useLogOut from '@/hooks/useLogOut';
 
 const createQueryClient = () => {
   return new QueryClient({
@@ -23,6 +22,7 @@ export const RootProvider = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  useLogOut();
   const [queryClient] = useState(createQueryClient);
 
   return (
@@ -31,9 +31,17 @@ export const RootProvider = ({
       <QueryClientProvider client={queryClient}>
         <main>{children}</main>
       </QueryClientProvider>
-
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            width: '350px',
+            height: '50px',
+            maxWidth: '100%',
+          },
+        }}
+      />
       <Footer />
-      <Toaster position="top-right" />
     </>
   );
 };

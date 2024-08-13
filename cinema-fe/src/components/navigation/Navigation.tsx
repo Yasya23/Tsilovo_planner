@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import styles from './nav.module.scss';
 
-const Navigation = () => {
+export const Navigation = () => {
   const pathname = usePathname();
 
   return (

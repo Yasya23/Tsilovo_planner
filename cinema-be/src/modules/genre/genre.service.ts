@@ -3,7 +3,7 @@ import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { GenreModel } from 'src/models/genre.model';
 import { UpdateGenreDto } from 'src/typing/dto';
-import { cardGradient } from 'src/typing/types';
+
 @Injectable()
 export class GenreService {
   constructor(

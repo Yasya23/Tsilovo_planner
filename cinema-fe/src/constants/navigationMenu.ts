@@ -1,6 +1,8 @@
+import { routes } from './routes';
+
 export const navigationMenu = [
-  { href: '/movies', title: 'Movies' },
-  { href: '/cartoons', title: 'Cartoons' },
-  { href: '/series', title: 'Series' },
-  { href: '/shows', title: 'Shows' },
+  { href: routes.movies, title: 'Movies' },
+  { href: routes.cartoons, title: 'Cartoons' },
+  { href: routes.series, title: 'Series' },
+  { href: routes.shows, title: 'Shows' },
 ];

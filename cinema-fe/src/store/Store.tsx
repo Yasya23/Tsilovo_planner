@@ -3,13 +3,14 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { UserAuth } from '@/types/userAuth.type';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
 import { AuthService } from '@/services/auth.service';
+import { setCookies } from '@/helpers';
 
 interface UserState {
   userAuth: UserAuth | undefined;
   isLoading: boolean;
   error: string | null;
   login: (data: LoginFormValues) => Promise<void>;
-  delete: () => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<UserState>()(
@@ -19,17 +20,17 @@ export const useAuthStore = create<UserState>()(
       isLoading: false,
       error: null,
       login: async (data: LoginFormValues) => {
-        set({ isLoading: true, error: null }); // Start loading and reset error
+        set({ isLoading: true, error: null });
         try {
           const user = await AuthService.login(data);
-          console.log(user);
-          set({ userAuth: user.data, isLoading: false });
+          set({ userAuth: { id: user.data.id }, isLoading: false });
+          setCookies(user.data);
         } catch (error) {
           console.error('Login failed:', error);
           set({ isLoading: false, error: 'Login failed. Please try again.' });
         }
       },
-      delete: () => set({ userAuth: undefined }),
+      logout: () => set({ userAuth: undefined }),
     }),
     {
       name: 'userAuth',

@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
-import { UserAuth } from '@/types/userAuth.type';
+import { UserTokens } from '@/types/userAuth.type';
 
-export const setCookies = ({ refreshToken, accessToken }: UserAuth) => {
+export const setCookies = ({ refreshToken, accessToken }: UserTokens) => {
   Cookies.set('accessToken', accessToken);
   Cookies.set('refreshToken', refreshToken);
 };

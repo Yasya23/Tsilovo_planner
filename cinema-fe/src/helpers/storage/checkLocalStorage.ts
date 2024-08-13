@@ -1,11 +1,12 @@
-export const isUserAuthEmpty = (): boolean => {
-  if (typeof window === 'undefined') return true;
+export const isUserAuth = (): boolean => {
+  if (typeof window === 'undefined') return false;
+
   const storedValue = window.localStorage.getItem('userAuth');
-  if (!storedValue) return true;
+  if (!storedValue) return false;
 
   try {
     const parsedValue = JSON.parse(storedValue);
-    return !!parsedValue.state.userAuth;
+    return Boolean(parsedValue?.state?.userAuth?.id);
   } catch (e) {
     console.error('Failed to parse userAuth from localStorage:', e);
     return false;

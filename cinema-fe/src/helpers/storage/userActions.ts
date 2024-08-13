@@ -1,14 +1,7 @@
-import { deleteCookies, setCookies } from '@/helpers';
-import { UserAuth } from '@/types/userAuth.type';
+import { deleteCookies } from '@/helpers';
 import { useAuthStore } from '@/store/Store';
 
 export const deleteUserWhenLogout = () => {
-  useAuthStore.getState().delete();
+  useAuthStore.getState().logout();
   deleteCookies();
-};
-
-export const saveUserWhenAuth = async (data: UserAuth) => {
-  await useAuthStore.getState().setData(data);
-  console.log(data);
-  setCookies(data);
 };

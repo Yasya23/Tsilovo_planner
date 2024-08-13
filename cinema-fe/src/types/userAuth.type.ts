@@ -1,13 +1,8 @@
-export type User = {
+export type UserAuth = {
   id: string;
-  email: string;
-  name: string;
-  isAdmin: boolean;
 };
 
-export type Tokens = {
-  accessToken: string;
+export type UserTokens = {
   refreshToken: string;
-};
-
-export type UserAuth = User & Tokens;
+  accessToken: string;
+} & UserAuth;

@@ -37,6 +37,7 @@
 ) {
   color: $color;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
   &.active {
     color: $active-color;
