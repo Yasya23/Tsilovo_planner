@@ -10,7 +10,6 @@ export const isUserAuth = (): boolean => {
     const decryptedValue = decryptData(storedValue);
     if (!decryptedValue) return false;
     const parsedValue = JSON.parse(decryptedValue);
-    console.log(parsedValue);
 
     return Boolean(parsedValue?.state?.userAuth?.id);
   } catch (e) {

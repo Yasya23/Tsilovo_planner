@@ -5,7 +5,7 @@ import Logo from '@/components/logo/Logo';
 import Navigation from '../navigation/Navigation';
 import Link from 'next/link';
 import { FiMenu, FiX, FiSearch, FiList, FiUser } from 'react-icons/fi';
-import { useAuthStore, userStore } from '@/store/Store';
+import { useAuthStore } from '@/store/Store';
 import { routes } from '@/constants/routes';
 import styles from './header.module.scss';
 import classNames from 'classnames';

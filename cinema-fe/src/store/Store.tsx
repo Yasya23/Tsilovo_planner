@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { UserAuth } from '@/types/user.type';
+import { User } from '@/types/user.type';
 import {
   LoginFormValues,
   RegisterFormValues,
@@ -11,7 +11,7 @@ import { responseError } from '@/utils';
 import { encryptData, decryptData } from '@/utils';
 
 interface UserAuthState {
-  userAuth: UserAuth | undefined;
+  userAuth: User | undefined;
   isLoading: boolean;
   error: string | null;
   authenticate: (
