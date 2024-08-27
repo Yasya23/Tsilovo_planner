@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { emailRegx } from './login';
 
 export const registrationSchema = yup.object().shape({
-  username: yup
+  name: yup
     .string()
     .min(3, 'Username must be at least 3 characters')
     .required('Username is required'),

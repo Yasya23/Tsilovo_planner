@@ -11,10 +11,10 @@ import styles from './forms.module.scss';
 import classNames from 'classnames';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
 import Spinner from '../spinner/Spinner';
-import { responseError } from '@/utils';
 import { useAuthStore } from '@/store/Store';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { routes } from '@/constants/routes';
 import { getToken } from '@/helpers';
 
 const LoginForm = () => {
@@ -59,7 +59,7 @@ const LoginForm = () => {
         <div className={classNames(styles.button, styles.disabled)}>
           Login Page
         </div>
-        <Link href="/register" className={styles.button}>
+        <Link href={routes.register} className={styles.button}>
           To Register Page
         </Link>
       </div>
@@ -104,7 +104,7 @@ const LoginForm = () => {
           {isLoading ? (
             <Spinner />
           ) : error && isErrorMessageShown ? (
-            <p>{responseError(error)}</p>
+            <p>{error}</p>
           ) : (
             ''
           )}

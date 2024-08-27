@@ -6,15 +6,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../input/Input';
 import Link from 'next/link';
 import { registrationSchema } from '@/utils';
-
+import { routes } from '@/constants/routes';
+import { useAuthStore } from '@/store/Store';
+import { RegisterFormValues } from '@/types/interfaces/loginFormValues';
+import { getToken } from '@/helpers';
+import Spinner from '../spinner/Spinner';
+import { useRouter } from 'next/navigation';
 import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import styles from './forms.module.scss';
 import classNames from 'classnames';
-
-interface RegistrationFormValues {
-  username: string;
-  email: string;
-  password: string;
+import toast from 'react-hot-toast';
+interface RegistrationFormValues extends RegisterFormValues {
   confirmPassword: string;
 }
 
@@ -30,25 +32,43 @@ const RegistrationForm = () => {
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
   });
-  const [isLoading, setIsLoading] = useState(false);
-
   const password = watch('password');
+  const router = useRouter();
+  const token = getToken();
+
+  const { userAuth, register, isLoading, error } = useAuthStore(
+    (state) => state
+  );
+  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
+
+  const onSubmit = (values: RegistrationFormValues) => {
+    const { name, email, password } = values;
+    if (values) {
+      register({
+        name,
+        email,
+        password,
+      });
+      setIsErrorMessageShown(true);
+    }
+  };
 
   useEffect(() => {
     trigger('confirmPassword');
   }, [password, trigger]);
 
-  const onSubmit = (values: RegistrationFormValues) => {
-    setIsLoading(true);
-    console.log(values);
-    setIsLoading(false);
-    reset();
-  };
+  useEffect(() => {
+    if (!error && userAuth && token) {
+      router.push('/');
+      toast.success('You have successfully registered.');
+      reset();
+    }
+  }, [userAuth, error, token]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.switchPage}>
-        <Link href="/login" className={styles.button}>
+        <Link href={routes.login} className={styles.button}>
           To Login Page
         </Link>
         <div className={classNames(styles.button, styles.disabled)}>
@@ -57,7 +77,7 @@ const RegistrationForm = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller
-          name="username"
+          name="name"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -67,9 +87,9 @@ const RegistrationForm = () => {
               placeholder="Enter your username"
               {...field}
               icon={AiOutlineUser}
-              error={errors?.username?.message}
-              onFocus={() => trigger('username')}
-              onBlur={() => trigger('username')}
+              error={errors?.name?.message}
+              onFocus={() => trigger('name')}
+              onBlur={() => trigger('name')}
             />
           )}
         />
@@ -129,6 +149,15 @@ const RegistrationForm = () => {
             />
           )}
         />
+        <div className={styles.errorField}>
+          {isLoading ? (
+            <Spinner />
+          ) : error && isErrorMessageShown ? (
+            <p>{error}</p>
+          ) : (
+            ''
+          )}
+        </div>
 
         <button type="submit" className={styles.button} disabled={isLoading}>
           Register

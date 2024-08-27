@@ -1,16 +1,16 @@
 import Cookies from 'js-cookie';
-import { UserTokens } from '@/types/userAuth.type';
+import { User } from '@/types/user.type';
 
-export const setCookies = ({ refreshToken, accessToken }: UserTokens) => {
-  Cookies.set('accessToken', accessToken);
-  Cookies.set('refreshToken', refreshToken);
+export const setCookies = ({ refreshToken, accessToken }: User) => {
+  Cookies.set('a', accessToken);
+  Cookies.set('r', refreshToken);
 };
 
 export const deleteCookies = () => {
-  Cookies.remove('accessToken');
-  Cookies.remove('refreshToken');
+  Cookies.remove('a');
+  Cookies.remove('r');
 };
 
 export const getToken = () => {
-  return Cookies.get('refreshToken');
+  return Cookies.get('a');
 };

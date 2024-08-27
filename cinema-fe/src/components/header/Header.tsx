@@ -5,7 +5,7 @@ import Logo from '@/components/logo/Logo';
 import Navigation from '../navigation/Navigation';
 import Link from 'next/link';
 import { FiMenu, FiX, FiSearch, FiList, FiUser } from 'react-icons/fi';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore, userStore } from '@/store/Store';
 import { routes } from '@/constants/routes';
 import styles from './header.module.scss';
 import classNames from 'classnames';
@@ -14,7 +14,9 @@ import LogOut from '../logOut/LogOut';
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useAuthStore((state) => state.userAuth);
-  console.log(user);
+  const userId = userStore((state) => state.user);
+
+  console.log(userId);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -48,7 +50,7 @@ const HeaderLayout = () => {
           {user ? (
             <LogOut />
           ) : (
-            <Link href="/login" className={styles.buttonStyle}>
+            <Link href={routes.login} className={styles.buttonStyle}>
               LOG IN
             </Link>
           )}

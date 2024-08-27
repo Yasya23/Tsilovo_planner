@@ -1,3 +1,5 @@
+import Error from 'next/error';
+
 export const responseError = (error: any): string => {
   if (error?.response?.data) {
     const { data } = error.response;
@@ -5,5 +7,6 @@ export const responseError = (error: any): string => {
       ? data.message[0] || 'An error occurred.'
       : data.message || 'An error occurred with the response data.';
   }
+  console.log(error);
   return error?.message || 'An unexpected error occurred.';
 };

@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import styles from './logo.module.scss';
+import { routes } from '@/constants/routes';
 
 const Logo = () => {
   return (
-    <Link href="/" className={styles.logo}>
+    <Link href={routes.home} className={styles.logo}>
       CINEMA
     </Link>
   );

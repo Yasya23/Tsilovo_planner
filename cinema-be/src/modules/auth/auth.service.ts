@@ -32,13 +32,14 @@ export class AuthService {
     }
 
     const tokens = await this.createTokenPair(user.id);
-    console.log(tokens);
     if (!tokens) {
       throw new UnauthorizedException('Error to get token');
     }
-
+    const { id, name, email } = user;
     return {
-      id: user.id,
+      id,
+      name,
+      email,
       ...tokens,
     };
   }
@@ -61,8 +62,11 @@ export class AuthService {
     await createUser.save();
     const tokens = await this.createTokenPair(createUser.id);
 
+    const { id, name, email } = createUser;
     return {
-      id: createUser.id,
+      id,
+      name,
+      email,
       ...tokens,
     };
   }
