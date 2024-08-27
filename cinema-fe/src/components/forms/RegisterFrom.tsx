@@ -36,7 +36,7 @@ const RegistrationForm = () => {
   const router = useRouter();
   const token = getToken();
 
-  const { userAuth, register, isLoading, error } = useAuthStore(
+  const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
   const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
@@ -44,11 +44,14 @@ const RegistrationForm = () => {
   const onSubmit = (values: RegistrationFormValues) => {
     const { name, email, password } = values;
     if (values) {
-      register({
-        name,
-        email,
-        password,
-      });
+      authenticate(
+        {
+          name,
+          email,
+          password,
+        },
+        'register'
+      );
       setIsErrorMessageShown(true);
     }
   };

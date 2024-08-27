@@ -10,4 +10,7 @@ export const routes = {
   genre: '/genre',
   cartoons: '/cartoons',
   series: '/series',
+  setting: 'profile/settings',
+  favorites: 'profile/favorites',
+  admin: 'profile/admin',
 };

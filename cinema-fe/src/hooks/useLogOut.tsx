@@ -8,7 +8,7 @@ export const useLogOut = () => {
   const currentPath = usePathname();
   const token = getToken();
   const user = isUserAuth();
-
+  console.log(user);
   const logOut = () => {
     deleteUserWhenLogout();
     const protectedPaths = ['/profile'];

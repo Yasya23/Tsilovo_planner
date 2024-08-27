@@ -1,3 +1,5 @@
+import { decryptData } from '@/utils';
+
 export const isUserAuth = (): boolean => {
   if (typeof window === 'undefined') return false;
 
@@ -5,10 +7,14 @@ export const isUserAuth = (): boolean => {
   if (!storedValue) return false;
 
   try {
-    const parsedValue = JSON.parse(storedValue);
+    const decryptedValue = decryptData(storedValue);
+    if (!decryptedValue) return false;
+    const parsedValue = JSON.parse(decryptedValue);
+    console.log(parsedValue);
+
     return Boolean(parsedValue?.state?.userAuth?.id);
   } catch (e) {
-    console.error('Failed to parse userAuth from localStorage:', e);
+    console.error('Failed to get userAuth from localStorage:', e);
     return false;
   }
 };

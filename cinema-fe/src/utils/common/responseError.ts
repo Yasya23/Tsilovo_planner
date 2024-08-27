@@ -1,5 +1,3 @@
-import Error from 'next/error';
-
 export const responseError = (error: any): string => {
   if (error?.response?.data) {
     const { data } = error.response;

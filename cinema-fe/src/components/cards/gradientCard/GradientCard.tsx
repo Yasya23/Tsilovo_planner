@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import classNames from 'classnames';
 import styles from './card.module.scss';
-import { IconType } from 'react-icons';
 import { ReactElement } from 'react';
 
 interface Props {

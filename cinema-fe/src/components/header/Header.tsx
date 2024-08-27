@@ -14,9 +14,8 @@ import LogOut from '../logOut/LogOut';
 const HeaderLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useAuthStore((state) => state.userAuth);
-  const userId = userStore((state) => state.user);
 
-  console.log(userId);
+  console.log(user);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

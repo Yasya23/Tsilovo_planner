@@ -30,12 +30,14 @@ const LoginForm = () => {
   });
   const router = useRouter();
   const token = getToken();
-  const { userAuth, login, isLoading, error } = useAuthStore((state) => state);
+  const { userAuth, authenticate, isLoading, error } = useAuthStore(
+    (state) => state
+  );
   const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: LoginFormValues) => {
     if (values) {
-      login(values);
+      authenticate(values, 'login');
       setIsErrorMessageShown(true);
     }
   };

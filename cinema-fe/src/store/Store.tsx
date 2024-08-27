@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { UserAuth, User } from '@/types/user.type';
+import { UserAuth } from '@/types/user.type';
 import {
   LoginFormValues,
   RegisterFormValues,
@@ -8,26 +8,32 @@ import {
 import { AuthService } from '@/services/auth.service';
 import { setCookies } from '@/helpers';
 import { responseError } from '@/utils';
+import { encryptData, decryptData } from '@/utils';
+
 interface UserAuthState {
   userAuth: UserAuth | undefined;
   isLoading: boolean;
   error: string | null;
-  login: (data: LoginFormValues) => Promise<void>;
-  register: (data: RegisterFormValues) => Promise<void>;
+  authenticate: (
+    data: LoginFormValues | RegisterFormValues,
+    action: 'login' | 'register'
+  ) => Promise<void>;
   logout: () => void;
 }
 
-interface UserState {
-  user: User | null;
-  set: (data: User | null) => void;
-}
-
-export const userStore = create<UserState>()((set) => ({
-  user: null,
-  set: (data: User | null) => {
-    set({ user: data });
+const encryptedStorage = {
+  getItem: (name: string) => {
+    const data = localStorage.getItem(name);
+    return data ? decryptData(data) : null;
   },
-}));
+  setItem: (name: string, value: string) => {
+    const encryptedValue = encryptData(value);
+    localStorage.setItem(name, encryptedValue);
+  },
+  removeItem: (name: string) => {
+    localStorage.removeItem(name);
+  },
+};
 
 export const useAuthStore = create<UserAuthState>()(
   persist(
@@ -35,44 +41,39 @@ export const useAuthStore = create<UserAuthState>()(
       userAuth: undefined,
       isLoading: false,
       error: null,
-      login: async (data: LoginFormValues) => {
+
+      authenticate: async (
+        data: LoginFormValues | RegisterFormValues,
+        action: 'login' | 'register'
+      ) => {
         set({ isLoading: true, error: null });
         try {
-          const user = await AuthService.login(data);
-          set({ userAuth: { id: user.data.id }, isLoading: false });
-          setCookies(user.data);
-          userStore.getState().set(user.data);
+          let user;
+          if (action === 'login') {
+            user = await AuthService.login(data as LoginFormValues);
+          }
+          if (action === 'register') {
+            user = await AuthService.register(data as RegisterFormValues);
+          }
+
+          if (user?.data) {
+            set({ userAuth: user.data, isLoading: false });
+            setCookies(user.data);
+          }
         } catch (error) {
-          console.error('Login failed:', error);
+          console.error(`Auth error: ${error}`);
           set({ isLoading: false, error: responseError(error) });
         }
       },
-      register: async (data: RegisterFormValues) => {
-        set({ isLoading: true, error: null });
-        try {
-          const user = await AuthService.register(data);
-          if (user?.data) {
-            const { data } = user;
-            set({ userAuth: { id: data.id }, isLoading: false });
-            userStore.getState().set(data);
-            setCookies(data);
-          }
-        } catch (error) {
-          console.error('Registration failed:', error);
-          set({
-            isLoading: false,
-            error: responseError(error),
-          });
-        }
-      },
+
       logout: () => {
         set({ userAuth: undefined });
-        userStore.getState().set(null);
+        localStorage.removeItem('userAuth');
       },
     }),
     {
       name: 'userAuth',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => encryptedStorage),
     }
   )
 );
