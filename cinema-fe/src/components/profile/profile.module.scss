@@ -1,7 +1,7 @@
 @import '../../styles/_mixin.scss';
 
 .wrapper {
-  padding: 10px 0 0 10px;
+  padding: 10px;
   align-self: center;
   height: 100%;
 
@@ -24,4 +24,5 @@
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }

@@ -1,14 +1,14 @@
+import { LoginForm } from '@/components/forms';
 import { Metadata } from 'next';
-import RegistrationForm from '@/components/forms/RegisterFrom';
 
 export const metadata: Metadata = {
-  title: 'Register',
+  title: 'Login',
 };
 
 export default function Page() {
   return (
     <>
-      <RegistrationForm />
+      <LoginForm />
     </>
   );
 }

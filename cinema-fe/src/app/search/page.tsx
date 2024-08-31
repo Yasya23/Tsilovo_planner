@@ -1,11 +1,7 @@
 'use client';
 
-import SearchMovies from '@/components/search/SearchMovie';
+import SearchMovies from '@/components/searchMovie/SearchMovie';
 
 export default function Page() {
-  return (
-    <div>
-      <SearchMovies />
-    </div>
-  );
+  return <SearchMovies />;
 }

@@ -3,21 +3,19 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '../input/Input';
+import Input from '@/components/input/Input';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
-import Link from 'next/link';
 import { loginSchema } from '@/utils';
 import styles from './forms.module.scss';
-import classNames from 'classnames';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
-import Spinner from '../spinner/Spinner';
+import Spinner from '@/components/spinner/Spinner';
 import { useAuthStore } from '@/store/Store';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { routes } from '@/constants/routes';
 import { getToken } from '@/helpers';
+import Layout from './Layout';
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const {
     control,
     handleSubmit,
@@ -56,15 +54,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.switchPage}>
-        <div className={classNames(styles.button, styles.disabled)}>
-          Login Page
-        </div>
-        <Link href={routes.register} className={styles.button}>
-          To Register Page
-        </Link>
-      </div>
+    <Layout>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller
           name="email"
@@ -115,7 +105,7 @@ const LoginForm = () => {
           Log In
         </button>
       </form>
-    </div>
+    </Layout>
   );
 };
 

@@ -5,7 +5,7 @@ import { FiSettings, FiBookmark, FiUser } from 'react-icons/fi';
 import { routes } from '@/constants/routes';
 import { useAuthStore } from '@/store/Store';
 import styles from './profile.module.scss';
-
+import { MessageWithToMainLink } from '../responseMessages';
 const Profile = () => {
   const user = useAuthStore((state) => state.userAuth);
 
@@ -34,6 +34,7 @@ const Profile = () => {
           icon={<FiUser />}
         />
       </div>
+      <MessageWithToMainLink message="" />
     </div>
   );
 };

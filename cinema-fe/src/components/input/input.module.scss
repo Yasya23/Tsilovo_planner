@@ -18,6 +18,13 @@
   width: 100%;
 }
 
+.label {
+  visibility: visible;
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
 .icon {
   display: flex;
   align-items: center;

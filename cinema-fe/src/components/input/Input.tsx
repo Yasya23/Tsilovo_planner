@@ -9,6 +9,7 @@ import {
   FiAlertTriangle,
   FiCheckCircle,
 } from 'react-icons/fi';
+import classNames from 'classnames';
 
 interface InputProps {
   value: string;
@@ -21,6 +22,7 @@ interface InputProps {
   hasMessages?: boolean;
   error?: string;
   hasAbilityHideValue?: boolean;
+  isLabelVisibilityHidden?: boolean;
   placeholder?: string;
 }
 
@@ -35,6 +37,7 @@ const Input = ({
   error,
   placeholder,
   hasMessages = true,
+  isLabelVisibilityHidden = false,
   hasAbilityHideValue = false,
 }: InputProps) => {
   const [fieldType, setFieldType] = useState(type);
@@ -49,8 +52,15 @@ const Input = ({
 
   return (
     <div className={styles.fieldsWrapper}>
-      <label className={styles.label}>
-        {label}
+      <label>
+        <span
+          className={classNames(
+            styles.label,
+            isLabelVisibilityHidden ? styles.hidden : ''
+          )}>
+          {label}
+        </span>
+
         {showSuccessIcon && <FiCheckCircle className={styles.successIcon} />}
         <div className={styles.inputWrapper}>
           {Icon && <Icon className={styles.icon} />}

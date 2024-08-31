@@ -3,24 +3,23 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '../input/Input';
-import Link from 'next/link';
+import Input from '@/components/input/Input';
 import { registrationSchema } from '@/utils';
-import { routes } from '@/constants/routes';
 import { useAuthStore } from '@/store/Store';
 import { RegisterFormValues } from '@/types/interfaces/loginFormValues';
 import { getToken } from '@/helpers';
-import Spinner from '../spinner/Spinner';
+import Spinner from '@/components/spinner/Spinner';
 import { useRouter } from 'next/navigation';
 import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
+import Layout from './Layout';
 import styles from './forms.module.scss';
-import classNames from 'classnames';
 import toast from 'react-hot-toast';
+
 interface RegistrationFormValues extends RegisterFormValues {
   confirmPassword: string;
 }
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const {
     control,
     handleSubmit,
@@ -69,15 +68,7 @@ const RegistrationForm = () => {
   }, [userAuth, error, token]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.switchPage}>
-        <Link href={routes.login} className={styles.button}>
-          To Login Page
-        </Link>
-        <div className={classNames(styles.button, styles.disabled)}>
-          Register Page
-        </div>
-      </div>
+    <Layout page="register">
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Controller
           name="name"
@@ -166,7 +157,7 @@ const RegistrationForm = () => {
           Register
         </button>
       </form>
-    </div>
+    </Layout>
   );
 };
 
