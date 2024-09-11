@@ -1,0 +1,13 @@
+@import '../../styles/_mixin.scss';
+
+.logo {
+  @include link-style($accent-red);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+
+  @include breakpoint-sm {
+    font-size: 1.8rem;
+  }
+}

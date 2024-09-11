@@ -1,0 +1,79 @@
+@import '_variables.scss';
+
+@mixin breakpoint-sm {
+  @media (min-width: 568px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-lg {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-xl {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin link-style(
+  $color: #ffffff,
+  $active-color: $accent-red,
+  $hover-color: #f87171
+) {
+  color: $color;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &.active {
+    color: $accent-red;
+  }
+
+  &.withIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &.buttonStyle {
+    background-color: $accent-red;
+    border-radius: 20px;
+    padding: 7px 15px;
+
+    &.outlineButton {
+      background-color: transparent;
+      border: solid 1px $accent-red;
+      color: $accent-red;
+    }
+  }
+
+  @include hover {
+    &:hover {
+      color: $accent-red-hover;
+    }
+
+    &.buttonStyle:hover {
+      background-color: $accent-red-hover;
+      color: white;
+
+      &.outlineButton {
+        background-color: $accent-red;
+      }
+    }
+  }
+}

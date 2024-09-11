@@ -1,0 +1,14 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/_mixin.scss';
+
+.footer {
+  width: 100%;
+  // background-color: $light-team-base-color;
+  color: #ffffff;
+  min-height: max-content;
+  padding: 0.625rem;
+
+  @include breakpoint-md {
+    padding: 0.625rem 2.75rem;
+  }
+}
