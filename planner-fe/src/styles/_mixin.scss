@@ -19,7 +19,7 @@
 }
 
 @mixin breakpoint-xl {
-  @media (min-width: 1400px) {
+  @media (min-width: 1200px) {
     @content;
   }
 }
@@ -31,48 +31,56 @@
 }
 
 @mixin link-style(
-  $color: #ffffff,
-  $active-color: $accent-red,
-  $hover-color: #f87171
+  $color: $light-primary-text,
+  $active-color: $accent,
+  $hover-color: $light-secondary-text
 ) {
   color: $color;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 
-  &.active {
-    color: $accent-red;
-  }
-
   &.withIcon {
+    color: $color;
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 5px;
   }
 
-  &.buttonStyle {
-    background-color: $accent-red;
-    border-radius: 20px;
-    padding: 7px 15px;
+  &.active {
+    color: $accent-secondary;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #6985ff51;
+  }
 
-    &.outlineButton {
-      background-color: transparent;
-      border: solid 1px $accent-red;
-      color: $accent-red;
-    }
+  &.buttonStyle,
+  &.outlineButton {
+    color: #ffffff;
+    background-color: $accent;
+    border-radius: 10px;
+    padding: 7px 15px;
+  }
+
+  &.outlineButton {
+    background-color: transparent;
+    border: solid 1px $accent-secondary;
+    color: $accent-secondary;
   }
 
   @include hover {
     &:hover {
-      color: $accent-red-hover;
-    }
+      color: $accent;
+      border-radius: 10px;
+      background-color: #919bcb51;
 
-    &.buttonStyle:hover {
-      background-color: $accent-red-hover;
-      color: white;
+      &.buttonStyle,
+      &.outlineButton {
+        color: #ffffff;
+        background-color: $accent-hover;
+      }
 
       &.outlineButton {
-        background-color: $accent-red;
+        background-color: $accent-secondary;
       }
     }
   }

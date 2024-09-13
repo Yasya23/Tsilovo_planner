@@ -11,8 +11,7 @@ import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { UpdateUserDto } from 'src/typing/dto';
-import { UserModel } from 'src/models/user.model';
-import { Types } from 'mongoose';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -35,27 +34,11 @@ export class UserController {
     return this.userService.getTotalCount();
   }
 
-  @Get('profile/favorites')
-  @Auth()
-  async getFavorites(@User('id') id: string) {
-    return this.userService.getFavorites(id);
-  }
-
   @Put('profile')
   @Auth()
   async update(@User('id') id: string, @Body() dto: UpdateUserDto) {
     await this.userService.update(id, dto);
     return { message: 'User profile updated successfully' };
-  }
-
-  @Put('profile/favorites')
-  @Auth()
-  async toggleFavorite(
-    @User() user: UserModel,
-    @Body('movieId') movieId: Types.ObjectId,
-  ) {
-    await this.userService.toggleFavorite(movieId, user);
-    return { message: 'User favorites updated successfully' };
   }
 
   @Put(':id')

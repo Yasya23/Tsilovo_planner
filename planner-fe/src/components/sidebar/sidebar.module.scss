@@ -1,0 +1,22 @@
+@import '../../styles/_mixin.scss';
+
+.sideBar {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 300px;
+  border-right: 1px solid #8080806d;
+  border-left: 1px solid #8080806d;
+  padding: 5px;
+  & a {
+    @include link-style;
+    padding: 5px 10px;
+
+    &.active {
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: #6985ff51;
+    }
+  }
+}

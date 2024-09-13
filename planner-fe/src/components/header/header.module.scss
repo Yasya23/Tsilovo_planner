@@ -6,17 +6,10 @@
   top: 0;
   z-index: 1;
   width: 100%;
-  background-color: #ffffff;
-  color: $accent-red;
+  background-color: $dark-secondary-bg;
+  color: $accent;
   min-height: max-content;
   padding: 0.625rem;
-
-  & hr {
-    margin-top: 10px;
-    background-color: $accent-red;
-    height: 1px;
-    border: none;
-  }
 
   @include breakpoint-md {
     padding: 0.625rem 2.75rem;
@@ -24,7 +17,7 @@
 }
 
 .wrapper {
-  max-width: 1400px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;

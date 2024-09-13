@@ -2,9 +2,9 @@ import styles from './spinner.module.scss';
 
 const Spinner = () => (
   <div className={styles.spinner}>
-    <div></div>
-    <div></div>
-    <div></div>
+    <div className={styles.circleOne}></div>
+    <div className={styles.circleTwo}></div>
+    <div className={styles.circleThree}></div>
   </div>
 );
 

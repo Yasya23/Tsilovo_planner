@@ -3,7 +3,6 @@ import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { routes } from '@/constants/routes';
-
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 
 export const metadata: Metadata = {
@@ -31,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+    <html lang="en" className={inter.className} suppressHydrationWarning={true}>
+      <body className={inter.className}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

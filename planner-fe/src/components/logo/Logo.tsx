@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <Link href={routes.home} className={styles.logo}>
       <FaRegClock />
-      ДеньПро
+      <span>День</span>Про
     </Link>
   );
 };

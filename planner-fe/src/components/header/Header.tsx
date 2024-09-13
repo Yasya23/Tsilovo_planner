@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Logo from '@/components/logo/Logo';
 import Link from 'next/link';
-import { FiMenu, FiX, FiUser } from 'react-icons/fi';
+import { FiUser } from 'react-icons/fi';
 import { useAuthStore } from '@/store/Store';
 import { routes } from '@/constants/routes';
 import styles from './header.module.scss';
@@ -16,7 +16,6 @@ const HeaderLayout = () => {
 
   const isDark = true;
 
-  console.log(user);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -56,7 +55,6 @@ const HeaderLayout = () => {
           )}
         </div>
       </div>
-      <hr />
     </header>
   );
 };

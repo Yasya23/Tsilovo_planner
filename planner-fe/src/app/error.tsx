@@ -1,9 +1,9 @@
 'use client';
 
-import { MessageWithToMainLink } from '@/components/responseMessages';
+import { BackToMain } from '@/components/buttons';
 
 const ServerError = () => {
-  return <MessageWithToMainLink message="500 | Internal Server Error" />;
+  return <BackToMain message="500 | Internal Server Error" />;
 };
 
 export default ServerError;

@@ -1,13 +1,19 @@
 @import '../../styles/_mixin.scss';
+@import '../../styles/_variables.scss';
 
 .logo {
-  @include link-style($accent-red);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   font-size: 1rem;
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  span {
+    color: $accent-secondary;
+  }
 
   @include breakpoint-sm {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 }

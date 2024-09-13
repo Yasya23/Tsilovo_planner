@@ -1,4 +1,4 @@
-import { MessageWithToMainLink } from '@/components/responseMessages';
+import { BackToMain } from '@/components/buttons';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const Custom404 = () => {
-  return <MessageWithToMainLink message="404 | Page Not Found" />;
+  return <BackToMain message="404 | Page Not Found" />;
 };
 
 export default Custom404;

@@ -1,6 +1,7 @@
 @import '../../styles/_mixin.scss';
 
 .wrapper {
+  max-width: 1400px;
   padding: 10px;
   align-self: center;
   height: 100%;
@@ -16,13 +17,4 @@
       font-size: 2rem;
     }
   }
-}
-
-.menu {
-  padding: 1.5rem 0;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
 }

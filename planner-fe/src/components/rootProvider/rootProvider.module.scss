@@ -1,0 +1,28 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/_mixin.scss';
+
+.container {
+  background-color: $light-bg;
+  color: $light-primary-text;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  min-height: inherit;
+}
+
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  gap: 10px;
+
+  @include breakpoint-md {
+    padding: 0 2.75rem;
+  }
+
+  main {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+}

@@ -4,7 +4,6 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
 import { UpdateUserDto } from 'src/typing/dto';
 import { genSalt, hash } from 'bcryptjs';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class UserService {
@@ -53,38 +52,12 @@ export class UserService {
       user.password = await hash(userDto.password, salt);
     }
     if (userDto.email) user.email = userDto.email;
-    if (!!userDto.isAdmin) user.isAdmin = userDto.isAdmin;
+    // if (!!userDto.isAdmin) user.isAdmin = true;
+
     await user.save();
   }
 
   async delete(id: string) {
     await this.userModel.findByIdAndDelete(id).exec();
-  }
-
-  async toggleFavorite(movieId: Types.ObjectId, user: UserModel) {
-    const userId = user.id;
-    const favorites: Types.ObjectId[] = user.favorites as Types.ObjectId[];
-
-    const updatedFavorites = favorites.includes(movieId)
-      ? favorites.filter((favoriteId) => favoriteId !== movieId)
-      : [...favorites, movieId];
-
-    const updatedUser = await this.userModel
-      .findByIdAndUpdate(userId, { favorites: updatedFavorites }, { new: true })
-      .exec();
-
-    return updatedUser;
-  }
-
-  async getFavorites(userId: string) {
-    const user = await this.userModel
-      .findById(userId)
-      .populate({
-        path: 'favorites',
-        model: 'MovieModel',
-        populate: { path: 'genres' },
-      })
-      .exec();
-    return user ? user.favorites : [];
   }
 }
