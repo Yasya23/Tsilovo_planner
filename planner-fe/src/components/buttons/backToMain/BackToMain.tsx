@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/Store';
 
 export const BackToMain = ({ message }: { message: string }) => {
   const user = useAuthStore((state) => state.userAuth);
+
   return (
     <div className={styles.button}>
       <p>{message}</p>
