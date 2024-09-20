@@ -15,9 +15,12 @@
   gap: 10px;
 
   .errorField {
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    height: 20px;
-    color: $accent;
+    color: $accent-red;
   }
 }
 
@@ -37,7 +40,7 @@
   padding: 15px;
   font-size: 1.2rem;
   color: #ffffff;
-  background-color: $dark-bg;
+  background-color: $accent-hover;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
@@ -49,7 +52,7 @@
   &:hover {
     @include hover;
     &:not(.disabled) {
-      background-color: #535252;
+      background-color: $accent;
     }
   }
 }

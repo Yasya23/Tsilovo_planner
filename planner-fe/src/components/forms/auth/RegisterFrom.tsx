@@ -61,7 +61,7 @@ export const RegistrationForm = () => {
 
   useEffect(() => {
     if (!error && userAuth && token) {
-      router.push('/');
+      router.push('/profile');
       toast.success('Реєстрація успішна!');
       reset();
     }
@@ -143,6 +143,9 @@ export const RegistrationForm = () => {
             />
           )}
         />
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          Реєстрація
+        </button>
         <div className={styles.errorField}>
           {isLoading ? (
             <Spinner />
@@ -152,10 +155,6 @@ export const RegistrationForm = () => {
             ''
           )}
         </div>
-
-        <button type="submit" className={styles.button} disabled={isLoading}>
-          Реєстрація
-        </button>
       </form>
     </Layout>
   );

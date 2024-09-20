@@ -42,7 +42,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (!error && userAuth && token) {
-      router.push('/');
+      router.push('/profile');
       toast.success('Вхід виконано. Ласкаво просимо!');
       reset();
     }
@@ -92,6 +92,9 @@ export const LoginForm = () => {
             />
           )}
         />
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          Увійти
+        </button>
         <div className={styles.errorField}>
           {isLoading ? (
             <Spinner />
@@ -101,9 +104,6 @@ export const LoginForm = () => {
             ''
           )}
         </div>
-        <button type="submit" className={styles.button} disabled={isLoading}>
-          Увійти
-        </button>
       </form>
     </Layout>
   );

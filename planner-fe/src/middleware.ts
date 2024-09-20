@@ -5,6 +5,10 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get('r');
 
   const isAuthenticated = !!token;
+  console.log(isAuthenticated);
+  if (isAuthenticated && request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/profile', request.url));
+  }
 
   if (
     isAuthenticated &&
@@ -29,5 +33,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/register', '/login', '/profile', '/profile/:path*'],
+  matcher: ['/', '/register', '/login', '/profile', '/profile/:path*'],
 };
