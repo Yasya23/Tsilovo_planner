@@ -4,5 +4,6 @@ export const services = {
   },
   login: '/auth/login',
   register: '/auth/register',
+  update: '/user/profile',
   token: 'auth/login/access-token',
 };

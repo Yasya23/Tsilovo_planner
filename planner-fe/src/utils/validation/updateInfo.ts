@@ -1,11 +1,7 @@
 import * as yup from 'yup';
 import { emailRegx } from './emailRegx';
 
-export const registrationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .min(3, "Ім'я користувача повинно містити не менше 3 символів")
-    .required("Ім'я користувача обов'язкове"),
+export const updateInfoSchema = yup.object().shape({
   email: yup
     .string()
     .matches(emailRegx, 'Невірна адреса електронної пошти')

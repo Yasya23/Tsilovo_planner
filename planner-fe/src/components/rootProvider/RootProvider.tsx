@@ -25,7 +25,7 @@ export const RootProvider = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  useLogOut();
+  // useLogOut();
   const [queryClient] = useState(createQueryClient);
   const pathname = usePathname();
 
@@ -47,11 +47,12 @@ export const RootProvider = ({
         </div>
       </QueryClientProvider>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
+          duration: 7000,
           style: {
             width: '350px',
-            height: '50px',
+            height: '70px',
             maxWidth: '100%',
           },
         }}

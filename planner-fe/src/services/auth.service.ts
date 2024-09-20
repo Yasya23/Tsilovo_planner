@@ -6,6 +6,7 @@ import {
   RegisterFormValues,
 } from '@/types/interfaces/loginFormValues';
 import { getToken } from '@/helpers';
+import instance from '@/api/interceptors';
 
 export const AuthService = {
   async login({ email, password }: LoginFormValues) {
@@ -23,9 +24,16 @@ export const AuthService = {
     });
   },
 
+  async update({ email, password }: LoginFormValues) {
+    return await axiosClassic.put<User>(services.update, {
+      email,
+      password,
+    });
+  },
+
   async getTokens(): Promise<User> {
     const refreshToken = getToken();
-    const response = await axiosClassic.post<User>(services.token, {
+    const response = await instance.post<User>(services.token, {
       refreshToken,
     });
     return response.data;

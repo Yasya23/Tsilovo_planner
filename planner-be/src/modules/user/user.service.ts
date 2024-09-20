@@ -36,14 +36,20 @@ export class UserService {
     return user;
   }
 
-  async update(id: string, userDto: UpdateUserDto) {
-    const user = await this.userModel.findById(id);
+  async update(userId: string, userDto: UpdateUserDto) {
+    const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
     const isEmailUnique = await this.userModel.findOne({
       email: userDto.email,
     });
-    if (userDto.email && isEmailUnique && id === isEmailUnique.id) {
+    const isEmailTheSame = userDto.email === user.email;
+    if (
+      userDto.email &&
+      !isEmailTheSame &&
+      isEmailUnique &&
+      userId === isEmailUnique.id
+    ) {
       throw new NotFoundException('This email address is already used');
     }
     if (userDto.password) {
@@ -51,10 +57,16 @@ export class UserService {
       const salt = await genSalt(numberForSaltGenerator);
       user.password = await hash(userDto.password, salt);
     }
-    if (userDto.email) user.email = userDto.email;
-    // if (!!userDto.isAdmin) user.isAdmin = true;
+    if (userDto.email && !isEmailTheSame) user.email = userDto.email;
+    if (!!userDto.isAdmin) user.isAdmin = true;
 
     await user.save();
+    const { id, name, email } = user;
+    return {
+      id,
+      name,
+      email,
+    };
   }
 
   async delete(id: string) {

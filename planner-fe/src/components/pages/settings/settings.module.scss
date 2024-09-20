@@ -1,0 +1,16 @@
+@import '../../../styles/_variables.scss';
+
+.wrapper {
+  padding: 15px;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.block {
+  border: 1px solid $dark-secondary-text;
+  border-radius: 10px;
+  padding: 10px 15px;
+  width: 350px;
+}

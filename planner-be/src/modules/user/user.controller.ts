@@ -2,10 +2,10 @@ import {
   Controller,
   Get,
   Body,
-  Put,
   Param,
   Delete,
   Query,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
@@ -37,8 +37,7 @@ export class UserController {
   @Put('profile')
   @Auth()
   async update(@User('id') id: string, @Body() dto: UpdateUserDto) {
-    await this.userService.update(id, dto);
-    return { message: 'User profile updated successfully' };
+    return await this.userService.update(id, dto);
   }
 
   @Put(':id')

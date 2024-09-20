@@ -1,7 +1,5 @@
 import * as yup from 'yup';
-
-export const emailRegx =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+import { emailRegx } from './emailRegx';
 
 export const loginSchema = yup.object().shape({
   email: yup

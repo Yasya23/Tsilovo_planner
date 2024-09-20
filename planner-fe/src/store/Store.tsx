@@ -16,7 +16,7 @@ interface UserAuthState {
   error: string | null;
   authenticate: (
     data: LoginFormValues | RegisterFormValues,
-    action: 'login' | 'register'
+    action: 'login' | 'register' | 'update'
   ) => Promise<void>;
   logout: () => void;
 }
@@ -44,7 +44,7 @@ export const useAuthStore = create<UserAuthState>()(
 
       authenticate: async (
         data: LoginFormValues | RegisterFormValues,
-        action: 'login' | 'register'
+        action: 'login' | 'register' | 'update'
       ) => {
         set({ isLoading: true, error: null });
         try {
@@ -55,10 +55,13 @@ export const useAuthStore = create<UserAuthState>()(
           if (action === 'register') {
             user = await AuthService.register(data as RegisterFormValues);
           }
+          if (action === 'update') {
+            user = await AuthService.update(data as LoginFormValues);
+          }
 
           if (user?.data) {
             set({ userAuth: user.data, isLoading: false });
-            setCookies(user.data);
+            if (action !== 'update') setCookies(user.data);
           }
         } catch (error) {
           console.error(`Auth error: ${error}`);

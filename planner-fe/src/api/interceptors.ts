@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { getToken } from '@/helpers';
 import { responseError } from '@/utils';
 import { deleteCookies, setCookies } from '@/helpers';
 import { AuthService } from '@/services/auth.service';
@@ -16,8 +16,9 @@ const instance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-instance.interceptors.request.use((config) => {
-  const accessToken = Cookies.get('a');
+axiosClassic.interceptors.request.use((config) => {
+  const accessToken = getToken();
+
   if (config.headers && accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -38,6 +39,7 @@ instance.interceptors.response.use(
       originalRequest &&
       !originalRequest._retry
     ) {
+      console.error(11);
       originalRequest._retry = true;
       try {
         const newTokens = await AuthService.getTokens();
@@ -49,7 +51,6 @@ instance.interceptors.response.use(
         ] = `Bearer ${accessToken}`;
 
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-
         return instance(originalRequest);
       } catch (refreshError) {
         if (responseError(refreshError) === 'jwt expired') {

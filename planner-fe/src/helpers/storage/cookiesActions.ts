@@ -2,15 +2,15 @@ import Cookies from 'js-cookie';
 import { User } from '@/types/user.type';
 
 export const setCookies = ({ refreshToken, accessToken }: User) => {
-  Cookies.set('a', accessToken);
-  Cookies.set('r', refreshToken);
+  Cookies.set('accessToken', accessToken);
+  Cookies.set('refreshToken', refreshToken);
 };
 
 export const deleteCookies = () => {
-  Cookies.remove('a');
-  Cookies.remove('r');
+  Cookies.remove('accessToken');
+  Cookies.remove('refreshToken');
 };
 
 export const getToken = () => {
-  return Cookies.get('a');
+  return Cookies.get('accessToken');
 };
