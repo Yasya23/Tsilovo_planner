@@ -22,7 +22,7 @@ export class TaskController {
   @Auth()
   async getAll(
     @User('id') userId: string,
-    @Query() query: { status?: string; dueDate?: string },
+    @Query() query: { group?: string; dueDate: string },
   ) {
     return this.taskService.getAll(userId, query);
   }

@@ -1,37 +1,49 @@
 @import '../../../styles/_mixin.scss';
 
 .container {
+  display: flex;
+  justify-content: space-between;
   height: 100%;
-  padding: 15px;
+}
+
+.tasksContainer {
   border-right: 1px solid $dark-secondary-text;
+  padding: 15px;
+  flex-grow: 1;
+
   @include breakpoint-lg {
-    max-width: 80%;
+    max-width: 75%;
+  }
+  .tasksWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    .arrowButtons {
+      display: flex;
+      gap: 15px;
+    }
+    button {
+      @include link-style;
+    }
+
+    .day {
+      font-weight: 600;
+      font-size: 1.5rem;
+
+      span {
+        color: $light-secondary-text;
+      }
+    }
+
+    @include breakpoint-lg {
+    }
   }
 }
 
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-
-  .arrowButtons {
-    display: flex;
-    gap: 15px;
-  }
-  button {
-    @include link-style;
-  }
-
-  .day {
-    font-weight: 600;
-    font-size: 1.5rem;
-
-    span {
-      color: $light-secondary-text;
-    }
-  }
-
-  @include breakpoint-lg {
-  }
+.asideContainer {
+  border-right: 1px solid $dark-secondary-text;
+  width: 250px;
+  height: 100%;
 }

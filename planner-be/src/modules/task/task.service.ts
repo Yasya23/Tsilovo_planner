@@ -6,8 +6,8 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 
 interface TaskQueryFilters {
   userId: string;
-  status?: string;
-  dueDate?: Date;
+  dueDate: string;
+  group?: string;
 }
 
 @Injectable()
@@ -16,25 +16,18 @@ export class TaskService {
     @InjectModel(TaskModel) private readonly taskModel: ModelType<TaskModel>,
   ) {}
 
-  async getAll(userId: string, query: { dueDate?: string }) {
-    const whereConditions: TaskQueryFilters = { userId };
+  async getAll(userId: string, query: { dueDate: string; group?: string }) {
+    const filter: TaskQueryFilters = { userId, dueDate: query.dueDate };
 
-    // if (query.dueDate) {
-    //   const parsedDueDate = new Date(query.dueDate);
-    //   if (!isNaN(parsedDueDate.getTime())) {
-    //     whereConditions.dueDate = parsedDueDate;
-    //   } else {
-    //     throw new Error('Invalid dueDate format');
-    //   }
-    // } else {
-    //   whereConditions.dueDate = new Date();
-    // }
+    if (query.group) {
+      filter.group = query.group;
+    }
 
-    const tasks = await this.taskModel.find(whereConditions).exec();
-    return tasks;
+    return await this.taskModel.find(filter).exec();
   }
 
   async create(userId: string, dto: TaskDto) {
+    console.log(userId);
     const task = new this.taskModel({ ...dto, userId });
     await task.save();
 

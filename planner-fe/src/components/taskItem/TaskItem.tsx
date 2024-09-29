@@ -7,14 +7,14 @@ import { Task } from '@/types/interfaces/task';
 
 interface TaskItemProps {
   task: Task;
-  onEdit?: (id: string) => void;
-  onDelete?: (id: string) => void;
+  onEdit?: (_id: string) => void;
+  onDelete?: (_id: string) => void;
 }
 
 const TaskItem: FC<TaskItemProps> = ({ task, onEdit, onDelete }) => {
   const [editTask, setEditTask] = useState(false);
   const [isChecked, setIsChecked] = useState(task.isCompleted);
-  const { priority = '', id } = task;
+  const { priority = '', _id } = task;
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -24,11 +24,11 @@ const TaskItem: FC<TaskItemProps> = ({ task, onEdit, onDelete }) => {
       className={styles.taskItem}
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.setData('taskId', task.id);
+        e.dataTransfer.setData('taskId', task._id);
       }}>
-      <label htmlFor={id} className={styles.checkbox}>
+      <label htmlFor={_id} className={styles.checkbox}>
         <input
-          id={id}
+          id={_id}
           type="checkbox"
           checked={!!isChecked}
           onChange={handleCheckboxChange}
@@ -48,7 +48,7 @@ const TaskItem: FC<TaskItemProps> = ({ task, onEdit, onDelete }) => {
         )}
         <button
           className={styles.deleteButton}
-          onClick={() => onDelete(task.id)}
+          onClick={() => onDelete(task._id)}
           title="Видалити">
           <FaTrash />
         </button>

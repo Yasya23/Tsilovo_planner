@@ -2,12 +2,7 @@ import { useState } from 'react';
 import Input from '@/components/input/Input';
 import styles from './manageTask.module.scss';
 import classNames from 'classnames';
-
-interface Task {
-  id: string;
-  title: string;
-  priority: string;
-}
+import { Task } from '@/types/interfaces/task';
 
 interface ManageTaskModalProps {
   task?: Task;

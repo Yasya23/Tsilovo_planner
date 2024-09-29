@@ -20,6 +20,7 @@
   height: 100%;
   width: 10px;
   border-radius: 8px 0 0 8px;
+  background-color: $dark-secondary-text;
 
   &.low {
     background-color: $low-priority;
