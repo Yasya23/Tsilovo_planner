@@ -12,11 +12,12 @@ import { encryptData, decryptData } from '@/utils';
 
 interface UserAuthState {
   userAuth: User | undefined;
+  anonimUser: boolean;
   isLoading: boolean;
   error: string | null;
   authenticate: (
-    data: LoginFormValues | RegisterFormValues,
-    action: 'login' | 'register' | 'update'
+    data: LoginFormValues | RegisterFormValues | null,
+    action: 'login' | 'register' | 'update' | 'anonimUser'
   ) => Promise<void>;
   logout: () => void;
 }
@@ -39,12 +40,13 @@ export const useAuthStore = create<UserAuthState>()(
   persist(
     (set) => ({
       userAuth: undefined,
+      anonimUser: false,
       isLoading: false,
       error: null,
 
       authenticate: async (
-        data: LoginFormValues | RegisterFormValues,
-        action: 'login' | 'register' | 'update'
+        data: LoginFormValues | RegisterFormValues | null,
+        action: 'login' | 'register' | 'update' | 'anonimUser'
       ) => {
         set({ isLoading: true, error: null });
         try {
@@ -58,10 +60,27 @@ export const useAuthStore = create<UserAuthState>()(
           if (action === 'update') {
             user = await AuthService.update(data as LoginFormValues);
           }
-
+          if (action === 'anonimUser') {
+            user = {
+              data: {
+                id: 'anonimUser',
+                name: 'Guest',
+                email: '1',
+                refreshToken: 'anonim',
+                accessToken: 'anonim',
+              },
+            };
+          }
           if (user?.data) {
-            set({ userAuth: user.data, isLoading: false });
-            if (action !== 'update') setCookies(user.data);
+            const isAnonim = action === 'anonimUser';
+            set({
+              userAuth: user.data,
+              anonimUser: isAnonim,
+              isLoading: false,
+            });
+            if (action !== 'update') {
+              setCookies(user.data);
+            }
           }
         } catch (error) {
           console.error(`Auth error: ${error}`);
@@ -70,7 +89,7 @@ export const useAuthStore = create<UserAuthState>()(
       },
 
       logout: () => {
-        set({ userAuth: undefined });
+        set({ userAuth: undefined, anonimUser: false });
         localStorage.removeItem('userAuth');
       },
     }),
@@ -80,16 +99,3 @@ export const useAuthStore = create<UserAuthState>()(
     }
   )
 );
-
-interface ThemeState {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
-export const useThemeStore = create<ThemeState>((set) => ({
-  isDarkMode: false,
-  toggleDarkMode: () =>
-    set((state) => ({
-      isDarkMode: !state.isDarkMode,
-    })),
-}));

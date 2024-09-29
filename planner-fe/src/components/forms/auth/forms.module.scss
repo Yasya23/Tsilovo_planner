@@ -6,6 +6,8 @@
   width: 600px;
   max-width: 100%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form {
@@ -33,6 +35,10 @@
   }
 }
 
+.buttonOutline {
+  @include link-style();
+}
+
 .button {
   text-align: center;
   width: 100%;
@@ -43,6 +49,10 @@
   background-color: $accent-hover;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+
+  &.rounded {
+    border-radius: 5px;
+  }
 
   &.disabled {
     background-color: $dark-primary-text;

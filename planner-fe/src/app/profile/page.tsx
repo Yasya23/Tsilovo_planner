@@ -1,5 +1,5 @@
-import Profile from '@/components/profile/Profile';
+import PlannerMain from '@/components/pages/plannerMain/PlannerMain';
 
 export default function Page() {
-  return <Profile />;
+  return <PlannerMain />;
 }

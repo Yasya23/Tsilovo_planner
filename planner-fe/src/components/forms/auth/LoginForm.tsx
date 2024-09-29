@@ -9,11 +9,12 @@ import { loginSchema } from '@/utils';
 import styles from './forms.module.scss';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
 import Spinner from '@/components/spinner/Spinner';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getToken } from '@/helpers';
 import Layout from './Layout';
+import classNames from 'classnames';
 
 export const LoginForm = () => {
   const {
@@ -28,7 +29,7 @@ export const LoginForm = () => {
   });
   const router = useRouter();
   const token = getToken();
-  const { userAuth, authenticate, isLoading, error } = useAuthStore(
+  const { userAuth, authenticate, isLoading, error, anonimUser } = useAuthStore(
     (state) => state
   );
   const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
@@ -41,12 +42,13 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (!error && userAuth && token) {
+    if (!error && userAuth && (token || anonimUser)) {
+      console.log(1);
       router.push('/profile');
       toast.success('Вхід виконано. Ласкаво просимо!');
       reset();
     }
-  }, [userAuth, error, token]);
+  }, [userAuth, error, token, anonimUser]);
 
   const handleOnFocus = (entity: 'email' | 'password') => {
     setIsErrorMessageShown(false);
@@ -105,6 +107,13 @@ export const LoginForm = () => {
           )}
         </div>
       </form>
+      <button
+        type="button"
+        className={classNames(styles.buttonOutline, styles.outlineButton)}
+        disabled={isLoading}
+        onClick={() => authenticate(null, 'anonimUser')}>
+        Увійти як анонімний юзер
+      </button>
     </Layout>
   );
 };

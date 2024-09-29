@@ -62,6 +62,10 @@
   outline: none;
   transition: border-color 0.3s ease;
 
+  &.noIcon {
+    padding-left: 0.5rem;
+  }
+
   &:focus {
     border-color: #0010f3;
     box-shadow: 0 0 3px #0010f380;

@@ -1,6 +1,6 @@
 import { decryptData } from '@/utils';
 
-export const isUserAuth = (): boolean => {
+export const isUserAuth = (isAnonim = false): boolean => {
   if (typeof window === 'undefined') return false;
 
   const storedValue = window.localStorage.getItem('userAuth');
@@ -11,7 +11,11 @@ export const isUserAuth = (): boolean => {
     if (!decryptedValue) return false;
     const parsedValue = JSON.parse(decryptedValue);
 
-    return Boolean(parsedValue?.state?.userAuth?.id);
+    if (isAnonim) {
+      return Boolean(parsedValue?.state?.userAuth?.id === 'anonimUser');
+    } else {
+      return Boolean(parsedValue?.state?.userAuth?.id);
+    }
   } catch (e) {
     console.error('Failed to get userAuth from localStorage:', e);
     return false;

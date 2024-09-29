@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@/components/input/Input';
 import { registrationSchema } from '@/utils';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 import { RegisterFormValues } from '@/types/interfaces/loginFormValues';
 import { getToken } from '@/helpers';
 import Spinner from '@/components/spinner/Spinner';

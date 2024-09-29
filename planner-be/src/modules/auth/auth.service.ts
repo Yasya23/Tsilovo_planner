@@ -17,10 +17,13 @@ export class AuthService {
   ) {}
 
   async login(loginDto: AuthDto) {
-    const user = await this.userModel.findOne({
-      email: loginDto.email,
-    });
+    const user = await this.userModel
+      .findOne({
+        email: loginDto.email,
+      })
+      .exec();
 
+    console.log(user);
     if (!user) {
       throw new UnauthorizedException("User with this email doesn't found");
     }

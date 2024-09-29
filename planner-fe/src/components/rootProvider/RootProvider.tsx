@@ -6,10 +6,9 @@ import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
 import Sidebar from '@/components/sidebar/Sidebar';
 import { Toaster } from 'react-hot-toast';
-import useLogOut from '@/hooks/useLogOut';
 import { usePathname } from 'next/navigation';
 import styles from './rootProvider.module.scss';
-import { useThemeStore } from '@/store/Store';
+
 const createQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
@@ -25,13 +24,8 @@ export const RootProvider = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  // useLogOut();
   const [queryClient] = useState(createQueryClient);
   const pathname = usePathname();
-
-  const isDarkMode = useThemeStore((state) => state.isDarkMode);
-
-  const isDark = true;
 
   const showSidebar =
     pathname === '/profile' || pathname.startsWith('/profile/');
@@ -42,8 +36,7 @@ export const RootProvider = ({
       <QueryClientProvider client={queryClient}>
         <div className={styles.wrapper}>
           {showSidebar && <Sidebar />}
-
-          <main className={isDark ? styles.darkTheme : ''}>{children}</main>
+          <main>{children}</main>
         </div>
       </QueryClientProvider>
       <Toaster

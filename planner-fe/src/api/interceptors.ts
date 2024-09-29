@@ -39,7 +39,6 @@ instance.interceptors.response.use(
       originalRequest &&
       !originalRequest._retry
     ) {
-      console.error(11);
       originalRequest._retry = true;
       try {
         const newTokens = await AuthService.getTokens();

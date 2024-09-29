@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@/components/input/Input';
 import { updateInfoSchema } from '@/utils';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 
 import { getToken } from '@/helpers';
 import Spinner from '@/components/spinner/Spinner';
@@ -13,6 +13,7 @@ import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
 import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
+import classNames from 'classnames';
 
 interface FormValues extends LoginFormValues {
   confirmPassword: string;
@@ -33,9 +34,11 @@ export const UpdateInfo = () => {
   const password = watch('password');
   const token = getToken();
   const [successUpdate, setSuccessUpdate] = useState(false);
+
   const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
+
   const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: FormValues) => {
@@ -125,7 +128,10 @@ export const UpdateInfo = () => {
             />
           )}
         />
-        <button type="submit" className={styles.button} disabled={isLoading}>
+        <button
+          type="submit"
+          className={classNames(styles.button, styles.rounded)}
+          disabled={isLoading}>
           Оновити
         </button>
         <div className={styles.errorField}>

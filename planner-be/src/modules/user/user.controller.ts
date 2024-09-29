@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
 import { UpdateUserDto } from 'src/typing/dto';
+import { ObjectId } from 'mongoose';
 
 @Controller('user')
 export class UserController {
@@ -25,6 +26,7 @@ export class UserController {
   @Get('profile')
   @Auth()
   async getUserProfile(@User('id') id: string) {
+    console.log(id);
     return this.userService.getByID(id);
   }
 

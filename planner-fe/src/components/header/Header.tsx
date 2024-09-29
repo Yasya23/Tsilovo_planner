@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Logo from '@/components/logo/Logo';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 import { routes } from '@/constants/routes';
 import styles from './header.module.scss';
 import classNames from 'classnames';

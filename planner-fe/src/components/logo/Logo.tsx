@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 import { routes } from '@/constants/routes';
 import { FaRegClock } from 'react-icons/fa';
 import styles from './logo.module.scss';

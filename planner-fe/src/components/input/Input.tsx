@@ -1,8 +1,4 @@
-'use client';
-
-import { useState, FocusEvent } from 'react';
-import styles from './input.module.scss';
-import { IconType } from 'react-icons';
+import React, { useState, forwardRef } from 'react';
 import {
   FiEye,
   FiEyeOff,
@@ -10,12 +6,14 @@ import {
   FiCheckCircle,
 } from 'react-icons/fi';
 import classNames from 'classnames';
+import styles from './input.module.scss';
+import { IconType } from 'react-icons';
 
 interface InputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   icon?: IconType;
   type?: string;
   label?: string;
@@ -26,84 +24,90 @@ interface InputProps {
   placeholder?: string;
 }
 
-const Input = ({
-  value,
-  onChange,
-  onFocus,
-  onBlur,
-  type = 'text',
-  icon: Icon,
-  label,
-  error,
-  placeholder,
-  hasMessages = true,
-  isLabelVisibilityHidden = false,
-  hasAbilityHideValue = false,
-}: InputProps) => {
-  const [fieldType, setFieldType] = useState(type);
-  const [isFocused, setIsFocused] = useState(false);
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      value,
+      onChange,
+      onFocus,
+      onBlur,
+      type = 'text',
+      icon: Icon,
+      label,
+      error,
+      placeholder,
+      hasMessages = true,
+      isLabelVisibilityHidden = false,
+      hasAbilityHideValue = false,
+    },
+    ref
+  ) => {
+    const [fieldType, setFieldType] = useState(type);
+    const [isFocused, setIsFocused] = useState(false);
 
-  const toggleVisibility = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setFieldType((prevType) => (prevType === 'password' ? 'text' : 'password'));
-  };
+    const toggleVisibility = (e: React.MouseEvent) => {
+      e.preventDefault();
+      setFieldType((prevType) =>
+        prevType === 'password' ? 'text' : 'password'
+      );
+    };
 
-  const showSuccessIcon = hasMessages && !isFocused && !error && value;
+    const showSuccessIcon = hasMessages && !isFocused && !error && value;
 
-  return (
-    <div className={styles.fieldsWrapper}>
-      <label>
-        <span
-          className={classNames(
-            styles.label,
-            isLabelVisibilityHidden ? styles.hidden : ''
-          )}>
-          {label}
-        </span>
+    return (
+      <div className={styles.fieldsWrapper}>
+        <label>
+          <span
+            className={classNames(
+              styles.label,
+              isLabelVisibilityHidden ? styles.hidden : ''
+            )}>
+            {label}
+          </span>
 
-        {showSuccessIcon && <FiCheckCircle className={styles.successIcon} />}
-        <div className={styles.inputWrapper}>
-          {Icon && <Icon className={styles.icon} />}
-          <input
-            type={fieldType}
-            value={value}
-            onChange={onChange}
-            onFocus={(e) => {
-              if (!onFocus) return;
-              setIsFocused(true);
-              onFocus(e);
-            }}
-            onBlur={(e) => {
-              if (!onBlur) return;
-              setIsFocused(false);
-              onBlur(e);
-            }}
-            placeholder={placeholder}
-            className={styles.input}
-          />
-          {hasAbilityHideValue && (
-            <div
-              role="button"
-              onClick={toggleVisibility}
-              className={styles.eyeIcon}>
-              {fieldType === 'password' ? <FiEyeOff /> : <FiEye />}
-            </div>
-          )}
-        </div>
-      </label>
+          {showSuccessIcon && <FiCheckCircle className={styles.successIcon} />}
+          <div className={styles.inputWrapper}>
+            {Icon && <Icon className={styles.icon} />}
+            <input
+              type={fieldType}
+              value={value}
+              onChange={onChange}
+              onFocus={(e) => {
+                setIsFocused(true);
+                if (onFocus) onFocus(e);
+              }}
+              onBlur={(e) => {
+                setIsFocused(false);
+                if (onBlur) onBlur(e);
+              }}
+              placeholder={placeholder}
+              className={classNames(styles.input, Icon ? '' : styles.noIcon)}
+              ref={ref} // Передаем реф в input
+            />
+            {hasAbilityHideValue && (
+              <div
+                role="button"
+                onClick={toggleVisibility}
+                className={styles.eyeIcon}>
+                {fieldType === 'password' ? <FiEyeOff /> : <FiEye />}
+              </div>
+            )}
+          </div>
+        </label>
 
-      {hasMessages && (
-        <div className={styles.messageField}>
-          {error && (
-            <p className={styles.error}>
-              <FiAlertTriangle />
-              {error}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+        {hasMessages && (
+          <div className={styles.messageField}>
+            {error && (
+              <p className={styles.error}>
+                <FiAlertTriangle />
+                {error}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
 export default Input;

@@ -4,6 +4,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
 import { UpdateUserDto } from 'src/typing/dto';
 import { genSalt, hash } from 'bcryptjs';
+import { ObjectId } from 'mongoose';
 
 @Injectable()
 export class UserService {
@@ -31,7 +32,7 @@ export class UserService {
   }
 
   async getByID(id: string) {
-    const user = await this.userModel.findById(id).populate('favorites').exec();
+    const user = await this.userModel.findById(id).exec();
     if (!user) throw new NotFoundException('User not found');
     return user;
   }

@@ -3,7 +3,7 @@
 import styles from './button.module.scss';
 import Link from 'next/link';
 import { routes } from '@/constants/routes';
-import { useAuthStore } from '@/store/Store';
+import { useAuthStore } from '@/store/AuthStore';
 
 export const BackToMain = ({ message }: { message: string }) => {
   const user = useAuthStore((state) => state.userAuth);
