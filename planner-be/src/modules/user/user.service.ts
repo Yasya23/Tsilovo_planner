@@ -4,32 +4,12 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
 import { UpdateUserDto } from 'src/typing/dto';
 import { genSalt, hash } from 'bcryptjs';
-import { ObjectId } from 'mongoose';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
   ) {}
-
-  async getTotalCount() {
-    return this.userModel.find().count().exec();
-  }
-
-  async getAll(query: string) {
-    let options = {};
-
-    if (query) {
-      options = {
-        $or: [{ email: new RegExp(query, 'i') }],
-      };
-    }
-    return this.userModel
-      .find(options)
-      .select('-password -v')
-      .sort({ createdAt: 'desc' })
-      .exec();
-  }
 
   async getByID(id: string) {
     const user = await this.userModel.findById(id).exec();
@@ -59,6 +39,7 @@ export class UserService {
       user.password = await hash(userDto.password, salt);
     }
     if (userDto.email && !isEmailTheSame) user.email = userDto.email;
+    if (userDto.name) user.name = userDto.name;
     if (!!userDto.isAdmin) user.isAdmin = true;
 
     await user.save();

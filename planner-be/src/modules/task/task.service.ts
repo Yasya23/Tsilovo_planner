@@ -7,7 +7,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 interface TaskQueryFilters {
   userId: string;
   dueDate: string;
-  group?: string;
+  goals?: string;
 }
 
 @Injectable()
@@ -16,18 +16,17 @@ export class TaskService {
     @InjectModel(TaskModel) private readonly taskModel: ModelType<TaskModel>,
   ) {}
 
-  async getAll(userId: string, query: { dueDate: string; group?: string }) {
+  async getAll(userId: string, query: { dueDate: string; goals?: string }) {
     const filter: TaskQueryFilters = { userId, dueDate: query.dueDate };
 
-    if (query.group) {
-      filter.group = query.group;
+    if (query.goals) {
+      filter.goals = query.goals;
     }
 
     return await this.taskModel.find(filter).exec();
   }
 
   async create(userId: string, dto: TaskDto) {
-    console.log(userId);
     const task = new this.taskModel({ ...dto, userId });
     await task.save();
 
