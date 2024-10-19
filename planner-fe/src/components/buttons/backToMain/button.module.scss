@@ -12,11 +12,17 @@
   flex-direction: column;
   align-self: center;
 
+  p {
+    margin-bottom: 20px;
+  }
+
   span {
     margin-left: 0.5rem;
   }
 
   a {
     @include link-style();
+    width: 250px;
+    text-align: center;
   }
 }

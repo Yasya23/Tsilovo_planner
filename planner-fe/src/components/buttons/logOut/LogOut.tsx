@@ -1,7 +1,10 @@
-import styles from './logout.module.scss';
-import classNames from 'classnames';
+'use client';
+
 import useLogOut from '@/hooks/useLogOut';
 import { FiLogOut } from 'react-icons/fi';
+import classNames from 'classnames';
+
+import styles from './logout.module.scss';
 
 export const LogOut = () => {
   const { logOut } = useLogOut();

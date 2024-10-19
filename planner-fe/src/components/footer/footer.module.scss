@@ -6,6 +6,8 @@
   background-color: $dark-secondary-bg;
   min-height: max-content;
   padding: 0.625rem;
+  text-align: center;
+  color: $dark-primary-text;
 
   @include breakpoint-md {
     padding: 0.625rem 2.75rem;

@@ -3,18 +3,17 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '@/components/input/Input';
+import { Input, Spinner, Button } from '@/components';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { loginSchema } from '@/utils';
-import styles from './forms.module.scss';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
-import Spinner from '@/components/spinner/Spinner';
 import { useAuthStore } from '@/store/AuthStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getToken } from '@/helpers';
 import Layout from './Layout';
-import classNames from 'classnames';
+
+import styles from './forms.module.scss';
 
 export const LoginForm = () => {
   const {
@@ -29,7 +28,7 @@ export const LoginForm = () => {
   });
   const router = useRouter();
   const token = getToken();
-  const { userAuth, authenticate, isLoading, error, anonimUser } = useAuthStore(
+  const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
   const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
@@ -42,13 +41,12 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (!error && userAuth && (token || anonimUser)) {
-      console.log(1);
+    if (!error && userAuth && token) {
       router.push('/profile');
       toast.success('Вхід виконано. Ласкаво просимо!');
       reset();
     }
-  }, [userAuth, error, token, anonimUser]);
+  }, [userAuth, error, token]);
 
   const handleOnFocus = (entity: 'email' | 'password') => {
     setIsErrorMessageShown(false);
@@ -94,9 +92,15 @@ export const LoginForm = () => {
             />
           )}
         />
-        <button type="submit" className={styles.button} disabled={isLoading}>
+        <Button
+          type="submit"
+          className="buttonAuth"
+          disabled={isLoading}
+          name="Увійти"
+        />
+        {/* <button type="submit" className={styles.button} disabled={isLoading}>
           Увійти
-        </button>
+        </button> */}
         <div className={styles.errorField}>
           {isLoading ? (
             <Spinner />
@@ -107,13 +111,6 @@ export const LoginForm = () => {
           )}
         </div>
       </form>
-      <button
-        type="button"
-        className={classNames(styles.buttonOutline, styles.outlineButton)}
-        disabled={isLoading}
-        onClick={() => authenticate(null, 'anonimUser')}>
-        Увійти як анонімний юзер
-      </button>
     </Layout>
   );
 };

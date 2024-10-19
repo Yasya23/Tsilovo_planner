@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  const protectedPaths = ['/profile', '/profile/:path*'];
+  const protectedPaths = ['/profile/settings'];
   const isProtectedPath = protectedPaths.some((path) =>
     new RegExp(`^${path.replace(/:\w+\*/g, '.*')}$`).test(
       request.nextUrl.pathname
@@ -35,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/register', '/login', '/profile', '/profile/:path*'],
+  matcher: ['/', '/register', '/login'],
 };

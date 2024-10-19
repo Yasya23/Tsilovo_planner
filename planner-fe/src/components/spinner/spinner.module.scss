@@ -1,6 +1,8 @@
 @import '../../styles/_variables.scss';
 
 .spinner {
+  align-self: center;
+  justify-self: center;
   display: flex;
   align-items: center;
   justify-content: center;

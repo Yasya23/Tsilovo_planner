@@ -10,7 +10,7 @@ interface TaskState {
   setTasks: () => void;
 }
 
-const useTaskStore = create<TaskState>((set) => ({
+export const useTaskStore = create<TaskState>((set) => ({
   tasks: null,
 
   addTask: async (task: any) => {

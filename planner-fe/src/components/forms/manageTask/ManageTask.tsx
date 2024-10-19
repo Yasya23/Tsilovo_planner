@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import Input from '@/components/input/Input';
 import styles from './manageTask.module.scss';
@@ -12,7 +14,7 @@ interface ManageTaskModalProps {
   onClose: () => void;
 }
 
-const ManageTaskModal = ({
+export const ManageTask = ({
   action,
   task,
   heading,
@@ -91,4 +93,4 @@ const ManageTaskModal = ({
   );
 };
 
-export default ManageTaskModal;
+export default ManageTask;

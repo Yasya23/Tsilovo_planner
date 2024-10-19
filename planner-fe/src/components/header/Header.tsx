@@ -1,16 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import Logo from '@/components/logo/Logo';
+import { Logo, LogOut } from '@/components';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
 import { useAuthStore } from '@/store/AuthStore';
 import { routes } from '@/constants/routes';
+
 import styles from './header.module.scss';
 import classNames from 'classnames';
-import LogOut from '../logOut/LogOut';
 
-const HeaderLayout = () => {
+export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useAuthStore((state) => state.userAuth);
 
@@ -29,29 +29,20 @@ const HeaderLayout = () => {
         </button> */}
         <Logo />
         <div className={styles.linksWrapper}>
-          {user && (
-            <Link
-              href={routes.profile}
-              className={classNames(styles.buttonStyle, styles.withIcon)}>
-              <FiUser size={20} /> Профіль
-            </Link>
-          )}
+          <Link
+            href={routes.profile}
+            className={classNames(styles.buttonStyle, styles.withIcon)}>
+            <FiUser size={20} /> Планувальник
+          </Link>
+
           {user ? (
             <LogOut />
           ) : (
-            <>
-              <Link href={routes.register} className={styles.buttonStyle}>
-                Реєстрація
-              </Link>
-              <Link
-                href={routes.login}
-                className={classNames(
-                  styles.buttonStyle,
-                  styles.outlineButton
-                )}>
-                Увійти
-              </Link>
-            </>
+            <Link
+              href={routes.login}
+              className={classNames(styles.buttonStyle, styles.outlineButton)}>
+              Увійти
+            </Link>
           )}
         </div>
       </div>
@@ -59,4 +50,4 @@ const HeaderLayout = () => {
   );
 };
 
-export default HeaderLayout;
+export default Header;

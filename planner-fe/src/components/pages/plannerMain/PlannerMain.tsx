@@ -1,26 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-import ManageTaskModal from '../../forms/manageTask/ManageTask';
+
+import { Spinner, TaskList, ManageTask } from '@/components';
+import { useAuthStore, useTaskStore } from '@/store';
 
 import styles from './main.module.scss';
-import TaskList from '@/components/taskList/TaskList';
-import useTaskStore from '@/store/TaskStore';
-import Spinner from '@/components/spinner/Spinner';
-import { ProgressChart } from '@/components/progressChart/ProgressChart';
 
-const PlannerMain = () => {
+export const PlannerMain = () => {
+  const { userAuth } = useAuthStore();
   const { tasks, setTasks } = useTaskStore();
+  console.log(tasks);
 
   const [addTask, setAddTask] = useState(false);
 
-  if (!tasks) {
+  if (!tasks && userAuth) {
     setTasks();
     return <Spinner />;
   }
-
-  const completedTasks = tasks.filter((task) => task.isCompleted);
-  const nonCompletedTasks = tasks.filter((task) => !task.isCompleted);
 
   return (
     <div className={styles.container}>
@@ -41,20 +38,10 @@ const PlannerMain = () => {
             + Додати завдання
           </button>
         </div>
-        <TaskList
-          completedTasks={completedTasks}
-          nonCompletedTasks={nonCompletedTasks}
-        />
-      </div>
-      <div className={styles.asideContainer}>
-        <ProgressChart
-          total={tasks.length}
-          todo={nonCompletedTasks.length}
-          done={completedTasks.length}
-        />
+        <TaskList tasks={tasks} />
       </div>
       {addTask && (
-        <ManageTaskModal
+        <ManageTask
           heading="Додати завдання"
           action="add"
           isOpen={addTask}

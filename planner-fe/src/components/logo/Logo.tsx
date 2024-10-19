@@ -2,9 +2,10 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store/AuthStore';
 import { routes } from '@/constants/routes';
 import { FaRegClock } from 'react-icons/fa';
+
 import styles from './logo.module.scss';
 
-const Logo = () => {
+export const Logo = () => {
   const user = useAuthStore((state) => state.userAuth);
 
   return (

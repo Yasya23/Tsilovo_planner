@@ -4,7 +4,7 @@ export const routes = {
   login: '/login',
   register: '/register',
   statistics: '/profile/statistics',
-  groups: '/profile/groups',
+  goals: '/profile/goals',
   settings: '/profile/settings',
   admin: '/profile/admin',
 };

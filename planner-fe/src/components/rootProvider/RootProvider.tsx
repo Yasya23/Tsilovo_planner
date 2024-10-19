@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Footer from '@/components/footer/Footer';
-import Header from '@/components/header/Header';
-import Sidebar from '@/components/sidebar/Sidebar';
+import { Footer, Header, Sidebar } from '@/components';
 import { Toaster } from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
+
 import styles from './rootProvider.module.scss';
 
 const createQueryClient = () => {

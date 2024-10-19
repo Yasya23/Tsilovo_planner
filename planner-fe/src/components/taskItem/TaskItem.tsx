@@ -1,60 +1,61 @@
-import { FC, useState } from 'react';
-import styles from './task.module.scss';
-import { FaEdit, FaTrash } from 'react-icons/fa'; //
-import classNames from 'classnames';
-import ManageTaskModal from '../forms/manageTask/ManageTask';
+'use client';
+
+import { useState } from 'react';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { Button, Checkbox, ManageTask } from '@/components';
 import { Task } from '@/types/interfaces/task';
 
+import styles from './task.module.scss';
+
 interface TaskItemProps {
-  task: Task;
-  onEdit?: (_id: string) => void;
-  onDelete?: (_id: string) => void;
+  task: Task | null;
 }
 
-const TaskItem: FC<TaskItemProps> = ({ task, onEdit, onDelete }) => {
+export const TaskItem = ({ task }: TaskItemProps) => {
   const [editTask, setEditTask] = useState(false);
-  const [isChecked, setIsChecked] = useState(task.isCompleted);
-  const { priority = '', _id } = task;
+  const [isCompleted, setIsCompleted] = useState(task?.isCompleted || false);
+
+  const id = task?._id ? task._id : '';
+
+  const handleDelete = () => {
+    if (task?._id) {
+      const isConfirmed = confirm(
+        'Ви впевнені, що хочете видалити це завдання?'
+      );
+      // if (isConfirmed) onDelete(task._id);
+    }
+  };
+
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    setIsCompleted(!isCompleted);
   };
 
   return (
-    <div
-      className={styles.taskItem}
-      draggable
-      onDragStart={(e) => {
-        e.dataTransfer.setData('taskId', task._id);
-      }}>
-      <label htmlFor={_id} className={styles.checkbox}>
-        <input
-          id={_id}
-          type="checkbox"
-          checked={!!isChecked}
-          onChange={handleCheckboxChange}
+    <div className={styles.taskItem}>
+      <label htmlFor={id} className={styles.checkbox}>
+        <Checkbox
+          isCompleted={!!task?.isCompleted}
+          handleCheckboxChange={handleCheckboxChange}
         />
       </label>
-      <div className={classNames(styles.priority, styles[priority])}></div>
-      <div className={styles.taskTitle}>{task.title}</div>
+      <div className={styles.taskTitle}>{task?.title}</div>
 
       <div className={styles.actionButtons}>
-        {!task.isCompleted && (
-          <button
-            className={styles.editButton}
-            onClick={() => setEditTask(true)}
-            title="Редагувати">
-            <FaEdit />
-          </button>
-        )}
-        <button
+        <Button
+          label="Edit"
+          onClick={() => setEditTask(true)}
+          icon={<FiEdit />}
+          className={styles.editButton}
+        />
+        <Button
+          label="Delete"
+          onClick={handleDelete}
+          icon={<FiTrash2 />}
           className={styles.deleteButton}
-          onClick={() => onDelete(task._id)}
-          title="Видалити">
-          <FaTrash />
-        </button>
+        />
       </div>
-      {editTask && (
-        <ManageTaskModal
+      {task && editTask && (
+        <ManageTask
           action="edit"
           heading="Редагувати завдання"
           task={task}

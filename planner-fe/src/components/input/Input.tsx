@@ -1,13 +1,16 @@
-import React, { useState, forwardRef } from 'react';
+'use client';
+
+import { useState, forwardRef } from 'react';
 import {
   FiEye,
   FiEyeOff,
   FiAlertTriangle,
   FiCheckCircle,
 } from 'react-icons/fi';
-import classNames from 'classnames';
-import styles from './input.module.scss';
 import { IconType } from 'react-icons';
+
+import styles from './input.module.scss';
+import classNames from 'classnames';
 
 interface InputProps {
   value: string;
@@ -24,7 +27,7 @@ interface InputProps {
   placeholder?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       value,
@@ -82,7 +85,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               }}
               placeholder={placeholder}
               className={classNames(styles.input, Icon ? '' : styles.noIcon)}
-              ref={ref} // Передаем реф в input
+              ref={ref}
             />
             {hasAbilityHideValue && (
               <div
