@@ -3,6 +3,7 @@ import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { routes } from '@/constants/routes';
+
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 
 export const metadata: Metadata = {

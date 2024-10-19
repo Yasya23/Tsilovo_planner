@@ -46,4 +46,8 @@
   border-right: 1px solid $dark-secondary-text;
   width: 250px;
   height: 100%;
+
+  .MuiDateCalendar-root {
+    width: 250px;
+  }
 }
