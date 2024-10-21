@@ -12,3 +12,4 @@ export * from './spinner/Spinner';
 export * from './taskList/TaskList';
 export * from './taskItem/TaskItem';
 export * from './tooltip/Tooltip';
+export * from './notificationMessage/Notification';

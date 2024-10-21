@@ -1,7 +1,5 @@
 'use client';
 
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-
 import { useState } from 'react';
 import dayjs from 'dayjs';
 
@@ -43,30 +41,7 @@ export const PlannerMain = () => {
         </div>
         <TaskList tasks={tasks} />
       </div>
-      <div className={styles.asideContainer}>
-        <DateCalendar
-          minDate={dayjs().startOf('year')}
-          maxDate={dayjs().endOf('year')}
-          sx={{
-            width: '280px',
-            '.MuiPickersDay-root.Mui-selected': {
-              backgroundColor: '#ee5e99',
-            },
-            '.MuiPickersDay-root.Mui-active': {
-              backgroundColor: '#ee5e99',
-            },
-            '.MuiPickersDay-today': {
-              backgroundColor: '#ee5e99',
-            },
-            '.MuiPickersDay-root:hover': {
-              backgroundColor: '#ee5e99',
-            },
-            '.MuiPickersDay-root': {
-              width: '250px',
-            },
-          }}
-        />
-      </div>
+      <div className={styles.asideContainer}></div>
       {addTask && (
         <ManageTask
           heading="Додати завдання"

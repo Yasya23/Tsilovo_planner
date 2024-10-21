@@ -1,0 +1,50 @@
+@import '../../styles/_mixin.scss';
+@import '../../styles/_mixin.scss';
+
+.wrapper {
+  padding: 5px 10px 10px 10px;
+  border: 1px solid $accent;
+  border-radius: 20px;
+
+  &.info {
+    background-color: rgb(249, 240, 243);
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      color: $light-primary-text;
+    }
+
+    svg {
+      margin-right: 5px;
+      font-size: 20px;
+      color: $accent;
+    }
+  }
+
+  .message {
+    text-align: center;
+    color: $light-secondary-text;
+  }
+
+  button {
+    @include link-style;
+
+    &.closeButton {
+      border: none;
+      color: $accent;
+      align-items: center;
+      padding: 5px 10px;
+      @include hover {
+        &:hover {
+          color: $accent;
+          background-color: white;
+        }
+      }
+    }
+  }
+}
