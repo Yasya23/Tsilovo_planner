@@ -1,0 +1,54 @@
+@import '../../styles/_variables.scss';
+
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  color: $dark-secondary-bg;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $accent-secondary;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    border-radius: 20%;
+    background-color: $accent-secondary;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.active {
+  color: $accent;
+
+  &::after {
+    width: 100%;
+    background-color: $accent;
+  }
+
+  &:hover::after {
+    background-color: transparent;
+  }
+}

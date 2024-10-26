@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import { useAuthStore } from '@/store';
 
 const menuItems = [
-  { label: 'Планувальник', href: routes.profile, icon: <FiCalendar /> },
+  { label: 'Планувальник', href: routes.planner, icon: <FiCalendar /> },
   { label: 'Цілі', href: routes.goals, icon: <GoGoal /> },
   { label: 'Статистика', href: routes.statistics, icon: <FiActivity /> },
   { label: 'Налаштування', href: routes.settings, icon: <FiSettings /> },

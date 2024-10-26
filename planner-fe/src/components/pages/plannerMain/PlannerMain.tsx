@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
 import { Spinner, TaskList, ManageTask } from '@/components';
@@ -10,15 +10,15 @@ import styles from './main.module.scss';
 
 export const PlannerMain = () => {
   const { userAuth } = useAuthStore();
-  const { tasks, setTasks } = useTaskStore();
-  console.log(tasks);
+  const { tasks, setTasks, isLoading } = useTaskStore();
 
   const [addTask, setAddTask] = useState(false);
 
-  if (!tasks && userAuth) {
-    setTasks();
-    return <Spinner />;
-  }
+  useEffect(() => {
+    if (userAuth && !tasks && !isLoading) {
+      setTasks();
+    }
+  }, [userAuth, tasks, isLoading, setTasks]);
 
   return (
     <div className={styles.container}>
@@ -35,11 +35,19 @@ export const PlannerMain = () => {
           </div>
           <button
             className={styles.buttonStyle}
-            onClick={() => setAddTask(true)}>
+            onClick={() => setAddTask(true)}
+            disabled={isLoading}>
             + Додати завдання
           </button>
         </div>
-        <TaskList tasks={tasks} />
+
+        {tasks && !isLoading ? (
+          <TaskList tasks={tasks} />
+        ) : (
+          <div className={styles.spinnerWrapper}>
+            <Spinner />
+          </div>
+        )}
       </div>
       <div className={styles.asideContainer}></div>
       {addTask && (

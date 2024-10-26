@@ -32,7 +32,7 @@ export const RootProvider = ({
   const pathname = usePathname();
 
   const showSidebar =
-    pathname === '/profile' || pathname.startsWith('/profile/');
+    pathname === '/planner' || pathname.startsWith('/planner/');
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

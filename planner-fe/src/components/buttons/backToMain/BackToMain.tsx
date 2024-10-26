@@ -12,7 +12,7 @@ export const BackToMain = ({ message }: { message: string }) => {
       <Link href={routes.home} className={styles.buttonStyle}>
         Повернутись на головну
       </Link>
-      <Link href={routes.profile} className={styles.outlineButton}>
+      <Link href={routes.planner} className={styles.outlineButton}>
         До планувальника
       </Link>
     </div>

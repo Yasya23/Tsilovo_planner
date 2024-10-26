@@ -8,10 +8,6 @@ export async function middleware(request: NextRequest) {
   const isAuthenticated = !!token || isAnonimUser;
   console.log(isAuthenticated);
 
-  if (isAuthenticated && request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/profile', request.url));
-  }
-
   if (
     isAuthenticated &&
     (request.nextUrl.pathname === '/register' ||
@@ -20,7 +16,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  const protectedPaths = ['/profile/settings'];
+  const protectedPaths = ['/planner/settings'];
   const isProtectedPath = protectedPaths.some((path) =>
     new RegExp(`^${path.replace(/:\w+\*/g, '.*')}$`).test(
       request.nextUrl.pathname

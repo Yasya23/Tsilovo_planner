@@ -1,10 +1,10 @@
 export const routes = {
   home: '/',
-  profile: '/profile',
+  planner: '/planner',
   login: '/login',
   register: '/register',
-  statistics: '/profile/statistics',
-  goals: '/profile/goals',
-  settings: '/profile/settings',
-  admin: '/profile/admin',
+  statistics: '/planner/statistics',
+  goals: '/planner/goals',
+  settings: '/planner/settings',
+  admin: '/planner/admin',
 };

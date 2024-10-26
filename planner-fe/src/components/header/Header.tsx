@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Logo } from '@/components';
+import { Logo, LogOut, Navigation } from '@/components';
 import Link from 'next/link';
 import { FiUser } from 'react-icons/fi';
 import { useAuthStore } from '@/store/AuthStore';
@@ -27,13 +27,11 @@ export const Header = () => {
           {isMenuOpen ? <FiX /> : <FiMenu />}
         </button> */}
         <Logo />
-        <div className={styles.linksWrapper}>
-          <Link
-            href={routes.profile}
-            className={classNames(styles.buttonStyle, styles.withIcon)}>
-            <FiUser size={20} /> Планувальник
-          </Link>
+        <div>
+          <Navigation />
         </div>
+
+        <div>{user && <LogOut />}</div>
       </div>
     </header>
   );

@@ -8,7 +8,7 @@
 
 .tasksContainer {
   border-right: 1px solid $dark-secondary-text;
-  padding: 15px;
+  padding: 30px 15px;
   flex-grow: 1;
 
   @include breakpoint-lg {
@@ -40,6 +40,14 @@
     @include breakpoint-lg {
     }
   }
+}
+
+.spinnerWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .asideContainer {

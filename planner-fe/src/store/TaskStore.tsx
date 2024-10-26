@@ -5,6 +5,7 @@ import { TaskService } from '@/services/task.service';
 
 interface TaskState {
   tasks: Task[] | null;
+  isLoading: boolean;
   addTask: (task: any) => Promise<void>;
   removeTask: (taskId: string) => void;
   setTasks: () => void;
@@ -12,6 +13,18 @@ interface TaskState {
 
 export const useTaskStore = create<TaskState>((set) => ({
   tasks: null,
+  isLoading: false,
+
+  setTasks: async () => {
+    try {
+      set({ isLoading: true });
+      const data = await TaskService.getAll();
+      set({ tasks: data || [], isLoading: false });
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      set({ tasks: [], isLoading: false });
+    }
+  },
 
   addTask: async (task: any) => {
     // const data = await TaskService.add(task);
@@ -29,14 +42,6 @@ export const useTaskStore = create<TaskState>((set) => ({
     //     tasks: state.tasks.filter((task) => task.id !== taskId),
     //   }));
     // }
-  },
-  setTasks: async () => {
-    try {
-      const data = await TaskService.getAll();
-      set({ tasks: data || [] });
-    } catch (error) {
-      console.error('Failed to fetch tasks:', error);
-    }
   },
 }));
 
