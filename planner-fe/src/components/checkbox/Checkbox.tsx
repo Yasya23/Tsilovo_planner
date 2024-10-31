@@ -6,15 +6,15 @@ import styles from './checkbox.module.scss';
 
 interface Props {
   isCompleted: boolean;
+  isDisabled: boolean;
   handleCheckboxChange?: () => void;
 }
 
-export const Checkbox = ({ isCompleted = false }: Props) => {
+export const Checkbox = ({ isCompleted = false, isDisabled = true }: Props) => {
   const [isChecked, setIsChecked] = useState(isCompleted);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
-    console.log(1);
   };
 
   return (
@@ -24,7 +24,7 @@ export const Checkbox = ({ isCompleted = false }: Props) => {
           id="cbx-12"
           type="checkbox"
           checked={isChecked}
-          disabled={false}
+          disabled={isDisabled}
           onChange={handleChange}
         />
         <label htmlFor="cbx-12"></label>

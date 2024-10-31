@@ -12,7 +12,7 @@ export const PlannerMain = () => {
   const { userAuth } = useAuthStore();
   const { tasks, setTasks, isLoading } = useTaskStore();
 
-  const [addTask, setAddTask] = useState(false);
+  const [editTask, setEditTask] = useState(false);
 
   useEffect(() => {
     if (userAuth && !tasks && !isLoading) {
@@ -25,19 +25,19 @@ export const PlannerMain = () => {
       <div className={styles.tasksContainer}>
         <div className={styles.tasksWrapper}>
           <div>
-            <p className={styles.day}>
-              Monday <span>12.05</span>
-            </p>
-          </div>
-          <div className={styles.arrowButtons}>
-            <button className={styles.outlineButton}>&lt;</button>
-            <button className={styles.outlineButton}>&gt;</button>
+            <p className={styles.day}>Листопад</p>
           </div>
           <button
             className={styles.buttonStyle}
-            onClick={() => setAddTask(true)}
+            onClick={() => {}}
             disabled={isLoading}>
-            + Додати завдання
+            Завантажити PDF
+          </button>
+          <button
+            className={styles.buttonStyle}
+            onClick={() => setEditTask(true)}
+            disabled={isLoading}>
+            {editTask ? 'Зберегти' : '+ Редагувати список'}
           </button>
         </div>
 
@@ -50,14 +50,6 @@ export const PlannerMain = () => {
         )}
       </div>
       <div className={styles.asideContainer}></div>
-      {addTask && (
-        <ManageTask
-          heading="Додати завдання"
-          action="add"
-          isOpen={addTask}
-          onClose={() => setAddTask(false)}
-        />
-      )}
     </div>
   );
 };

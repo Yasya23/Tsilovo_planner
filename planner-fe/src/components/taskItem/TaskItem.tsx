@@ -14,17 +14,9 @@ interface TaskItemProps {
 export const TaskItem = ({ task }: TaskItemProps) => {
   const [editTask, setEditTask] = useState(false);
   const [isCompleted, setIsCompleted] = useState(task?.isCompleted || false);
+  const [details, setDetails] = useState(task?.title || '');
 
   const id = task?._id ? task._id : '';
-
-  const handleDelete = () => {
-    if (task?._id) {
-      const isConfirmed = confirm(
-        'Ви впевнені, що хочете видалити це завдання?'
-      );
-      // if (isConfirmed) onDelete(task._id);
-    }
-  };
 
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted);
@@ -35,34 +27,21 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       <label htmlFor={id} className={styles.checkbox}>
         <Checkbox
           isCompleted={!!task?.isCompleted}
+          isDisabled={!details}
           handleCheckboxChange={handleCheckboxChange}
         />
       </label>
-      <div className={styles.taskTitle}>{task?.title}</div>
-
-      <div className={styles.actionButtons}>
-        <Button
-          label="Edit"
-          onClick={() => setEditTask(true)}
-          icon={<FiEdit />}
-          className={styles.editButton}
+      <div className={styles.detailsContainer}>
+        <textarea
+          className={styles.taskDetails}
+          value={details}
+          onChange={(e) => setDetails(e.target.value)}
+          rows={2}
+          maxLength={67}
         />
-        <Button
-          label="Delete"
-          onClick={handleDelete}
-          icon={<FiTrash2 />}
-          className={styles.deleteButton}
-        />
+        <hr className={styles.horizontalLine} />
       </div>
-      {task && editTask && (
-        <ManageTask
-          action="edit"
-          heading="Редагувати завдання"
-          task={task}
-          isOpen={editTask}
-          onClose={() => setEditTask(false)}
-        />
-      )}
+      <div className={styles.taskTitle}>{}</div>
     </div>
   );
 };
