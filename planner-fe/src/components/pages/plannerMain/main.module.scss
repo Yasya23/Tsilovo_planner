@@ -45,6 +45,13 @@
   }
 }
 
+.taskListWrapper {
+  pointer-events: none;
+  &.enable {
+    pointer-events: all;
+  }
+}
+
 .spinnerWrapper {
   width: 100%;
   height: 100%;

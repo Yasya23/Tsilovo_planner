@@ -1,17 +1,50 @@
-import { IsOptional, IsBoolean, IsString, IsDate } from 'class-validator';
+import {
+  IsBoolean,
+  IsString,
+  ValidateNested,
+  IsNumber,
+  IsArray,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class TaskDto {
-  @IsOptional()
+class TaskDto {
   @IsBoolean()
   isCompleted: boolean;
 
   @IsString()
   title: string;
+}
 
+class DailyTaskDto {
   @IsString()
-  @IsOptional()
-  priority: string;
+  day: string;
 
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => TaskDto)
+  tasks: TaskDto[];
+}
+
+export class WeekTasksDto {
   @IsString()
-  dueDate: string;
+  id: string;
+
+  @IsNumber()
+  week: number;
+
+  @IsString({ each: true })
+  notes: [string, string, string];
+
+  @ValidateNested({ each: true })
+  @Type(() => DailyTaskDto)
+  dailyTasks: DailyTaskDto[];
+}
+
+export class YearStatisticDto {
+  totalTasks: number;
+  completedTasks: number;
+
+  @ValidateNested({ each: true })
+  @Type(() => WeekTasksDto)
+  weeklyStatistics: WeekTasksDto[];
 }

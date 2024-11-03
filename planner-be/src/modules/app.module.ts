@@ -6,7 +6,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { getMongoDbConfig } from '../config/mongo.config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { TaskModule } from './task/task.module';
+import { TaskModule } from './tasks/tasks.module';
 
 @Module({
   imports: [

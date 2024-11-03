@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { LogOut, Notification } from '@/components';
 
 import { FiSettings, FiActivity, FiCalendar } from 'react-icons/fi';
-import { GoGoal } from 'react-icons/go';
 
 import styles from './sidebar.module.scss';
 import classNames from 'classnames';
@@ -14,7 +13,6 @@ import { useAuthStore } from '@/store';
 
 const menuItems = [
   { label: 'Планувальник', href: routes.planner, icon: <FiCalendar /> },
-  { label: 'Цілі', href: routes.goals, icon: <GoGoal /> },
   { label: 'Статистика', href: routes.statistics, icon: <FiActivity /> },
   { label: 'Налаштування', href: routes.settings, icon: <FiSettings /> },
 ];

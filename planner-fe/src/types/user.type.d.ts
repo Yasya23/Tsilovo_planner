@@ -1,5 +1,3 @@
-import { Task } from './task.type';
-
 export type UserAuth = {
   id: string;
 };

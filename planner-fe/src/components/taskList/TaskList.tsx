@@ -25,9 +25,9 @@ export const TaskList = ({ tasks }: TaskListProps) => {
         <div className={styles.tasksContainer}>
           <h3>3 цілі тижня</h3>
           <div className={styles.tasks}>
-            <TaskItem task={null} />
-            <TaskItem task={null} />
-            <TaskItem task={null} />
+            <TaskItem task={null} isNote={true} />
+            <TaskItem task={null} isNote={true} />
+            <TaskItem task={null} isNote={true} />
           </div>
         </div>
         {days.map((day) => {
@@ -43,12 +43,6 @@ export const TaskList = ({ tasks }: TaskListProps) => {
           );
         })}
       </div>
-      {/* {tasks?.length && tasks.length > 0 ? (
-        tasks.map((task) => <TaskItem key={task._id} task={task} />)
-      ) : (
-          <TaskItem task={null} />
-
-      )} */}
     </div>
   );
 };

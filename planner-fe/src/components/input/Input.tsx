@@ -61,10 +61,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={styles.fieldsWrapper}>
         <label>
           <span
-            className={classNames(
-              styles.label,
-              isLabelVisibilityHidden ? styles.hidden : ''
-            )}>
+            className={classNames(styles.label, {
+              [styles.hidden]: isLabelVisibilityHidden,
+            })}>
             {label}
           </span>
 
@@ -84,7 +83,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 if (onBlur) onBlur(e);
               }}
               placeholder={placeholder}
-              className={classNames(styles.input, Icon ? '' : styles.noIcon)}
+              className={classNames(styles.input, { [styles.noIcon]: !Icon })}
               ref={ref}
             />
             {hasAbilityHideValue && (

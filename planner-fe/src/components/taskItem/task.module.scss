@@ -2,36 +2,10 @@
 
 .taskItem {
   position: relative;
-  // border-bottom: 1px solid $light-secondary-text;
   padding: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: border 0.3s ease;
-}
-
-.editMode {
-  border: 2px solid $accent;
-  border-radius: 8px;
-}
-
-.inputField {
-  flex-grow: 1;
-  padding: 3px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-}
-
-.taskTitle {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-}
-
-.actionButtons {
-  display: flex;
-  gap: 12px;
 }
 
 .checkbox {
@@ -41,10 +15,9 @@
 
 .detailsContainer {
   display: flex;
-  flex-direction: column;
   position: relative;
   width: 100%;
-  padding: 2px;
+  height: 40px;
 
   .horizontalLine {
     position: absolute;
@@ -54,6 +27,25 @@
     height: 1px;
     background-color: #ccc;
     width: 100%;
+  }
+
+  .pdfTaskDetails {
+    font-size: 14px;
+    line-height: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    &::before {
+      content: '';
+      display: block;
+      margin-top: -7px;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      margin-bottom: -7px;
+    }
   }
 }
 

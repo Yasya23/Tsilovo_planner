@@ -5,16 +5,18 @@ import { TaskService } from '@/services/task.service';
 
 interface TaskState {
   tasks: Task[] | null;
+  pdfMode: boolean;
   isLoading: boolean;
   addTask: (task: any) => Promise<void>;
   removeTask: (taskId: string) => void;
+  setPdfMode: (mode: boolean) => void;
   setTasks: () => void;
 }
 
 export const useTaskStore = create<TaskState>((set) => ({
   tasks: null,
   isLoading: false,
-
+  pdfMode: false,
   setTasks: async () => {
     try {
       set({ isLoading: true });
@@ -25,6 +27,7 @@ export const useTaskStore = create<TaskState>((set) => ({
       set({ tasks: [], isLoading: false });
     }
   },
+  setPdfMode: (mode) => set({ pdfMode: mode }),
 
   addTask: async (task: any) => {
     // const data = await TaskService.add(task);
