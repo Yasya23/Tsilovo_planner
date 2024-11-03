@@ -39,12 +39,3 @@ export class WeekTasksDto {
   @Type(() => DailyTaskDto)
   dailyTasks: DailyTaskDto[];
 }
-
-export class YearStatisticDto {
-  totalTasks: number;
-  completedTasks: number;
-
-  @ValidateNested({ each: true })
-  @Type(() => WeekTasksDto)
-  weeklyStatistics: WeekTasksDto[];
-}

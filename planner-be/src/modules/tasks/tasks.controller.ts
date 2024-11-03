@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Put, Param } from '@nestjs/common';
+import { Controller, Get, Body, Put } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';

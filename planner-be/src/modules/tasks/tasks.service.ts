@@ -5,6 +5,16 @@ import { WeekTasksDto } from 'src/typing/dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
 
+const defaultWeeklyTasks = [
+  { day: 'Monday', tasks: [] },
+  { day: 'Tuesday', tasks: [] },
+  { day: 'Wednesday', tasks: [] },
+  { day: 'Thursday', tasks: [] },
+  { day: 'Friday', tasks: [] },
+  { day: 'Saturday', tasks: [] },
+  { day: 'Sunday', tasks: [] },
+];
+
 @Injectable()
 export class TaskService {
   constructor(
@@ -21,15 +31,7 @@ export class TaskService {
             userId,
             week,
             notes: [],
-            tasks: [
-              { day: 'Monday', tasks: [] },
-              { day: 'Tuesday', tasks: [] },
-              { day: 'Wednesday', tasks: [] },
-              { day: 'Thursday', tasks: [] },
-              { day: 'Friday', tasks: [] },
-              { day: 'Saturday', tasks: [] },
-              { day: 'Sunday', tasks: [] },
-            ],
+            tasks: defaultWeeklyTasks,
             statistics: { completedTasks: 0, totalTasks: 0 },
           },
         },
