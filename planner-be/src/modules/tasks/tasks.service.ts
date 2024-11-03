@@ -30,8 +30,8 @@ export class TaskService {
           $setOnInsert: {
             userId,
             week,
-            notes: [],
-            tasks: defaultWeeklyTasks,
+            notes: ['', '', ''],
+            dailyTasks: defaultWeeklyTasks,
             statistics: { completedTasks: 0, totalTasks: 0 },
           },
         },

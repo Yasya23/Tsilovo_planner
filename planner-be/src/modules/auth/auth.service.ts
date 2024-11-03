@@ -23,7 +23,6 @@ export class AuthService {
       })
       .exec();
 
-    console.log(user);
     if (!user) {
       throw new UnauthorizedException("User with this email doesn't found");
     }

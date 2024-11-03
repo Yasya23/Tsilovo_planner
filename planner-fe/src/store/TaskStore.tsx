@@ -1,50 +1,58 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { Task } from '@/types/interfaces/task';
+import { WeekTasks, TotalTasks } from '@/types/tasks.type';
 import { TaskService } from '@/services/task.service';
-
 interface TaskState {
-  tasks: Task[] | null;
+  tasks: WeekTasks | null | {};
+  statistics: TotalTasks | null | {};
   pdfMode: boolean;
   isLoading: boolean;
-  addTask: (task: any) => Promise<void>;
-  removeTask: (taskId: string) => void;
+  error: boolean;
+  updateTask: (task: WeekTasks) => Promise<void>;
   setPdfMode: (mode: boolean) => void;
-  setTasks: () => void;
+  setTasks: (weekNumber: number) => void;
+  getAllTasks: () => void;
 }
 
 export const useTaskStore = create<TaskState>((set) => ({
   tasks: null,
   isLoading: false,
   pdfMode: false,
-  setTasks: async () => {
+  statistics: null,
+  error: false,
+  setTasks: async (weekNumber: number) => {
     try {
-      set({ isLoading: true });
-      const data = await TaskService.getAll();
-      set({ tasks: data || [], isLoading: false });
+      set({ isLoading: true, error: false });
+      const data = await TaskService.getCurrentWeek(weekNumber);
+      set({ tasks: data, isLoading: false });
     } catch (error) {
       console.error('Failed to fetch tasks:', error);
-      set({ tasks: [], isLoading: false });
+      set({ tasks: {}, isLoading: false, error: true });
     }
   },
-  setPdfMode: (mode) => set({ pdfMode: mode }),
-
-  addTask: async (task: any) => {
-    // const data = await TaskService.add(task);
-    // if (data?.task) {
-    //   set((state) => ({
-    //     tasks: [...state.tasks, data.task],
-    //   }));
-    // }
+  getAllTasks: async () => {
+    try {
+      set({ isLoading: true, error: false });
+      const data = await TaskService.getAll();
+      set({ statistics: data, isLoading: false });
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      set({ statistics: {}, isLoading: false, error: true });
+    }
   },
 
-  removeTask: async (taskId: string) => {
-    // const data = await TaskService.remove(taskId);
-    // if (data?.task) {
-    //   set((state) => ({
-    //     tasks: state.tasks.filter((task) => task.id !== taskId),
-    //   }));
-    // }
+  setPdfMode: (mode) => set({ pdfMode: mode }),
+
+  updateTask: async (task: WeekTasks) => {
+    try {
+      set({ isLoading: true, error: false });
+      const data = await TaskService.update(task);
+      if (data) {
+        set({ tasks: data, isLoading: false });
+      }
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      set({ isLoading: false, error: true });
+    }
   },
 }));
 

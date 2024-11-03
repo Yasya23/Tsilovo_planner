@@ -8,7 +8,6 @@ export const useLogOut = () => {
   const currentPath = usePathname();
   const token = getToken();
   const user = isUserAuth();
-  // const isAnonim = isUserAuth(true);
 
   const logOut = () => {
     deleteUserWhenLogout();
@@ -22,8 +21,6 @@ export const useLogOut = () => {
       router.push('/');
     }
   };
-
-  console.log(!token || !user);
 
   useEffect(() => {
     if (!token || !user) {

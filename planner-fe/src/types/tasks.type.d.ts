@@ -1,20 +1,27 @@
-export class TaskDto {
+type TaskDto = {
   title: string;
   isCompleted: boolean;
-}
+};
 
-export class WeekTasksDto {
+type DailyTaskDto = {
+  day: string;
+  tasks: TaskDto[];
+};
+
+export type WeekTasks = {
+  id: string;
   week: number;
   notes: [string, string, string];
-  tasks: TaskDto[];
+  dailyTasks: DailyTaskDto[];
   statistics: {
     completedTasks: number;
     totalTasks: number;
   };
-}
+};
 
-export class YearStatisticDto {
-  totalTasks: number;
+export type TotalTasks = {
+  userId: string;
   completedTasks: number;
-  weeklyStatistics: WeekTasksDto[];
-}
+  totalTasks: number;
+  tasksList: WeekTasksDto[];
+};

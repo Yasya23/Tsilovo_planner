@@ -6,7 +6,6 @@ export async function middleware(request: NextRequest) {
   const isAnonimUser = request.cookies.get('anonimToken');
 
   const isAuthenticated = !!token || isAnonimUser;
-  console.log(isAuthenticated);
 
   if (
     isAuthenticated &&

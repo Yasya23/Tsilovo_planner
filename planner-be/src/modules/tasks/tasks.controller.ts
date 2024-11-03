@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Put } from '@nestjs/common';
+import { Controller, Get, Body, Put, Query } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -8,9 +8,12 @@ import { WeekTasksDto } from 'src/typing/dto';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get('')
+  @Get()
   @Auth()
-  async getCurrentWeek(@User('id') userId: string, @Body('week') week: number) {
+  async getCurrentWeek(
+    @User('id') userId: string,
+    @Query('currentweek') week: number,
+  ) {
     return this.taskService.getCurrentWeekData(userId, week);
   }
 

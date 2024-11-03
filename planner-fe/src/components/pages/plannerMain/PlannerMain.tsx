@@ -15,16 +15,14 @@ export const PlannerMain = () => {
   const { userAuth } = useAuthStore();
   const { tasks, setTasks, isLoading, setPdfMode } = useTaskStore();
   const { weekNumber } = weekCalculate();
-
   const [editTask, setEditTask] = useState(false);
   const [format, setFormat] = useState('a4');
   const taskListRef = useRef(null);
-
   useEffect(() => {
-    if (userAuth && !tasks && !isLoading) {
-      setTasks();
+    if (userAuth && !isLoading && !tasks) {
+      setTasks(weekNumber);
     }
-  }, [userAuth, tasks, isLoading, setTasks]);
+  }, [userAuth, isLoading, setTasks]);
 
   const handleDownloadPDF = () => {
     if (!taskListRef.current) return;

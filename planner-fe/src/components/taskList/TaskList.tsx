@@ -1,5 +1,5 @@
 import { TaskItem } from '@/components';
-import { Task } from '@/types/interfaces/task';
+import { WeekTasks } from '@/types/tasks.type';
 
 import styles from './taskList.module.scss';
 
@@ -13,7 +13,7 @@ const days = [
   'Неділя',
 ];
 interface TaskListProps {
-  tasks: Task[] | null;
+  tasks: WeekTasks | null;
 }
 
 export const TaskList = ({ tasks }: TaskListProps) => {

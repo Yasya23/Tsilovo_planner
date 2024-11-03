@@ -6,5 +6,6 @@ export const services = {
   register: '/auth/register',
   update: '/user/profile',
   token: 'auth/login/access-token',
-  task: '/task',
+  allTasks: '/tasks/statistics',
+  currentWeekTasks: '/tasks',
 };
