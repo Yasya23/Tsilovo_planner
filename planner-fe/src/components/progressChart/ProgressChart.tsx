@@ -29,7 +29,7 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
     { name: `Зроблено ${done}`, value: donePercentage },
   ];
 
-  const COLORS = ['#FF8042', '#75cc75'];
+  const COLORS = ['#5370f4', '#ee5e99'];
 
   return (
     <div style={{ height: '250px' }}>

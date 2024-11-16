@@ -14,6 +14,9 @@ import { useAuthStore } from '@/store';
 const menuItems = [
   { label: 'Планувальник', href: routes.planner, icon: <FiCalendar /> },
   { label: 'Статистика', href: routes.statistics, icon: <FiActivity /> },
+];
+
+const privateMenuItems = [
   { label: 'Налаштування', href: routes.settings, icon: <FiSettings /> },
 ];
 
@@ -24,10 +27,14 @@ export const Sidebar = () => {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.userAuth);
 
+  const visibleMenuItems = user
+    ? [...menuItems, ...privateMenuItems]
+    : menuItems;
+
   return (
     <div className={styles.sideBar}>
       <div className={styles.menu}>
-        {menuItems.map(({ label, href, icon }) => (
+        {visibleMenuItems.map(({ label, href, icon }) => (
           <Link
             key={href}
             href={href}

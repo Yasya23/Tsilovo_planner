@@ -1,16 +1,18 @@
 import { create } from 'zustand';
-import { WeekTasks, TotalTasks } from '@/types/tasks.type';
+import { WeekTasks, TotalTasks, DailyTask } from '@/types/tasks.type';
 import { TaskService } from '@/services/task.service';
+import { defaultWeekTasks } from '@/constants/defaultWeekTasks';
+
 interface TaskState {
-  tasks: WeekTasks | null | {};
-  statistics: TotalTasks | null | {};
+  tasks: WeekTasks | null;
+  statistics: TotalTasks | null;
   pdfMode: boolean;
   isLoading: boolean;
   error: boolean;
-  updateTask: (task: WeekTasks) => Promise<void>;
+  updateTask: (tasks: WeekTasks, isAuth: boolean) => Promise<void>;
   setPdfMode: (mode: boolean) => void;
-  setTasks: (weekNumber: number) => void;
-  getAllTasks: () => void;
+  setTasks: (weekNumber: number, isAuth: boolean) => void;
+  getAllTasks: (isAuth: boolean) => void;
 }
 
 export const useTaskStore = create<TaskState>((set) => ({
@@ -19,38 +21,65 @@ export const useTaskStore = create<TaskState>((set) => ({
   pdfMode: false,
   statistics: null,
   error: false,
-  setTasks: async (weekNumber: number) => {
+
+  setTasks: async (weekNumber: number, isAuth: boolean) => {
     try {
       set({ isLoading: true, error: false });
-      const data = await TaskService.getCurrentWeek(weekNumber);
-      set({ tasks: data, isLoading: false });
+
+      if (isAuth) {
+        const data = await TaskService.getCurrentWeek(weekNumber);
+        set({ tasks: data ?? defaultWeekTasks, isLoading: false });
+      } else {
+        const storedTasks = localStorage.getItem('weekTasks');
+        if (storedTasks) {
+          set({ tasks: JSON.parse(storedTasks), isLoading: false });
+        } else {
+          localStorage.setItem('weekTasks', JSON.stringify(defaultWeekTasks));
+          set({ tasks: defaultWeekTasks, isLoading: false });
+        }
+      }
     } catch (error) {
       console.error('Failed to fetch tasks:', error);
-      set({ tasks: {}, isLoading: false, error: true });
+      set({ tasks: defaultWeekTasks, isLoading: false, error: true });
     }
   },
-  getAllTasks: async () => {
+
+  getAllTasks: async (isAuth: boolean) => {
     try {
       set({ isLoading: true, error: false });
-      const data = await TaskService.getAll();
-      set({ statistics: data, isLoading: false });
+
+      if (isAuth) {
+        const data = await TaskService.getAll();
+        set({ statistics: data, isLoading: false });
+      } else {
+        console.warn('Statistics are not available for unauthenticated users.');
+        set({ statistics: null, isLoading: false });
+      }
     } catch (error) {
-      console.error('Failed to fetch tasks:', error);
-      set({ statistics: {}, isLoading: false, error: true });
+      console.error('Failed to fetch all tasks:', error);
+      set({ statistics: null, isLoading: false, error: true });
     }
   },
 
   setPdfMode: (mode) => set({ pdfMode: mode }),
 
-  updateTask: async (task: WeekTasks) => {
+  updateTask: async (tasks: WeekTasks, isAuth: boolean) => {
     try {
       set({ isLoading: true, error: false });
-      const data = await TaskService.update(task);
-      if (data) {
-        set({ tasks: data, isLoading: false });
+
+      if (isAuth) {
+        const data = await TaskService.update(task);
+        if (data) {
+          set({ tasks: data, isLoading: false });
+        }
+      } else {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('weekTasks', JSON.stringify(tasks));
+        }
+        set({ tasks: tasks, isLoading: false });
       }
     } catch (error) {
-      console.error('Failed to fetch tasks:', error);
+      console.error('Failed to update tasks:', error);
       set({ isLoading: false, error: true });
     }
   },

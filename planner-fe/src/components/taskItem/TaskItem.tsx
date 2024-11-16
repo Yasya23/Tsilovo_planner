@@ -1,27 +1,48 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Checkbox } from '@/components';
-import { Task } from '@/types/interfaces/task';
+import { Task, Note } from '@/types/tasks.type';
 import { useTaskStore } from '@/store';
 import { CiFaceSmile } from 'react-icons/ci';
 
 import styles from './task.module.scss';
 
 interface TaskItemProps {
-  task: Task | null;
+  task?: Task;
+  title?: string;
   isNote?: boolean;
+  onUpdate: (updatedTask: Task | Note) => void;
 }
 
-export const TaskItem = ({ task, isNote = false }: TaskItemProps) => {
+export const TaskItem = ({
+  task,
+  title = '',
+  isNote = false,
+  onUpdate,
+}: TaskItemProps) => {
   const { pdfMode } = useTaskStore();
-  const [isCompleted, setIsCompleted] = useState(task?.isCompleted || false);
-  const [details, setDetails] = useState(task?.title || '');
+  const [isCompleted, setIsCompleted] = useState(false);
 
-  const id = task?._id ? task._id : '';
+  useEffect(() => {
+    if (task) setIsCompleted(task?.isCompleted);
+  }, [task]);
 
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted);
+    if (task) {
+      onUpdate({ ...task, isCompleted: !isCompleted });
+    }
+  };
+
+  const handleDetailsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const updatedDetails = e.target.value;
+    if (isNote) {
+      onUpdate(updatedDetails);
+    }
+    if (task) {
+      onUpdate({ ...task, title: updatedDetails });
+    }
   };
 
   return (
@@ -29,10 +50,10 @@ export const TaskItem = ({ task, isNote = false }: TaskItemProps) => {
       {isNote ? (
         <CiFaceSmile size={25} />
       ) : (
-        <label htmlFor={id} className={styles.checkbox}>
+        <label htmlFor={task?.id || ''} className={styles.checkbox}>
           <Checkbox
-            isCompleted={!!task?.isCompleted}
-            isDisabled={!details}
+            isCompleted={isCompleted}
+            isDisabled={!title}
             handleCheckboxChange={handleCheckboxChange}
           />
         </label>
@@ -41,12 +62,12 @@ export const TaskItem = ({ task, isNote = false }: TaskItemProps) => {
         <hr className={styles.horizontalLine} />
 
         {pdfMode ? (
-          <div className={styles.pdfTaskDetails}>{details}</div>
+          <div className={styles.pdfTaskDetails}>{title}</div>
         ) : (
           <textarea
             className={styles.taskDetails}
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
+            value={title}
+            onChange={handleDetailsChange}
             rows={2}
             maxLength={67}
           />

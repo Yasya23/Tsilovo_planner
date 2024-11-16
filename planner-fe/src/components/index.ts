@@ -14,3 +14,4 @@ export * from './taskItem/TaskItem';
 export * from './tooltip/Tooltip';
 export * from './notificationMessage/Notification';
 export * from './navigation/Navigation';
+export * from './progressChart/ProgressChart';

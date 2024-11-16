@@ -1,23 +1,47 @@
-import { TaskItem } from '@/components';
-import { WeekTasks } from '@/types/tasks.type';
+'use client';
 
+import { TaskItem } from '@/components';
+import { WeekTasks, Task, Note } from '@/types/tasks.type';
 import styles from './taskList.module.scss';
 
-const days = [
-  'Понеділок',
-  'Вівторок',
-  'Середа',
-  'Четверг',
-  'Пʼятниця',
-  'Субота',
-  'Неділя',
-];
+const daysMap: { [key: string]: string } = {
+  Monday: 'Понеділок',
+  Tuesday: 'Вівторок',
+  Wednesday: 'Середа',
+  Thursday: 'Четверг',
+  Friday: 'Пʼятниця',
+  Saturday: 'Субота',
+  Sunday: 'Неділя',
+};
+
 interface TaskListProps {
-  tasks: WeekTasks | null;
+  tasks: WeekTasks;
+  onUpdateTasks: (updatedTasks: WeekTasks) => void;
 }
 
-export const TaskList = ({ tasks }: TaskListProps) => {
-  console.log(tasks);
+export const TaskList = ({ tasks, onUpdateTasks }: TaskListProps) => {
+  const handleUpdateTask = (day: string, index: number, updatedTask: Task) => {
+    const updatedDailyTasks = tasks.dailyTasks.map((dayTasks) =>
+      dayTasks.day === day
+        ? {
+            ...dayTasks,
+            tasks: dayTasks.tasks.map((task, i) =>
+              i === index ? updatedTask : task
+            ),
+          }
+        : dayTasks
+    );
+
+    onUpdateTasks({ ...tasks, dailyTasks: updatedDailyTasks });
+  };
+
+  const handleUpdateNote = (index: number, updatedNote: Note) => {
+    const updatedNotes = tasks.notes.map((note, i) =>
+      i === index ? updatedNote : note
+    );
+    onUpdateTasks({ ...tasks, notes: updatedNotes });
+  };
+
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.title}>План Тижня</h3>
@@ -25,19 +49,40 @@ export const TaskList = ({ tasks }: TaskListProps) => {
         <div className={styles.tasksContainer}>
           <h3>3 цілі тижня</h3>
           <div className={styles.tasks}>
-            <TaskItem task={null} isNote={true} />
-            <TaskItem task={null} isNote={true} />
-            <TaskItem task={null} isNote={true} />
+            {tasks.notes.map((note, index) => (
+              <TaskItem
+                key={`note-${index}`}
+                title={note}
+                isNote={true}
+                onUpdate={(updatedNote) =>
+                  handleUpdateNote(index, updatedNote as Note)
+                }
+              />
+            ))}
           </div>
         </div>
-        {days.map((day) => {
+
+        {tasks.dailyTasks.map((dayTask) => {
+          const ukrainianDay = daysMap[dayTask.day] || dayTask.day;
+
           return (
-            <div className={styles.tasksContainer}>
-              <h3>{day}</h3>
+            <div key={dayTask.day} className={styles.tasksContainer}>
+              <h3>{ukrainianDay}</h3>
               <div className={styles.tasks}>
-                <TaskItem task={null} />
-                <TaskItem task={null} />
-                <TaskItem task={null} />
+                {dayTask.tasks.map((task, taskIndex) => (
+                  <TaskItem
+                    key={`${dayTask.day}-${taskIndex}`}
+                    task={task}
+                    title={task.title}
+                    onUpdate={(updatedTask) =>
+                      handleUpdateTask(
+                        dayTask.day,
+                        taskIndex,
+                        updatedTask as Task
+                      )
+                    }
+                  />
+                ))}
               </div>
             </div>
           );

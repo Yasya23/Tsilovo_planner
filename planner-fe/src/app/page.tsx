@@ -1,9 +1,6 @@
 'use client';
+import { Main } from '@/components';
 
 export default function Page() {
-  return (
-    <>
-      <h1>Hello</h1>
-    </>
-  );
+  return <Main />;
 }
