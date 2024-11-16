@@ -31,6 +31,21 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
 
   const COLORS = ['#5370f4', '#ee5e99'];
 
+  if (total === 0) {
+    return (
+      <div
+        style={{
+          height: '250px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#888',
+        }}>
+        <p>Немає статистики для відображення</p>
+      </div>
+    );
+  }
+
   return (
     <div style={{ height: '250px' }}>
       <ResponsiveContainer width="100%" height="100%">

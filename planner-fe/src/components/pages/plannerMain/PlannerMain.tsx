@@ -14,7 +14,8 @@ import styles from './main.module.scss';
 
 export const PlannerMain = () => {
   const { userAuth } = useAuthStore();
-  const { tasks, setTasks, isLoading, updateTask, setPdfMode } = useTaskStore();
+  const { tasks, setTasks, isLoading, updateTask, setPdfMode, pdfMode } =
+    useTaskStore();
   const { weekNumber } = weekCalculate();
 
   const [editTask, setEditTask] = useState(false);
@@ -23,7 +24,6 @@ export const PlannerMain = () => {
   const [format, setFormat] = useState('a4');
   const taskListRef = useRef(null);
 
-  console.log(temporaryTasks, 2);
   useEffect(() => {
     if (editTask && tasks) {
       setTemporaryTasks({ ...tasks });
@@ -31,12 +31,14 @@ export const PlannerMain = () => {
       setTemporaryTasks(defaultWeekTasks);
     }
   }, [editTask, tasks]);
-
+  console.log(tasks, userAuth);
   useEffect(() => {
-    if (!isLoading && !tasks) {
-      setTasks(weekNumber, !!userAuth);
+    if (userAuth && !tasks) {
+      setTasks(weekNumber, true);
+    } else if (!userAuth && !tasks) {
+      setTasks(weekNumber, false);
     }
-  }, [userAuth, isLoading, setTasks]);
+  }, [userAuth, tasks, weekNumber, setTasks]);
 
   const handleDownloadPDF = () => {
     if (!taskListRef.current) return;
@@ -127,11 +129,11 @@ export const PlannerMain = () => {
             ref={taskListRef}
             className={classNames(styles.taskListWrapper, {
               [styles.enable]: editTask,
+              [styles.pdfMode]: pdfMode,
             })}>
             <TaskList
               tasks={editTask ? temporaryTasks : tasks}
               onUpdateTasks={setTemporaryTasks}
-              isEditing={editTask}
             />
           </div>
         ) : (
@@ -144,7 +146,15 @@ export const PlannerMain = () => {
         <h3>
           Прогрес тижня <span>{weekNumber}</span>
         </h3>
-        <ProgressChart total={10} todo={8} done={2} />
+        <ProgressChart
+          total={tasks?.statistics?.totalTasks ?? 0}
+          todo={Math.max(
+            Number(tasks?.statistics?.totalTasks) -
+              Number(tasks?.statistics?.completedTasks),
+            0
+          )}
+          done={tasks?.statistics?.completedTasks ?? 0}
+        />
       </div>
     </div>
   );

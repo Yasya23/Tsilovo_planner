@@ -1,0 +1,25 @@
+@import '../../../styles/_variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+  text-align: center;
+  height: 500px;
+
+  h3 {
+    font-size: 25px;
+  }
+
+  .notification {
+    color: $dark-bg;
+  }
+
+  .message {
+    font-size: 20px;
+    align-self: center;
+    justify-self: center;
+    color: $dark-bg;
+  }
+}

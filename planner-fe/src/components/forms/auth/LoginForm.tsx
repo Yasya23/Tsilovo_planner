@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getToken } from '@/helpers';
 import Layout from './Layout';
+import { routes } from '@/constants/routes';
 
 import styles from './forms.module.scss';
 
@@ -42,7 +43,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (!error && userAuth && token) {
-      router.push('/profile');
+      router.push(routes.planner);
       toast.success('Вхід виконано. Ласкаво просимо!');
       reset();
     }
@@ -98,9 +99,6 @@ export const LoginForm = () => {
           disabled={isLoading}
           name="Увійти"
         />
-        {/* <button type="submit" className={styles.button} disabled={isLoading}>
-          Увійти
-        </button> */}
         <div className={styles.errorField}>
           {isLoading ? (
             <Spinner />

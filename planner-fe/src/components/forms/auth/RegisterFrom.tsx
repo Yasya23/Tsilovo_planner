@@ -14,7 +14,7 @@ import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import Layout from './Layout';
 import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
-
+import { routes } from '@/constants/routes';
 interface RegistrationFormValues extends RegisterFormValues {
   confirmPassword: string;
 }
@@ -61,7 +61,7 @@ export const RegistrationForm = () => {
 
   useEffect(() => {
     if (!error && userAuth && token) {
-      router.push('/profile');
+      router.push(routes.planner);
       toast.success('Реєстрація успішна!');
       reset();
     }
