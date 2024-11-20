@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Checkbox = ({
-  isCompleted = false,
+  isCompleted,
   isDisabled = false,
   handleCheckboxChange,
 }: Props) => {

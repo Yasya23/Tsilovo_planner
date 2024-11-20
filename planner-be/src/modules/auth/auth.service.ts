@@ -54,6 +54,7 @@ export class AuthService {
     if (user) {
       throw new BadRequestException('User with this email already exists');
     }
+
     const numberForSaltGenerator = 10;
     const salt = await genSalt(numberForSaltGenerator);
 
@@ -61,12 +62,14 @@ export class AuthService {
       ...registrationDto,
       password: await hash(registrationDto.password, salt),
     });
-    await createUser.save();
-    const tokens = await this.createTokenPair(createUser.id);
 
-    const { id, name, email } = createUser;
+    await createUser.save();
+
+    const tokens = await this.createTokenPair(createUser._id.toString());
+
+    const { _id, name, email } = createUser;
     return {
-      id,
+      id: _id,
       name,
       email,
       ...tokens,

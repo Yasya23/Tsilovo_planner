@@ -16,8 +16,7 @@ export const TaskService = {
   },
 
   async update(tasks: WeekTasks): Promise<WeekTasks> {
-    return await axiosClassic.put(services.currentWeekTasks, {
-      tasks,
-    });
+    const data = await axiosClassic.put(services.currentWeekTasks, tasks);
+    return data.data;
   },
 };

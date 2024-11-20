@@ -6,13 +6,62 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
 
 const defaultWeeklyTasks = [
-  { day: 'Monday', tasks: [] },
-  { day: 'Tuesday', tasks: [] },
-  { day: 'Wednesday', tasks: [] },
-  { day: 'Thursday', tasks: [] },
-  { day: 'Friday', tasks: [] },
-  { day: 'Saturday', tasks: [] },
-  { day: 'Sunday', tasks: [] },
+  {
+    day: 'Monday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Tuesday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Wednesday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Thursday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Friday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Saturday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
+  {
+    day: 'Sunday',
+    tasks: [
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
+    ],
+  },
 ];
 
 @Injectable()
@@ -70,18 +119,16 @@ export class TaskService {
   }
 
   async update(dto: WeekTasksDto) {
-    const taskId = new Types.ObjectId(dto.id);
-
+    const taskId = new Types.ObjectId(dto._id);
     const calculatedStatistics = {
       completedTasks: dto.dailyTasks.reduce(
         (sum, dailyTask) =>
           sum + dailyTask.tasks.filter((task) => task.isCompleted).length,
         0,
       ),
-      totalTasks: dto.dailyTasks.reduce(
-        (sum, dailyTask) => sum + dailyTask.tasks.length,
-        0,
-      ),
+      totalTasks: dto.dailyTasks.reduce((total, dayTask) => {
+        return total + dayTask.tasks.filter((task) => task.title).length;
+      }, 0),
     };
 
     const updatedWeekTask = await this.weekTasksModel

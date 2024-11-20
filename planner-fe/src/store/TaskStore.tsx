@@ -94,6 +94,7 @@ export const useTaskStore = create<TaskState>((set) => ({
 
       if (isAuth) {
         const data = await TaskService.update(tasks);
+
         if (data) {
           set({ tasks: data, isLoading: false });
         }

@@ -31,7 +31,7 @@ export const PlannerMain = () => {
       setTemporaryTasks(defaultWeekTasks);
     }
   }, [editTask, tasks]);
-  console.log(tasks, userAuth);
+
   useEffect(() => {
     if (userAuth && !tasks) {
       setTasks(weekNumber, true);
@@ -69,6 +69,14 @@ export const PlannerMain = () => {
     setEditTask(false);
   };
 
+  if (isLoading) {
+    <div className={styles.container}>
+      <div className={styles.spinnerWrapper}>
+        <Spinner />
+      </div>
+      ;
+    </div>;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.tasksContainer}>

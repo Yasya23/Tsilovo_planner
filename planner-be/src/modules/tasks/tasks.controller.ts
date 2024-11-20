@@ -26,7 +26,6 @@ export class TaskController {
   @Put()
   @Auth()
   async update(@Body() dto: WeekTasksDto) {
-    await this.taskService.update(dto);
-    return { message: 'Tasks updated successfully' };
+    return await this.taskService.update(dto);
   }
 }

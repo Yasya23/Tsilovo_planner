@@ -4,10 +4,14 @@ import {
   ValidateNested,
   IsNumber,
   IsArray,
+  IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class TaskDto {
+  @IsString()
+  _id: string;
+
   @IsBoolean()
   isCompleted: boolean;
 
@@ -27,15 +31,19 @@ class DailyTaskDto {
 
 export class WeekTasksDto {
   @IsString()
-  id: string;
+  @IsOptional()
+  _id: string;
 
   @IsNumber()
+  @IsOptional()
   week: number;
 
   @IsString({ each: true })
-  notes: [string, string, string];
+  @IsOptional()
+  notes: string[];
 
   @ValidateNested({ each: true })
   @Type(() => DailyTaskDto)
+  @IsOptional()
   dailyTasks: DailyTaskDto[];
 }

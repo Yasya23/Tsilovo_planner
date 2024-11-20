@@ -52,7 +52,7 @@ export const TaskItem = ({
       ) : (
         <label htmlFor={task?.id || ''} className={styles.checkbox}>
           <Checkbox
-            isCompleted={isCompleted}
+            isCompleted={!!task?.isCompleted}
             isDisabled={!title}
             handleCheckboxChange={handleCheckboxChange}
           />
