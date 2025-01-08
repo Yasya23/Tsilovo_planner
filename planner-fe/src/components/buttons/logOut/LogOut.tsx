@@ -15,7 +15,7 @@ export const LogOut = () => {
       className={classNames(
         styles.logOutButton,
         styles.withIcon,
-        styles.outlineButton
+        styles.outlineBorder
       )}
       onClick={() => logOut()}>
       <FiLogOut />

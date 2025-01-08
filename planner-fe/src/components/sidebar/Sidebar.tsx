@@ -56,7 +56,10 @@ export const Sidebar = () => {
           ) : (
             <Link
               href={routes.login}
-              className={classNames(styles.buttonStyle, styles.outlineButton)}>
+              className={classNames(
+                styles.withBackground,
+                styles.outlineBorder
+              )}>
               Увійти
             </Link>
           )}

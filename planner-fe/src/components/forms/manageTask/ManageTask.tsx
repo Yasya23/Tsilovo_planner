@@ -48,7 +48,7 @@ export const ManageTask = ({
             <button
               type="button"
               onClick={onClose}
-              className={classNames(styles.closeButton, styles.outlineButton)}>
+              className={classNames(styles.closeButton, styles.outlineBorder)}>
               <span>x</span>
             </button>
           </>
@@ -76,14 +76,14 @@ export const ManageTask = ({
                   <option value="low">Низька</option>
                 </select>
               </div>
-              <button type="submit" className={styles.outlineButton}>
+              <button type="submit" className={styles.outlineBorder}>
                 Зберегти
               </button>
             </form>
             <button
               type="button"
               onClick={onClose}
-              className={classNames(styles.closeButton, styles.outlineButton)}>
+              className={classNames(styles.closeButton, styles.outlineBorder)}>
               <span>x</span>
             </button>
           </>

@@ -9,10 +9,10 @@ export const BackToMain = ({ message }: { message: string }) => {
   return (
     <div className={styles.button}>
       <p>{message}</p>
-      <Link href={routes.home} className={styles.buttonStyle}>
+      <Link href={routes.home} className={styles.withBackground}>
         Повернутись на головну
       </Link>
-      <Link href={routes.planner} className={styles.outlineButton}>
+      <Link href={routes.planner} className={styles.outlineBorder}>
         До планувальника
       </Link>
     </div>

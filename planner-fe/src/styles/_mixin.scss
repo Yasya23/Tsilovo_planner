@@ -53,15 +53,15 @@
     background-color: #6985ff51;
   }
 
-  &.buttonStyle,
-  &.outlineButton {
+  &.withBackground,
+  &.outlineBorder {
     color: #ffffff;
     background-color: $accent;
     border-radius: 10px;
     padding: 7px 15px;
   }
 
-  &.outlineButton {
+  &.outlineBorder {
     background-color: transparent;
     border: solid 1px $accent-secondary;
     color: $accent-secondary;
@@ -73,13 +73,13 @@
       border-radius: 10px;
       background-color: #919bcb51;
 
-      &.buttonStyle,
-      &.outlineButton {
+      &.withBackground,
+      &.outlineBorder {
         color: #ffffff;
         background-color: $accent-hover;
       }
 
-      &.outlineButton {
+      &.outlineBorder {
         background-color: $accent-secondary;
       }
     }

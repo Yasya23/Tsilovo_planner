@@ -96,7 +96,7 @@ export const PlannerMain = () => {
               <option value="letter">Формат Letter</option>
             </select>
             <button
-              className={styles.buttonStyle}
+              className={styles.withBackground}
               onClick={handleDownloadPDF}
               disabled={isLoading}>
               Завантажити PDF
@@ -107,15 +107,15 @@ export const PlannerMain = () => {
               <>
                 <button
                   className={classNames(
-                    styles.buttonStyle,
-                    styles.outlineButton
+                    styles.withBackground,
+                    styles.outlineBorder
                   )}
                   onClick={handleSave}
                   disabled={isLoading}>
                   Зберегти
                 </button>
                 <button
-                  className={styles.buttonStyle}
+                  className={styles.withBackground}
                   onClick={handleCancel}
                   disabled={isLoading}>
                   Відмінити
@@ -123,7 +123,10 @@ export const PlannerMain = () => {
               </>
             ) : (
               <button
-                className={classNames(styles.buttonStyle, styles.outlineButton)}
+                className={classNames(
+                  styles.withBackground,
+                  styles.outlineBorder
+                )}
                 onClick={() => setEditTask(true)}
                 disabled={isLoading}>
                 Редагувати список

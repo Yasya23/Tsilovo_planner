@@ -34,7 +34,7 @@ export const Notification = ({ message, type = 'info' }: Props) => {
           <button
             type="button"
             onClick={() => setIsClose(true)}
-            className={classNames(styles.closeButton, styles.outlineButton)}>
+            className={classNames(styles.closeButton, styles.outlineBorder)}>
             <span>x</span>
           </button>
         </div>
