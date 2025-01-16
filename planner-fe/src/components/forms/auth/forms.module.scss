@@ -56,7 +56,8 @@
   padding: 15px;
   font-size: 1.2rem;
   color: #ffffff;
-  background-color: $accent-hover;
+  background-color: $dark-primary-text;
+
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
@@ -66,13 +67,20 @@
 
   &:hover {
     @include hover;
-    &:not(:disabled) {
+    &:not(.disabled) {
       background-color: $accent;
     }
   }
 
+  &.disabled {
+    background-color: $accent-hover;
+    cursor: not-allowed;
+    user-select: none;
+  }
+
   &:disabled {
-    background-color: $dark-primary-text;
-    cursor: default;
+    background-color: $light-primary-text;
+    cursor: not-allowed;
+    user-select: none;
   }
 }

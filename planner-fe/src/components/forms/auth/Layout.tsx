@@ -10,28 +10,25 @@ interface Props {
 }
 
 const Layout = ({ page = 'login', children }: Props) => {
+  const isLoginPage = page === 'login';
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.switchPage}>
-        {page === 'login' ? (
-          <>
-            <div className={classNames(styles.button, styles.disabled)}>
-              Увійти
-            </div>
-            <Link href={routes.register} className={styles.button}>
-              Реєстрація
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link href={routes.login} className={styles.button}>
-              Увійти
-            </Link>
-            <div className={classNames(styles.button, styles.disabled)}>
-              Реєстрація
-            </div>
-          </>
-        )}
+        <Link
+          href={routes.login}
+          className={classNames(styles.button, {
+            [styles.disabled]: isLoginPage,
+          })}>
+          Увійти
+        </Link>
+        <Link
+          href={routes.register}
+          className={classNames(styles.button, {
+            [styles.disabled]: !isLoginPage,
+          })}>
+          Реєстрація
+        </Link>
       </div>
       {children}
     </div>

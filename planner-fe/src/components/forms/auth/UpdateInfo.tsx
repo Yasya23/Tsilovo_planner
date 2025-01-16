@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, Spinner, Checkbox } from '@/components';
 import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
-
 import { getToken } from '@/helpers';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
 import styles from './forms.module.scss';
@@ -24,6 +23,8 @@ export const UpdateInfo = () => {
   const {
     control,
     handleSubmit,
+    clearErrors,
+    setError,
     formState: { errors },
     reset,
     trigger,
@@ -33,15 +34,12 @@ export const UpdateInfo = () => {
     resolver: yupResolver(updateInfoSchema),
     mode: 'onChange',
   });
-
-  const [successUpdate, setSuccessUpdate] = useState(false);
-  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
   const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
   const newPassword = watch('newPassword');
   const email = watch('email');
+  const isChecked = watch('newPasswordCheckbox');
   const token = getToken();
 
   const isSubmitDisabled = email !== userAuth?.email || isChecked || isLoading;
@@ -59,18 +57,21 @@ export const UpdateInfo = () => {
         'update'
       );
     }
-    setIsErrorMessageShown(true);
-    if (!error && userAuth && token) {
-      toast.success('Змінено успішно!');
-      setSuccessUpdate(true);
+    if (error) {
+      setError('root.serverError', {
+        type: 'custom',
+        message: error,
+      });
+    } else {
+      toast.success('Змінено Успішно!');
       reset();
+      clearErrors();
     }
   };
 
   const handleOnFocus = (entity: 'email' | 'password' | 'newPassword') => {
-    setIsErrorMessageShown(false);
-    setSuccessUpdate(false);
     trigger(entity);
+    clearErrors('root.serviceError');
   };
 
   useEffect(() => {
@@ -127,7 +128,6 @@ export const UpdateInfo = () => {
                 isDisabled={false}
                 handleCheckboxChange={() => {
                   onChange(!value);
-                  setIsChecked(!value);
                   if (!!value) {
                     resetField('newPassword');
                     resetField('confirmNewPassword');
@@ -189,13 +189,7 @@ export const UpdateInfo = () => {
           Оновити
         </button>
         <div className={styles.errorField}>
-          {isLoading ? (
-            <Spinner />
-          ) : error && isErrorMessageShown ? (
-            <p>{error}</p>
-          ) : (
-            successUpdate && <p>Змінено успішно!</p>
-          )}
+          {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>
       </form>
     </>
