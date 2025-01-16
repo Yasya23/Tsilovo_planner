@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, Spinner, Button } from '@/components';
@@ -20,6 +20,8 @@ export const LoginForm = () => {
   const {
     control,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
     trigger,
     reset,
@@ -32,26 +34,29 @@ export const LoginForm = () => {
   const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
-  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: LoginFormValues) => {
     if (values) {
       authenticate(values, 'login');
-      setIsErrorMessageShown(true);
     }
   };
 
   useEffect(() => {
-    if (!error && userAuth && token) {
+    if (error) {
+      setError('root.serverError', {
+        type: 'custom',
+        message: error,
+      });
+    } else if (userAuth && token) {
       router.push(routes.planner);
       toast.success('Вхід виконано. Ласкаво просимо!');
       reset();
     }
-  }, [userAuth, error, token]);
+  }, [userAuth, error, token, setError]);
 
   const handleOnFocus = (entity: 'email' | 'password') => {
-    setIsErrorMessageShown(false);
     trigger(entity);
+    clearErrors('root.serviceError');
   };
 
   return (
@@ -100,13 +105,7 @@ export const LoginForm = () => {
           name="Увійти"
         />
         <div className={styles.errorField}>
-          {isLoading ? (
-            <Spinner />
-          ) : error && isErrorMessageShown ? (
-            <p>{error}</p>
-          ) : (
-            ''
-          )}
+          {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>
       </form>
     </Layout>

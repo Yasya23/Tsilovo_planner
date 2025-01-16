@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@/components/input/Input';
@@ -23,11 +23,12 @@ export const RegistrationForm = () => {
   const {
     control,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
     reset,
     trigger,
     watch,
-    setError,
   } = useForm<RegistrationFormValues>({
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
@@ -35,11 +36,9 @@ export const RegistrationForm = () => {
   const password = watch('password');
   const router = useRouter();
   const token = getToken();
-
   const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
-  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
 
   const onSubmit = (values: RegistrationFormValues) => {
     const { name, email, password } = values;
@@ -52,8 +51,6 @@ export const RegistrationForm = () => {
         },
         'register'
       );
-
-      setIsErrorMessageShown(true);
     }
   };
 
@@ -62,12 +59,25 @@ export const RegistrationForm = () => {
   }, [password, trigger]);
 
   useEffect(() => {
-    if (!error && userAuth && token) {
+    if (error) {
+      setError('root.serverError', {
+        type: 'custom',
+        message: error,
+      });
+    } else if (userAuth && token) {
       router.push(routes.planner);
       toast.success('Реєстрація успішна!');
       reset();
+      clearErrors();
     }
-  }, [userAuth, error, token]);
+  }, [userAuth, error, token, setError]);
+
+  const handleOnFocus = (
+    entity: 'email' | 'password' | 'name' | 'confirmPassword'
+  ) => {
+    trigger(entity);
+    clearErrors('root.serviceError');
+  };
 
   return (
     <Layout page="register">
@@ -84,7 +94,7 @@ export const RegistrationForm = () => {
               {...field}
               icon={AiOutlineUser}
               error={errors?.name?.message}
-              onFocus={() => trigger('name')}
+              onFocus={() => handleOnFocus('name')}
               onBlur={() => trigger('name')}
             />
           )}
@@ -102,7 +112,7 @@ export const RegistrationForm = () => {
               {...field}
               icon={AiOutlineMail}
               error={errors?.email?.message}
-              onFocus={() => trigger('email')}
+              onFocus={() => handleOnFocus('email')}
               onBlur={() => trigger('email')}
             />
           )}
@@ -121,7 +131,7 @@ export const RegistrationForm = () => {
               icon={AiOutlineLock}
               hasAbilityHideValue={true}
               error={errors?.password?.message}
-              onFocus={() => trigger('password')}
+              onFocus={() => handleOnFocus('password')}
               onBlur={() => trigger('password')}
             />
           )}
@@ -140,7 +150,7 @@ export const RegistrationForm = () => {
               icon={AiOutlineLock}
               hasAbilityHideValue={true}
               error={errors?.confirmPassword?.message}
-              onFocus={() => trigger('confirmPassword')}
+              onFocus={() => handleOnFocus('confirmPassword')}
               onBlur={() => trigger('confirmPassword')}
             />
           )}
@@ -149,17 +159,10 @@ export const RegistrationForm = () => {
           Реєстрація
         </button>
         <div className={styles.errorField}>
-          {isLoading ? (
-            <Spinner />
-          ) : error && isErrorMessageShown ? (
-            <p>{error}</p>
-          ) : (
-            ''
-          )}
+          {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>
       </form>
     </Layout>
   );
 };
-
 export default RegistrationForm;
