@@ -8,13 +8,14 @@ import { registrationSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { RegisterFormValues } from '@/types/interfaces/loginFormValues';
 import { getToken } from '@/helpers';
-import Spinner from '@/components/spinner/Spinner';
+import { Spinner } from '@/components/spinner/Spinner';
 import { useRouter } from 'next/navigation';
+import { routes } from '@/constants/routes';
 import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import Layout from './Layout';
-import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
-import { routes } from '@/constants/routes';
+
+import styles from './forms.module.scss';
 interface RegistrationFormValues extends RegisterFormValues {
   confirmPassword: string;
 }
@@ -165,4 +166,3 @@ export const RegistrationForm = () => {
     </Layout>
   );
 };
-export default RegistrationForm;

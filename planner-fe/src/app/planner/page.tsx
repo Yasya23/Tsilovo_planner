@@ -1,4 +1,4 @@
-import PlannerMain from '@/components/pages/plannerMain/PlannerMain';
+import PlannerMain from '@/pages/plannerMain/PlannerMain';
 
 export default function Page() {
   return <PlannerMain />;

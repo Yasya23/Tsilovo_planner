@@ -1,8 +1,8 @@
-import styles from './forms.module.scss';
-import classNames from 'classnames';
 import Link from 'next/link';
-
 import { routes } from '@/constants/routes';
+import classNames from 'classnames';
+
+import styles from './forms.module.scss';
 
 interface Props {
   page?: string;

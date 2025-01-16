@@ -1,4 +1,4 @@
-import { BackToMain } from '@/components';
+import { BackToMain } from '@/components/buttons/backToMain/BackToMain';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

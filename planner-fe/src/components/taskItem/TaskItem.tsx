@@ -1,11 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Checkbox } from '@/components';
 import { Task, Note } from '@/types/tasks.type';
 import { useTaskStore } from '@/store';
 import { CiFaceSmile } from 'react-icons/ci';
-
+import { Checkbox } from '@/components/checkbox/Checkbox';
 import styles from './task.module.scss';
 
 interface TaskItemProps {

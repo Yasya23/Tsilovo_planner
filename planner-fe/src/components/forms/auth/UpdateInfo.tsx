@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, Spinner, Checkbox } from '@/components';
+import { Spinner } from '@/components/spinner/Spinner';
+import { Input } from '@/components/input/Input';
+import { Checkbox } from '@/components/checkbox/Checkbox';
 import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { getToken } from '@/helpers';
@@ -195,5 +197,3 @@ export const UpdateInfo = () => {
     </>
   );
 };
-
-export default UpdateInfo;

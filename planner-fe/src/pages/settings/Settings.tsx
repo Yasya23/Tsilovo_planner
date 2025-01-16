@@ -1,9 +1,10 @@
 'use client';
 
-import UpdateInfo from '@/components/forms/auth/UpdateInfo';
-import styles from './settings.module.scss';
+import { UpdateInfo } from '@/components/forms/auth/UpdateInfo';
 import { useAuthStore } from '@/store/AuthStore';
-import { BackToMain } from '@/components/buttons';
+import BackToMain from '@/components/buttons/backToMain/BackToMain';
+
+import styles from './settings.module.scss';
 
 export const Settings = () => {
   const user = useAuthStore((state) => state.userAuth);

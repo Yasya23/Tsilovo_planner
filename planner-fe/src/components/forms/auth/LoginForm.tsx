@@ -3,7 +3,9 @@
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, Spinner, Button } from '@/components';
+import { Spinner } from '@/components/spinner/Spinner';
+import { Input } from '@/components/input/Input';
+import { Button } from '@/components/buttons/button/Button';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { loginSchema } from '@/utils';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
@@ -111,5 +113,3 @@ export const LoginForm = () => {
     </Layout>
   );
 };
-
-export default LoginForm;

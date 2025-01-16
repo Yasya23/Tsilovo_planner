@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Logo, LogOut, Navigation } from '@/components';
-import Link from 'next/link';
-import { FiUser } from 'react-icons/fi';
+import { Logo } from '@/components/logo/Logo';
+import { LogOut } from '@/components/buttons/logOut/LogOut';
+import { Navigation } from '@/components/navigation/Navigation';
 import { useAuthStore } from '@/store/AuthStore';
-import { routes } from '@/constants/routes';
 
 import styles from './header.module.scss';
 import classNames from 'classnames';

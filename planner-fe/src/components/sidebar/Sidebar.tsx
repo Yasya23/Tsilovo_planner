@@ -3,7 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { routes } from '@/constants/routes';
 import Link from 'next/link';
-import { LogOut, Notification } from '@/components';
+import { LogOut } from '@/components/buttons/logOut/LogOut';
+import { Notification } from '@/components/notificationMessage/Notification';
 
 import { FiSettings, FiActivity, FiCalendar } from 'react-icons/fi';
 
@@ -68,5 +69,3 @@ export const Sidebar = () => {
     </div>
   );
 };
-
-export default Sidebar;

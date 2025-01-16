@@ -23,5 +23,3 @@ export const LogOut = () => {
     </div>
   );
 };
-
-export default LogOut;

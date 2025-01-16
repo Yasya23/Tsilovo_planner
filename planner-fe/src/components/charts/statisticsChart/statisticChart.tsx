@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { TotalTasks } from '@/types/tasks.type';
 import {

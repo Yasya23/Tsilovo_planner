@@ -1,10 +1,12 @@
 'use client';
 
-import { TaskItem } from '@/components';
+import TaskItem from '../taskItem/TaskItem';
 import { WeekTasks, Task, Note } from '@/types/tasks.type';
-import styles from './taskList.module.scss';
 import { useTaskStore } from '@/store';
 import { daysMap } from '@/constants/daysMap';
+
+import styles from './taskList.module.scss';
+
 interface TaskListProps {
   tasks: WeekTasks;
   onUpdateTasks: (updatedTasks: WeekTasks) => void;

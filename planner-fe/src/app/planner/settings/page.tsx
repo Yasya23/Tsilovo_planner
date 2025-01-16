@@ -1,4 +1,4 @@
-import { Settings } from '@/components/pages';
+import { Settings } from '@/pages/settings/Settings';
 
 const page = () => {
   return <Settings />;

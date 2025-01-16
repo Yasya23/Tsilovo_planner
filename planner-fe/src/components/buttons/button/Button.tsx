@@ -1,10 +1,10 @@
 'use client';
 
 import { MouseEventHandler, useState } from 'react';
-import { Tooltip } from '@/components';
+import { Tooltip } from '@/components/tooltip/Tooltip';
+import classNames from 'classnames';
 
 import styles from './button.module.scss';
-import classNames from 'classnames';
 
 interface ButtonProps {
   label?: string;
