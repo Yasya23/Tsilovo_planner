@@ -16,6 +16,16 @@
   flex-direction: column;
   gap: 10px;
 
+  .notEditable {
+    opacity: 0.4;
+    user-select: none;
+  }
+
+  .checkbox {
+    display: flex;
+    gap: 10px;
+  }
+
   .errorField {
     padding: 5px 0;
     display: flex;
@@ -54,15 +64,15 @@
     border-radius: 5px;
   }
 
-  &.disabled {
-    background-color: $dark-primary-text;
-    cursor: default;
-  }
-
   &:hover {
     @include hover;
-    &:not(.disabled) {
+    &:not(:disabled) {
       background-color: $accent;
     }
+  }
+
+  &:disabled {
+    background-color: $dark-primary-text;
+    cursor: default;
   }
 }

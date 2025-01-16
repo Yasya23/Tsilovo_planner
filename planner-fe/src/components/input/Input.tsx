@@ -24,6 +24,7 @@ interface InputProps {
   error?: string;
   hasAbilityHideValue?: boolean;
   isLabelVisibilityHidden?: boolean;
+  disabled?: boolean;
   placeholder?: string;
 }
 
@@ -42,6 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       hasMessages = true,
       isLabelVisibilityHidden = false,
       hasAbilityHideValue = false,
+      disabled = false,
     },
     ref
   ) => {
@@ -83,6 +85,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 if (onBlur) onBlur(e);
               }}
               placeholder={placeholder}
+              disabled={disabled}
               className={classNames(styles.input, { [styles.noIcon]: !Icon })}
               ref={ref}
             />

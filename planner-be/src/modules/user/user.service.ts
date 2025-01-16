@@ -1,9 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
 import { UpdateUserDto } from 'src/typing/dto';
-import { genSalt, hash } from 'bcryptjs';
+import { genSalt, hash, compare } from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -24,6 +28,7 @@ export class UserService {
     const isEmailUnique = await this.userModel.findOne({
       email: userDto.email,
     });
+
     const isEmailTheSame = userDto.email === user.email;
     if (
       userDto.email &&
@@ -33,10 +38,21 @@ export class UserService {
     ) {
       throw new NotFoundException('This email address is already used');
     }
-    if (userDto.password) {
-      const numberForSaltGenerator = 10;
-      const salt = await genSalt(numberForSaltGenerator);
-      user.password = await hash(userDto.password, salt);
+    if (userDto.newPassword) {
+      if (!userDto.password) {
+        throw new BadRequestException(
+          'Old password is required to update the password',
+        );
+      }
+      // Check if the old password matches
+      const isPasswordValid = await compare(userDto.password, user.password);
+
+      if (!isPasswordValid) {
+        throw new BadRequestException('Old password is incorrect');
+      }
+      // Hash and update the new password
+      const salt = await genSalt(10);
+      user.password = await hash(userDto.newPassword, salt);
     }
     if (userDto.email && !isEmailTheSame) user.email = userDto.email;
     if (userDto.name) user.name = userDto.name;

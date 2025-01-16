@@ -3,12 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '@/components/input/Input';
+import { Input, Spinner, Checkbox } from '@/components';
 import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 
 import { getToken } from '@/helpers';
-import Spinner from '@/components/spinner/Spinner';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
 import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
@@ -16,7 +15,9 @@ import { LoginFormValues } from '@/types/interfaces/loginFormValues';
 import classNames from 'classnames';
 
 interface FormValues extends LoginFormValues {
-  confirmPassword: string;
+  newPassword?: string;
+  confirmNewPassword?: string;
+  newPasswordCheckbox?: boolean;
 }
 
 export const UpdateInfo = () => {
@@ -27,19 +28,23 @@ export const UpdateInfo = () => {
     reset,
     trigger,
     watch,
+    resetField,
   } = useForm<FormValues>({
     resolver: yupResolver(updateInfoSchema),
     mode: 'onChange',
   });
-  const password = watch('password');
-  const token = getToken();
-  const [successUpdate, setSuccessUpdate] = useState(false);
 
+  const [successUpdate, setSuccessUpdate] = useState(false);
+  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const { userAuth, authenticate, isLoading, error } = useAuthStore(
     (state) => state
   );
+  const newPassword = watch('newPassword');
+  const email = watch('email');
+  const token = getToken();
 
-  const [isErrorMessageShown, setIsErrorMessageShown] = useState(false);
+  const isSubmitDisabled = email !== userAuth?.email || isChecked || isLoading;
 
   const onSubmit = (values: FormValues) => {
     const { email, password } = values;
@@ -49,6 +54,7 @@ export const UpdateInfo = () => {
         {
           email: userEmail,
           password,
+          newPassword,
         },
         'update'
       );
@@ -61,15 +67,15 @@ export const UpdateInfo = () => {
     }
   };
 
-  const handleOnFocus = (entity: 'email' | 'password') => {
+  const handleOnFocus = (entity: 'email' | 'password' | 'newPassword') => {
     setIsErrorMessageShown(false);
     setSuccessUpdate(false);
     trigger(entity);
   };
 
   useEffect(() => {
-    trigger('confirmPassword');
-  }, [password, trigger]);
+    trigger('confirmNewPassword');
+  }, [newPassword, trigger]);
 
   return (
     <>
@@ -98,7 +104,7 @@ export const UpdateInfo = () => {
           render={({ field }) => (
             <Input
               type="password"
-              label="Пароль/новий пароль"
+              label="Пароль"
               placeholder="Введіть пароль"
               {...field}
               icon={AiOutlineLock}
@@ -111,27 +117,75 @@ export const UpdateInfo = () => {
         />
 
         <Controller
-          name="confirmPassword"
+          name="newPasswordCheckbox"
           control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label="Підтвердіть пароль"
-              placeholder="Підтвердіть пароль"
-              {...field}
-              icon={AiOutlineLock}
-              hasAbilityHideValue={true}
-              error={errors?.confirmPassword?.message}
-              onFocus={() => trigger('confirmPassword')}
-              onBlur={() => trigger('confirmPassword')}
-            />
+          defaultValue={false}
+          render={({ field: { value, onChange } }) => (
+            <label className={styles.checkbox}>
+              <Checkbox
+                isCompleted={!!value}
+                isDisabled={false}
+                handleCheckboxChange={() => {
+                  onChange(!value);
+                  setIsChecked(!value);
+                  if (!!value) {
+                    resetField('newPassword');
+                    resetField('confirmNewPassword');
+                  }
+                }}
+              />
+              <span>Я хочу змінити пароль</span>
+            </label>
           )}
         />
+
+        <div className={!isChecked ? styles.notEditable : ''}>
+          <Controller
+            name="newPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                type="newPassword"
+                label="Новий пароль"
+                placeholder="Введіть новий пароль"
+                {...field}
+                value={field.value ?? ''}
+                icon={AiOutlineLock}
+                hasAbilityHideValue={true}
+                error={errors?.newPassword?.message}
+                onFocus={() => handleOnFocus('newPassword')}
+                onBlur={() => trigger('newPassword')}
+                disabled={!isChecked}
+              />
+            )}
+          />
+
+          <Controller
+            name="confirmNewPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                type="password"
+                label="Підтвердіть пароль"
+                placeholder="Підтвердіть пароль"
+                {...field}
+                value={field.value ?? ''}
+                icon={AiOutlineLock}
+                hasAbilityHideValue={true}
+                error={errors?.confirmNewPassword?.message}
+                onFocus={() => trigger('confirmNewPassword')}
+                onBlur={() => trigger('confirmNewPassword')}
+                disabled={!isChecked}
+              />
+            )}
+          />
+        </div>
         <button
           type="submit"
           className={classNames(styles.button, styles.rounded)}
-          disabled={isLoading}>
+          disabled={!isSubmitDisabled}>
           Оновити
         </button>
         <div className={styles.errorField}>

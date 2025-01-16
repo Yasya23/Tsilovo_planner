@@ -77,7 +77,8 @@
 }
 
 .messageField {
-  height: 20px;
+  min-height: 20px;
+  height: auto;
   p {
     display: flex;
     align-items: center;

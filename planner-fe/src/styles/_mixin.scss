@@ -85,3 +85,50 @@
     }
   }
 }
+
+@mixin responsive-font(
+  $min-size,
+  $max-size,
+  $unit: 'rem',
+  $min-vw: $min-width,
+  $max-vw: $max-width
+) {
+  $min-wt: strip-units($min-vw);
+  $max-wt: strip-units($max-vw);
+
+  @if $unit == 'rem' {
+    font-size: calc(
+      #{toRem($min-size)} +
+        (#{$max-size} - #{$min-size}) *
+        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
+    );
+  } @else if $unit == 'em' {
+    font-size: calc(
+      #{toEm($min-size)} +
+        (#{$max-size} - #{$min-size}) *
+        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
+    );
+  } @else if $unit == 'px' {
+    font-size: calc(
+      #{($min-size)}px +
+        (#{$max-size} - #{$min-size}) *
+        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
+    );
+  } @else {
+    @error "Invalid unit specified. Choose 'rem', 'em', or 'px'.";
+  }
+}
+
+//Responsive Width
+@mixin responsive-width(
+  $min-width,
+  $max-width,
+  $min-vw: $min-width,
+  $max-vw: $max-width
+) {
+  width: calc(
+    #{$min-width} + (#{$max-width} - #{$min-width}) * ((100vw - #{$min-vw}) /
+          (#{$max-vw} - #{$min-vw}))
+  );
+  max-width: 100%;
+}

@@ -27,6 +27,7 @@ export const RegistrationForm = () => {
     reset,
     trigger,
     watch,
+    setError,
   } = useForm<RegistrationFormValues>({
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
@@ -51,6 +52,7 @@ export const RegistrationForm = () => {
         },
         'register'
       );
+
       setIsErrorMessageShown(true);
     }
   };

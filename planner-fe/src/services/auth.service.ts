@@ -24,10 +24,9 @@ export const AuthService = {
     });
   },
 
-  async update({ email, password }: LoginFormValues) {
+  async update(data: LoginFormValues) {
     return await axiosClassic.put<User>(services.update, {
-      email,
-      password,
+      ...data,
     });
   },
 
