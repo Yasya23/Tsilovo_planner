@@ -1,0 +1,18 @@
+@import '@/styles/mixin';
+
+%default-outline-btn {
+  @include link-style(
+    $hasOutlineBorder: true,
+    $hover-background: $accent-secondary,
+    $color: $accent-secondary,
+    $hover-color: #ffffff
+  );
+}
+
+%default-colored-btn {
+  @include link-style(
+    $hasBackground: true,
+    $hover-background: $accent-hover,
+    $color: #ffffff
+  );
+}

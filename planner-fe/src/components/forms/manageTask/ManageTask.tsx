@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Input from '@/components/input/Input';
 import classNames from 'classnames';
-import { Task } from '@/types/interfaces/task';
+import { Task } from '@/types/tasks.type';
 
 import styles from './manageTask.module.scss';
 interface ManageTaskModalProps {

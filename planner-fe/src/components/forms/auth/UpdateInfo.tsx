@@ -10,6 +10,7 @@ import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { getToken } from '@/helpers';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
+import { Button } from '@/components/buttons/button/Button';
 import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
@@ -184,12 +185,12 @@ export const UpdateInfo = () => {
             )}
           />
         </div>
-        <button
+        <Button
           type="submit"
-          className={classNames(styles.button, styles.rounded)}
-          disabled={!isSubmitDisabled}>
-          Оновити
-        </button>
+          disabled={!isSubmitDisabled}
+          name="Оновити"
+          style="primary-hover-gradient"
+        />
         <div className={styles.errorField}>
           {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>

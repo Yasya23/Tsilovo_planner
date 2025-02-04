@@ -12,7 +12,7 @@
   min-height: max-content;
   padding: 0.625rem;
 
-  @include breakpoint-md {
+  @include md {
     padding: 0.625rem 2.75rem;
   }
 }
@@ -37,7 +37,7 @@
     @include link-style;
   }
 
-  @include breakpoint-sm {
+  @include sm {
     flex-grow: 0;
   }
 }
@@ -53,7 +53,7 @@
     color: #ffffff;
   }
 
-  @include breakpoint-lg {
+  @include lg {
     display: none;
   }
 }

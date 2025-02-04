@@ -1,45 +1,54 @@
 @import '_variables.scss';
 
-@mixin breakpoint-sm {
+@mixin sm {
   @media (min-width: 568px) {
     @content;
   }
 }
 
-@mixin breakpoint-md {
+@mixin md {
   @media (min-width: 768px) {
     @content;
   }
 }
 
-@mixin breakpoint-lg {
+@mixin lg {
   @media (min-width: 900px) {
     @content;
   }
 }
 
-@mixin breakpoint-xl {
+@mixin xl {
   @media (min-width: 1200px) {
     @content;
   }
 }
 
 @mixin hover {
-  @media (hover: hover) {
-    @content;
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
   }
 }
 
 @mixin link-style(
   $color: $light-primary-text,
   $active-color: $accent,
-  $hover-color: $light-secondary-text
+  $hover-color: $light-secondary-text,
+  $hover-background: #919bcb51,
+  $hasBackground: false,
+  $hasOutlineBorder: false,
+  $background-color: $accent,
+  $active-background-color: #6985ff51,
+  $border-color: $accent-secondary,
+  $border-radius: 10px
 ) {
   color: $color;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 
-  &.withIcon {
+  &:has(svg) {
     color: $color;
     display: flex;
     align-items: center;
@@ -49,86 +58,96 @@
   &.active {
     color: $accent-secondary;
     padding: 5px 10px;
-    border-radius: 10px;
-    background-color: #6985ff51;
+    border-radius: $border-radius;
+    background-color: $active-background-color;
   }
 
-  &.withBackground,
-  &.outlineBorder {
-    color: #ffffff;
-    background-color: $accent;
-    border-radius: 10px;
+  @if $hasBackground {
+    background-color: $background-color;
+    border-radius: $border-radius;
     padding: 7px 15px;
   }
 
-  &.outlineBorder {
+  @if $hasOutlineBorder {
     background-color: transparent;
-    border: solid 1px $accent-secondary;
-    color: $accent-secondary;
+    border: solid 1px $border-color;
+    border-radius: $border-radius;
+    padding: 7px 15px;
   }
 
   @include hover {
     &:hover {
-      color: $accent;
-      border-radius: 10px;
-      background-color: #919bcb51;
-
-      &.withBackground,
-      &.outlineBorder {
-        color: #ffffff;
-        background-color: $accent-hover;
-      }
-
-      &.outlineBorder {
-        background-color: $accent-secondary;
-      }
+      color: $hover-color;
+      border-radius: $border-radius;
+      background-color: $hover-background;
     }
   }
 }
 
-@mixin responsive-font(
-  $min-size,
-  $max-size,
-  $unit: 'rem',
-  $min-vw: $min-width,
-  $max-vw: $max-width
-) {
-  $min-wt: strip-units($min-vw);
-  $max-wt: strip-units($max-vw);
+//Moving Geadient border
 
-  @if $unit == 'rem' {
-    font-size: calc(
-      #{toRem($min-size)} +
-        (#{$max-size} - #{$min-size}) *
-        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
-    );
-  } @else if $unit == 'em' {
-    font-size: calc(
-      #{toEm($min-size)} +
-        (#{$max-size} - #{$min-size}) *
-        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
-    );
-  } @else if $unit == 'px' {
-    font-size: calc(
-      #{($min-size)}px +
-        (#{$max-size} - #{$min-size}) *
-        ((100vw - #{$min-vw}) / (#{$max-wt} - #{$min-wt}))
-    );
-  } @else {
-    @error "Invalid unit specified. Choose 'rem', 'em', or 'px'.";
+@mixin moving-gradient-border(
+  $gradient-colors: (
+    blue,
+    indigo,
+    violet,
+  ),
+  $border-color: #ffffff,
+  $border-width: 2px,
+  $animation-duration: 3s,
+  $background-color: transparent
+) {
+  position: relative;
+  background: $background-color;
+  border: $border-width solid $border-color;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: -$border-width;
+    border: $border-width solid transparent;
+    border-image: linear-gradient(to right, $gradient-colors...) 1;
+    transition: border-image 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+  }
+
+  @include hover {
+    &::before {
+      opacity: 1;
+      animation: gradient-move $animation-duration infinite linear;
+    }
+  }
+
+  // Dynamically generate the keyframes with custom colors
+  @keyframes gradient-move {
+    0% {
+      border-image: linear-gradient(to right, $gradient-colors...) 1;
+    }
+    25% {
+      border-image: linear-gradient(to bottom, $gradient-colors...) 1;
+    }
+    50% {
+      border-image: linear-gradient(to left, $gradient-colors...) 1;
+    }
+    75% {
+      border-image: linear-gradient(to top, $gradient-colors...) 1;
+    }
+    100% {
+      border-image: linear-gradient(to right, $gradient-colors...) 1;
+    }
   }
 }
 
-//Responsive Width
-@mixin responsive-width(
-  $min-width,
-  $max-width,
-  $min-vw: $min-width,
-  $max-vw: $max-width
-) {
-  width: calc(
-    #{$min-width} + (#{$max-width} - #{$min-width}) * ((100vw - #{$min-vw}) /
-          (#{$max-vw} - #{$min-vw}))
-  );
-  max-width: 100%;
+// Buttons  Hover Gradient
+@mixin button-hover-gradient($color) {
+  border-radius: 0;
+  transition: color 0.3s ease-in-out;
+
+  @include hover() {
+    &:not(:disabled) {
+      @include moving-gradient-border();
+      color: lighten($color, 10%);
+    }
+  }
 }

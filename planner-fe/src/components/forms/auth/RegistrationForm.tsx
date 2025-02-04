@@ -11,6 +11,7 @@ import { getToken } from '@/helpers';
 import { Spinner } from '@/components/spinner/Spinner';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/routes';
+import { Button } from '@/components/buttons/button/Button';
 import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import Layout from './Layout';
 import toast from 'react-hot-toast';
@@ -156,9 +157,12 @@ export const RegistrationForm = () => {
             />
           )}
         />
-        <button type="submit" className={styles.button} disabled={isLoading}>
-          Реєстрація
-        </button>
+        <Button
+          type="submit"
+          disabled={isLoading}
+          name="Реєстрація"
+          style="primary-hover-gradient"
+        />
         <div className={styles.errorField}>
           {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>

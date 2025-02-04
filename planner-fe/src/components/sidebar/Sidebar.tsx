@@ -43,7 +43,6 @@ export const Sidebar = () => {
               {
                 [styles.active]: pathname === href,
               },
-              styles.withIcon
             )}>
             {icon} {label}
           </Link>

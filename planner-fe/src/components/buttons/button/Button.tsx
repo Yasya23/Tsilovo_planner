@@ -2,22 +2,21 @@
 
 import { MouseEventHandler, useState } from 'react';
 import { Tooltip } from '@/components/tooltip/Tooltip';
-import classNames from 'classnames';
+import { ButtonsStyle, ButtonsType } from '@/types/buttons.type';
 
+import classNames from 'classnames';
 import styles from './button.module.scss';
 
 interface ButtonProps {
   label?: string;
-  type?: 'button' | 'reset' | 'submit';
+  type?: ButtonsType;
+  style?: ButtonsStyle;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   icon?: React.ReactNode;
   name?: string;
   disabled?: boolean;
   className?: string;
 }
-
-//TODO
-// Button styles in styles
 
 export const Button = ({
   label,
@@ -26,17 +25,14 @@ export const Button = ({
   icon,
   name,
   disabled = false,
-  className,
+  style = 'primary',
 }: ButtonProps) => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   return (
     <div style={{ position: 'relative' }}>
       <button
-        className={classNames(
-          styles.button,
-          className ? styles[className] : ''
-        )}
+        className={classNames(styles.btn, styles[`btn-${style}`])}
         onClick={onClick}
         onMouseEnter={() => setTooltipVisible(true)}
         onMouseLeave={() => setTooltipVisible(false)}
@@ -49,5 +45,3 @@ export const Button = ({
     </div>
   );
 };
-
-export default Button;

@@ -2,24 +2,18 @@
 
 import useLogOut from '@/hooks/useLogOut';
 import { FiLogOut } from 'react-icons/fi';
-import classNames from 'classnames';
-
-import styles from './logout.module.scss';
+import Button from '../button/Button';
 
 export const LogOut = () => {
   const { logOut } = useLogOut();
 
   return (
-    <div
-      role="button"
-      className={classNames(
-        styles.logOutButton,
-        styles.withIcon,
-        styles.outlineBorder
-      )}
-      onClick={() => logOut()}>
-      <FiLogOut />
-      Вийти
-    </div>
+    <Button
+      type="button"
+      style="hover-gradient"
+      onClick={() => logOut()}
+      icon={<FiLogOut />}
+      name="Вийти"
+    />
   );
 };

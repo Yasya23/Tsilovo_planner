@@ -3,6 +3,7 @@
 .checkbox-wrapper-12 {
   position: relative;
 }
+
 .checkbox-wrapper-12 > svg {
   position: absolute;
   top: -130%;
@@ -13,6 +14,7 @@
 .checkbox-wrapper-12 * {
   box-sizing: border-box;
 }
+
 .checkbox-wrapper-12 input[type='checkbox'] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -21,6 +23,7 @@
   cursor: pointer;
   margin: 0;
 }
+
 .checkbox-wrapper-12 input[type='checkbox']:focus {
   outline: 0;
 }

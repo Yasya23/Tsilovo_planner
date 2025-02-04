@@ -1,5 +1,5 @@
-@import '@/styles/mixin';
+@import '@/styles/placeholders';
 
 .logOutButton {
-  @include link-style;
+  @extend %default-outline-btn;
 }

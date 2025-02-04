@@ -16,7 +16,7 @@
   display: flex;
   gap: 10px;
 
-  @include breakpoint-md {
+  @include md {
     padding: 0 2.75rem;
   }
 

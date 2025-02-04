@@ -13,7 +13,7 @@
     color: $accent-secondary;
   }
 
-  @include breakpoint-sm {
+  @include sm {
     font-size: 1.4rem;
   }
 }

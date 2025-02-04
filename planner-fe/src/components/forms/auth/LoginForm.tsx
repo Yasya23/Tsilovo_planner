@@ -102,9 +102,9 @@ export const LoginForm = () => {
         />
         <Button
           type="submit"
-          className="buttonAuth"
           disabled={isLoading}
           name="Увійти"
+          style="primary-hover-gradient"
         />
         <div className={styles.errorField}>
           {isLoading ? <Spinner /> : errors.root?.serverError?.message}

@@ -1,70 +1,40 @@
-// Button.module.scss
 @import '@/styles/_variables.scss';
 @import '@/styles/_mixin.scss';
 
-// Base Button Styles
-.button {
+.btn {
   cursor: pointer;
   border: none;
+  padding: 10px 15px;
+  font-size: clamp(1rem, 5vw, 1.3rem);
+  transition: all 0.3s ease-in-out;
   border-radius: 4px;
-  padding: 10px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
+  width: auto;
 
-// Task List Button Styles
-.editButton,
-.deleteButton,
-.saveButton,
-.cancelButton {
-  background-color: transparent;
-  padding: 5px 8px;
-  border-radius: 100%;
-  color: $accent;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: $dark-primary-text;
-  }
-}
-
-// Specific Styles for Edit Button
-.editButton {
-  font-size: 25px;
-
-  &:hover {
-    color: $accent-hover;
-  }
-}
-
-// Auth Button Styles
-
-.buttonAuth {
-  text-align: center;
-  width: 100%;
-  max-width: 100%;
-  padding: 15px;
-  font-size: 1.2rem;
-  color: #ffffff;
-  background-color: $accent-hover;
-  cursor: pointer;
-
-  &.rounded {
-    border-radius: 5px;
-  }
-
-  &.disabled {
-    background-color: $dark-primary-text;
+  &:disabled {
+    background-color: $btn-disable;
     cursor: default;
   }
+}
 
-  &:hover {
-    @include hover();
-    &:not(.disabled) {
-      background-color: $accent;
-    }
+$btn-variants: (
+  'primary': $btn-primary,
+  'accent': $btn-accent,
+);
+
+@each $name, $color in $btn-variants {
+  .btn-#{$name} {
+    background-color: $color;
+    color: #ffffff;
+  }
+
+  .btn-outline-#{$name} {
+    background-color: transparent;
+    border: 2px solid $color;
+    color: $color;
+  }
+
+  .btn-#{$name}-hover-gradient {
+    @extend .btn-outline-#{$name};
+    @include button-hover-gradient($color);
   }
 }
