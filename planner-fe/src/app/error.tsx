@@ -1,9 +1,9 @@
 'use client';
 
-import { BackToMain } from '@/components/buttons/backToMain/BackToMain';
+import { MessageNavigator } from '@/components/MessageNavigator/MessageNavigator';
 
 const ServerError = () => {
-  return <BackToMain message="500 | Internal Server Error" />;
+  return <MessageNavigator message="500 | Internal Server Error" />;
 };
 
 export default ServerError;

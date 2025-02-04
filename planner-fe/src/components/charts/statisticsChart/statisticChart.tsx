@@ -1,5 +1,3 @@
-// 'use client';
-
 import { TotalTasks } from '@/types/tasks.type';
 import {
   BarChart,
@@ -50,5 +48,3 @@ export const StatisticsChart = ({ statistics }: Props) => {
     </ResponsiveContainer>
   );
 };
-
-export default StatisticsChart;

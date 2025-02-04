@@ -5,7 +5,7 @@ import { Tooltip } from '@/components/tooltip/Tooltip';
 import { ButtonsStyle, ButtonsType } from '@/types/buttons.type';
 
 import classNames from 'classnames';
-import styles from './button.module.scss';
+import styles from './Button.module.scss';
 
 interface ButtonProps {
   label?: string;

@@ -2,7 +2,7 @@
 
 import { UpdateInfo } from '@/components/forms/auth/UpdateInfo';
 import { useAuthStore } from '@/store/AuthStore';
-import BackToMain from '@/components/buttons/backToMain/BackToMain';
+import MessageNavigator from '@/components/MessageNavigator/MessageNavigator';
 
 import styles from './settings.module.scss';
 
@@ -16,7 +16,7 @@ export const Settings = () => {
           <UpdateInfo />
         </div>
       ) : (
-        <BackToMain message="Сторінка доступна тільки для авторизованих  користувачів :(" />
+        <MessageNavigator message="Сторінка доступна тільки для авторизованих  користувачів :(" />
       )}
     </div>
   );

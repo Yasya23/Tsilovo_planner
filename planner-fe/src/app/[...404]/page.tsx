@@ -1,4 +1,4 @@
-import { BackToMain } from '@/components/buttons/backToMain/BackToMain';
+import { MessageNavigator } from '@/components/MessageNavigator/MessageNavigator';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const Custom404 = () => {
-  return <BackToMain message="404 | Page Not Found" />;
+  return <MessageNavigator message="404 | Page Not Found" />;
 };
 
 export default Custom404;

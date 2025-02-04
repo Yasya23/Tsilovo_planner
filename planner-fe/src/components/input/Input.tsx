@@ -89,6 +89,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               className={classNames(styles.input, { [styles.noIcon]: !Icon })}
               ref={ref}
             />
+
             {hasAbilityHideValue && (
               <div
                 role="button"

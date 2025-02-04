@@ -2,7 +2,7 @@
 
 import useLogOut from '@/hooks/useLogOut';
 import { FiLogOut } from 'react-icons/fi';
-import Button from '../button/Button';
+import { Button } from '../button/Button';
 
 export const LogOut = () => {
   const { logOut } = useLogOut();
@@ -10,7 +10,7 @@ export const LogOut = () => {
   return (
     <Button
       type="button"
-      style="hover-gradient"
+      style="primary-hover-gradient"
       onClick={() => logOut()}
       icon={<FiLogOut />}
       name="Вийти"
