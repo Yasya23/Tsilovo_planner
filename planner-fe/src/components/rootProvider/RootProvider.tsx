@@ -6,6 +6,8 @@ import { Footer } from '@/components/footer/Footer';
 import { Header } from '@/components/header/Header';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Toaster } from 'react-hot-toast';
+import { HeaderTop } from '@/components/headerTop/HeaderTop';
+import { InfoBlock } from '../infoBlock/InfoBlock';
 import { usePathname } from 'next/navigation';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -39,6 +41,8 @@ export const RootProvider = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className={styles.container}>
+        <InfoBlock />
+        <HeaderTop />
         <Header />
         <QueryClientProvider client={queryClient}>
           <div className={styles.wrapper}>

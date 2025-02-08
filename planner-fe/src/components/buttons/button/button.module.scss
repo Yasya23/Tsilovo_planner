@@ -1,5 +1,5 @@
 @import '@/styles/_variables.scss';
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 
 .btn {
   cursor: pointer;
@@ -11,14 +11,14 @@
   width: auto;
 
   &:disabled {
-    background-color: $btn-disable;
+    background-color: $secondary;
     cursor: default;
   }
 }
 
 $btn-variants: (
-  'primary': $btn-primary,
-  'accent': $btn-accent,
+  'primary': $accent-primary,
+  'accent': $accent-secondary,
 );
 
 @each $name, $color in $btn-variants {

@@ -1,10 +1,10 @@
 @import '@/styles/_variables.scss';
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 
 .footer {
   padding: clamp(20px, 3vw, 50px) 0;
 
-  &__container {
+  .container {
     font-size: clamp(toRem(14), 3vw, toRem(18));
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@
     }
   }
 
-  &__wrapper {
+  .wrapper {
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -32,7 +32,7 @@
     }
   }
 
-  &__nav-list {
+  .navList {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -46,15 +46,11 @@
     }
   }
 
-  &__nav-item {
-    transition: color 0.3s ease;
-
-    @include hover {
-      color: $accent;
-    }
+  .navItem {
+    @include linkBase();
   }
 
-  &__subscribtion-wrapper {
+  .subscriptionWrapper {
     position: relative;
     width: clamp(250px, 90vw, 400px);
     max-width: 100%;
@@ -65,11 +61,11 @@
     input {
       flex-grow: 1;
       font-size: inherit;
+      background-color: transparent;
 
       &::placeholder {
         font-size: 0.7em;
         opacity: 0;
-
         transition: opacity 0.3s ease;
       }
 
@@ -79,8 +75,8 @@
         padding-left: 5px;
       }
 
-      &:focus + .footer__subscribtion-label,
-      &:not(:placeholder-shown) + .footer__subscribtion-label {
+      &:focus + .subscriptionLabel,
+      &:not(:placeholder-shown) + .subscriptionLabel {
         transform: translate(-13px, -25px) scale(0.9);
         opacity: 1;
       }
@@ -88,9 +84,9 @@
 
     button {
       margin-left: auto;
-      background-color: black;
+      background-color: $primary;
       padding: 5px 10px;
-      color: white;
+      color: #ffffff;
       transition: opacity 0.3s ease;
 
       @include hover {
@@ -98,7 +94,7 @@
       }
     }
 
-    & .footer__subscribtion-label {
+    .subscriptionLabel {
       position: absolute;
       left: 0;
       bottom: 10px;
@@ -112,11 +108,11 @@
     }
   }
 
-  &__copyright {
+  .copyright {
     font-size: 0.9em;
-    color: $accent;
   }
-  &__social-list {
+
+  .socialList {
     display: flex;
     gap: 20px;
 

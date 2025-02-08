@@ -15,7 +15,7 @@
 
     hr {
       height: 1px;
-      background-color: $dark-bg;
+      background-color: $primary;
       border: none;
       margin-bottom: 20px;
 
@@ -27,13 +27,13 @@
 
   .title {
     font-size: 25px;
-    color: $dark-secondary-bg;
+    color: $primary;
     margin-bottom: 15px;
   }
   .message {
     padding: 20px 0;
     text-align: center;
-    color: $light-secondary-text;
+    color: $secondary;
   }
 
   .tasksWrapper {
@@ -52,11 +52,11 @@
 
     .tasks {
       border-radius: 20px;
-      border: 1px solid $dark-bg;
+      border: 1px solid $primary;
       background-color: white;
 
       & > div:not(:last-child) {
-        border-bottom: 1px solid $light-secondary-text;
+        border-bottom: 1px solid $secondary;
       }
     }
   }

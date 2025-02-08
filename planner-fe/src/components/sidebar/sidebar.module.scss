@@ -1,4 +1,4 @@
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 
 .sideBar {
   align-self: stretch;
@@ -8,34 +8,37 @@
   width: 300px;
   border-right: 1px solid #8080806d;
   border-left: 1px solid #8080806d;
-  padding: 5px;
+
+  & > *:not(.menu) {
+    padding: 5px;
+  }
 
   .menu {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     padding: 25px 0;
   }
 
-  & a {
-    @include link-style;
-    padding: 5px 10px;
+  .menuLink {
+    @include linkBase();
+    @include hoverBackground();
 
     &.active {
-      padding: 5px 10px;
-      border-radius: 10px;
-      background-color: #6985ff51;
+      width: 100%;
+      background: $accent-secondary;
     }
   }
 
-  .logOut {
+  .auth {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 30px;
+  }
 
-    .button {
-      padding: 50px 0;
-    }
+  .loginLink {
+    @include linkWithOutline();
+    @include hoverBackground();
   }
 }

@@ -1,18 +1,18 @@
-@import '@/styles/mixin';
+@import '@/styles/mixins';
 
-%default-outline-btn {
-  @include link-style(
-    $hasOutlineBorder: true,
-    $hover-background: $accent-secondary,
-    $color: $accent-secondary,
-    $hover-color: #ffffff
-  );
-}
+// %default-outline-btn {
+//   @include linkWithOutline(
+//     $hasOutlineBorder: true,
+//     $hover-bg: $accent-secondary,
+//     $color: $accent-secondary,
+//     $hover-color: #ffffff
+//   );
+// }
 
-%default-colored-btn {
-  @include link-style(
-    $hasBackground: true,
-    $hover-background: $accent-hover,
-    $color: #ffffff
-  );
-}
+// %default-colored-btn {
+//   @include linkWithOutline(
+//     $hasBackground: true,
+//     $hover-bg: $primary,
+//     $color: #ffffff
+//   );
+// }

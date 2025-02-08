@@ -13,7 +13,7 @@ import { useAuthStore } from '@/store/AuthStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { getToken } from '@/helpers';
-import Layout from './Layout';
+import { Layout } from './Layout';
 import { routes } from '@/constants/routes';
 
 import styles from './forms.module.scss';

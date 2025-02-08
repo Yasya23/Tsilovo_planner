@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/store';
 import { TaskService } from '@/services/task.service';
 import { TotalTasks } from '@/types/tasks.type';
-import { StatisticsChart } from '@/components/charts/statisticsChart/statisticChart';
+import { StatisticsChart } from '@/components/charts/statisticChart';
 import { Spinner } from '@/components/spinner/Spinner';
 
 import styles from './statistics.module.scss';

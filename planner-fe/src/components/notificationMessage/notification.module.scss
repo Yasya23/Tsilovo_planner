@@ -1,9 +1,9 @@
-@import '@/styles/_mixin.scss';
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
+@import '@/styles/_mixins.scss';
 
 .wrapper {
   padding: 5px 10px 10px 10px;
-  border: 1px solid $accent;
+  border: 1px solid $accent-primary;
   border-radius: 20px;
 
   &.info {
@@ -16,32 +16,32 @@
     justify-content: space-between;
 
     p {
-      color: $light-primary-text;
+      color: $secondary;
     }
 
     svg {
       margin-right: 5px;
       font-size: 20px;
-      color: $accent;
+      color: $accent-primary;
     }
   }
 
   .message {
     text-align: center;
-    color: $light-secondary-text;
+    color: $secondary;
   }
 
   button {
-    @include link-style;
+    @include linkWithOutline();
 
     &.closeButton {
       border: none;
-      color: $accent;
+      color: $accent-primary;
       align-items: center;
       padding: 5px 10px;
       @include hover {
         &:hover {
-          color: $accent;
+          color: $accent-primary;
           background-color: white;
         }
       }

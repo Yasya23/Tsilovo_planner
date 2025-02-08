@@ -1,4 +1,4 @@
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 
 .wrapper {
   display: flex;
@@ -13,13 +13,13 @@
   }
 
   .notification {
-    color: $dark-bg;
+    color: $primary;
   }
 
   .message {
     font-size: 20px;
     align-self: center;
     justify-self: center;
-    color: $dark-bg;
+    color: $primary;
   }
 }

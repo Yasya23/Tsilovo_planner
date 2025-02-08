@@ -10,7 +10,7 @@ export const LogOut = () => {
   return (
     <Button
       type="button"
-      style="primary-hover-gradient"
+      style="outline-accent"
       onClick={() => logOut()}
       icon={<FiLogOut />}
       name="Вийти"

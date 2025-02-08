@@ -1,4 +1,4 @@
-import { MessageNavigator } from '@/components/MessageNavigator/MessageNavigator';
+import { MessageNavigator } from '@/components/messageNavigator/MessageNavigator';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -1,59 +1,207 @@
-@import '@/styles/_variables.scss';
-@import '@/styles/mixin';
+@import '@/styles/_variables';
+@import '@/styles/mixins';
+
+$mobile-menu-icon-color: $primary;
+$mobile-menu-open-icon-color: #ffffff;
+
+// Header
 
 .header {
-  position: sticky;
+  position: relative;
+  padding: 30px 0;
   top: 0;
-  z-index: 1;
-  width: 100%;
-  background-color: #ffffff;
+  background-color: white;
+  transition: padding 0.3s ease, box-shadow 0.3s ease;
+  z-index: 15;
 
-  color: $accent;
-  min-height: max-content;
-  padding: 0.625rem;
+  &:has(.menu-open) {
+    background-color: $mobile-menu-icon-color;
 
-  @include md {
-    padding: 0.625rem 2.75rem;
+    .logo {
+      display: none;
+    }
+  }
+
+  &.sticky {
+    position: sticky;
+    padding: 10px 0;
+    box-shadow: 0 1px 4px rgba(115, 115, 115, 0.2);
   }
 }
 
-.wrapper {
-  width: 100%;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   justify-content: space-between;
   align-items: center;
 }
 
-.linksWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-grow: 1;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
 
-  a {
-    @include link-style;
-  }
+.nav {
+  display: none;
 
-  @include sm {
-    flex-grow: 0;
+  @include md {
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
   }
 }
 
-.toggleBtn {
-  display: block;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  background: none;
-  margin-right: 25px;
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-  svg {
-    color: #ffffff;
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+
+    &.active {
+      color: $accent-primary;
+    }
+  }
+}
+
+.iconMenu {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.favorite {
+  position: relative;
+}
+
+.favoriteLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+
+  .icon {
+    width: 24px;
+    height: 24px;
   }
 
-  @include lg {
-    display: none;
+  .counter {
+    position: relative;
+    padding: 2px;
+
+    &::before {
+      content: attr(data-value);
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: $primary;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: -10px;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  z-index: 10;
+
+  &List {
+    margin: 0 0 10px 0;
+    max-height: 400px;
+    overflow: auto;
+  }
+
+  &Item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  &Description {
+    font-size: 1rem;
+    color: #333;
+  }
+
+  &Button {
+    @include moving-gradient-border($border-color: $primary);
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  &Message {
+    text-align: center;
+    font-size: 1rem;
+    padding: 20px 0;
+  }
+
+  &Img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+}
+
+.favorite:hover .dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: $mobile-menu-icon-color;
+    margin: 5px 0;
+  }
+
+  @include md {
+    display: block;
   }
 }

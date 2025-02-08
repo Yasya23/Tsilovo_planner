@@ -1,4 +1,4 @@
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 @import '@/styles/_variables.scss';
 @import '@/styles/_placeholders';
 
@@ -37,7 +37,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: $accent-red;
+    color: $error;
   }
 }
 
@@ -57,7 +57,7 @@
   padding: 15px;
   font-size: 1.2rem;
   color: #ffffff;
-  background-color: $dark-primary-text;
+  background-color: $primary;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
@@ -68,18 +68,18 @@
   &:hover {
     @include hover;
     &:not(.disabled) {
-      background-color: $accent;
+      background-color: $accent-primary;
     }
   }
 
   &.disabled {
-    background-color: $accent-hover;
+    background-color: $secondary;
     cursor: not-allowed;
     user-select: none;
   }
 
   &:disabled {
-    background-color: $light-primary-text;
+    background-color: $secondary;
     cursor: not-allowed;
     user-select: none;
   }

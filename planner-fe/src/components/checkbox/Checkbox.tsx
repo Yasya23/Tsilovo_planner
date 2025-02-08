@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTaskStore } from '@/store';
 import { FiCheck } from 'react-icons/fi';
 
-import styles from './checkbox.module.scss';
+import styles from './Checkbox.module.scss';
 import classNames from 'classnames';
 interface Props {
   isCompleted: boolean;

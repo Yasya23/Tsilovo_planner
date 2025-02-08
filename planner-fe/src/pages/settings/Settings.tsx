@@ -2,7 +2,7 @@
 
 import { UpdateInfo } from '@/components/forms/auth/UpdateInfo';
 import { useAuthStore } from '@/store/AuthStore';
-import MessageNavigator from '@/components/MessageNavigator/MessageNavigator';
+import MessageNavigator from '@/components/messageNavigator/MessageNavigator';
 
 import styles from './settings.module.scss';
 

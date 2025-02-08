@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import html2pdf from 'html2pdf.js';
 import Spinner from '@/components/spinner/Spinner';
 import TaskList from '@/components/taskList/TaskList';
-import { ProgressChart } from '@/components/charts/progressChart/ProgressChart';
+import { ProgressChart } from '@/components/charts/ProgressChart';
 import { useAuthStore, useTaskStore } from '@/store';
 import { weekCalculate } from '@/utils';
 import { defaultWeekTasks } from '@/constants/defaultWeekTasks';

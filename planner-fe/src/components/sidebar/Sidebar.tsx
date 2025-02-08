@@ -5,12 +5,11 @@ import { routes } from '@/constants/routes';
 import Link from 'next/link';
 import { LogOut } from '@/components/buttons/logOut/LogOut';
 import { Notification } from '@/components/notificationMessage/Notification';
-
+import { useAuthStore } from '@/store';
+import classNames from 'classnames';
 import { FiSettings, FiActivity, FiCalendar } from 'react-icons/fi';
 
-import styles from './sidebar.module.scss';
-import classNames from 'classnames';
-import { useAuthStore } from '@/store';
+import styles from './Sidebar.module.scss';
 
 const menuItems = [
   { label: 'Планувальник', href: routes.planner, icon: <FiCalendar /> },
@@ -39,27 +38,20 @@ export const Sidebar = () => {
           <Link
             key={href}
             href={href}
-            className={classNames(
-              {
-                [styles.active]: pathname === href,
-              },
-            )}>
+            className={classNames(styles.menuLink, {
+              [styles.active]: pathname === href,
+            })}>
             {icon} {label}
           </Link>
         ))}
       </div>
-      <div className={styles.logOut}>
+      <div className={styles.auth}>
         {!user && <Notification message={notificationMessage} />}
-        <div className={styles.button}>
+        <div>
           {user ? (
             <LogOut />
           ) : (
-            <Link
-              href={routes.login}
-              className={classNames(
-                styles.withBackground,
-                styles.outlineBorder
-              )}>
+            <Link href={routes.login} className={styles.loginLink}>
               Увійти
             </Link>
           )}

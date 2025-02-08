@@ -10,14 +10,14 @@
   align-items: center;
 }
 
-.navLink {
+.navlink {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   text-decoration: none;
-  color: $dark-secondary-bg;
+  color: $primary;
   transition: color 0.3s ease-in-out;
 
   &:hover {
@@ -41,11 +41,11 @@
 }
 
 .active {
-  color: $accent;
+  color: $accent-primary;
 
   &::after {
     width: 100%;
-    background-color: $accent;
+    background-color: $accent-primary;
   }
 
   &:hover::after {

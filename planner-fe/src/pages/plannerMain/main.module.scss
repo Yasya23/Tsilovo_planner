@@ -1,4 +1,4 @@
-@import '@/styles/_mixin.scss';
+@import '@/styles/_mixins.scss';
 
 .container {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .tasksContainer {
-  border-right: 1px solid $dark-secondary-text;
+  border-right: 1px solid $secondary;
   padding: 30px 15px;
   flex-grow: 1;
   display: flex;
@@ -29,7 +29,8 @@
       gap: 15px;
     }
     button {
-      @include link-style;
+      @include linkWithOutline;
+      @include hoverBackground();
     }
 
     .day {
@@ -57,7 +58,7 @@
       }
 
       & select {
-        border: 1px solid $accent-hover;
+        border: 1px solid $primary;
         border-radius: 20px 0 0 20px;
         padding: 10px;
       }
@@ -87,7 +88,7 @@
 }
 
 .asideContainer {
-  border-right: 1px solid $dark-secondary-text;
+  border-right: 1px solid $secondary;
   width: 250px;
   height: 100%;
   text-align: center;
@@ -95,7 +96,7 @@
   h3 {
     padding: 20px;
     font-size: 20px;
-    color: $dark-secondary-bg;
+    color: $primary;
 
     span {
       color: $accent-secondary;

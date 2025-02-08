@@ -1,0 +1,59 @@
+@import '@/styles/_variables';
+@import '@/styles/mixins';
+
+.infoBlock {
+  $background-color: #b9a485;
+  $close-button-color: #ffffff;
+  $text-color: #ffffff;
+  $text-hover: $primary;
+
+  width: 100%;
+  background-color: $background-color;
+  transition: transform 0.5s ease-out;
+
+  &.closed {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .link {
+    flex-grow: 1;
+    color: $text-color;
+    text-align: center;
+    transition: color 0.3s ease-in;
+    font-size: clamp(0.7rem, 3vw, 1.2rem);
+    @include hover {
+      color: $text-hover;
+    }
+  }
+
+  .closeButton {
+    font-size: 25px;
+    padding: 10px;
+    color: $close-button-color;
+    transition: opacity 0.3s ease-in-out;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    @include hover {
+      opacity: 0.5;
+    }
+  }
+}

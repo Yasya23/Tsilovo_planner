@@ -2,37 +2,38 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 
 import styles from './footer.module.scss';
+import classNames from 'classnames';
 
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className="footer__container">
-        <div className="footer__wrapper">
-          <nav className="footer__nav">
-            <ul className="footer__nav-list">
-              <li className="header-top__nav-item">
+      <div className={classNames('container', styles.container)}>
+        <div className={styles.wrapper}>
+          <nav className={styles.nav}>
+            <ul className={styles.navList}>
+              <li className={styles.navItem}>
                 <Link href="favorites.html">FAVORITES</Link>
               </li>
-              <li className="header-top__nav-item">
+              <li className={styles.navItem}>
                 <Link href="terms.html">TERMS OF SERVICES</Link>
               </li>
             </ul>
           </nav>
-          <p className="footer__copyright">© 2025 Zahoruiko Yana</p>
+          <p className={styles.copyright}>© 2025 Zahoruiko Yana</p>
         </div>
-        <div className="footer__wrapper">
-          <form action="" className="footer__subscribtion">
-            <div className="footer__subscribtion-wrapper">
+        <div className={styles.wrapper}>
+          <form className={styles.subscription}>
+            <div className={styles.subscriptionWrapper}>
               <input type="email" placeholder="musyart@gmail.com" />
-              <span className="footer__subscribtion-label">
+              <span className={styles.subscriptionLabel}>
                 Give an email, get the newsletter.
               </span>
               <button type="submit">Subscribe</button>
             </div>
-            <p className="footer__subscribtion-message"></p>
+            <p className={styles.subscriptionMessage}></p>
           </form>
-          <ul className="footer__social-list">
-            <li className="footer__social-item">
+          <ul className={styles.socialList}>
+            <li className={styles.socialItem}>
               <Link
                 href="https://www.pinterest.com/musyaart/"
                 aria-label="Link to GitHub">

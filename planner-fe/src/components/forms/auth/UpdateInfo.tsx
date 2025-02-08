@@ -82,119 +82,117 @@ export const UpdateInfo = () => {
   }, [newPassword, trigger]);
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <Controller
+        name="email"
+        control={control}
+        defaultValue={userAuth?.email}
+        render={({ field }) => (
+          <Input
+            type="email"
+            label="Електронна пошта/нова пошта"
+            placeholder="Введіть електронну пошту"
+            {...field}
+            icon={AiOutlineMail}
+            error={errors.email?.message}
+            onFocus={() => handleOnFocus('email')}
+            onBlur={() => trigger('email')}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            type="password"
+            label="Пароль"
+            placeholder="Введіть пароль"
+            {...field}
+            icon={AiOutlineLock}
+            hasAbilityHideValue={true}
+            error={errors?.password?.message}
+            onFocus={() => handleOnFocus('password')}
+            onBlur={() => trigger('password')}
+          />
+        )}
+      />
+
+      <Controller
+        name="newPasswordCheckbox"
+        control={control}
+        defaultValue={false}
+        render={({ field: { value, onChange } }) => (
+          <label className={styles.checkbox}>
+            <Checkbox
+              isCompleted={!!value}
+              isDisabled={false}
+              handleCheckboxChange={() => {
+                onChange(!value);
+                if (!!value) {
+                  resetField('newPassword');
+                  resetField('confirmNewPassword');
+                }
+              }}
+            />
+            <span>Я хочу змінити пароль</span>
+          </label>
+        )}
+      />
+
+      <div className={!isChecked ? styles.notEditable : ''}>
         <Controller
-          name="email"
+          name="newPassword"
           control={control}
-          defaultValue={userAuth?.email}
+          defaultValue=""
           render={({ field }) => (
             <Input
-              type="email"
-              label="Електронна пошта/нова пошта"
-              placeholder="Введіть електронну пошту"
+              type="newPassword"
+              label="Новий пароль"
+              placeholder="Введіть новий пароль"
               {...field}
-              icon={AiOutlineMail}
-              error={errors.email?.message}
-              onFocus={() => handleOnFocus('email')}
-              onBlur={() => trigger('email')}
+              value={field.value ?? ''}
+              icon={AiOutlineLock}
+              hasAbilityHideValue={true}
+              error={errors?.newPassword?.message}
+              onFocus={() => handleOnFocus('newPassword')}
+              onBlur={() => trigger('newPassword')}
+              disabled={!isChecked}
             />
           )}
         />
+
         <Controller
-          name="password"
+          name="confirmNewPassword"
           control={control}
           defaultValue=""
           render={({ field }) => (
             <Input
               type="password"
-              label="Пароль"
-              placeholder="Введіть пароль"
+              label="Підтвердіть пароль"
+              placeholder="Підтвердіть пароль"
               {...field}
+              value={field.value ?? ''}
               icon={AiOutlineLock}
               hasAbilityHideValue={true}
-              error={errors?.password?.message}
-              onFocus={() => handleOnFocus('password')}
-              onBlur={() => trigger('password')}
+              error={errors?.confirmNewPassword?.message}
+              onFocus={() => trigger('confirmNewPassword')}
+              onBlur={() => trigger('confirmNewPassword')}
+              disabled={!isChecked}
             />
           )}
         />
-
-        <Controller
-          name="newPasswordCheckbox"
-          control={control}
-          defaultValue={false}
-          render={({ field: { value, onChange } }) => (
-            <label className={styles.checkbox}>
-              <Checkbox
-                isCompleted={!!value}
-                isDisabled={false}
-                handleCheckboxChange={() => {
-                  onChange(!value);
-                  if (!!value) {
-                    resetField('newPassword');
-                    resetField('confirmNewPassword');
-                  }
-                }}
-              />
-              <span>Я хочу змінити пароль</span>
-            </label>
-          )}
-        />
-
-        <div className={!isChecked ? styles.notEditable : ''}>
-          <Controller
-            name="newPassword"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Input
-                type="newPassword"
-                label="Новий пароль"
-                placeholder="Введіть новий пароль"
-                {...field}
-                value={field.value ?? ''}
-                icon={AiOutlineLock}
-                hasAbilityHideValue={true}
-                error={errors?.newPassword?.message}
-                onFocus={() => handleOnFocus('newPassword')}
-                onBlur={() => trigger('newPassword')}
-                disabled={!isChecked}
-              />
-            )}
-          />
-
-          <Controller
-            name="confirmNewPassword"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Input
-                type="password"
-                label="Підтвердіть пароль"
-                placeholder="Підтвердіть пароль"
-                {...field}
-                value={field.value ?? ''}
-                icon={AiOutlineLock}
-                hasAbilityHideValue={true}
-                error={errors?.confirmNewPassword?.message}
-                onFocus={() => trigger('confirmNewPassword')}
-                onBlur={() => trigger('confirmNewPassword')}
-                disabled={!isChecked}
-              />
-            )}
-          />
-        </div>
-        <Button
-          type="submit"
-          disabled={!isSubmitDisabled}
-          name="Оновити"
-          style="primary-hover-gradient"
-        />
-        <div className={styles.errorField}>
-          {isLoading ? <Spinner /> : errors.root?.serverError?.message}
-        </div>
-      </form>
-    </>
+      </div>
+      <Button
+        type="submit"
+        disabled={!isSubmitDisabled}
+        name="Оновити"
+        style="primary-hover-gradient"
+      />
+      <div className={styles.errorField}>
+        {isLoading ? <Spinner /> : errors.root?.serverError?.message}
+      </div>
+    </form>
   );
 };

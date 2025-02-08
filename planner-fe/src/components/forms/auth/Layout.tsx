@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Layout = ({ page = 'login', children }: Props) => {
+export const Layout = ({ page = 'login', children }: Props) => {
   const isLoginPage = page === 'login';
 
   return (
@@ -34,5 +34,3 @@ const Layout = ({ page = 'login', children }: Props) => {
     </div>
   );
 };
-
-export default Layout;
