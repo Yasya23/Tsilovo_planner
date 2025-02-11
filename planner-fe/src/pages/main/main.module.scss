@@ -1,4 +1,4 @@
-@import '@/styles/_variables.scss';
+@use '@/styles/_variables' as *;
 
 .main {
   display: flex;
@@ -11,8 +11,7 @@
   padding: 100px 0;
 
   h1 {
-    color: $primary;
-    font-size: 50px;
+    font-size: clamp(1.2rem, 5vw, 3rem);
     font-weight: 600;
     text-align: center;
     max-width: 800px;
@@ -23,7 +22,7 @@
   }
 
   img {
-    border: 10px solid $accent-secondary;
+    border: 10px solid $accent-primary;
     border-radius: 20px;
   }
 }

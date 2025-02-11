@@ -1,25 +1,25 @@
-@import '_variables.scss';
+@use '@/styles/_variables' as *;
 
 @mixin sm {
-  @media (min-width: 568px) {
+  @media (min-width: 786px) {
     @content;
   }
 }
 
 @mixin md {
-  @media (min-width: 768px) {
+  @media (min-width: 786px) {
     @content;
   }
 }
 
 @mixin lg {
-  @media (min-width: 900px) {
+  @media (min-width: 786px) {
     @content;
   }
 }
 
 @mixin xl {
-  @media (min-width: 1200px) {
+  @media (min-width: 786px) {
     @content;
   }
 }
@@ -34,7 +34,7 @@
 
 // Core link styles
 @mixin linkBase(
-  $color: $primary,
+  $color: var(--text-color),
   $hover-color: $secondary,
   $padding: 10px 5px
 ) {
@@ -77,7 +77,7 @@
 
 // Link with outline (color and border same)
 @mixin linkWithOutline(
-  $color: $accent-primary,
+  $color: $primary,
   $border-radius: 10px,
   $padding: 7px 15px,
   $bg-hover: transparent,
@@ -92,103 +92,5 @@
   @include hover {
     color: $text-hover;
     background-color: $bg-hover;
-  }
-}
-
-// Hover effect with background expansion from the left
-
-@mixin hoverBackground($background-color: $accent-primary, $duration: 0.3s) {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: $background-color;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform $duration ease-in-out;
-    z-index: -1;
-  }
-
-  &:not(.active):hover {
-    &::after {
-      transform: scaleX(1);
-    }
-  }
-}
-
-//Moving Gradient border
-
-@mixin moving-gradient-border(
-  $gradient-colors: (
-    blue,
-    indigo,
-    violet,
-  ),
-  $border-color: #ffffff,
-  $border-width: 2px,
-  $animation-duration: 3s,
-  $background-color: transparent
-) {
-  position: relative;
-  background: $background-color;
-  border: $border-width solid $border-color;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    margin: -$border-width;
-    border: $border-width solid transparent;
-    border-image: linear-gradient(to right, $gradient-colors...) 1;
-    transition: border-image 0.7s ease-in-out, opacity 0.7s ease-in-out;
-    opacity: 0;
-  }
-
-  @include hover {
-    &::before {
-      opacity: 1;
-      animation: gradient-move $animation-duration infinite linear;
-    }
-  }
-
-  // Dynamically generate the keyframes with custom colors
-  @keyframes gradient-move {
-    0% {
-      border-image: linear-gradient(to right, $gradient-colors...) 1;
-    }
-    25% {
-      border-image: linear-gradient(to bottom, $gradient-colors...) 1;
-    }
-    50% {
-      border-image: linear-gradient(to left, $gradient-colors...) 1;
-    }
-    75% {
-      border-image: linear-gradient(to top, $gradient-colors...) 1;
-    }
-    100% {
-      border-image: linear-gradient(to right, $gradient-colors...) 1;
-    }
-  }
-}
-
-// Buttons  Hover Gradient
-@mixin button-hover-gradient($color, $background-color: transparent) {
-  border-radius: 0;
-  transition: color 0.3s ease-in-out;
-
-  @include hover() {
-    &:not(:disabled) {
-      @include moving-gradient-border();
-      color: lighten($color, 10%);
-      background: $background-color;
-    }
   }
 }

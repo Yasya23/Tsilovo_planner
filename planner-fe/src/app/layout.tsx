@@ -10,8 +10,8 @@ const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
   title: {
-    default: 'ДеньПро - твій персональний планувальник',
-    template: '%s | ДеньПро',
+    default: 'Тempo - твій персональний планувальник',
+    template: '%s | Тempo',
   },
   description: 'Плануй свій день з нами!',
   icons: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'ДеньПро',
+    siteName: 'Тempo',
     title: 'ДеньПро - твій персональний планувальник',
     description: 'Плануй свій день з нами!',
     url: routes.home,

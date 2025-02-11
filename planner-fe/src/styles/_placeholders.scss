@@ -1,10 +1,10 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 // %default-outline-btn {
 //   @include linkWithOutline(
 //     $hasOutlineBorder: true,
-//     $hover-bg: $accent-secondary,
-//     $color: $accent-secondary,
+//     $hover-bg: $accent-primary,
+//     $color: $accent-primary,
 //     $hover-color: #ffffff
 //   );
 // }

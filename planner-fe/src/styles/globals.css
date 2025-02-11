@@ -1,3 +1,32 @@
+/* Variables */
+
+/* .light {
+  --bg-color: #ffffff;
+  --text-color: #1a1f36;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark {
+    --bg-color: #1a1f36;
+    --text-color: #ffffff;
+  }
+} */
+
+:root {
+  --bg-color: #FAFAF9;
+  --text-color: #0b000f;
+  /* --bg-color: #161b2d;
+  --text-color: #FAFAF9; */
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #161b2d
+    --text-color: #ffffff;
+  }
+}
+
 /* CSS Reset */
 
 html,
@@ -183,7 +212,9 @@ body {
   min-height: 100vh;
 }
 
+/*  Container */
 .container {
   max-width: 1400px;
+  margin: 0 auto;
   padding: 0 10px;
 }

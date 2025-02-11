@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 
-import styles from './footer.module.scss';
+import styles from './Footer.module.scss';
 import classNames from 'classnames';
 
 export const Footer = () => {

@@ -1,8 +1,9 @@
-@import '@/styles/_variables.scss';
-@import '@/styles/_mixins.scss';
+@use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
 
 .container {
-  color: $secondary;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   justify-content: space-between;
   flex-direction: column;

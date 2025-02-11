@@ -1,8 +1,53 @@
-@import '@/styles/_variables';
-@import '@/styles/mixins';
+@use '@/styles/_variables' as *;
+@use '@/styles/mixins' as *;
 
 $mobile-menu-icon-color: $primary;
 $mobile-menu-open-icon-color: #ffffff;
+
+//Header-top
+
+.headerTop {
+  background-color: $primary;
+  padding: 10px 0;
+  width: 100%;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .lang {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    &Link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      color: #ffffff;
+      opacity: 0.8;
+      transition: transform 0.3s ease-in-out;
+
+      &.active {
+        opacity: 1;
+      }
+
+      @include hover {
+        transform: scale(1.1);
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+    }
+  }
+}
 
 // Header
 
@@ -10,7 +55,7 @@ $mobile-menu-open-icon-color: #ffffff;
   position: relative;
   padding: 30px 0;
   top: 0;
-  background-color: white;
+  background-color: var(--bg-color);
   transition: padding 0.3s ease, box-shadow 0.3s ease;
   z-index: 15;
 
@@ -67,7 +112,7 @@ $mobile-menu-open-icon-color: #ffffff;
 
   a {
     text-decoration: none;
-    color: #000;
+    color: var(--text-color);
     font-size: 18px;
 
     &.active {
@@ -92,7 +137,7 @@ $mobile-menu-open-icon-color: #ffffff;
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #000;
+  color: $primary;
 
   .icon {
     width: 24px;
@@ -123,72 +168,8 @@ $mobile-menu-open-icon-color: #ffffff;
   }
 }
 
-.dropdown {
-  position: absolute;
-  top: 100%;
-  right: -10px;
-  width: 300px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.3s ease;
-  z-index: 10;
-
-  &List {
-    margin: 0 0 10px 0;
-    max-height: 400px;
-    overflow: auto;
-  }
-
-  &Item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-
-  &Description {
-    font-size: 1rem;
-    color: #333;
-  }
-
-  &Button {
-    @include moving-gradient-border($border-color: $primary);
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 14px;
-    text-align: center;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  &Message {
-    text-align: center;
-    font-size: 1rem;
-    padding: 20px 0;
-  }
-
-  &Img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-}
-
-.favorite:hover .dropdown {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .mobileButton {
-  display: none;
+  display: block;
   background: none;
   border: none;
   cursor: pointer;
@@ -202,6 +183,6 @@ $mobile-menu-open-icon-color: #ffffff;
   }
 
   @include md {
-    display: block;
+    display: none;
   }
 }

@@ -1,4 +1,4 @@
-@import '@/styles/_variables.scss';
+@use '@/styles/_variables' as *;
 
 .spinner {
   align-self: center;
@@ -40,8 +40,8 @@
 .circleThree {
   width: 38px;
   height: 38px;
-  border: 8px solid $accent-secondary;
-  border-color: transparent $accent-secondary transparent $accent-secondary;
+  border: 8px solid $accent-primary;
+  border-color: transparent $accent-primary transparent $accent-primary;
   animation-delay: -0.1s;
 }
 

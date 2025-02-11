@@ -1,4 +1,5 @@
-@import '@/styles/_mixins.scss';
+@use '@/styles/_mixins' as *;
+@use '@/styles/_variables' as *;
 
 .sideBar {
   align-self: stretch;
@@ -6,8 +7,7 @@
   flex-direction: column;
   gap: 30px;
   width: 300px;
-  border-right: 1px solid #8080806d;
-  border-left: 1px solid #8080806d;
+  border-right: 1px solid $secondary;
 
   & > *:not(.menu) {
     padding: 5px;
@@ -21,11 +21,10 @@
 
   .menuLink {
     @include linkBase();
-    @include hoverBackground();
 
     &.active {
       width: 100%;
-      background: $accent-secondary;
+      background: $accent-primary;
     }
   }
 
@@ -38,7 +37,6 @@
   }
 
   .loginLink {
-    @include linkWithOutline();
-    @include hoverBackground();
+    @include linkWithOutline($color: $primary);
   }
 }

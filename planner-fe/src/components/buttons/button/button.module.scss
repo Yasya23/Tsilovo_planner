@@ -1,5 +1,5 @@
-@import '@/styles/_variables.scss';
-@import '@/styles/_mixins.scss';
+@use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
 
 .btn {
   cursor: pointer;
@@ -18,7 +18,7 @@
 
 $btn-variants: (
   'primary': $accent-primary,
-  'accent': $accent-secondary,
+  'accent': $accent-primary,
 );
 
 @each $name, $color in $btn-variants {
@@ -31,10 +31,5 @@ $btn-variants: (
     background-color: transparent;
     border: 2px solid $color;
     color: $color;
-  }
-
-  .btn-#{$name}-hover-gradient {
-    @extend .btn-outline-#{$name};
-    @include button-hover-gradient($color);
   }
 }

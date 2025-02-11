@@ -1,4 +1,4 @@
-@import '@/styles/_variables.scss';
+@use '@/styles/_variables' as *;
 
 .wrapper {
   padding: 20px 0;
