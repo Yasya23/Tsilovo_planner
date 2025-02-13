@@ -1,7 +1,6 @@
 'use client';
 
 import { MouseEventHandler, useState } from 'react';
-import { Tooltip } from '@/components/tooltip/Tooltip';
 import { ButtonsStyle, ButtonsType } from '@/types/buttons.type';
 
 import classNames from 'classnames';
@@ -41,7 +40,6 @@ export const Button = ({
         {icon}
         {name}
       </button>
-      {label && <Tooltip text={label} visible={tooltipVisible} />}
     </div>
   );
 };

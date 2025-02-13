@@ -29,33 +29,9 @@ export const TaskList = ({ tasks, onUpdateTasks }: TaskListProps) => {
     onUpdateTasks({ ...tasks, dailyTasks: updatedDailyTasks });
   };
 
-  const handleUpdateNote = (index: number, updatedNote: Note) => {
-    const updatedNotes = tasks.notes.map((note, i) =>
-      i === index ? updatedNote : note
-    );
-    onUpdateTasks({ ...tasks, notes: updatedNotes });
-  };
-
   return (
     <div className={styles.wrapper}>
-      <h3 className={styles.title}>Мій Тижневий Розклад</h3>
       <div className={styles.tasksWrapper}>
-        <div className={styles.tasksContainer}>
-          <h3>Нотатки</h3>
-          <div className={styles.tasks}>
-            {tasks.notes.map((note, index) => (
-              <TaskItem
-                key={`note-${index}`}
-                title={note}
-                isNote={true}
-                onUpdate={(updatedNote) =>
-                  handleUpdateNote(index, updatedNote as Note)
-                }
-              />
-            ))}
-          </div>
-        </div>
-
         {tasks.dailyTasks.map((dayTask) => {
           const ukrainianDay = daysMap[dayTask.day] || dayTask.day;
 
@@ -82,15 +58,6 @@ export const TaskList = ({ tasks, onUpdateTasks }: TaskListProps) => {
           );
         })}
       </div>
-      {pdfMode && (
-        <div className={styles.linesWrapper}>
-          <hr />
-          <hr />
-          <hr />
-          <hr />
-          <hr />
-        </div>
-      )}
     </div>
   );
 };

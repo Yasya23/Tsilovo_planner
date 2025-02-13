@@ -1,123 +1,32 @@
 @use '@/styles/mixins' as *;
 @use '@/styles/_variables' as *;
 
-.footer {
-  padding: clamp(20px, 3vw, 50px) 0;
+.Footer {
+  padding: 15px;
+}
 
-  .container {
-    font-size: clamp(toRem(14), 3vw, toRem(18));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column-reverse;
-    border-top: 1px solid $secondary;
-    padding-top: clamp(20px, 3vw, 30px);
+.Settings {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
 
-    @include md {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
+.Info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 1rem;
+
+  &Link {
+    a {
+      text-decoration: underline;
     }
   }
 
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: center;
-    padding: 10px 0;
-
-    @include md {
-      align-items: flex-start;
-    }
-  }
-
-  .navList {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-direction: column;
-
-    @include md {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      max-width: 500px;
-    }
-  }
-
-  .navItem {
-    @include linkBase();
-  }
-
-  .subscriptionWrapper {
-    position: relative;
-    width: clamp(250px, 90vw, 400px);
-    max-width: 100%;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $secondary;
-
-    input {
-      flex-grow: 1;
-      font-size: inherit;
-      background-color: transparent;
-
-      &::placeholder {
-        font-size: 0.7em;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      &:focus::placeholder {
-        color: $primary;
-        opacity: 0.7;
-        padding-left: 5px;
-      }
-
-      &:focus + .subscriptionLabel,
-      &:not(:placeholder-shown) + .subscriptionLabel {
-        transform: translate(-13px, -25px) scale(0.9);
-        opacity: 1;
-      }
-    }
-
-    button {
-      margin-left: auto;
-      background-color: $primary;
-      padding: 5px 10px;
-      color: #ffffff;
-      transition: opacity 0.3s ease;
-
-      @include hover {
-        opacity: 0.7;
-      }
-    }
-
-    .subscriptionLabel {
-      position: absolute;
-      left: 0;
-      bottom: 10px;
-      transform: translate(0, 4px) scale(1);
-      font-weight: inherit;
-      font-size: 0.9em;
-      color: var(--text-color);
-      opacity: 0.6;
-      pointer-events: none;
-      transition: all 0.3s ease;
-    }
-  }
-
-  .copyright {
-    font-size: 0.9em;
-  }
-
-  .socialList {
-    display: flex;
-    gap: 20px;
-
-    @include md {
-      align-self: flex-end;
-    }
+  &Copyright {
+    color: $secondary;
   }
 }

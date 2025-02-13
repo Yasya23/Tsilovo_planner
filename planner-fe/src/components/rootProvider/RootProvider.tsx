@@ -7,8 +7,9 @@ import { Header } from '@/components/header/Header';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Toaster } from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import classNames from 'classnames';
+// import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk';
 import styles from './rootProvider.module.scss';
@@ -32,17 +33,18 @@ export const RootProvider = ({
 }>) => {
   const [queryClient] = useState(createQueryClient);
   const pathname = usePathname();
-  const showSidebar =
+  const isPlannerPage =
     pathname === '/planner' || pathname?.startsWith('/planner/');
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className={styles.container}>
-        <Header />
+    // <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <div className={styles.Container}>
+      <div className={classNames({ [styles.MaxWidth]: !isPlannerPage })}>
+        {!isPlannerPage && <Header />}
         <QueryClientProvider client={queryClient}>
-          <div className={styles.wrapper}>
-            {showSidebar && <Sidebar />}
-            <main>{children}</main>
+          <div className={styles.Wrapper}>
+            {isPlannerPage && <Sidebar />}
+            <main className={styles.Main}>{children}</main>
           </div>
         </QueryClientProvider>
         <Toaster
@@ -56,9 +58,14 @@ export const RootProvider = ({
             },
           }}
         />
-        <Footer />
       </div>
-    </LocalizationProvider>
+      <div className={styles.Footer}>
+        <div className={classNames({ [styles.MaxWidth]: !isPlannerPage })}>
+          <Footer />
+        </div>
+      </div>
+    </div>
+    // </LocalizationProvider>
   );
 };
 

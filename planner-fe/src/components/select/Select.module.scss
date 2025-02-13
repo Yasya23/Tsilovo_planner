@@ -1,0 +1,12 @@
+.FormControl {
+  margin: 0 5px;
+  max-width: 300px;
+
+  &.small {
+    width: 150px;
+  }
+
+  &.medium {
+    width: 200px;
+  }
+}

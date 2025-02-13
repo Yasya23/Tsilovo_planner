@@ -1,28 +1,33 @@
 @use '@/styles/_variables' as *;
 @use '@/styles/_mixins' as *;
 
-.container {
+.Container {
   background-color: var(--bg-color);
   color: var(--text-color);
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   width: 100%;
   min-height: inherit;
+  margin: 0 auto;
 }
 
-.wrapper {
-  flex-grow: 1;
+.MaxWidth {
+  max-width: $xl;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.Wrapper {
   display: flex;
-  gap: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
 
-  @include md {
-    padding: 0 2.75rem;
-  }
+.Main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-  main {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-  }
+.Footer {
+  border-top: 1px solid $secondary;
 }

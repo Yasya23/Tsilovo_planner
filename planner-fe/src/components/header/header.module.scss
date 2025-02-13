@@ -4,53 +4,6 @@
 $mobile-menu-icon-color: $primary;
 $mobile-menu-open-icon-color: #ffffff;
 
-//Header-top
-
-.headerTop {
-  background-color: $primary;
-  padding: 10px 0;
-  width: 100%;
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .lang {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-
-    &Link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      color: #ffffff;
-      opacity: 0.8;
-      transition: transform 0.3s ease-in-out;
-
-      &.active {
-        opacity: 1;
-      }
-
-      @include hover {
-        transform: scale(1.1);
-      }
-
-      svg {
-        width: 16px;
-        height: 16px;
-        fill: currentColor;
-      }
-    }
-  }
-}
-
-// Header
-
 .header {
   position: relative;
   padding: 30px 0;

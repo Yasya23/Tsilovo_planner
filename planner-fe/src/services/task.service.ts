@@ -1,4 +1,4 @@
-import { services } from '@/constants/services';
+import { services } from '@/constants/api-services';
 import { axiosClassic } from '@/api/interceptors';
 import { TotalTasks, WeekTasks } from '@/types/tasks.type';
 

@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { Task, Note } from '@/types/tasks.type';
 import { useTaskStore } from '@/store';
 import { CiFaceSmile } from 'react-icons/ci';
-import { Checkbox } from '@/components/checkbox/Checkbox';
-import styles from './task.module.scss';
+import CheckboxCustom from '@/components/checkbox/Checkbox';
+import styles from './Task.module.scss';
+import Checkbox from '@mui/material/Checkbox';
 
 interface TaskItemProps {
   task?: Task;
@@ -46,17 +47,14 @@ export const TaskItem = ({
 
   return (
     <div className={styles.taskItem}>
-      {isNote ? (
-        <CiFaceSmile size={25} />
-      ) : (
-        <label htmlFor={task?.id || ''} className={styles.checkbox}>
-          <Checkbox
-            isCompleted={!!task?.isCompleted}
-            isDisabled={!title}
-            handleCheckboxChange={handleCheckboxChange}
-          />
-        </label>
-      )}
+      <label htmlFor={task?.id || ''} className={styles.checkbox}>
+        <CheckboxCustom
+          isCompleted={!!task?.isCompleted}
+          isDisabled={!title}
+          handleCheckboxChange={handleCheckboxChange}
+        />
+      </label>
+
       <div className={styles.detailsContainer}>
         <hr className={styles.horizontalLine} />
 

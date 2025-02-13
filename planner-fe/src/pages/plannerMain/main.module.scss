@@ -5,33 +5,22 @@
   display: flex;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
 }
 
 .tasksContainer {
-  border-right: 1px solid $secondary;
   padding: 30px 15px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  @include lg {
-    max-width: 75%;
-  }
 
   .tasksWrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: start;
     gap: 20px;
-
-    .arrowButtons {
-      display: flex;
-      gap: 15px;
-    }
-    button {
-      @include linkWithOutline;
-    }
 
     .day {
       font-weight: 600;
@@ -43,29 +32,10 @@
       }
     }
 
-    .saveBtnWrapper {
-      button:first-child {
-        margin-right: 10px;
-      }
-    }
-
-    .downloadWrapper {
-      border-radius: 20px;
-
-      & button {
-        border-radius: 0 20px 20px 0;
-        padding: 10px;
-      }
-
-      & select {
-        border: 1px solid $primary;
-        border-radius: 20px 0 0 20px;
-        padding: 10px;
-      }
-    }
-
-    @include lg {
-    }
+    // .downloadWrapper {
+    //   display: flex;
+    //   align-items: center;
+    // }
   }
 }
 
@@ -76,35 +46,5 @@
   align-items: center;
   &.enable {
     pointer-events: all;
-  }
-}
-
-.spinnerWrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.asideContainer {
-  border-right: 1px solid $secondary;
-  width: 250px;
-  height: 100%;
-  text-align: center;
-
-  h3 {
-    padding: 20px;
-    font-size: 20px;
-    color: $primary;
-
-    span {
-      color: $accent-primary;
-      font-weight: 600;
-    }
-  }
-
-  .MuiDateCalendar-root {
-    width: 250px;
   }
 }

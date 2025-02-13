@@ -5,13 +5,21 @@ import dayjs from 'dayjs';
 import html2pdf from 'html2pdf.js';
 import Spinner from '@/components/spinner/Spinner';
 import TaskList from '@/components/taskList/TaskList';
-import { ProgressChart } from '@/components/charts/ProgressChart';
+import SelectCustom from '@/components/select/Select';
+import IconButtonCustom from '@/components/buttons/iconButton/IconButton';
+import TooltipCustom from '@/components/Tooltip';
+
 import { useAuthStore, useTaskStore } from '@/store';
 import { weekCalculate } from '@/utils';
 import { defaultWeekTasks } from '@/constants/defaultWeekTasks';
 import { WeekTasks } from '@/types/tasks.type';
 import classNames from 'classnames';
 import styles from './main.module.scss';
+
+const PdfFormats = [
+  { label: 'Letter Size', value: 'letter' },
+  { label: 'A4', value: 'a4' },
+];
 
 export const PlannerMain = () => {
   const { userAuth } = useAuthStore();
@@ -88,51 +96,16 @@ export const PlannerMain = () => {
             </p>
           </div>
           <div className={styles.downloadWrapper}>
-            <select
-              className={styles.selectStyle}
+            <SelectCustom
               value={format}
-              onChange={(e) => setFormat(e.target.value)}
-              disabled={isLoading}>
-              <option value="a4">Формат A4</option>
-              <option value="letter">Формат Letter</option>
-            </select>
-            <button
-              className={styles.withBackground}
-              onClick={handleDownloadPDF}
-              disabled={isLoading}>
-              Завантажити PDF
-            </button>
-          </div>
-          <div className={styles.saveBtnWrapper}>
-            {editTask ? (
-              <>
-                <button
-                  className={classNames(
-                    styles.withBackground,
-                    styles.outlineBorder
-                  )}
-                  onClick={handleSave}
-                  disabled={isLoading}>
-                  Зберегти
-                </button>
-                <button
-                  className={styles.withBackground}
-                  onClick={handleCancel}
-                  disabled={isLoading}>
-                  Відмінити
-                </button>
-              </>
-            ) : (
-              <button
-                className={classNames(
-                  styles.withBackground,
-                  styles.outlineBorder
-                )}
-                onClick={() => setEditTask(true)}
-                disabled={isLoading}>
-                Редагувати список
-              </button>
-            )}
+              onChange={setFormat}
+              options={PdfFormats}
+              helper="Вибрати PDF формат"
+              format="standard"
+              disabled={isLoading}
+            />
+
+            <IconButtonCustom type="download" onClick={handleDownloadPDF} />
           </div>
         </div>
 
@@ -149,24 +122,8 @@ export const PlannerMain = () => {
             />
           </div>
         ) : (
-          <div className={styles.spinnerWrapper}>
-            <Spinner />
-          </div>
+          <div className=""></div>
         )}
-      </div>
-      <div className={styles.asideContainer}>
-        <h3>
-          Прогрес тижня <span>{weekNumber}</span>
-        </h3>
-        <ProgressChart
-          total={tasks?.statistics?.totalTasks ?? 0}
-          todo={Math.max(
-            Number(tasks?.statistics?.totalTasks) -
-              Number(tasks?.statistics?.completedTasks),
-            0
-          )}
-          done={tasks?.statistics?.completedTasks ?? 0}
-        />
       </div>
     </div>
   );

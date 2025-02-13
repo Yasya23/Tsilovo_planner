@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 300px;
-  border-right: 1px solid $secondary;
+  width: clamp(300px, 10vw, 500px);
+  background-color: $secondary;
 
   & > *:not(.menu) {
     padding: 5px;
@@ -24,7 +24,8 @@
 
     &.active {
       width: 100%;
-      background: $accent-primary;
+      background: $secondary;
+      opacity: 0.3;
     }
   }
 
