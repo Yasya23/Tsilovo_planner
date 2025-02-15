@@ -3,9 +3,9 @@
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Spinner } from '@/components/spinner/Spinner';
+import { Spinner } from '@/components/Spinner';
 import { Input } from '@/components/input/Input';
-import CheckboxCustom from '@/components/checkbox/Checkbox';
+import CheckboxCustom from '@/components/Checkbox';
 import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { getToken } from '@/helpers';

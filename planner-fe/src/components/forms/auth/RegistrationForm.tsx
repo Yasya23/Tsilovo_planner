@@ -8,7 +8,7 @@ import { registrationSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { RegisterFormValues } from '@/types/interfaces/loginFormValues';
 import { getToken } from '@/helpers';
-import { Spinner } from '@/components/spinner/Spinner';
+import { Spinner } from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/routes';
 import { Button } from '@/components/buttons/button/Button';

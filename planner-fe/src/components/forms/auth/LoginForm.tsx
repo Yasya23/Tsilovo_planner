@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Spinner } from '@/components/spinner/Spinner';
+import { Spinner } from '@/components/Spinner';
 import { Input } from '@/components/input/Input';
 import { Button } from '@/components/buttons/button/Button';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';

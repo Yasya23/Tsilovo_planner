@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import html2pdf from 'html2pdf.js';
-import Spinner from '@/components/spinner/Spinner';
+import Spinner from '@/components/Spinner';
 import TaskList from '@/components/taskList/TaskList';
-import SelectCustom from '@/components/select/Select';
+import SelectCustom from '@/components/Select';
 import IconButtonCustom from '@/components/buttons/iconButton/IconButton';
 import TooltipCustom from '@/components/Tooltip';
 

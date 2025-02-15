@@ -18,19 +18,8 @@ export const Header = () => {
                   Планувальник
                 </Link>
               </li>
-              <li>
-                <Link href="/downloads">Як це працює</Link>
-              </li>
             </ul>
           </nav>
-          <button
-            className={styles.mobileButton}
-            type="button"
-            aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
         </div>
       </div>
     </header>

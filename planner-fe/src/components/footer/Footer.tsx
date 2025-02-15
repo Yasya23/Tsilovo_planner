@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import styles from './Footer.module.scss';
-import SelectCustom from '../select/Select';
+import SelectCustom from '../Select';
 
 const Languages = [
   { label: 'Українська', value: 'uk' },

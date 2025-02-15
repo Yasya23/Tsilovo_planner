@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useTaskStore } from '@/store';
 import Checkbox from '@mui/material/Checkbox';
 
-import styles from './Checkbox.module.scss';
 interface Props {
   isCompleted: boolean;
   isDisabled: boolean;

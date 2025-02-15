@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store';
 import { routes } from '@/constants/routes';
 import { FiActivity, FiCalendar } from 'react-icons/fi';
-
+import Logo from '@/components/logo/Logo';
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
 
@@ -19,6 +19,7 @@ export const Sidebar = () => {
 
   return (
     <div className={styles.SideBar}>
+      <Logo />
       <div className={styles.Menu}>
         {menuItems.map(({ label, href, icon }) => (
           <Link

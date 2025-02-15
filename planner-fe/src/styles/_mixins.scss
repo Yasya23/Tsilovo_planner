@@ -31,33 +31,3 @@
     }
   }
 }
-
-// Core link styles
-@mixin linkBase(
-  $color: var(--text-color),
-  $hover-color: $secondary,
-  $padding: 10px 5px
-) {
-  display: inline-flex;
-  align-items: center;
-  color: $color;
-  padding: $padding;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-
-  &:has(svg) {
-    align-items: center;
-    gap: 10px;
-  }
-
-  &.active {
-    user-select: none;
-    cursor: not-allowed;
-  }
-
-  &:not(.active) {
-    @include hover {
-      opacity: 0.8;
-    }
-  }
-}

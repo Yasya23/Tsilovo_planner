@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Task, Note } from '@/types/tasks.type';
 import { useTaskStore } from '@/store';
 import { CiFaceSmile } from 'react-icons/ci';
-import CheckboxCustom from '@/components/checkbox/Checkbox';
+import CheckboxCustom from '@/components/Checkbox';
 import styles from './Task.module.scss';
 import Checkbox from '@mui/material/Checkbox';
 
