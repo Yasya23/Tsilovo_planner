@@ -17,8 +17,8 @@
 }
 
 $btn-variants: (
-  'primary': $accent-primary,
-  'accent': $accent-primary,
+  'primary': $primary,
+  'accent': $primary,
 );
 
 @each $name, $color in $btn-variants {

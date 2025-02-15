@@ -3,7 +3,7 @@
 
 .wrapper {
   padding: 5px 10px 10px 10px;
-  border: 1px solid $accent-primary;
+  border: 1px solid $primary;
   border-radius: 20px;
 
   &.info {
@@ -22,7 +22,7 @@
     svg {
       margin-right: 5px;
       font-size: 20px;
-      color: $accent-primary;
+      color: $primary;
     }
   }
 
@@ -32,16 +32,14 @@
   }
 
   button {
-    @include linkWithOutline();
-
     &.closeButton {
       border: none;
-      color: $accent-primary;
+      color: $primary;
       align-items: center;
       padding: 5px 10px;
       @include hover {
         &:hover {
-          color: $accent-primary;
+          color: $primary;
           background-color: white;
         }
       }

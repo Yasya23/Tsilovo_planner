@@ -67,7 +67,7 @@
   &:hover {
     @include hover;
     &:not(.disabled) {
-      background-color: $accent-primary;
+      background-color: $primary;
     }
   }
 

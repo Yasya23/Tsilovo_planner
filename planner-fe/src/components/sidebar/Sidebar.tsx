@@ -18,14 +18,14 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className={styles.sideBar}>
-      <div className={styles.menu}>
+    <div className={styles.SideBar}>
+      <div className={styles.Menu}>
         {menuItems.map(({ label, href, icon }) => (
           <Link
             key={href}
             href={href}
-            className={classNames(styles.menuLink, {
-              [styles.active]: pathname === href,
+            className={classNames(styles.Link, {
+              [styles.Active]: pathname === href,
             })}>
             {icon} {label}
           </Link>

@@ -57,40 +57,7 @@
 
   &:not(.active) {
     @include hover {
-      color: $hover-color;
+      opacity: 0.8;
     }
-  }
-}
-
-// Link with background
-@mixin linkWithBackground(
-  $color: #ffffff,
-  $bg-color: $accent-primary,
-  $border-radius: 10px,
-  $padding: 7px 15px
-) {
-  @include linkBase();
-  background-color: $bg-color;
-  border-radius: $border-radius;
-  padding: $padding;
-}
-
-// Link with outline (color and border same)
-@mixin linkWithOutline(
-  $color: $primary,
-  $border-radius: 10px,
-  $padding: 7px 15px,
-  $bg-hover: transparent,
-  $text-hover: #ffffff
-) {
-  color: $color;
-  background-color: transparent;
-  border: 1px solid $color;
-  border-radius: $border-radius;
-  padding: $padding;
-
-  @include hover {
-    color: $text-hover;
-    background-color: $bg-hover;
   }
 }

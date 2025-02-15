@@ -24,24 +24,24 @@
 .circleOne {
   width: 25px;
   height: 25px;
-  border: 10px solid $accent-primary;
-  border-color: $accent-primary $accent-primary $accent-primary transparent;
+  border: 10px solid $primary;
+  border-color: $primary $primary $primary transparent;
   animation-delay: -0.15s;
 }
 
 .circleTwo {
   width: 50px;
   height: 50px;
-  border: 8px solid $accent-primary;
-  border-color: transparent $accent-primary transparent $accent-primary;
+  border: 8px solid $primary;
+  border-color: transparent $primary transparent $primary;
   animation-delay: -0.55s;
 }
 
 .circleThree {
   width: 38px;
   height: 38px;
-  border: 8px solid $accent-primary;
-  border-color: transparent $accent-primary transparent $accent-primary;
+  border: 8px solid $primary;
+  border-color: transparent $primary transparent $primary;
   animation-delay: -0.1s;
 }
 

@@ -19,7 +19,7 @@
   .tasksWrapper {
     display: flex;
     justify-content: flex-start;
-    align-items: start;
+    align-items: flex-start;
     gap: 20px;
 
     .day {
@@ -27,7 +27,7 @@
       font-size: 1.5rem;
 
       span {
-        color: $accent-primary;
+        color: $primary;
         font-weight: 600;
       }
     }

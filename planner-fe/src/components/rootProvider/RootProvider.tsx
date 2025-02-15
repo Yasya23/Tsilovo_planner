@@ -39,7 +39,10 @@ export const RootProvider = ({
   return (
     // <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div className={styles.Container}>
-      <div className={classNames({ [styles.MaxWidth]: !isPlannerPage })}>
+      <div
+        className={classNames(styles.SubContainer, {
+          [styles.MaxWidth]: !isPlannerPage,
+        })}>
         {!isPlannerPage && <Header />}
         <QueryClientProvider client={queryClient}>
           <div className={styles.Wrapper}>

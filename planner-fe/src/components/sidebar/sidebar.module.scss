@@ -1,43 +1,43 @@
 @use '@/styles/_mixins' as *;
 @use '@/styles/_variables' as *;
 
-.sideBar {
-  align-self: stretch;
+$link-hover-bg: #cfd8dc;
+$link-active-bg: rgba(158, 158, 158, 0.189);
+
+.SideBar {
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: clamp(300px, 10vw, 500px);
-  background-color: $secondary;
+  background-color: $secondary-transparent;
+}
 
-  & > *:not(.menu) {
-    padding: 5px;
-  }
+.Menu {
+  display: flex;
+  flex-direction: column;
+  padding: 25px 10px;
+  gap: 5px;
 
-  .menu {
+  & .Link {
     display: flex;
-    flex-direction: column;
-    padding: 25px 0;
-  }
+    align-items: center;
+    gap: 10px;
+    padding: 7px;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 5px;
 
-  .menuLink {
-    @include linkBase();
+    & svg {
+      stroke: $secondary;
+    }
 
-    &.active {
-      width: 100%;
-      background: $secondary;
-      opacity: 0.3;
+    &:not(.Active) {
+      @include hover {
+        background: $link-hover-bg;
+      }
     }
   }
 
-  .auth {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .loginLink {
-    @include linkWithOutline($color: $primary);
+  & .Active {
+    background: $link-active-bg;
   }
 }
