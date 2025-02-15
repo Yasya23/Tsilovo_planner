@@ -11,7 +11,7 @@ import { getToken } from '@/helpers';
 import { Spinner } from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/routes';
-import { Button } from '@/components/buttons/button/Button';
+import { Button } from '@/components/buttons/Button';
 import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import { Layout } from './Layout';
 import toast from 'react-hot-toast';

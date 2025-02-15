@@ -4,139 +4,26 @@
 $mobile-menu-icon-color: $primary;
 $mobile-menu-open-icon-color: #ffffff;
 
-.header {
+.Header {
   width: 100%;
   position: relative;
-  padding: 30px 0;
-  top: 0;
-  background-color: var(--bg-color);
-  transition: padding 0.3s ease, box-shadow 0.3s ease;
-  z-index: 15;
-
-  &:has(.menu-open) {
-    background-color: $mobile-menu-icon-color;
-
-    .logo {
-      display: none;
-    }
-  }
-
-  &.sticky {
-    position: sticky;
-    padding: 10px 0;
-    box-shadow: 0 1px 4px rgba(115, 115, 115, 0.2);
-  }
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.row {
+  padding: 15px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--bg-color);
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #000;
-}
-
-.nav {
-  display: none;
-
-  @include md {
-    display: flex;
-    align-items: flex-end;
-    gap: 30px;
-  }
-}
-
-.menu {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 18px;
-
-    &.active {
-      color: $primary;
-    }
-  }
-}
-
-.iconMenu {
-  display: flex;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.favorite {
-  position: relative;
-}
-
-.favoriteLink {
+.Menu {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  color: $primary;
+  gap: 15px;
+  .Link {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    transition: opacity 0.3s ease-in-out;
 
-  .icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .counter {
-    position: relative;
-    padding: 2px;
-
-    &::before {
-      content: attr(data-value);
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      background-color: $primary;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 10px;
-      font-weight: bold;
+    @include hover {
+      opacity: 0.7;
     }
-  }
-}
-
-.mobileButton {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  span {
-    display: block;
-    width: 30px;
-    height: 3px;
-    background-color: $mobile-menu-icon-color;
-    margin: 5px 0;
-  }
-
-  @include md {
-    display: none;
   }
 }

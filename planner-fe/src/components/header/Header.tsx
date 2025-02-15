@@ -1,27 +1,28 @@
 import Link from 'next/link';
-import classNames from 'classnames';
+import Logo from '../logo/Logo';
+import ButtonCustom from '../buttons/Button';
+import { routes } from '@/constants/routes';
+import LogOut from '@/components/buttons/LogOut';
+import { useAuthStore } from '@/store';
 
 import styles from './Header.module.scss';
 
 export const Header = () => {
+  const isAuth = useAuthStore((state) => state.userAuth);
+
   return (
-    <header className={styles.header} id="header">
-      <div className={styles.container}>
-        <div className={styles.row}>
-          <Link href="/" className={styles.logo}>
-            Tempo
+    <header className={styles.Header}>
+      <Logo />
+      {isAuth ? (
+        <div className={styles.Menu}>
+          <Link href="/planner" className={styles.Link}>
+            Планувальник
           </Link>
-          <nav className={styles.nav}>
-            <ul className={styles.menu}>
-              <li>
-                <Link href="/planner" className={styles.active}>
-                  Планувальник
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <LogOut />
         </div>
-      </div>
+      ) : (
+        <ButtonCustom href={routes.login} name="Sign In" />
+      )}
     </header>
   );
 };

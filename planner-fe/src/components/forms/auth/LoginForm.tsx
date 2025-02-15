@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '@/components/Spinner';
 import { Input } from '@/components/input/Input';
-import { Button } from '@/components/buttons/button/Button';
+// import { Button } from '@/components/buttons/Button';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { loginSchema } from '@/utils';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
@@ -100,12 +100,12 @@ export const LoginForm = () => {
             />
           )}
         />
-        <Button
+        {/* <Button
           type="submit"
           disabled={isLoading}
           name="Увійти"
           style="primary-hover-gradient"
-        />
+        /> */}
         <div className={styles.errorField}>
           {isLoading ? <Spinner /> : errors.root?.serverError?.message}
         </div>

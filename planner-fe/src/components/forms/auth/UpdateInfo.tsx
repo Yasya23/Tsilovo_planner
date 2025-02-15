@@ -10,7 +10,7 @@ import { updateInfoSchema } from '@/utils';
 import { useAuthStore } from '@/store/AuthStore';
 import { getToken } from '@/helpers';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
-import { Button } from '@/components/buttons/button/Button';
+import { Button } from '@/components/buttons/Button';
 import styles from './forms.module.scss';
 import toast from 'react-hot-toast';
 import { LoginFormValues } from '@/types/interfaces/loginFormValues';
