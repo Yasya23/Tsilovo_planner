@@ -1,0 +1,30 @@
+@use '@/styles/_mixins' as *;
+@use '@/styles/_variables' as *;
+
+.Wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  height: 100%;
+  width: 100%;
+}
+
+.Form {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  & .Error {
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $error;
+  }
+}

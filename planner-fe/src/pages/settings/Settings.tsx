@@ -1,6 +1,6 @@
 'use client';
 
-import { UpdateInfo } from '@/components/forms/auth/UpdateInfo';
+import { UpdateInfo } from '@/components/forms/UpdateInfo';
 import { useAuthStore } from '@/store/AuthStore';
 import MessageNavigator from '@/components/messageNavigator/MessageNavigator';
 

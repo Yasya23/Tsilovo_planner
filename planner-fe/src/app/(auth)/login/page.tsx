@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/forms/auth/LoginForm';
+import AuthForm from '@/components/forms/auth/AuthForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,9 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <LoginForm />
-    </>
-  );
+  return <AuthForm mode="login" />;
 }
