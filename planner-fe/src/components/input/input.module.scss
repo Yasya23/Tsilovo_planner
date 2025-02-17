@@ -1,92 +1,126 @@
 @use '@/styles/_mixins' as *;
+@use '@/styles/_variables' as *;
 
-.fieldsWrapper {
-  width: 1200px;
-  max-width: 100%;
+$error-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
+$success-shadow: 0 0 3px rgba(0, 165, 0, 0.5);
+$success: #018801;
 
-  .successIcon {
-    color: #004b00;
-    fill: #86d986;
-    margin-left: 5px;
-  }
+.Wrapper {
+  width: 100%;
 }
 
-.inputWrapper {
+.InputWrapper {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-}
 
-.label {
-  visibility: visible;
-  &.hidden {
-    visibility: hidden;
-  }
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 10px;
-  color: #615e5e;
-  font-size: 1.3rem;
-
-  svg {
-    @include hover {
-      &:hover {
-        color: #a4a4a4;
-      }
-    }
-  }
-}
-
-.eyeIcon {
-  position: absolute;
-  right: 15px;
-  color: #585555;
-  font-size: 1.3rem;
-  cursor: pointer;
-}
-
-.input {
-  width: 100%;
-  padding: 0.5rem 1rem 0.5rem 2.5rem;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  color: #333;
-  background-color: #fff;
-  box-sizing: border-box;
-  outline: none;
-  transition: border-color 0.3s ease;
-
-  &.noIcon {
-    padding-left: 0.5rem;
+  .SuccessValidation {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #004b00;
+    fill: #86d986;
   }
 
-  &:focus {
-    border-color: #0010f3;
-    box-shadow: 0 0 3px #0010f380;
-  }
-
-  &::placeholder {
-    color: #aaa;
-  }
-}
-
-.messageField {
-  min-height: 20px;
-  height: auto;
-  p {
+  .EyeIcon {
     display: flex;
     align-items: center;
-    gap: 5px;
+    font-size: 1rem;
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+  }
 
-    &.error {
-      color: #ff0000;
-      line-height: 1;
+  .Icon {
+    position: absolute;
+    left: 10px;
+    color: $secondary;
+    font-size: 1.3rem;
+  }
+
+  .Label {
+    position: absolute;
+    left: 2rem;
+    font-size: 1rem;
+    color: $secondary;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    padding: 0 5px;
+  }
+
+  .Input {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &::placeholder {
+      font-size: 0.7em;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+
+    &:focus &::placeholder {
+      opacity: 1;
+    }
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 3px $primary;
+    }
+
+    &:focus + .Label,
+    &:not(:placeholder-shown) + .Label {
+      transform: translate(-20px, -24px) scale(0.9);
+      opacity: 1;
+      background-color: var(--bg-color);
+    }
+  }
+
+  &.error {
+    .Input {
+      border-color: $error;
+      box-shadow: $error-shadow;
+    }
+  }
+
+  &.success {
+    .Input {
+      border-color: $success;
+      box-shadow: $success-shadow;
+    }
+
+    .Label {
+      color: $success;
+    }
+
+    .EyeIcon {
+      right: 30px;
+    }
+  }
+}
+
+.Error {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: $error;
+  padding: 2px 0;
+  min-height: 25px;
+  font-size: clamp(0.6rem, 2vw, 0.8rem);
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &:empty {
+    visibility: hidden;
+    opacity: 0;
   }
 }
