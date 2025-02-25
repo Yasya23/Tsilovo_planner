@@ -18,7 +18,7 @@ interface InputProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   icon?: IconType;
-  type?: string;
+  type?: 'text' | 'password' | 'email';
   label?: string;
   hasMessages?: boolean;
   error?: string;
@@ -46,7 +46,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const [fieldType, setFieldType] = useState(type);
-    const [isFocused, setIsFocused] = useState(false);
 
     const toggleVisibility = (e: React.MouseEvent) => {
       e.preventDefault();
@@ -54,6 +53,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         prevType === 'password' ? 'text' : 'password'
       );
     };
+
+    console.log(toggleVisibility);
 
     const isSuccess = hasMessages && !error && value;
     const inputClass = classNames(styles.InputWrapper, {
@@ -72,11 +73,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             value={value}
             onChange={onChange}
             onFocus={(e) => {
-              setIsFocused(true);
               if (onFocus) onFocus(e);
             }}
             onBlur={(e) => {
-              setIsFocused(false);
               if (onBlur) onBlur(e);
             }}
             placeholder={placeholder}

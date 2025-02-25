@@ -7,7 +7,7 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   iconStart?: React.ReactNode;
   iconEnd?: React.ReactNode;
-  name?: string;
+  name: string;
   disabled?: boolean;
   className?: string;
   style?: 'contained' | 'outlined' | 'text';

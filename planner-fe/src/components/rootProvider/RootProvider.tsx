@@ -8,13 +8,8 @@ import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Toaster } from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames';
-// import { LocalizationProvider } from '@mui/x-date-pickers';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
-import 'dayjs/locale/uk';
-import styles from './rootProvider.module.scss';
 
-dayjs.locale('uk');
+import styles from './rootProvider.module.scss';
 
 const createQueryClient = () => {
   return new QueryClient({
@@ -37,7 +32,6 @@ export const RootProvider = ({
     pathname === '/planner' || pathname?.startsWith('/planner/');
 
   return (
-    // <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div className={styles.Container}>
       <div
         className={classNames(styles.SubContainer, {
@@ -68,7 +62,6 @@ export const RootProvider = ({
         </div>
       </div>
     </div>
-    // </LocalizationProvider>
   );
 };
 

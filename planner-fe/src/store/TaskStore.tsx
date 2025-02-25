@@ -5,6 +5,7 @@ import { defaultWeekTasks } from '@/constants/defaultWeekTasks';
 
 interface TaskState {
   tasks: WeekTasks | null;
+  moode: string | null;
   statistics: TotalTasks | null;
   pdfMode: boolean;
   isLoading: boolean;
@@ -15,12 +16,14 @@ interface TaskState {
     weekNumber?: number
   ) => Promise<void>;
   setPdfMode: (mode: boolean) => void;
+  setMoode: (moode: string) => void;
   setTasks: (weekNumber: number, isAuth: boolean) => void;
   getAllTasks: (isAuth: boolean) => void;
 }
 
 export const useTaskStore = create<TaskState>((set) => ({
   tasks: null,
+  moode: null,
   isLoading: false,
   pdfMode: false,
   statistics: null,
@@ -39,6 +42,8 @@ export const useTaskStore = create<TaskState>((set) => ({
       set({ tasks: defaultWeekTasks, isLoading: false, error: true });
     }
   },
+
+  setMoode: (moode: string) => set({ moode }),
 
   getAllTasks: async (isAuth: boolean) => {
     try {

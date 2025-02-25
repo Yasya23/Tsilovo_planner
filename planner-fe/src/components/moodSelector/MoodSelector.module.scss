@@ -1,0 +1,24 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.Wrapper {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+.IconsContainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100px;
+  background-color: var(--bg-color);
+  box-shadow: 0 0 3px $secondary;
+}
+
+.Icon {
+  padding: 5px;
+  transition: background-color 0.3s ease-in-out;
+  @include hover {
+    background-color: $secondary-transparent;
+  }
+}

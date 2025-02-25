@@ -35,7 +35,7 @@ export const Footer = () => {
           Open-source code available on{' '}
           <Link href="https://github.com/Yasya23/personalPlanner">GitHub</Link>.
         </p>
-        <p className={styles.InfoCopyright}>©{year} Yana Zahoruiko</p>
+        <p className={styles.InfoCopyright}>©{year}</p>
       </div>
     </footer>
   );

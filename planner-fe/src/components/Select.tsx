@@ -9,6 +9,7 @@ interface CustomSelectProps {
   onChange: (event: string) => void;
   options: { label: string; value: string | number }[];
   helper?: string;
+  showValue?: boolean;
   format?: 'standard' | 'outlined';
   disabled?: boolean;
   minSize?: number;
@@ -20,6 +21,7 @@ const SelectCustom = ({
   options,
   helper,
   format = 'standard',
+  showValue = false,
   disabled = false,
   minSize = 180,
 }: CustomSelectProps) => {
@@ -39,7 +41,7 @@ const SelectCustom = ({
         disabled={disabled}>
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
-            {option.label}
+            {option.label} {showValue && option.value}
           </MenuItem>
         ))}
       </Select>

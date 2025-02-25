@@ -1,11 +1,16 @@
 @use '@/styles/_mixins' as *;
 @use '@/styles/_variables' as *;
 
-.container {
+.Container {
+  width: 100%;
+  padding: 10px;
+}
+
+.Top {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  height: 100%;
-  width: 100%;
+  align-items: center;
 }
 
 .tasksContainer {
@@ -39,12 +44,12 @@
   }
 }
 
-.taskListWrapper {
+.ListWrapper {
   pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  &.enable {
+  &.Enable {
     pointer-events: all;
   }
 }
