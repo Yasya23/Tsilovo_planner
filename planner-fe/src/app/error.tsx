@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageNavigator } from '@/components/messageNavigator/MessageNavigator';
+import { MessageNavigator } from '@/shared/components/messageNavigator/MessageNavigator';
 
 const ServerError = () => {
   return <MessageNavigator message="500 | Internal Server Error" />;

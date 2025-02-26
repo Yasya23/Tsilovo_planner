@@ -1,6 +1,5 @@
-'use client';
-import { Main } from '@/pages/main/Main';
+import Home from '@/pages/home';
 
 export default function Page() {
-  return <Main />;
+  return <Home />;
 }

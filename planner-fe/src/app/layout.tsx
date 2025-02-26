@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import RootProvider from '@/components/rootProvider/RootProvider';
 import { Inter } from 'next/font/google';
-import { routes } from '@/constants/routes';
+import { routes } from '@/shared/constants/routes';
+import { Toaster } from 'react-hot-toast';
 
 import '@/styles/globals.css';
 
@@ -33,8 +33,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning={true}>
-      <body className={inter.className} suppressHydrationWarning>
-        <RootProvider>{children}</RootProvider>
+      <body suppressHydrationWarning>
+        {children}
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            duration: 7000,
+            style: {
+              width: '350px',
+              height: '70px',
+              maxWidth: '100%',
+            },
+          }}
+        />
       </body>
     </html>
   );

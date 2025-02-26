@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,15 +19,9 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "*"
-      ],
-      "@/styles/*": [
-        "styles/*"
-      ],
-      "@/pages/*": [
-        "pages/*"
-      ]
+      "@/*": ["*"],
+      "@/styles/*": ["styles/*"],
+      "@/pages/*": ["pages/*"]
     },
     "target": "ES2017"
   },
@@ -40,9 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/services/movies"
+    "src/shared/services/movies"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

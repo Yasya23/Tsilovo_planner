@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { getToken } from '@/helpers';
-import { responseError } from '@/utils';
-import { deleteCookies, setCookies } from '@/helpers';
-import { AuthService } from '@/services/auth.service';
+import { getToken } from '@/shared/helpers';
+import { responseError } from '@/shared/utils';
+import { deleteCookies, setCookies } from '@/shared/helpers';
+import { AuthService } from '@/shared/services/auth.service';
 
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 

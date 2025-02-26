@@ -1,5 +1,5 @@
-import PlannerMain from '@/pages/plannerMain/PlannerMain';
+import Planner from '@/pages/plannerProfile';
 
 export default function Page() {
-  return <PlannerMain />;
+  return <Planner />;
 }
