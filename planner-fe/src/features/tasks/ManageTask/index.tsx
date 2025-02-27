@@ -1,15 +1,14 @@
+'use client';
+
 import * as React from 'react';
 import { useState } from 'react';
 
 import TextField from '@mui/material/TextField';
-import { Theme } from '@mui/material/styles';
-
-import { useTaskStore } from '@/shared/store';
 import MoodSelector from '@/shared/components/moodSelector/MoodSelector';
-import IconButtonCustom from '@/shared/components/ui/buttons/iconButton/IconButton';
-import CheckboxCustom from '../../../shared/components/ui/Checkbox';
+import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import CheckboxCustom from '../../../shared/components/ui/checkbox';
 import SelectCustom from '../../../shared/components/ui/Select';
-
+import { FiTrash2 } from 'react-icons/fi';
 import styles from './ManageTasks.module.scss';
 import ButtonCustom from '../../../shared/components/ui/buttons/Button';
 
@@ -61,7 +60,6 @@ export const ManageTasks = ({ open, handleClose }: Props) => {
   return (
     <div className={styles.Container}>
       <div className={styles.Wrapper}>
-        <MoodSelector />
         {tasks.map((task) => (
           <div key={task.id} className={styles.TaskItem}>
             <CheckboxCustom
@@ -83,17 +81,17 @@ export const ManageTasks = ({ open, handleClose }: Props) => {
             <SelectCustom
               value={task.goal}
               options={goals}
-              minSize={100}
               onChange={(value) => handleTaskChange(task.id, 'goal', value)}
             />
 
-            <IconButtonCustom type="trash" size="small" onClick={handleClose} />
+            <IconButtonCustom
+              name="Видалити"
+              icon={<FiTrash2 />}
+              size="small"
+              onClick={handleClose}
+            />
           </div>
         ))}
-
-        <div className={styles.closeButton}>
-          <IconButtonCustom type="close" onClick={handleClose} />
-        </div>
 
         <div className={styles.Buttons}>
           <ButtonCustom name="Відмінити" style="outlined" />

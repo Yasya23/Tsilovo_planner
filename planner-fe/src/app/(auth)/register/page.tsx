@@ -1,4 +1,4 @@
-import AuthForm from '@/shared/components/forms/auth/AuthForm';
+import AuthPage from '@/pages/auth';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <AuthForm mode="register" />;
+  return <AuthPage mode="register" />;
 }

@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { routes } from '@/shared/constants/routes';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from 'next-themes';
 
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning={true}>
       <body suppressHydrationWarning>
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
         <Toaster
           position="bottom-right"
           toastOptions={{

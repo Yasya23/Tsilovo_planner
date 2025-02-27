@@ -55,8 +55,8 @@ $success: #018801;
     border: 2px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
-    color: #333;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     box-sizing: border-box;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -122,5 +122,9 @@ $success: #018801;
   &:empty {
     visibility: hidden;
     opacity: 0;
+  }
+
+  svg {
+    color: $error;
   }
 }

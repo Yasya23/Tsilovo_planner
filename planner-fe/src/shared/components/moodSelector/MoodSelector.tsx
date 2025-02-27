@@ -1,4 +1,4 @@
-import IconButtonCustom from '@/shared/components/ui/buttons/iconButton/IconButton';
+import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import * as React from 'react';
 import { useTaskStore } from '@/shared/store';
 import SelectCustom from '@/shared/components/ui/Select';

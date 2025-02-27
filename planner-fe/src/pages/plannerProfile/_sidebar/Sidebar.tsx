@@ -4,7 +4,11 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { routes } from '@/shared/constants/routes';
 import { FiActivity, FiCalendar, FiSettings } from 'react-icons/fi';
-import Logo from '@/shared/components/ui/logo/Logo';
+import TeamSwitcher from '@/shared/components/themeToggle/inde';
+import LanguageToggle from '@/shared/components/languageToggle';
+import LogOut from '@/shared/components/LogOut';
+import Avatar from '@/shared/components/ui/avatar';
+
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
 
@@ -19,7 +23,13 @@ export const Sidebar = () => {
 
   return (
     <div className={styles.SideBar}>
-      <Logo />
+      <div className={styles.Header}>
+        <div className={styles.UserInfo}>
+          <Avatar name="Yana" />
+          <h2>Yana</h2>
+        </div>
+        <LogOut />
+      </div>
       <div className={styles.Menu}>
         {menuItems.map(({ label, href, icon }) => (
           <Link
@@ -31,6 +41,10 @@ export const Sidebar = () => {
             {icon} {label}
           </Link>
         ))}
+      </div>
+      <div className={styles.GlobalSettings}>
+        <LanguageToggle />
+        <TeamSwitcher />
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+@forward './_reset.scss';
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #0b000f;
+}
+
+[data-theme='dark'] {
+  --bg-color: #161b2d;
+  --text-color: #ffffff;
+}
+
+[data-theme='dark'] svg {
+  color: #ffffff;
+}
+
+/* General styles */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}

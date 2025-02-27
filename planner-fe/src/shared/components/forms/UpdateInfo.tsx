@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '@/shared/components/ui/Spinner';
 import { Input } from '@/shared/components/ui/input/Input';
-import CheckboxCustom from '@/shared/components/ui/Checkbox';
+import CheckboxCustom from '@/shared/components/ui/checkbox';
 import { updateInfoSchema } from '@/shared/utils';
 import { useAuthStore } from '@/shared/store/AuthStore';
 import { getToken } from '@/shared/helpers';

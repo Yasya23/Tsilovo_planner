@@ -1,3 +1,4 @@
+'use client';
 import ManageTasks from '../ManageTask';
 
 export const TaskList = () => {

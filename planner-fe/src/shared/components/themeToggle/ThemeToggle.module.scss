@@ -1,0 +1,18 @@
+@use '@/styles/_variables.scss' as *;
+
+.Wrapper {
+  display: flex;
+  width: max-content;
+  border: 1px solid $secondary;
+  border-radius: 16px;
+  overflow: hidden;
+
+  li.Active {
+    background-color: $secondary;
+    border-radius: 50%;
+
+    button svg {
+      stroke: #ffffff;
+    }
+  }
+}

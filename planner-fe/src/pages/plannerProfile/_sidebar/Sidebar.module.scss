@@ -5,6 +5,7 @@ $link-hover-bg: #cfd8dc;
 $link-active-bg: rgba(158, 158, 158, 0.189);
 
 .SideBar {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -12,11 +13,23 @@ $link-active-bg: rgba(158, 158, 158, 0.189);
   background-color: $secondary-transparent;
 }
 
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .UserInfo {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}
+
 .Menu {
   display: flex;
   flex-direction: column;
-  padding: 25px 10px;
   gap: 5px;
+  flex-grow: 1;
 
   & .Link {
     display: flex;
@@ -40,4 +53,11 @@ $link-active-bg: rgba(158, 158, 158, 0.189);
   & .Active {
     background: $link-active-bg;
   }
+}
+
+.GlobalSettings {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

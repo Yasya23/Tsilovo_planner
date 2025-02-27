@@ -7,53 +7,51 @@ import {
   FiDownload,
   FiSmile,
   FiXCircle,
+  FiMoon,
+  FiSun,
+  FiMonitor,
 } from 'react-icons/fi';
 import { MouseEventHandler } from 'react';
 
-import styles from './IconButton.module.scss';
-
 const buttons = {
+  mood: { icon: <FiSmile />, name: 'Змінити настрій' },
   download: { icon: <FiDownload />, name: 'Завантажити' },
   trash: { icon: <FiTrash2 />, name: 'Видалити' },
   logout: { icon: <FiLogOut />, name: 'Вийти' },
   edit: { icon: <FiEdit2 />, name: 'Редагувати' },
-  mood: { icon: <FiSmile />, name: 'Змінити настрій' },
   close: { icon: <FiXCircle />, name: 'Зачинити' },
+  lightTheme: { icon: <FiSun />, name: 'Світла тема' },
+  darkTheme: { icon: <FiMoon />, name: 'Темна тема' },
+  systemTheme: { icon: <FiMonitor />, name: 'Системна тема' },
 };
 
 interface Props {
-  type: 'download' | 'trash' | 'logout' | 'edit' | 'mood' | 'close';
+  icon: React.ReactNode;
+  name: string;
   size?: 'small' | 'medium' | 'large';
   showName?: boolean;
   hasTooltip?: boolean;
-  toolipTitle?: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  sx?: object;
 }
 
 export const IconButtonCustom = ({
-  type,
-  size = 'large',
+  icon,
+  name,
+  size = 'medium',
   showName = false,
   hasTooltip = true,
-  toolipTitle,
   onClick,
-  sx,
 }: Props) => {
-  const icon = buttons[type]?.icon;
-  const name = buttons[type]?.name ?? '';
+  const button = (
+    <IconButton size={size} onClick={onClick} aria-label={name}>
+      {icon} {showName && name}
+    </IconButton>
+  );
 
-  if (!hasTooltip) {
-    return <IconButton className={styles.Button}>{icon}</IconButton>;
-  }
-
-  return (
-    <TooltipCustom title={toolipTitle ?? name}>
-      <IconButton size={size} onClick={onClick} sx={sx} aria-label={name}>
-        {buttons[type].icon} {showName && name}
-      </IconButton>
-    </TooltipCustom>
+  return hasTooltip ? (
+    <TooltipCustom title={name}>{button}</TooltipCustom>
+  ) : (
+    button
   );
 };
-
 export default IconButtonCustom;
