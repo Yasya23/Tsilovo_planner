@@ -1,56 +1,55 @@
-import * as React from 'react';
-import { Select } from '@base-ui-components/react/select';
-import { FiChevronDown, FiCheck } from 'react-icons/fi';
+import { useState } from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from './Select.module.scss';
 
 interface CustomSelectProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (event: string) => void;
   options: { label: string; value: string | number }[];
+  helper?: string;
+  showValue?: boolean;
+  format?: 'standard' | 'outlined';
   disabled?: boolean;
-  icon?: React.ReactNode;
+  minWidth?: number;
 }
 
-export const SelectCustom = ({
+const SelectCustom = ({
   value,
   onChange,
   options,
+  helper,
+  format = 'outlined',
+  showValue = false,
   disabled = false,
-  icon,
+  minWidth = 100,
 }: CustomSelectProps) => {
+  const [selectedValue, setSelectedValue] = useState(value);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSelectedValue(event.target.value);
+    onChange(event.target.value);
+  };
+
   return (
-    <Select.Root value={value} onValueChange={onChange}>
-      <Select.Trigger className={styles.Select}>
-        <div className={styles.SelectedValueWrapper}>
-          {icon && icon}
-          <Select.Value />
-        </div>
-        <Select.Icon className={styles.SelectIcon}>
-          <FiChevronDown />
-        </Select.Icon>
-      </Select.Trigger>
-      <Select.Portal>
-        <Select.Positioner className={styles.Positioner} sideOffset={3}>
-          <Select.Popup className={styles.Popup}>
-            {options.map((option) => (
-              <Select.Item
-                key={option.value}
-                value={String(option.value)}
-                disabled={disabled}
-                className={styles.Item}>
-                <Select.ItemIndicator className={styles.ItemIndicator}>
-                  <FiCheck className={styles.ItemIndicatorIcon} />
-                </Select.ItemIndicator>
-                <Select.ItemText className={styles.ItemText}>
-                  {option.label}
-                </Select.ItemText>
-              </Select.Item>
-            ))}
-          </Select.Popup>
-        </Select.Positioner>
-      </Select.Portal>
-    </Select.Root>
+    <FormControl sx={{ m: 1, minWidth: minWidth }} size="small">
+      <Select
+        className={styles.Select}
+        onChange={handleChange}
+        value={selectedValue}
+        variant={format}
+        disabled={disabled}>
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label} {showValue && option.value}
+          </MenuItem>
+        ))}
+      </Select>
+      {helper && <FormHelperText>{helper}</FormHelperText>}
+    </FormControl>
   );
 };
 

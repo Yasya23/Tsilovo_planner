@@ -6,7 +6,7 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import MoodSelector from '@/shared/components/moodSelector/MoodSelector';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import CheckboxCustom from '../../../shared/components/ui/checkbox';
+import CheckboxCustom from '../../../shared/components/ui/Checkbox';
 import SelectCustom from '../../../shared/components/ui/Select';
 import { FiTrash2 } from 'react-icons/fi';
 import styles from './ManageTasks.module.scss';
@@ -69,6 +69,7 @@ export const ManageTasks = ({ open, handleClose }: Props) => {
             />
 
             <TextField
+              className={styles.TextField}
               variant="standard"
               placeholder="Add the task"
               fullWidth

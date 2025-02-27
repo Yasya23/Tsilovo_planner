@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Task } from '@/shared/types/tasks.type';
 import { useTaskStore } from '@/shared/store';
-import CheckboxCustom from '@/shared/components/ui/checkbox';
+import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import styles from './ManageTasks.module.scss';
 
 interface TaskItemProps {

@@ -22,6 +22,11 @@
   align-items: center;
   gap: 10px;
   justify-content: space-between;
+
+  .TextField input {
+    color: var(--text-color);
+    border-bottom: 1px solid white;
+  }
 }
 
 .closeButton {
