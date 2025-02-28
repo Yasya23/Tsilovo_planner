@@ -8,18 +8,20 @@ import LanguageToggle from '@/shared/components/languageToggle';
 import LogOut from '@/shared/components/LogOut';
 import Avatar from '@/shared/components/ui/avatar';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
 
 const menuItems = [
-  { label: 'Планувальник', href: routes.planner, icon: <FiCalendar /> },
-  { label: 'Статистика', href: routes.statistics, icon: <FiActivity /> },
-  { label: 'Налаштування', href: routes.settings, icon: <FiSettings /> },
+  { labelKey: `planner`, href: routes.planner, icon: <FiCalendar /> },
+  { labelKey: 'statistics', href: routes.statistics, icon: <FiActivity /> },
+  { labelKey: 'settings', href: routes.settings, icon: <FiSettings /> },
 ];
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const t = useTranslations('sidebar');
 
   return (
     <div className={styles.SideBar}>
@@ -31,14 +33,14 @@ export const Sidebar = () => {
         <LogOut />
       </div>
       <div className={styles.Menu}>
-        {menuItems.map(({ label, href, icon }) => (
+        {menuItems.map(({ labelKey, href, icon }) => (
           <Link
             key={href}
             href={href}
             className={classNames(styles.Link, {
               [styles.Active]: pathname === href,
             })}>
-            {icon} {label}
+            {icon} {t(labelKey)}
           </Link>
         ))}
       </div>

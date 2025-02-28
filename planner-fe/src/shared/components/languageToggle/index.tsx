@@ -13,7 +13,6 @@ export const LanguageToggle = () => {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
 
   const handleChange = (selectedValue: string) => {
     if (selectedValue !== locale && pathname) {

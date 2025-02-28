@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { Header } from '@/shared/components/header/Header';
-import { Footer } from '@/shared/components/footer/Footer';
 import DefaultLayout from '@/shared/components/layouts/Default';
 import { useTranslations } from 'next-intl';
 
