@@ -1,13 +1,13 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import { routes } from '@/shared/constants/routes';
 import { FiActivity, FiCalendar, FiSettings } from 'react-icons/fi';
 import TeamSwitcher from '@/shared/components/themeToggle/inde';
 import LanguageToggle from '@/shared/components/languageToggle';
 import LogOut from '@/shared/components/LogOut';
 import Avatar from '@/shared/components/ui/avatar';
+import { Link } from '@/i18n/navigation';
 
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';

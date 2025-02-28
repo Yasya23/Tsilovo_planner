@@ -7,7 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import styles from './Select.module.scss';
 
 interface CustomSelectProps {
-  value: { label: string; value: string | number };
+  value: string;
   onChange: (event: string) => void;
   options: { label: string; value: string | number }[];
   helper?: string;
@@ -39,7 +39,7 @@ const SelectCustom = ({
       <Select
         className={styles.Select}
         onChange={handleChange}
-        value={selectedValue.value}
+        value={selectedValue}
         variant={format}
         disabled={disabled}>
         {options.map((option) => (

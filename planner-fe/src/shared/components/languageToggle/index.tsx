@@ -1,7 +1,8 @@
 'use client';
 
-import SelectCustom from '../ui/Select';
+import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
+import SelectCustom from '../ui/Select';
 
 const Languages = [
   { label: '🇺🇦 УK', value: 'uk' },
@@ -9,13 +10,21 @@ const Languages = [
 ];
 
 export const LanguageToggle = () => {
-  const locale = useLocale(); // Get current locale
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
 
   const handleChange = (selectedValue: string) => {
-    console.log('Language changed to:', selectedValue);
-    // Add logic to update locale
+    if (selectedValue !== locale && pathname) {
+      const newPath = pathname.replace(/^\/(uk|en)/, '') || '/';
+      router.push(`/${selectedValue}${newPath}`);
+    }
   };
-  const value = Languages.find((lang) => lang.value === locale) || Languages[0];
+
+  const value =
+    Languages.find((lang) => lang.value === locale)?.value ||
+    Languages[0].value;
 
   return (
     <SelectCustom value={value} onChange={handleChange} options={Languages} />
