@@ -5,5 +5,4 @@ export const routes = {
   register: '/register',
   statistics: '/planner/statistics',
   settings: '/planner/settings',
-  admin: '/planner/admin',
 };

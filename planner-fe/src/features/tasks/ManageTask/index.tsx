@@ -80,7 +80,7 @@ export const ManageTasks = ({ open, handleClose }: Props) => {
             />
 
             <SelectCustom
-              value={task.goal}
+              value={goals[0]}
               options={goals}
               onChange={(value) => handleTaskChange(task.id, 'goal', value)}
             />

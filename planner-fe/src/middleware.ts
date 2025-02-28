@@ -1,33 +1,8 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('refreshToken');
-
-  const isAuthenticated = !!token;
-
-  // if (
-  //   isAuthenticated &&
-  //   (request.nextUrl.pathname === '/register' ||
-  //     request.nextUrl.pathname === '/login')
-  // ) {
-  //   return NextResponse.redirect(new URL('/', request.url));
-  // }
-
-  // const protectedPaths = ['/planner/settings'];
-  // const isProtectedPath = protectedPaths.some((path) =>
-  //   new RegExp(`^${path.replace(/:\w+\*/g, '.*')}$`).test(
-  //     request.nextUrl.pathname
-  //   )
-  // );
-
-  // if (!isAuthenticated && isProtectedPath) {
-  //   return NextResponse.redirect(new URL('/login', request.url));
-  // }
-
-  return NextResponse.next();
-}
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: ['/', '/register', '/login', '/planner'],
+  matcher: ['/', '/(uk|en)/:path*'],
 };
