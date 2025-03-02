@@ -6,14 +6,24 @@ $mobile-menu-open-icon-color: #ffffff;
 
 .Header {
   padding: 10px;
+  background-color: var(--bg-color);
+  transition: padding 0.4s ease-in-out;
+
+  &.Sticky {
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    box-shadow: 0 3px 5px #a8a8bc68;
+  }
+}
+
+.Wrapper {
   max-width: $xl;
-  margin: 0 auto;
   width: 100%;
-  position: relative;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--bg-color);
 }
 
 .Menu {

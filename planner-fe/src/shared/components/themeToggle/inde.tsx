@@ -15,19 +15,19 @@ const themes = [
 ];
 
 const ThemeToggle = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  console.log(theme);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  const defaultTheme = mounted ? theme || 'system' : 'system';
 
   return (
     <ul className={styles.Wrapper}>
       {themes.map(({ themeKey, icon, name }) => {
-        const isActive = theme === themeKey;
+        const isActive = defaultTheme === themeKey;
 
         return (
           <li key={themeKey} className={isActive ? styles.Active : ''}>
@@ -36,7 +36,6 @@ const ThemeToggle = () => {
               name={name}
               size="small"
               onClick={() => setTheme(themeKey)}
-              hasTooltip={false}
             />
           </li>
         );
