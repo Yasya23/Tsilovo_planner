@@ -1,0 +1,39 @@
+.Dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.Trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.Menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 8px 0;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.MenuItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.Icon {
+  margin-right: 8px;
+}

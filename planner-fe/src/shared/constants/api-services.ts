@@ -5,6 +5,7 @@ export const services = {
   login: '/auth/login',
   register: '/auth/register',
   update: '/user/profile',
+  activeGoals: '/goals',
   token: 'auth/login/access-token',
   allTasks: '/tasks/statistics',
   currentWeekTasks: '/tasks',

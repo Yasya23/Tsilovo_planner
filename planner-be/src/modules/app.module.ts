@@ -7,7 +7,7 @@ import { getMongoDbConfig } from '../config/mongo.config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './tasks/tasks.module';
-
+import { GoalsModule } from './goals/goals.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -19,6 +19,7 @@ import { TaskModule } from './tasks/tasks.module';
     AuthModule,
     UserModule,
     TaskModule,
+    GoalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

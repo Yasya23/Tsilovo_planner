@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   padding: 20px 0;
-  gap: 20px;
+  gap: 10px;
   justify-content: flex-start;
 }
 
@@ -12,11 +12,9 @@
   border-radius: 10px;
   border: 1px solid $secondary;
   background-color: var(--bg-color);
-  width: 300px;
+  width: 250px;
+  overflow-y: auto;
   max-width: 100%;
-
-  .Title {
-  }
 
   .Top {
     display: flex;
@@ -27,7 +25,7 @@
 
   .Task {
     & > div:not(:last-child) {
-      border-bottom: 1px solid $secondary;
+      border-bottom: 1px solid $secondary-transparent;
     }
   }
 }

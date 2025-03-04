@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import LanguageToggle from '../languageToggle';
-import ThemeToggle from '../themeToggle/inde';
+import ThemeToggle from '../themeToggle';
 
 import styles from './Footer.module.scss';
 

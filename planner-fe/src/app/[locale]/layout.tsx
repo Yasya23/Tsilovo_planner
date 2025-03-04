@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
-
+import QueryProvider from '@/shared/components/providers/QueryClientProvider';
 import '@/styles/globals.scss';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
@@ -70,20 +70,22 @@ export default async function RootLayout({
       className={inter.className}
       suppressHydrationWarning={true}>
       <body suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>{children}</ThemeProvider>
-          <Toaster
-            position="bottom-right"
-            toastOptions={{
-              duration: 7000,
-              style: {
-                width: '350px',
-                height: '70px',
-                maxWidth: '100%',
-              },
-            }}
-          />
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider>{children}</ThemeProvider>
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                duration: 7000,
+                style: {
+                  width: '350px',
+                  height: '70px',
+                  maxWidth: '100%',
+                },
+              }}
+            />
+          </NextIntlClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );
