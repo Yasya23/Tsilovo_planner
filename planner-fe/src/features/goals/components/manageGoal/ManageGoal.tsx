@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import EmojiPickerCompoment from '../emojyPicker/EmojiPicker';
 import { EmojiClickData } from 'emoji-picker-react';
 import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
@@ -21,7 +21,7 @@ interface ManageGoalsProps {
 
 const defaultGoal: CreateGoal = {
   title: '',
-  emoji: '☺︎',
+  emoji: '@',
   isActive: true,
 };
 
@@ -50,46 +50,60 @@ const ManageGoals = ({
     ];
 
     if ('_id' in localGoal && onDelete) {
-      menu.push({
-        icon: <FiTrash />,
-        title: 'Delete',
-        action: () => onDelete(localGoal as Goal),
-        type: 'button',
-      });
+      menu.push(
+        {
+          type: 'divider',
+        },
+        {
+          icon: <FiTrash />,
+          title: 'Delete',
+          action: () => onDelete(localGoal as Goal),
+          type: 'button',
+        }
+      );
     }
 
     return menu;
   };
 
   return (
-    <li>
-      <form onSubmit={handleSubmit} className={styles.AddGoalForm}>
-        <EmojiPickerCompoment
-          onEmojiClick={({ emoji }: EmojiClickData) => {
-            console.log(1, emoji);
-            setLocalGoal((prev) => ({ ...prev, emoji: emoji }));
-          }}
-          emoji={localGoal.emoji || '☺︎'}
+    <form onSubmit={handleSubmit} className={styles.ManageGoalForm}>
+      <EmojiPickerCompoment
+        onEmojiClick={({ emoji }: EmojiClickData) => {
+          console.log(1, emoji);
+          setLocalGoal((prev) => ({ ...prev, emoji: emoji }));
+        }}
+        emoji={localGoal.emoji || '@'}
+      />
+      <GoalTaskInput
+        value={localGoal.title}
+        onChange={(e) =>
+          setLocalGoal((prev) => ({ ...prev, title: e.target.value }))
+        }
+        placeholder="Add goal title"
+        maxLength={50}
+      />
+
+      <div className={styles.Actions}>
+        <IconButtonCustom
+          icon={<FiSave />}
+          name="Save"
+          type="submit"
+          size="small"
         />
-        <GoalTaskInput
-          value={localGoal.title}
-          onChange={(e) =>
-            setLocalGoal((prev) => ({ ...prev, title: e.target.value }))
+
+        <Dropdown
+          trigger={
+            <IconButtonCustom
+              icon={<FiMoreVertical />}
+              name="More"
+              size="small"
+            />
           }
-          placeholder="Add goal title"
-          maxLength={50}
+          menuItems={generateMenu()}
         />
-
-        <div className={styles.Actions}>
-          <IconButtonCustom icon={<FiSave />} name="Save" type="submit" />
-
-          <Dropdown
-            trigger={<IconButtonCustom icon={<FiMoreVertical />} name="More" />}
-            menuItems={generateMenu()}
-          />
-        </div>
-      </form>
-    </li>
+      </div>
+    </form>
   );
 };
 

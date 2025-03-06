@@ -14,38 +14,56 @@
       padding-top: 0;
     }
   }
+}
 
-  .List {
-    padding: clamp(10px, 5vw, 40px) 0;
+.Skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Wrapper {
+  padding: clamp(10px, 5vw, 30px) 0;
+
+  .GoalsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
 .Goal {
   display: flex;
   justify-content: space-between;
-  width: 300px;
-  border-bottom: 1px solid $secondary-transparent;
+  width: clamp(250px, 100%, 350px);
 
   .Emoji {
     margin-right: 10px;
+    color: $secondary;
   }
-  .Title {
-    width: 500px;
+
+  .Content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    overflow-wrap: break-word;
+    border-bottom: 1px solid $secondary-transparent;
+  }
+
+  .GoalTitle {
+    overflow-wrap: break-word;
+    width: 100%;
   }
 }
 
 .AddGoal {
   display: flex;
   align-items: center;
+  padding: 10px 0;
 
   .Description {
     color: $secondary;
-  }
-
-  .Form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.7rem;
   }
 }
