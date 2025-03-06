@@ -3,6 +3,7 @@
 
 .Goals {
   border-bottom: 1px solid $secondary-transparent;
+
   .Title {
     padding-top: 40px;
     font-size: clamp(1.2rem, 5vw, 2.2rem);
@@ -13,12 +14,29 @@
       padding-top: 0;
     }
   }
+
+  .List {
+    padding: clamp(10px, 5vw, 40px) 0;
+  }
+}
+
+.Goal {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  border-bottom: 1px solid $secondary-transparent;
+
+  .Emoji {
+    margin-right: 10px;
+  }
+  .Title {
+    width: 500px;
+  }
 }
 
 .AddGoal {
   display: flex;
   align-items: center;
-  padding: clamp(10px, 5vw, 40px) 0;
 
   .Description {
     color: $secondary;

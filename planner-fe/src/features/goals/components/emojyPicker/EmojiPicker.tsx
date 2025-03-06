@@ -19,19 +19,27 @@ const EmojiPickerCompoment: React.FC<EmojiPickerProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
-  console.log(emoji);
 
   return (
     <div ref={dropdownRef} className={styles.PickerWrapper}>
-      <button onClick={() => setIsOpen(!isOpen)} className={styles.EmojiButton}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={styles.EmojiButton}
+        type="button">
         {emoji}
       </button>
       {isOpen && (
         <div className={styles.Picker}>
           <EmojiPicker
-            onEmojiClick={onEmojiClick}
+            onEmojiClick={(emojiData) => {
+              if (onEmojiClick) {
+                onEmojiClick(emojiData);
+              }
+              setIsOpen(false);
+            }}
             width={width}
             height={height}
+            lazyLoadEmojis={true}
           />
         </div>
       )}

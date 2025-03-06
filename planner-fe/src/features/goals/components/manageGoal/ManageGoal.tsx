@@ -1,39 +1,95 @@
 'use client';
 
-import { useState } from 'react';
-import styles from './ManageGoal.module.scss';
+import { useState, useMemo } from 'react';
 import EmojiPickerCompoment from '../emojyPicker/EmojiPicker';
-import GoalTaskInput from '@/shared/components/goalTaskInput/GoalTaskInput';
-import { Goal } from '../../types/goals.type';
+import { EmojiClickData } from 'emoji-picker-react';
+import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
+import { Goal, CreateGoal } from '../../types/goals.type';
+import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import { FiSave, FiX, FiMoreVertical, FiTrash } from 'react-icons/fi';
+import Dropdown from '@/shared/components/ui/dropdown/Dropdown';
+import { MenuItem } from '@/shared/components/ui/dropdown/Dropdown';
+
+import styles from './ManageGoal.module.scss';
+
 interface ManageGoalsProps {
   goal: Goal | null;
-  handleSaveGoal: () => void;
-  handleCancelGoal: () => void;
+  onSave: (goal: Goal | CreateGoal) => void;
+  onCancel: () => void;
+  onDelete?: (goal: Goal) => void;
 }
+
+const defaultGoal: CreateGoal = {
+  title: '',
+  emoji: '☺︎',
+  isActive: true,
+};
+
 const ManageGoals = ({
   goal,
-  handleSaveGoal,
-  handleCancelGoal,
+  onSave,
+  onCancel,
+  onDelete,
 }: ManageGoalsProps) => {
-  const [goalTitle, setGoalTitle] = useState(goal?.title || '');
-  const [goalEmoji, setGoalEmoji] = useState(goal?.emoji || '☺︎');
+  const [localGoal, setLocalGoal] = useState<Goal | CreateGoal>(
+    goal || defaultGoal
+  );
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(localGoal);
+  };
+
+  const generateMenu = () => {
+    const menu: MenuItem[] = [
+      {
+        icon: <FiX />,
+        title: 'Cancel',
+        action: onCancel,
+        type: 'button',
+      },
+    ];
+
+    if ('_id' in localGoal && onDelete) {
+      menu.push({
+        icon: <FiTrash />,
+        title: 'Delete',
+        action: () => onDelete(localGoal as Goal),
+        type: 'button',
+      });
+    }
+
+    return menu;
+  };
 
   return (
-    <div className={styles.AddGoalForm}>
-      <EmojiPickerCompoment
-        onEmojiClick={(emoji) => setGoalEmoji(emoji.emoji)}
-        emoji={goalEmoji}
-      />
+    <li>
+      <form onSubmit={handleSubmit} className={styles.AddGoalForm}>
+        <EmojiPickerCompoment
+          onEmojiClick={({ emoji }: EmojiClickData) => {
+            console.log(1, emoji);
+            setLocalGoal((prev) => ({ ...prev, emoji: emoji }));
+          }}
+          emoji={localGoal.emoji || '☺︎'}
+        />
+        <GoalTaskInput
+          value={localGoal.title}
+          onChange={(e) =>
+            setLocalGoal((prev) => ({ ...prev, title: e.target.value }))
+          }
+          placeholder="Add goal title"
+          maxLength={50}
+        />
 
-      <GoalTaskInput
-        value={goalTitle}
-        onChange={(e) => setGoalTitle(e.target.value)}
-        onSave={handleSaveGoal}
-        onCancel={handleCancelGoal}
-        placeholder="Add goal title"
-        maxLength={50}
-      />
-    </div>
+        <div className={styles.Actions}>
+          <IconButtonCustom icon={<FiSave />} name="Save" type="submit" />
+
+          <Dropdown
+            trigger={<IconButtonCustom icon={<FiMoreVertical />} name="More" />}
+            menuItems={generateMenu()}
+          />
+        </div>
+      </form>
+    </li>
   );
 };
 

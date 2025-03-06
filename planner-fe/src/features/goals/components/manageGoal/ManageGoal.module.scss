@@ -1,33 +1,11 @@
 @use '@/styles/_variables.scss' as *;
 @use '@/styles/_mixins.scss' as *;
 
-.Goals {
-  border-bottom: 1px solid $secondary-transparent;
-  .Title {
-    padding-top: 40px;
-    font-size: clamp(1.2rem, 5vw, 2.2rem);
-    font-weight: 600;
-    border-bottom: 1px solid $secondary-transparent;
-
-    @include md {
-      padding-top: 0;
-    }
-  }
-}
-
-.AddGoal {
+.AddGoalForm {
   display: flex;
   align-items: center;
-  padding: clamp(10px, 5vw, 40px) 0;
+}
 
-  .Description {
-    color: $secondary;
-  }
-
-  .Form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.7rem;
-  }
+.Actions {
+  display: flex;
 }
