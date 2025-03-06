@@ -6,7 +6,7 @@ import { EmojiClickData } from 'emoji-picker-react';
 import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
 import { Goal, CreateGoal } from '../../types/goals.type';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import { FiSave, FiX, FiMoreVertical, FiTrash } from 'react-icons/fi';
+import icons from '@/shared/icons/icons';
 import Dropdown from '@/shared/components/ui/dropdown/Dropdown';
 import { MenuItem } from '@/shared/components/ui/dropdown/Dropdown';
 
@@ -42,7 +42,7 @@ const ManageGoals = ({
   const generateMenu = () => {
     const menu: MenuItem[] = [
       {
-        icon: <FiX />,
+        icon: <icons.X />,
         title: 'Cancel',
         action: onCancel,
         type: 'button',
@@ -55,7 +55,7 @@ const ManageGoals = ({
           type: 'divider',
         },
         {
-          icon: <FiTrash />,
+          icon: <icons.Trash />,
           title: 'Delete',
           action: () => onDelete(localGoal as Goal),
           type: 'button',
@@ -86,7 +86,7 @@ const ManageGoals = ({
 
       <div className={styles.Actions}>
         <IconButtonCustom
-          icon={<FiSave />}
+          icon={<icons.Save />}
           name="Save"
           type="submit"
           size="small"
@@ -95,7 +95,7 @@ const ManageGoals = ({
         <Dropdown
           trigger={
             <IconButtonCustom
-              icon={<FiMoreVertical />}
+              icon={<icons.MoreVertical />}
               name="More"
               size="small"
             />

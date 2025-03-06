@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import { FiEdit, FiPlusCircle } from 'react-icons/fi';
-import styles from './GoalsList.module.scss';
+import icons from '@/shared/icons/icons';
 import ManageGoals from '../manageGoal/ManageGoal';
 import { useGoals } from '../../hooks/useGoals';
 import { Goal, CreateGoal } from '../../types/goals.type';
 import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+
+import styles from './GoalsList.module.scss';
+
 const GoalsList = () => {
   const { goals, isLoading, createGoal, updateGoal, deleteGoal } = useGoals();
 
@@ -57,7 +59,7 @@ const GoalsList = () => {
                       {goal.title}
                     </p>
                     <IconButtonCustom
-                      icon={<FiEdit />}
+                      icon={<icons.Edit />}
                       name="Edit"
                       onClick={() => setEditingGoalId(goal._id)}
                       size="small"
@@ -82,7 +84,7 @@ const GoalsList = () => {
         {goals && goals.length < 3 && !addingGoal && (
           <div className={styles.AddGoal}>
             <IconButtonCustom
-              icon={<FiPlusCircle />}
+              icon={<icons.PlusCircle />}
               name="Add goal"
               onClick={() => setAddingGoal(true)}
               size="small"
