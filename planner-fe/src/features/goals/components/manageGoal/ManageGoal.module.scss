@@ -7,6 +7,10 @@
   width: clamp(250px, 100%, 350px);
 }
 
+.EmojyPickerWrapper {
+  position: relative;
+}
+
 .Actions {
   display: flex;
 }

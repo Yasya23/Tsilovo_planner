@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import EmojiPickerCompoment from '../emojyPicker/EmojiPicker';
-import { EmojiClickData } from 'emoji-picker-react';
+
 import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
 import { Goal, CreateGoal } from '../../types/goals.type';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
@@ -34,6 +34,7 @@ const ManageGoals = ({
   const [localGoal, setLocalGoal] = useState<Goal | CreateGoal>(
     goal || defaultGoal
   );
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(localGoal);
@@ -68,13 +69,24 @@ const ManageGoals = ({
 
   return (
     <form onSubmit={handleSubmit} className={styles.ManageGoalForm}>
-      <EmojiPickerCompoment
-        onEmojiClick={({ emoji }: EmojiClickData) => {
-          console.log(1, emoji);
-          setLocalGoal((prev) => ({ ...prev, emoji: emoji }));
-        }}
-        emoji={localGoal.emoji || '@'}
-      />
+      <div className={styles.EmojyPickerWrapper}>
+        <button
+          onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
+          className={styles.EmojiButton}
+          type="button">
+          {localGoal.emoji || '@'}
+        </button>
+        {isEmojiPickerOpen && (
+          <EmojiPickerCompoment
+            onEmojiClick={({ emoji }) => {
+              setLocalGoal((prev) => ({ ...prev, emoji: emoji }));
+              setIsEmojiPickerOpen(false);
+            }}
+            handleClickOuside={() => setIsEmojiPickerOpen(false)}
+          />
+        )}
+      </div>
+
       <GoalTaskInput
         value={localGoal.title}
         onChange={(e) =>

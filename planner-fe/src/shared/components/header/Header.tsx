@@ -9,6 +9,7 @@ import { useAuthStore } from '@/shared/store';
 import { usePathname } from 'next/navigation';
 import useScrollThreshold from '@/shared/hooks/useScrollThreshold';
 import classNames from 'classnames';
+import { isCurrentRoute } from '@/shared/utils/isCurrentRoute';
 
 import styles from './Header.module.scss';
 
@@ -17,7 +18,7 @@ export const Header = () => {
 
   const isAuth = useAuthStore((state) => state.userAuth);
   const pathname = usePathname();
-  const isHomePage = pathname === routes.home;
+  const isHomePage = isCurrentRoute(pathname, routes.home);
 
   return (
     <header
