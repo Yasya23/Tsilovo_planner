@@ -7,7 +7,7 @@ import ManageGoals from '../manageGoal/ManageGoal';
 import { useGoals } from '../../hooks/useGoals';
 import { Goal, CreateGoal } from '../../types/goals.type';
 import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
-
+import { useTranslations } from 'next-intl';
 import styles from './GoalsList.module.scss';
 
 const GoalsList = () => {
@@ -15,6 +15,8 @@ const GoalsList = () => {
 
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [addingGoal, setAddingGoal] = useState(false);
+
+  const translate = useTranslations('buttons');
 
   const handleSaveGoal = (goalData: CreateGoal | Goal) => {
     const title = goalData.title.length === 0 ? 'No title' : goalData.title;
@@ -60,7 +62,7 @@ const GoalsList = () => {
                     </p>
                     <IconButtonCustom
                       icon={<icons.Edit />}
-                      name="Edit"
+                      name={translate('edit')}
                       onClick={() => setEditingGoalId(goal._id)}
                       size="small"
                     />
@@ -85,11 +87,11 @@ const GoalsList = () => {
           <div className={styles.AddGoal}>
             <IconButtonCustom
               icon={<icons.PlusCircle />}
-              name="Add goal"
+              name={translate('add goal')}
               onClick={() => setAddingGoal(true)}
               size="small"
             />
-            <p className={styles.Description}>Додати ціль</p>
+            <p className={styles.Description}>{translate('add goal')}</p>
           </div>
         )}
       </div>

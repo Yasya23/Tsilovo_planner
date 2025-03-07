@@ -54,8 +54,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       );
     };
 
-    console.log(toggleVisibility);
-
     const isSuccess = hasMessages && !error && value;
     const inputClass = classNames(styles.InputWrapper, {
       [styles.error]: error,

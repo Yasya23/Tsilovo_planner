@@ -25,7 +25,6 @@ export const CheckboxCustom = ({
     <Checkbox
       checked={isChecked}
       onChange={handleChange}
-      inputProps={{ 'aria-label': 'controlled' }}
       disabled={isDisabled}
     />
   );

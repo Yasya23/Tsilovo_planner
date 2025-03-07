@@ -14,3 +14,12 @@
 .Actions {
   display: flex;
 }
+
+.EmojiButton {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  @include hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}

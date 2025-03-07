@@ -1,8 +1,8 @@
 'use client';
 
-import { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react';
 import Button from '@mui/material/Button';
-
+import { useLocale } from 'next-intl';
 interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   iconStart?: React.ReactNode;
@@ -25,13 +25,14 @@ export const ButtonCustom = ({
   color = 'primary',
   href,
 }: ButtonProps) => {
+  const locale = useLocale();
   return (
     <Button
       variant={style}
       color={color}
       disabled={disabled}
       onClick={href ? undefined : onClick}
-      href={href}
+      href={`${locale}/${href}`}
       startIcon={iconStart}
       endIcon={iconEnd}>
       {name}

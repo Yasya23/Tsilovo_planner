@@ -15,7 +15,7 @@ import { loginSchema, registrationSchema } from '@/shared/utils';
 import { useAuthStore } from '@/shared/store/AuthStore';
 import { getToken } from '@/shared/helpers';
 import { routes } from '@/shared/constants/routes';
-
+import { useLocale } from 'next-intl';
 import styles from './AuthForm.module.scss';
 
 interface LoginFormValues {
@@ -33,6 +33,7 @@ interface AuthFormProps {
 }
 
 export const AuthForm = ({ mode }: AuthFormProps) => {
+  const locale = useLocale();
   const isRegister = mode === 'register';
 
   const {
@@ -70,14 +71,14 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
         message: error,
       });
     } else if (userAuth && token) {
-      router.push(routes.planner);
+      router.push(`/${locale}/${routes.planner}`);
       toast.success(
         isRegister ? 'Реєстрація успішна!' : 'Вхід виконано. Ласкаво просимо!'
       );
       reset();
       clearErrors();
     }
-  }, [userAuth, error, token, setError, isRegister]);
+  }, [userAuth, error, setError, isRegister]);
 
   const handleOnFocus = (
     entity: 'email' | 'password' | 'name' | 'confirmPassword'

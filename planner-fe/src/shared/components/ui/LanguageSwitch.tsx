@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import SelectCustom from '../ui/select/Select';
+import SelectCustom from './select/Select';
 
 const Languages = [
   { label: '🇺🇦 УK', value: 'uk' },

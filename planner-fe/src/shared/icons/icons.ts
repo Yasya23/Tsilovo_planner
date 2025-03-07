@@ -7,6 +7,9 @@ import {
   FiX,
   FiMoreVertical,
   FiTrash,
+  FiMoon,
+  FiSun,
+  FiMonitor,
 } from 'react-icons/fi';
 
 const icons = {
@@ -18,6 +21,9 @@ const icons = {
   X: FiX,
   MoreVertical: FiMoreVertical,
   Trash: FiTrash,
+  Moon: FiMoon,
+  Sun: FiSun,
+  Monitor: FiMonitor,
 };
 
 export default icons;

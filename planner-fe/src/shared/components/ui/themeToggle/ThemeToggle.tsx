@@ -2,21 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-
-import IconButtonCustom from '../ui/buttons/IconButton';
-import { FiMoon, FiSun, FiMonitor } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
+import IconButtonCustom from '../buttons/IconButton';
+import icons from '@/shared/icons/icons';
 
 import styles from './ThemeToggle.module.scss';
 
 const themes = [
-  { themeKey: 'light', icon: <FiSun />, name: 'Світла тема' },
-  { themeKey: 'system', icon: <FiMonitor />, name: 'Системна тема' },
-  { themeKey: 'dark', icon: <FiMoon />, name: 'Темна тема' },
+  { themeKey: 'light', icon: <icons.Sun /> },
+  { themeKey: 'system', icon: <icons.Monitor /> },
+  { themeKey: 'dark', icon: <icons.Moon /> },
 ];
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const t = useTranslations('theme');
 
   useEffect(() => {
     setMounted(true);
@@ -26,14 +28,14 @@ const ThemeToggle = () => {
 
   return (
     <ul className={styles.Wrapper}>
-      {themes.map(({ themeKey, icon, name }) => {
+      {themes.map(({ themeKey, icon }) => {
         const isActive = defaultTheme === themeKey;
 
         return (
           <li key={themeKey} className={isActive ? styles.Active : ''}>
             <IconButtonCustom
               icon={icon}
-              name={name}
+              name={t(themeKey)}
               size="small"
               onClick={() => setTheme(themeKey)}
             />

@@ -9,7 +9,7 @@ import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import Dropdown from '@/shared/components/ui/dropdown/Dropdown';
 import { MenuItem } from '@/shared/components/ui/dropdown/Dropdown';
-
+import { useTranslations } from 'next-intl';
 import styles from './ManageGoal.module.scss';
 
 interface ManageGoalsProps {
@@ -31,10 +31,12 @@ const ManageGoals = ({
   onCancel,
   onDelete,
 }: ManageGoalsProps) => {
+  const t = useTranslations('buttons');
   const [localGoal, setLocalGoal] = useState<Goal | CreateGoal>(
     goal || defaultGoal
   );
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(localGoal);
@@ -44,7 +46,7 @@ const ManageGoals = ({
     const menu: MenuItem[] = [
       {
         icon: <icons.X />,
-        title: 'Cancel',
+        title: `${t('cancel')}`,
         action: onCancel,
         type: 'button',
       },
@@ -57,7 +59,7 @@ const ManageGoals = ({
         },
         {
           icon: <icons.Trash />,
-          title: 'Delete',
+          title: `${t('delete')}`,
           action: () => onDelete(localGoal as Goal),
           type: 'button',
         }
@@ -99,7 +101,7 @@ const ManageGoals = ({
       <div className={styles.Actions}>
         <IconButtonCustom
           icon={<icons.Save />}
-          name="Save"
+          name={t('save')}
           type="submit"
           size="small"
         />
@@ -108,7 +110,7 @@ const ManageGoals = ({
           trigger={
             <IconButtonCustom
               icon={<icons.MoreVertical />}
-              name="More"
+              name={t('menu')}
               size="small"
             />
           }

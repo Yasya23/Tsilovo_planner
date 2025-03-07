@@ -1,5 +1,5 @@
 import TaskList from '@/features/tasks/taskList/TaskList';
-import GoalsList from '@/features/goals/components/GoalsList/GoalsList';
+import GoalsList from '@/features/goals/components/goalsList/GoalsList';
 import styles from './Planner.module.scss';
 
 export const Planner = () => {

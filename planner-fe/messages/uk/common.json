@@ -10,11 +10,20 @@
     "next": "Далі",
     "finish": "Завершити",
     "create": "Створити",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "login": "Увійти",
+    "profile": "Профіль",
+    "add goal": "Додати ціль",
+    "menu": "Меню"
   },
   "sidebar": {
     "planner": "Планувальник",
     "statistics": "Статистика",
     "settings": "Налаштування"
+  },
+  "theme": {
+    "light": "Світла",
+    "dark": "Темна",
+    "system": "Системна"
   }
 }

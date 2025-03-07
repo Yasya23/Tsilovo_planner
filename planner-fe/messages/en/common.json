@@ -10,11 +10,20 @@
     "next": "Next",
     "finish": "Finish",
     "create": "Create",
-    "logout": "Logout"
+    "logout": "Logout",
+    "login": "Login",
+    "profile": "Profile",
+    "add goal": "Add goal",
+    "menu": "Menu"
   },
   "sidebar": {
     "planner": "Planner",
     "statistics": "Statistics",
     "settings": "Settings"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   }
 }

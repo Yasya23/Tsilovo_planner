@@ -1,5 +1,5 @@
 import DefaultLayout from '@/shared/components/layouts/Default';
-import AuthForm from '@/shared/components/forms/auth/AuthForm';
+import AuthForm from '@/features/auth/components/AuthForm';
 import styles from './AuthPage.module.scss';
 
 interface Props {

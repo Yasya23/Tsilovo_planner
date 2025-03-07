@@ -11,10 +11,10 @@ import {
   FiX,
   FiAlignJustify,
 } from 'react-icons/fi';
-import TeamSwitcher from '@/shared/components/themeToggle';
-import LanguageToggle from '@/shared/components/languageToggle';
+import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
+import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
 import LogOut from '@/shared/components/LogOut';
-import Avatar from '@/shared/components/ui/avatar';
+import Avatar from '@/shared/components/ui/avatar/Avatar';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
@@ -32,10 +32,10 @@ export const Sidebar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isPastThreshold = useWidthThreshold(765);
   const currentLang = useLocale();
-  console.log(currentLang);
+
   const pathname = usePathname();
   const t = useTranslations('sidebar');
-  console.log(pathname);
+
   useEffect(() => {
     if (isPastThreshold) setIsMenuOpen(false);
   }, [isPastThreshold]);

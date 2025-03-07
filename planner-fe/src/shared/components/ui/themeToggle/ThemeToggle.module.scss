@@ -3,10 +3,10 @@
 .Wrapper {
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 90px;
   border: 1px solid $secondary;
   border-radius: 16px;
-  overflow-y: auto;
+  overflow: hidden;
 
   li.Active {
     background-color: $secondary;
