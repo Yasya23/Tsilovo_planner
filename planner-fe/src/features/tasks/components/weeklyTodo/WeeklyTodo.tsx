@@ -1,11 +1,13 @@
 'use client';
 
-import styles from './TaskList.module.scss';
-import TaskItem from '../ManageTask/TaskItem';
+import { useState } from 'react';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-
-import { FiEdit } from 'react-icons/fi';
-
+import CheckboxCustom from '@/shared/components/ui/Checkbox';
+import icons from '@/shared/icons/icons';
+import { useTranslations } from 'next-intl';
+import styles from './WeeklyTodo.module.scss';
+import { getWeekData, createTitle } from '../../utils/getCurrentWeek';
+import WeeklyList from '../weeklyList/WeeklyList';
 const tasks = {
   dailyTasks: [
     {
@@ -43,27 +45,28 @@ const tasks = {
   ],
 };
 
-export const TaskList = () => {
+export const WeeklyTodo = () => {
+  const { weekDates, nextWeekDates } = getWeekData();
+  console.log(weekDates);
+  const t = useTranslations('months');
+
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsCompleted(!isCompleted);
+  };
+
   return (
-    <div className={styles.Wrapper}>
-      {tasks.dailyTasks.map((dayTask) => {
-        return (
-          <div key={dayTask.day} className={styles.TaskWrapper}>
-            <div className={styles.Task}>
-              {dayTask.tasks.map((task, taskIndex) => (
-                <TaskItem
-                  key={`${dayTask.day}-${taskIndex}`}
-                  task={task}
-                  title={task.title}
-                  onUpdate={() => {}}
-                />
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <section>
+      <h2 className={styles.Subtitle}>{createTitle('current', t)}</h2>
+      <WeeklyList />
+      {nextWeekDates && (
+        <>
+          <h2 className={styles.Subtitle}>{createTitle('next', t)}</h2>
+        </>
+      )}
+    </section>
   );
 };
 
-export default TaskList;
+export default WeeklyTodo;

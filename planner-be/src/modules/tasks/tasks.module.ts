@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { TaskController } from './tasks.controller';
-import { WeekTasksModel } from 'src/models/tasks.model';
+import { TaskModel } from 'src/models/tasks.model';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule } from '@nestjs/config';
 
@@ -9,9 +9,9 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     TypegooseModule.forFeature([
       {
-        typegooseClass: WeekTasksModel,
+        typegooseClass: TaskModel,
         schemaOptions: {
-          collection: 'WeekTasks',
+          collection: 'Tasks',
         },
       },
     ]),

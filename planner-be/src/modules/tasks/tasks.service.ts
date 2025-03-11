@@ -1,148 +1,87 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
-import { WeekTasksModel } from 'src/models/tasks.model';
-import { WeekTasksDto } from 'src/typing/dto';
+import { CreateTaskDto, TaskDto } from './dto/task.dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { TaskModel } from 'src/models/tasks.model';
 import { Types } from 'mongoose';
-
-const defaultWeeklyTasks = [
-  {
-    day: 'Monday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Tuesday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Wednesday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Thursday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Friday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Saturday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-  {
-    day: 'Sunday',
-    tasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  },
-];
 
 @Injectable()
 export class TaskService {
   constructor(
-    @InjectModel(WeekTasksModel)
-    private readonly weekTasksModel: ModelType<WeekTasksModel>,
+    @InjectModel(TaskModel)
+    private readonly taskModel: ModelType<TaskModel>,
   ) {}
 
-  async getCurrentWeekData(userId: string, week: number) {
-    const weekTask = await this.weekTasksModel
-      .findOneAndUpdate(
-        { userId, week },
-        {
-          $setOnInsert: {
-            userId,
-            week,
-            notes: ['', '', ''],
-            dailyTasks: defaultWeeklyTasks,
-            statistics: { completedTasks: 0, totalTasks: 0 },
-          },
-        },
-        { new: true, upsert: true },
-      )
-      .exec();
-
-    return weekTask;
-  }
-
-  async getAllData(userId: string) {
-    const result = await this.weekTasksModel.aggregate([
-      {
-        $match: { userId: new Types.ObjectId(userId) },
-      },
-      {
-        $group: {
-          _id: null,
-          totalCompletedTasks: { $sum: '$statistics.completedTasks' },
-          totalTasks: { $sum: '$statistics.totalTasks' },
-        },
-      },
-    ]);
-
-    const totalCompletedTasks = result[0]?.totalCompletedTasks || 0;
-    const totalTasks = result[0]?.totalTasks || 0;
-
-    const weeklyTasks = await this.weekTasksModel.find({ userId }).exec();
-
-    return {
+  async get(userId: string, week: Date[]) {
+    const tasks = await this.taskModel.find({
       userId,
-      completedTasks: totalCompletedTasks,
-      totalTasks: totalTasks,
-      tasksList: weeklyTasks,
-    };
-  }
+      date: { $gte: week[0], $lte: week[1] },
+    });
 
-  async update(dto: WeekTasksDto) {
-    const taskId = new Types.ObjectId(dto._id);
-    const calculatedStatistics = {
-      completedTasks: dto.dailyTasks.reduce(
-        (sum, dailyTask) =>
-          sum + dailyTask.tasks.filter((task) => task.isCompleted).length,
-        0,
-      ),
-      totalTasks: dto.dailyTasks.reduce((total, dayTask) => {
-        return total + dayTask.tasks.filter((task) => task.title).length;
-      }, 0),
-    };
-
-    const updatedWeekTask = await this.weekTasksModel
-      .findByIdAndUpdate(
-        taskId,
-        { ...dto, statistics: calculatedStatistics },
-        { new: true },
-      )
-      .exec();
-
-    if (!updatedWeekTask) {
-      throw new NotFoundException(`Week task with ID ${taskId} not found`);
+    if (!tasks || tasks.length === 0) {
+      throw new NotFoundException(
+        `No tasks found for user ${userId} for this week`,
+      );
     }
 
-    return updatedWeekTask;
+    return tasks;
+  }
+
+  // Create tasks based on the TaskDto array
+  async create(userId: string, dto: CreateTaskDto[]) {
+    // Mapping CreateTaskDto to TaskModel format, including userId
+    const tasksToCreate = dto.map((task) => ({
+      userId,
+      title: task.title,
+      goal: new Types.ObjectId(task.goalId), // Assuming goalId is passed correctly
+      date: task.date,
+      isCompleted: task.isCompleted,
+    }));
+
+    // Create tasks and insert them into the database
+    const createdTasks = await this.taskModel.create(tasksToCreate);
+    return createdTasks;
+  }
+
+  // Update tasks based on TaskDto array
+  async update(dto: TaskDto[]) {
+    const updatedTasks = dto.map(async (taskData) => {
+      const task = await this.taskModel.findByIdAndUpdate(
+        taskData._id,
+        {
+          title: taskData.title,
+          goal: new Types.ObjectId(taskData.goalId),
+          date: taskData.date,
+          isCompleted: taskData.isCompleted,
+        },
+        { new: true },
+      );
+
+      if (!task) {
+        throw new NotFoundException(`Task with id ${taskData._id} not found`);
+      }
+
+      return task;
+    });
+
+    // Wait for all update operations to complete and return the updated tasks
+    return await Promise.all(updatedTasks);
+  }
+
+  // Optionally, add a delete method if required
+  async delete(dto: TaskDto[]) {
+    const deletedTasks = await Promise.all(
+      dto.map(async (taskData) => {
+        const task = await this.taskModel.findByIdAndDelete(taskData._id);
+
+        if (!task) {
+          throw new NotFoundException(`Task with id ${taskData._id} not found`);
+        }
+
+        return task;
+      }),
+    );
+
+    return deletedTasks;
   }
 }

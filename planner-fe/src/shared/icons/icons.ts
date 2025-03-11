@@ -11,6 +11,7 @@ import {
   FiSun,
   FiMonitor,
 } from 'react-icons/fi';
+import { RiDraggable } from 'react-icons/ri';
 
 const icons = {
   Home: FiHome,
@@ -24,6 +25,7 @@ const icons = {
   Moon: FiMoon,
   Sun: FiSun,
   Monitor: FiMonitor,
+  Draggable: RiDraggable,
 };
 
 export default icons;

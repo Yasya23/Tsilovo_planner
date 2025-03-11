@@ -1,0 +1,16 @@
+@use '@/styles/_variables' as *;
+
+.Wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.Subtitle {
+  font-size: clamp(1rem, 5vw, 1.5rem);
+  font-weight: 600;
+  color: $secondary;
+  border-bottom: 1px solid $secondary-transparent;
+}
