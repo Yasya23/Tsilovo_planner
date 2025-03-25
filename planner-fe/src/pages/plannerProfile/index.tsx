@@ -1,5 +1,5 @@
-import WeeklyTodo from '@/features/tasks/components/weeklyTodo/WeeklyTodo';
-import GoalsList from '@/features/goals/components/goalsList/GoalsList';
+import WeeklyTodo from '@/features/planning/components/weeklyTodo/WeeklyTodo';
+import GoalsList from '@/features/planning/components/goalsList/GoalsList';
 import styles from './Planner.module.scss';
 
 export const Planner = () => {

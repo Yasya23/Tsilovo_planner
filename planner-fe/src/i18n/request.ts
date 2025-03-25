@@ -11,7 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const metadata = await import(`../../messages/${locale}/metadata.json`);
   const home = await import(`../../messages/${locale}/home.json`);
   const common = await import(`../../messages/${locale}/common.json`);
-  const months = await import(`../../messages/${locale}/months.json`);
+  const dates = await import(`../../messages/${locale}/date.json`);
 
   return {
     locale,
@@ -19,7 +19,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...metadata,
       ...home,
       ...common,
-      ...months,
+      ...dates,
     },
   };
 });

@@ -12,28 +12,26 @@ export class TaskService {
     private readonly taskModel: ModelType<TaskModel>,
   ) {}
 
-  async get(userId: string, week: Date[]) {
-    const tasks = await this.taskModel.find({
-      userId,
-      date: { $gte: week[0], $lte: week[1] },
-    });
-
-    if (!tasks || tasks.length === 0) {
-      throw new NotFoundException(
-        `No tasks found for user ${userId} for this week`,
-      );
-    }
-
-    return tasks;
+  async getTasksByGoalIdsAndDateRange(
+    goalIds: Types.ObjectId[],
+    startDate: Date,
+    endDate: Date,
+  ) {
+    return await this.taskModel
+      .find({
+        goal: { $in: goalIds },
+        date: { $gte: startDate, $lte: endDate },
+      })
+      .select('goal title date isCompleted')
+      .exec();
   }
 
-  // Create tasks based on the TaskDto array
   async create(userId: string, dto: CreateTaskDto[]) {
     // Mapping CreateTaskDto to TaskModel format, including userId
     const tasksToCreate = dto.map((task) => ({
       userId,
       title: task.title,
-      goal: new Types.ObjectId(task.goalId), // Assuming goalId is passed correctly
+      goal: new Types.ObjectId(task.goalId),
       date: task.date,
       isCompleted: task.isCompleted,
     }));

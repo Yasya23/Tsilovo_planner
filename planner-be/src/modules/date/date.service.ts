@@ -1,0 +1,53 @@
+import { Injectable } from '@nestjs/common';
+import {
+  startOfWeek,
+  endOfWeek,
+  addWeeks,
+  format,
+  eachDayOfInterval,
+} from 'date-fns';
+
+interface WeekData {
+  weekStart: string;
+  weekEnd: string;
+  weekDates: string[];
+}
+
+@Injectable()
+export class DateService {
+  private dateFormat: 'yyyy-MM-dd' = 'yyyy-MM-dd';
+  private createDateArray(weekStart: Date, weekEnd: Date): string[] {
+    return eachDayOfInterval({ start: weekStart, end: weekEnd }).map((date) =>
+      format(date, this.dateFormat),
+    );
+  }
+
+  public getWeekData(): { currentWeek: WeekData; nextWeek?: WeekData } {
+    const today = new Date();
+    const isSunday = today.getDay() === 0;
+
+    const currentWeekStart = startOfWeek(today, { weekStartsOn: 1 });
+    const currentWeekEnd = endOfWeek(today, { weekStartsOn: 1 });
+
+    const currentWeek: WeekData = {
+      weekStart: format(currentWeekStart, this.dateFormat),
+      weekEnd: format(currentWeekEnd, this.dateFormat),
+      weekDates: this.createDateArray(currentWeekStart, currentWeekEnd),
+    };
+
+    if (isSunday) {
+      const nextWeekStart = addWeeks(currentWeekStart, 1);
+      const nextWeekEnd = endOfWeek(nextWeekStart, { weekStartsOn: 1 });
+
+      const nextWeek: WeekData = {
+        weekStart: format(nextWeekStart, this.dateFormat),
+        weekEnd: format(nextWeekEnd, this.dateFormat),
+        weekDates: this.createDateArray(nextWeekStart, nextWeekEnd),
+      };
+
+      return { currentWeek, nextWeek };
+    }
+
+    return { currentWeek };
+  }
+}

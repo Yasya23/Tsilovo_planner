@@ -8,12 +8,6 @@ import { CreateTaskDto, TaskDto } from 'src/typing/dto';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get()
-  @Auth()
-  async getWeekData(@User('id') userId: string, @Body() weekDates: Date[]) {
-    return this.taskService.get(userId, weekDates);
-  }
-
   @Post()
   @Auth()
   async create(@User('id') userId: string, @Body() dto: CreateTaskDto[]) {

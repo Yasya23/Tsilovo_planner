@@ -11,7 +11,7 @@ export class GoalsController {
   @Get()
   @Auth()
   async getActiveGoals(@User('id') userId: string) {
-    return this.goalService.get(userId);
+    return this.goalService.getActiveGoals(userId);
   }
 
   @Post()

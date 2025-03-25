@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import EmojiPickerCompoment from '../emojyPicker/EmojiPicker';
 
 import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
-import { Goal, CreateGoal } from '../../types/goals.type';
+import { Goal, CreateGoal } from '../../../tasks/types/goals.type';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import Dropdown from '@/shared/components/ui/dropdown/Dropdown';
 import { MenuItem } from '@/shared/components/ui/dropdown/Dropdown';
 import { useTranslations } from 'next-intl';
 import styles from './ManageGoal.module.scss';
+import useClickOutside from '@/shared/hooks/ useClickOutside';
 
 interface ManageGoalsProps {
   goal: Goal | null;
@@ -31,11 +32,14 @@ const ManageGoals = ({
   onCancel,
   onDelete,
 }: ManageGoalsProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
   const t = useTranslations('buttons');
   const [localGoal, setLocalGoal] = useState<Goal | CreateGoal>(
     goal || defaultGoal
   );
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
+
+  useClickOutside(formRef, () => onSave(localGoal));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +74,10 @@ const ManageGoals = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.ManageGoalForm}>
+    <form
+      onSubmit={handleSubmit}
+      className={styles.ManageGoalForm}
+      ref={formRef}>
       <div className={styles.EmojyPickerWrapper}>
         <button
           onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}

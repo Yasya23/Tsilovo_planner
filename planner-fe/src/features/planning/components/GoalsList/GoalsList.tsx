@@ -9,9 +9,11 @@ import { Goal, CreateGoal } from '../../types/goals.type';
 import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
 import { useTranslations } from 'next-intl';
 import styles from './GoalsList.module.scss';
+import { usePlanning } from '../../hooks/usePlanning';
 
 const GoalsList = () => {
-  const { goals, isLoading, createGoal, updateGoal, deleteGoal } = useGoals();
+  const { goals, isLoading, createGoal, updateGoal, deleteGoal } =
+    usePlanning();
 
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [addingGoal, setAddingGoal] = useState(false);

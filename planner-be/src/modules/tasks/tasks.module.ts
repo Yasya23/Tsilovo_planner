@@ -19,5 +19,6 @@ import { ConfigModule } from '@nestjs/config';
   ],
   providers: [TaskService],
   controllers: [TaskController],
+  exports: [TaskService],
 })
 export class TaskModule {}

@@ -7,6 +7,5 @@ export const services = {
   update: '/user/profile',
   activeGoals: '/goals',
   token: 'auth/login/access-token',
-  allTasks: '/tasks/statistics',
-  currentWeekTasks: '/tasks',
+  tasks: '/tasks',
 };
