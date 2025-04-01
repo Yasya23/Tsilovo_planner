@@ -1,8 +1,8 @@
 @use '@/styles/_variables.scss' as *;
 @use '@/styles/_mixins.scss' as *;
 
-.ManageGoalForm {
-  width: clamp(250px, 100%, 350px);
+.ManageTaskForm {
+  width: clamp(250px, 100%, 550px);
 }
 
 .Wrapper {

@@ -16,7 +16,9 @@
       "profile": "Профіль",
       "addGoal": "Додати ціль",
       "addTask": "Додати завдання",
-      "menu": "Меню"
+      "menu": "Меню",
+      "list": "Список",
+      "daysWithTasksFirst": "Дні з завданнями перші"
     },
     "sidebar": {
       "planner": "Планувальник",

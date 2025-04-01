@@ -10,21 +10,24 @@ import ManageTask from '../manage-task/ManageTask';
 import { filterTasks } from '../../helpers/filter-tasks';
 
 import styles from './index.module.scss';
+import classNames from 'classnames';
 
 interface WeeklyListProps {
   tasks: WeeklyTasks;
   activeGoals: ActiveGoal[];
+  isListView: boolean;
 }
 
 export const WeeklyList = ({
   tasks = [],
   activeGoals = [],
+  isListView = false,
 }: WeeklyListProps) => {
   const t = useTranslations('Common');
   const [addingTask, setAddingTask] = useState<CreateTask | null>(null);
 
   return (
-    <div className={styles.Day}>
+    <div className={classNames(styles.Day, { [styles.listView]: isListView })}>
       {tasks.map(({ date, tasks }, index) => {
         const { goalsWithTasks, goalsWithoutTasks } = filterTasks(
           tasks,
@@ -34,8 +37,9 @@ export const WeeklyList = ({
         return (
           <div key={date} className={styles.DayWrapper}>
             <div className={styles.Header}>
-              <h3>
-                {t(`days.${index}`)} {new Date(date).getDate()}
+              <h3 className={styles.HeaderTitle}>
+                {t(`days.${index}`)}
+                <span> {new Date(date).getDate()}</span>
               </h3>
             </div>
 
@@ -62,6 +66,7 @@ export const WeeklyList = ({
                         size="small"
                       />
                     </div>
+
                     {addingTask?.goalId === goal._id &&
                       addingTask?.date === date && (
                         <ManageTask

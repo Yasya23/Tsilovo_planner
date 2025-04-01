@@ -6,6 +6,16 @@
   padding: 20px 0;
   gap: 10px;
   justify-content: flex-start;
+  flex-direction: row;
+
+  .GoalHeader {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+  }
 
   .DayWrapper {
     border-radius: 10px;
@@ -14,31 +24,39 @@
     overflow-y: auto;
     max-width: 100%;
   }
+
+  &.listView {
+    flex-direction: column;
+    gap: 5px;
+
+    .GoalHeader {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+  }
 }
 
 .Header {
   padding: 5px;
+  background-color: $secondary-transparent;
   border-bottom: 1px solid $secondary;
-}
 
-.GoalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  .HeaderTitle {
+    font-size: 1.1rem;
+    span {
+      font-weight: 600;
+    }
+  }
 }
 
 .TaskItem {
   display: flex;
   align-items: center;
+  flex-direction: start;
 
   input[type='checkbox'] {
     font-size: 1rem;
   }
-
-  // &:not(:last-child) {
-  //   border-bottom: 1px solid $secondary;
-  // }
 
   .Description {
     overflow-wrap: break-word;
@@ -47,11 +65,13 @@
   }
 }
 
-.Goals {
-  padding: 5px;
+.Goal {
+  border-bottom: 1px solid $secondary-transparent;
 }
 
 .Goal:has(.GoalTasks:empty) {
+  border-bottom: none;
+
   .GoalTitle {
     opacity: 0.5;
   }

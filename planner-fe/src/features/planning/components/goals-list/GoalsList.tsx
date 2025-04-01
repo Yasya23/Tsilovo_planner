@@ -22,7 +22,7 @@ const GoalsList = () => {
 
   const handleSaveGoal = (goalData: CreateGoal | Goal) => {
     const title = goalData.title.length === 0 ? 'No title' : goalData.title;
-    if ('id' in goalData) {
+    if ('_id' in goalData) {
       updateGoal({ ...goalData, title });
       setEditingGoalId(null);
     } else {

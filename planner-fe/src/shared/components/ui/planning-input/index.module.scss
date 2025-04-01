@@ -3,7 +3,8 @@
 .InputWrapper {
   display: flex;
   position: relative;
-  width: clamp(250px, 100%, 350px);
+  width: 100%;
+  // width: clamp(250px, 100%, 350px);
 
   .Input {
     padding: 0 5px;

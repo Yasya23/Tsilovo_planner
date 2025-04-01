@@ -14,7 +14,6 @@
 .Subtitle {
   font-size: clamp(1rem, 5vw, 1.5rem);
   font-weight: 600;
-  color: $secondary;
   border-bottom: 1px solid $secondary-transparent;
   margin-bottom: 15px;
 }
@@ -28,7 +27,7 @@
 .Goal {
   display: flex;
   justify-content: space-between;
-  width: clamp(250px, 100%, 350px);
+  width: clamp(250px, 100%, 550px);
 
   .Emoji {
     margin-right: 10px;

@@ -16,6 +16,8 @@
       "profile": "Profile",
       "addGoal": "Add goal",
       "addTask": "Add task",
+      "list": "List",
+      "daysWithTasksFirst": "Days with tasks first",
       "menu": "Menu"
     },
     "notifications": { "noTask": "No task" },

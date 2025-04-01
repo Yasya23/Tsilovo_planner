@@ -1,6 +1,6 @@
 @use '@/styles/_variables' as *;
 
-.Wrapper {
+.WeeklyTodo {
   display: flex;
   flex-wrap: wrap;
   padding: 20px 0;
@@ -8,9 +8,32 @@
   justify-content: flex-start;
 }
 
-.Subtitle {
-  font-size: clamp(1rem, 5vw, 1.5rem);
-  font-weight: 600;
-  color: $secondary;
-  border-bottom: 1px solid $secondary-transparent;
+.WeekContainer {
+  width: 100%;
+  .Header {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid $secondary-transparent;
+  }
+
+  .Title {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-weight: 600;
+  }
+
+  .FilterList {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    .Active {
+      background-color: $secondary-transparent;
+      border-radius: 50%;
+
+      button svg {
+        stroke: $primary;
+      }
+    }
+  }
 }

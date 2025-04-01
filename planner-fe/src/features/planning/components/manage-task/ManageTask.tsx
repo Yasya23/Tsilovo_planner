@@ -55,7 +55,7 @@ export const ManageTask = ({ task, taskIsEdded }: ManageTaskProps) => {
     <form
       onSubmit={handleSubmit}
       ref={formRef}
-      className={styles.ManageGoalForm}>
+      className={styles.ManageTaskForm}>
       <fieldset className={styles.Wrapper}>
         <CheckboxCustom
           isCompleted={!!task.isCompleted}

@@ -9,6 +9,7 @@ interface Props {
   type?: 'button' | 'submit' | 'reset';
   showName?: boolean;
   hasTooltip?: boolean;
+  color?: 'primary' | 'default';
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -19,10 +20,16 @@ export const IconButtonCustom = ({
   showName = false,
   hasTooltip = true,
   type = 'button',
+  color = 'default',
   onClick,
 }: Props) => {
   const button = (
-    <IconButton size={size} onClick={onClick} aria-label={name} type={type}>
+    <IconButton
+      size={size}
+      onClick={onClick}
+      aria-label={name}
+      type={type}
+      color={color}>
       {icon} {showName && name}
     </IconButton>
   );
