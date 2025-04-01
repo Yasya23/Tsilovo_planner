@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import useClickOutside from '@/shared/hooks/ useClickOutside';
-import styles from './EmojiPicker.module.scss';
-import { DataEmoji } from 'emoji-picker-react/dist/dataUtils/DataTypes';
+import { useClickOutside } from '@/shared/hooks/ useClickOutside';
+import styles from './index.module.scss';
 
 interface EmojiPickerProps {
   onEmojiClick: (emojiData: EmojiClickData) => void;

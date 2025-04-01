@@ -13,13 +13,12 @@ export const usePlanning = () => {
       const goals = await GoalServices.getActive();
 
       const activeGoals = goals?.activeGoals ?? [];
-      const tasks = goals?.weeklyTasks ?? [];
+      const weeklyTasks = goals?.weeklyTasks ?? [];
 
-      return { activeGoals, weeklyTasks: tasks };
+      return { activeGoals, weeklyTasks };
     },
   });
 
-  // Create a new task
   const createTask = useMutation({
     mutationFn: TaskServices.create,
     onSuccess: () => {
@@ -27,7 +26,6 @@ export const usePlanning = () => {
     },
   }).mutate;
 
-  // Update an existing task
   const updateTask = useMutation({
     mutationFn: TaskServices.update,
     onSuccess: () => {
@@ -35,7 +33,6 @@ export const usePlanning = () => {
     },
   }).mutate;
 
-  // Delete a task
   const deleteTask = useMutation({
     mutationFn: TaskServices.delete,
     onSuccess: () => {
@@ -43,7 +40,6 @@ export const usePlanning = () => {
     },
   }).mutate;
 
-  // Create a new goal
   const createGoal = useMutation({
     mutationFn: GoalServices.create,
     onSuccess: () => {
@@ -51,7 +47,6 @@ export const usePlanning = () => {
     },
   }).mutate;
 
-  // Update an existing goal
   const updateGoal = useMutation({
     mutationFn: GoalServices.update,
     onSuccess: () => {
@@ -59,7 +54,6 @@ export const usePlanning = () => {
     },
   }).mutate;
 
-  // Delete a goal
   const deleteGoal = useMutation({
     mutationFn: GoalServices.delete,
     onSuccess: () => {
@@ -70,7 +64,7 @@ export const usePlanning = () => {
   const activeGoals = data?.activeGoals ?? [];
   const tasks = data?.weeklyTasks ?? [];
   const currentWeek = tasks.length > 7 ? tasks.slice(0, 7) : tasks;
-  const nextWeek = tasks.length > 7 ? tasks.slice(7) : [];
+  const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
 
   return {
     activeGoals,

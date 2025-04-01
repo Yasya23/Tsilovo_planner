@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { emailRegx } from './emailRegx';
+import { emailRegx } from './email-regx';
 
 export const registrationSchema = yup.object().shape({
   name: yup

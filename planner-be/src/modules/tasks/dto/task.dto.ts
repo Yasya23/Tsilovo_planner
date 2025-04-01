@@ -1,4 +1,12 @@
-import { IsBoolean, IsString, IsDate } from 'class-validator';
+import {
+  IsBoolean,
+  IsString,
+  IsDate,
+  IsOptional,
+  IsMongoId,
+} from 'class-validator';
+import { Transform } from 'class-transformer';
+import { isValidObjectId } from 'mongoose';
 
 export class CreateTaskDto {
   @IsBoolean()
@@ -7,17 +15,15 @@ export class CreateTaskDto {
   @IsString()
   title: string;
 
-  @IsString()
+  @IsMongoId()
   goalId: string;
 
   @IsDate()
+  @Transform(({ value }) => new Date(value))
   date: Date;
 }
 
 export class TaskDto extends CreateTaskDto {
-  @IsString()
+  @IsMongoId()
   _id: string;
-
-  @IsString()
-  userId: string;
 }

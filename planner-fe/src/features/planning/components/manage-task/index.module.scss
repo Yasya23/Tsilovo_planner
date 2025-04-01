@@ -1,0 +1,32 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.ManageGoalForm {
+  width: clamp(250px, 100%, 350px);
+}
+
+.Wrapper {
+  display: flex;
+  align-items: center;
+
+  &:disabled {
+    opacity: 0.8;
+  }
+}
+
+.EmojyPickerWrapper {
+  position: relative;
+}
+
+.Actions {
+  display: flex;
+}
+
+.EmojiButton {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  @include hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}

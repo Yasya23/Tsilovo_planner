@@ -3,26 +3,26 @@
 import { useState } from 'react';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
-import ManageGoals from '../manageGoal/ManageGoal';
-import { useGoals } from '../../hooks/useGoals';
+import ManageGoals from '../manage-goal/ManageGoal';
 import { Goal, CreateGoal } from '../../types/goals.type';
 import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
 import { useTranslations } from 'next-intl';
-import styles from './GoalsList.module.scss';
 import { usePlanning } from '../../hooks/usePlanning';
 
+import styles from './index.module.scss';
+
 const GoalsList = () => {
-  const { goals, isLoading, createGoal, updateGoal, deleteGoal } =
+  const t = useTranslations('Common');
+
+  const { activeGoals, isLoading, createGoal, updateGoal, deleteGoal } =
     usePlanning();
 
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [addingGoal, setAddingGoal] = useState(false);
 
-  const translate = useTranslations('buttons');
-
   const handleSaveGoal = (goalData: CreateGoal | Goal) => {
     const title = goalData.title.length === 0 ? 'No title' : goalData.title;
-    if ('_id' in goalData) {
+    if ('id' in goalData) {
       updateGoal({ ...goalData, title });
       setEditingGoalId(null);
     } else {
@@ -46,7 +46,7 @@ const GoalsList = () => {
         </div>
       ) : (
         <ul className={styles.GoalsList}>
-          {goals?.map((goal) => (
+          {activeGoals?.map((goal) => (
             <li key={goal._id} className={styles.Goal}>
               {editingGoalId === goal._id ? (
                 <ManageGoals
@@ -63,7 +63,7 @@ const GoalsList = () => {
                   </p>
                   <IconButtonCustom
                     icon={<icons.Edit />}
-                    name={translate('edit')}
+                    name={t('buttons.edit')}
                     onClick={() => setEditingGoalId(goal._id)}
                     size="small"
                   />
@@ -84,15 +84,15 @@ const GoalsList = () => {
         </ul>
       )}
 
-      {goals && goals.length < 3 && !addingGoal && (
+      {activeGoals && activeGoals.length < 3 && !addingGoal && (
         <div className={styles.AddGoal}>
           <IconButtonCustom
             icon={<icons.PlusCircle />}
-            name={translate('add goal')}
+            name={t('buttons.addGoal')}
             onClick={() => setAddingGoal(true)}
             size="small"
           />
-          <p className={styles.Description}>{translate('add goal')}</p>
+          <p className={styles.Description}>{t('buttons.addGoal')}</p>
         </div>
       )}
     </section>

@@ -21,7 +21,9 @@
     "paths": {
       "@/*": ["*"],
       "@/styles/*": ["styles/*"],
-      "@/pages/*": ["pages/*"]
+      "@/pages/*": ["pages/*"],
+      "@/features/*": ["features/*"],
+      "@/shared/*": ["shared/*"],
     },
     "target": "ES2017"
   },

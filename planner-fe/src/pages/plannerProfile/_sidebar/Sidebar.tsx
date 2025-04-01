@@ -34,7 +34,7 @@ export const Sidebar = () => {
   const currentLang = useLocale();
 
   const pathname = usePathname();
-  const t = useTranslations('sidebar');
+  const t = useTranslations('Common.sidebar');
 
   useEffect(() => {
     if (isPastThreshold) setIsMenuOpen(false);

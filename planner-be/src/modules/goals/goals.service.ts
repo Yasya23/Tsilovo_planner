@@ -36,13 +36,13 @@ export class GoalsService {
     const activeGoals = goals.map((goal) => {
       const futureUncompletedTasks = tasks.filter(
         (task) =>
-          task.goal.toString() === goal._id.toString() &&
+          task.goalId.toString() === goal._id.toString() &&
           !task.isCompleted &&
           task.date > new Date(currentWeek.weekEnd),
       ).length;
 
       return {
-        id: goal._id.toString(),
+        _id: goal._id.toString(),
         title: goal.title,
         emoji: goal.emoji,
         isActive: goal.isActive,
@@ -53,18 +53,10 @@ export class GoalsService {
     const tasksByDate = tasks.reduce(
       (acc, task) => {
         const dateStr = task.date.toISOString().split('T')[0];
-        if (!acc[dateStr]) acc[dateStr] = [];
-        acc[dateStr].push({
-          goalId: task.goal.toString(),
-          title: task.title,
-          isCompleted: task.isCompleted,
-        });
+        (acc[dateStr] ??= []).push(task);
         return acc;
       },
-      {} as Record<
-        string,
-        { goalId: string; title: string; isCompleted: boolean }[]
-      >,
+      {} as Record<string, (typeof tasks)[number][]>,
     );
 
     const allDates = currentWeek.weekDates;
@@ -95,7 +87,7 @@ export class GoalsService {
   }
 
   async update(dto: UpdateGoalDto) {
-    const taskId = new Types.ObjectId(dto._id);
+    const taskId = new Types.ObjectId(dto.id);
 
     const goal = await this.goalModel.findById(taskId);
     if (!goal) {
@@ -110,7 +102,7 @@ export class GoalsService {
   }
 
   async delete(dto: UpdateGoalDto) {
-    const taskId = new Types.ObjectId(dto._id);
+    const taskId = new Types.ObjectId(dto.id);
     const goal = await this.goalModel.findById(taskId);
     if (!goal) {
       throw new NotFoundException('Goal not found');

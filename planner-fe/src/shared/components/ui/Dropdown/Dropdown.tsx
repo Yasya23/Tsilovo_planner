@@ -2,7 +2,7 @@
 
 import { useState, useRef, ReactNode } from 'react';
 import styles from './Dropdown.module.scss';
-import useClickOutside from '@/shared/hooks/ useClickOutside';
+import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import Link from 'next/link';
 
 export interface MenuItem {

@@ -18,7 +18,7 @@ const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const t = useTranslations('theme');
+  const t = useTranslations('Common.theme');
 
   useEffect(() => {
     setMounted(true);

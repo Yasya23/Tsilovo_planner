@@ -1,4 +1,4 @@
-import { Task } from './task.type';
+import { Task, WeeklyTasks } from './task.type';
 export type CreateGoal = {
   title: string;
   emoji?: string;
@@ -10,11 +10,11 @@ export type Goal = CreateGoal & {
   userId: string;
 };
 
-type ActiveGoal = CreateGoal & {
+type ActiveGoal = Goal & {
   pendingTasks: number;
 };
 
 export type ActiveGoals = {
   activeGoals: ActiveGoal[];
-  weeklyTasks: { date: string; tasks: Task[] }[];
+  weeklyTasks: WeeklyTasks;
 };

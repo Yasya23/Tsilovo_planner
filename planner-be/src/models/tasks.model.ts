@@ -9,7 +9,7 @@ export class TaskModel extends TimeStamps {
   title: string;
 
   @prop({ required: true, ref: 'GoalModel' })
-  goal: Ref<Types.ObjectId>;
+  goalId: Ref<Types.ObjectId>;
 
   @prop()
   userId: Types.ObjectId;
@@ -20,5 +20,3 @@ export class TaskModel extends TimeStamps {
   @prop({ default: false })
   isCompleted: boolean;
 }
-
-

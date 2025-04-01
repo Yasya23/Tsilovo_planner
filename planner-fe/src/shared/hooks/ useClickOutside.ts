@@ -1,6 +1,6 @@
 import { useEffect, RefObject } from 'react';
 
-const useClickOutside = (
+export const useClickOutside = (
   ref: RefObject<HTMLDivElement | HTMLFormElement | null>,
   callback: () => void
 ) => {
@@ -17,5 +17,3 @@ const useClickOutside = (
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [ref, callback]);
 };
-
-export default useClickOutside;

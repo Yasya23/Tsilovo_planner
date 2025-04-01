@@ -1,22 +1,28 @@
-import styles from './GoalTaskInput.module.scss';
-interface GoalTaskInputProps {
+import styles from './index.module.scss';
+
+type PlanningInput = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   maxLength?: number;
-}
+  type?: 'text' | 'password';
+  inputRef?: React.RefObject<HTMLInputElement | null>;
+};
 
-const GoalTaskInput = ({
+export const PlanningInput = ({
   value,
   onChange,
   placeholder,
+  type = 'text',
   maxLength = 100,
-}: GoalTaskInputProps) => {
+  inputRef,
+}: PlanningInput) => {
   return (
     <>
       <div className={styles.InputWrapper}>
         <input
-          type="text"
+          ref={inputRef}
+          type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -30,4 +36,4 @@ const GoalTaskInput = ({
   );
 };
 
-export default GoalTaskInput;
+export default PlanningInput;

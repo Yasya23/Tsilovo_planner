@@ -1,26 +1,26 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import EmojiPickerCompoment from '../emojyPicker/EmojiPicker';
+import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
 
-import GoalTaskInput from '@/shared/components/ui/goalTaskInput/GoalTaskInput';
-import { Goal, CreateGoal } from '../../../tasks/types/goals.type';
+import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
+import { Goal, CreateGoal } from '../../types/goals.type';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import Dropdown from '@/shared/components/ui/dropdown/Dropdown';
 import { MenuItem } from '@/shared/components/ui/dropdown/Dropdown';
 import { useTranslations } from 'next-intl';
-import styles from './ManageGoal.module.scss';
-import useClickOutside from '@/shared/hooks/ useClickOutside';
+import styles from './index.module.scss';
+import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 
-interface ManageGoalsProps {
+type ManageGoalsProps = {
   goal: Goal | null;
   onSave: (goal: Goal | CreateGoal) => void;
   onCancel: () => void;
   onDelete?: (goal: Goal) => void;
-}
+};
 
-const defaultGoal: CreateGoal = {
+export const defaultGoal: CreateGoal = {
   title: '',
   emoji: '@',
   isActive: true,
@@ -32,18 +32,27 @@ const ManageGoals = ({
   onCancel,
   onDelete,
 }: ManageGoalsProps) => {
+  const t = useTranslations('Common.buttons');
+
   const formRef = useRef<HTMLFormElement>(null);
-  const t = useTranslations('buttons');
   const [localGoal, setLocalGoal] = useState<Goal | CreateGoal>(
     goal || defaultGoal
   );
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
 
-  useClickOutside(formRef, () => onSave(localGoal));
+  const handleGoal = () => {
+    if (JSON.stringify(localGoal) !== JSON.stringify(defaultGoal)) {
+      onSave(localGoal);
+    } else {
+      onCancel();
+    }
+  };
+
+  useClickOutside(formRef, handleGoal);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(localGoal);
+    handleGoal();
   };
 
   const generateMenu = () => {
@@ -56,7 +65,7 @@ const ManageGoals = ({
       },
     ];
 
-    if ('_id' in localGoal && onDelete) {
+    if ('id' in localGoal && onDelete) {
       menu.push(
         {
           type: 'divider',
@@ -96,7 +105,7 @@ const ManageGoals = ({
         )}
       </div>
 
-      <GoalTaskInput
+      <PlanningInput
         value={localGoal.title}
         onChange={(e) =>
           setLocalGoal((prev) => ({ ...prev, title: e.target.value }))

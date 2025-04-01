@@ -1,0 +1,100 @@
+'use client';
+
+import { useState } from 'react';
+import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import icons from '@/shared/icons/icons';
+import { useTranslations } from 'next-intl';
+import { CreateTask, WeeklyTasks } from '../../types/task.type';
+import { ActiveGoal } from '../../types/goals.type';
+import ManageTask from '../manage-task/ManageTask';
+import { filterTasks } from '../../helpers/filter-tasks';
+
+import styles from './index.module.scss';
+
+interface WeeklyListProps {
+  tasks: WeeklyTasks;
+  activeGoals: ActiveGoal[];
+}
+
+export const WeeklyList = ({
+  tasks = [],
+  activeGoals = [],
+}: WeeklyListProps) => {
+  const t = useTranslations('Common');
+  const [addingTask, setAddingTask] = useState<CreateTask | null>(null);
+
+  return (
+    <div className={styles.Day}>
+      {tasks.map(({ date, tasks }, index) => {
+        const { goalsWithTasks, goalsWithoutTasks } = filterTasks(
+          tasks,
+          activeGoals
+        );
+
+        return (
+          <div key={date} className={styles.DayWrapper}>
+            <div className={styles.Header}>
+              <h3>
+                {t(`days.${index}`)} {new Date(date).getDate()}
+              </h3>
+            </div>
+
+            <div className={styles.Goals}>
+              {[...goalsWithTasks, ...goalsWithoutTasks].map((goal) => {
+                const goalTasks = tasks.filter(
+                  (task) => task.goalId === goal._id
+                );
+                return (
+                  <div key={goal._id} className={styles.Goal}>
+                    <div className={styles.GoalHeader}>
+                      <h4 className={styles.GoalTitle}>
+                        {goal.emoji} {goal.title}
+                      </h4>
+                      <IconButtonCustom
+                        icon={<icons.PlusCircle />}
+                        name={t('buttons.addTask')}
+                        onClick={() =>
+                          setAddingTask({
+                            date,
+                            goalId: goal._id,
+                          } as CreateTask)
+                        }
+                        size="small"
+                      />
+                    </div>
+                    {addingTask?.goalId === goal._id &&
+                      addingTask?.date === date && (
+                        <ManageTask
+                          task={{
+                            title: '',
+                            goalId: goal._id,
+                            isCompleted: false,
+                            date,
+                          }}
+                          taskIsEdded={() => setAddingTask(null)}
+                        />
+                      )}
+                    <div className={styles.GoalTasks}>
+                      {goalTasks.map((task) => (
+                        <div className={styles.TaskItem} key={task._id}>
+                          <icons.Draggable />
+
+                          <ManageTask
+                            task={task}
+                            taskIsEdded={() => setAddingTask(null)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default WeeklyList;

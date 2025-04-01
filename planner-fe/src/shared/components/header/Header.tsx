@@ -8,7 +8,7 @@ import LogOut from '@/shared/components/LogOut';
 import { useAuthStore } from '@/shared/store';
 import { usePathname } from 'next/navigation';
 import useScrollThreshold from '@/shared/hooks/useScrollThreshold';
-import { isCurrentRoute } from '@/shared/utils/isCurrentRoute';
+import { isCurrentRoute } from '@/shared/utils/check-current-route';
 import { useTranslations } from 'next-intl';
 
 import styles from './Header.module.scss';
@@ -16,7 +16,7 @@ import classNames from 'classnames';
 
 export const Header = () => {
   const isSticky = useScrollThreshold(100);
-  const t = useTranslations('buttons');
+  const t = useTranslations('Common.buttons');
 
   const isAuth = useAuthStore((state) => state.userAuth);
   const pathname = usePathname();

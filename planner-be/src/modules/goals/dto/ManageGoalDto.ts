@@ -14,5 +14,5 @@ export class CreateGoalDto {
 
 export class UpdateGoalDto extends CreateGoalDto {
   @IsString()
-  _id: string;
+  id: string;
 }

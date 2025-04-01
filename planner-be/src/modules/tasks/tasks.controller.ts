@@ -10,19 +10,19 @@ export class TaskController {
 
   @Post()
   @Auth()
-  async create(@User('id') userId: string, @Body() dto: CreateTaskDto[]) {
+  async create(@User('id') userId: string, @Body() dto: CreateTaskDto) {
     return await this.taskService.create(userId, dto);
   }
 
   @Put()
   @Auth()
-  async update(@Body() dto: TaskDto[]) {
+  async update(@Body() dto: TaskDto) {
     return await this.taskService.update(dto);
   }
 
   @Delete()
   @Auth()
-  async delete(@Body() dto: TaskDto[]) {
-    return await this.taskService.delete(dto);
+  async delete(@Body() taskId: string) {
+    return await this.taskService.delete(taskId);
   }
 }

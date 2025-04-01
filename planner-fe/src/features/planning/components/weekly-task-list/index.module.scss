@@ -1,0 +1,58 @@
+@use '@/styles/_variables' as *;
+
+.Day {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  gap: 10px;
+  justify-content: flex-start;
+
+  .DayWrapper {
+    border-radius: 10px;
+    border: 1px solid $secondary;
+    background-color: var(--bg-color);
+    overflow-y: auto;
+    max-width: 100%;
+  }
+}
+
+.Header {
+  padding: 5px;
+  border-bottom: 1px solid $secondary;
+}
+
+.GoalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.TaskItem {
+  display: flex;
+  align-items: center;
+
+  input[type='checkbox'] {
+    font-size: 1rem;
+  }
+
+  // &:not(:last-child) {
+  //   border-bottom: 1px solid $secondary;
+  // }
+
+  .Description {
+    overflow-wrap: break-word;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.Goals {
+  padding: 5px;
+}
+
+.Goal:has(.GoalTasks:empty) {
+  .GoalTitle {
+    opacity: 0.5;
+  }
+}

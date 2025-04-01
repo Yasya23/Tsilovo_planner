@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { CreateTaskDto, TaskDto } from './dto/task.dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
@@ -19,67 +23,45 @@ export class TaskService {
   ) {
     return await this.taskModel
       .find({
-        goal: { $in: goalIds },
+        goalId: { $in: goalIds.map((id) => new Types.ObjectId(id)) },
         date: { $gte: startDate, $lte: endDate },
       })
-      .select('goal title date isCompleted')
+      .select('goalId title date isCompleted')
       .exec();
   }
 
-  async create(userId: string, dto: CreateTaskDto[]) {
-    // Mapping CreateTaskDto to TaskModel format, including userId
-    const tasksToCreate = dto.map((task) => ({
-      userId,
-      title: task.title,
-      goal: new Types.ObjectId(task.goalId),
-      date: task.date,
-      isCompleted: task.isCompleted,
-    }));
+  async create(userId: string, dto: CreateTaskDto) {
+    if (!userId || !dto.goalId || !dto.title || !dto.date) {
+      throw new BadRequestException('Missing required fields');
+    }
 
-    // Create tasks and insert them into the database
-    const createdTasks = await this.taskModel.create(tasksToCreate);
-    return createdTasks;
+    return await this.taskModel.create({
+      ...dto,
+      userId: new Types.ObjectId(userId),
+      goalId: new Types.ObjectId(dto.goalId),
+    });
   }
 
-  // Update tasks based on TaskDto array
-  async update(dto: TaskDto[]) {
-    const updatedTasks = dto.map(async (taskData) => {
-      const task = await this.taskModel.findByIdAndUpdate(
-        taskData._id,
-        {
-          title: taskData.title,
-          goal: new Types.ObjectId(taskData.goalId),
-          date: taskData.date,
-          isCompleted: taskData.isCompleted,
-        },
-        { new: true },
-      );
-
-      if (!task) {
-        throw new NotFoundException(`Task with id ${taskData._id} not found`);
-      }
-
-      return task;
+  async update(dto: TaskDto) {
+    const task = await this.taskModel.findByIdAndUpdate(dto._id, dto, {
+      new: true,
+      runValidators: true,
     });
 
-    // Wait for all update operations to complete and return the updated tasks
-    return await Promise.all(updatedTasks);
+    if (!task) {
+      throw new NotFoundException(`Task with id ${dto._id} not found`);
+    }
+
+    return task;
   }
 
-  // Optionally, add a delete method if required
-  async delete(dto: TaskDto[]) {
-    const deletedTasks = await Promise.all(
-      dto.map(async (taskData) => {
-        const task = await this.taskModel.findByIdAndDelete(taskData._id);
+  async delete(taskId: string) {
+    const task = await this.taskModel.findByIdAndDelete(taskId);
 
-        if (!task) {
-          throw new NotFoundException(`Task with id ${taskData._id} not found`);
-        }
+    if (!task) {
+      throw new NotFoundException(`Task with id ${taskId} not found`);
+    }
 
-        return task;
-      }),
-    );
-
-    return deletedTasks;
+    return task;
   }
 }
