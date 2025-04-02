@@ -45,3 +45,16 @@
   height: 2px;
   color: $secondary-transparent;
 }
+
+.Message {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 250px;
+  max-width: 100%;
+  padding: 10px;
+
+  svg {
+    stroke: $secondary;
+  }
+}

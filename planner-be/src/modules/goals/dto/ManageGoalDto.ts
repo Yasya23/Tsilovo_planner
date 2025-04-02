@@ -1,4 +1,4 @@
-import { IsBoolean, IsString, IsOptional } from 'class-validator';
+import { IsBoolean, IsString, IsOptional, IsMongoId } from 'class-validator';
 
 export class CreateGoalDto {
   @IsString()
@@ -13,6 +13,6 @@ export class CreateGoalDto {
 }
 
 export class UpdateGoalDto extends CreateGoalDto {
-  @IsString()
-  id: string;
+  @IsMongoId()
+  _id: string;
 }

@@ -24,7 +24,7 @@ export const WeeklyList = ({
   isListView = false,
 }: WeeklyListProps) => {
   const t = useTranslations('Common');
-  const [addingTask, setAddingTask] = useState<CreateTask | null>(null);
+  const [manageTask, setManageTask] = useState<CreateTask | null>(null);
 
   return (
     <div className={classNames(styles.Day, { [styles.listView]: isListView })}>
@@ -58,7 +58,7 @@ export const WeeklyList = ({
                         icon={<icons.PlusCircle />}
                         name={t('buttons.addTask')}
                         onClick={() =>
-                          setAddingTask({
+                          setManageTask({
                             date,
                             goalId: goal._id,
                           } as CreateTask)
@@ -67,8 +67,8 @@ export const WeeklyList = ({
                       />
                     </div>
 
-                    {addingTask?.goalId === goal._id &&
-                      addingTask?.date === date && (
+                    {manageTask?.goalId === goal._id &&
+                      manageTask?.date === date && (
                         <ManageTask
                           task={{
                             title: '',
@@ -76,7 +76,7 @@ export const WeeklyList = ({
                             isCompleted: false,
                             date,
                           }}
-                          taskIsEdded={() => setAddingTask(null)}
+                          finishManage={() => setManageTask(null)}
                         />
                       )}
                     <div className={styles.GoalTasks}>
@@ -86,7 +86,7 @@ export const WeeklyList = ({
 
                           <ManageTask
                             task={task}
-                            taskIsEdded={() => setAddingTask(null)}
+                            finishManage={() => setManageTask(null)}
                           />
                         </div>
                       ))}

@@ -15,6 +15,10 @@ import {
   FiList,
   FiHelpCircle,
   FiSunrise,
+  FiActivity,
+  FiCalendar,
+  FiSettings,
+  FiAlignJustify,
 } from 'react-icons/fi';
 import { RiDraggable } from 'react-icons/ri';
 
@@ -36,6 +40,10 @@ const icons = {
   List: FiList,
   Help: FiHelpCircle,
   Sunrise: FiSunrise,
+  Activity: FiActivity,
+  Calendar: FiCalendar,
+  Settings: FiSettings,
+  AlignJustify: FiAlignJustify,
 };
 
 export default icons;

@@ -20,11 +20,21 @@
       "daysWithTasksFirst": "Days with tasks first",
       "menu": "Menu"
     },
-    "notifications": { "noTask": "No task" },
+    "errors": {
+      "general": "Something went wrong..."
+    },
+    "placeholders": {
+      "addTask": "Add task"
+    },
+    "notifications": {
+      "noTask": "No task",
+      "forbiddenDeleteTask": "Goal with active tasks can't be deleted"
+    },
     "sidebar": {
       "planner": "Planner",
       "statistics": "Statistics",
-      "settings": "Settings"
+      "settings": "Settings",
+      "help": "How does it work?"
     },
     "theme": {
       "light": "Light",

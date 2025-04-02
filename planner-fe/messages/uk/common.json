@@ -20,17 +20,27 @@
       "list": "Список",
       "daysWithTasksFirst": "Дні з завданнями перші"
     },
+    "errors": {
+      "general": "Щось пішло не так..."
+    },
+    "placeholders": {
+      "addTask": "Додати завдання"
+    },
     "sidebar": {
       "planner": "Планувальник",
       "statistics": "Статистика",
-      "settings": "Налаштування"
+      "settings": "Налаштування",
+      "help": "Як це працює?"
     },
     "theme": {
       "light": "Світла",
       "dark": "Темна",
       "system": "Системна"
     },
-    "notifications": { "noTask": "Немає завдань" },
+    "notifications": {
+      "noTask": "Немає завдань",
+      "forbiddenDeleteTask": "Ціль з активними завданнями не можна видалити"
+    },
     "months": {
       "0": "Січень",
       "1": "Лютий",

@@ -16,21 +16,21 @@ import { useAuthStore } from '@/shared/store/AuthStore';
 import { getToken } from '@/shared/helpers';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
-import styles from './AuthForm.module.scss';
+import styles from './index.module.scss';
 
-interface LoginFormValues {
+type LoginFormValues = {
   email: string;
   password: string;
-}
+};
 
-interface RegisterFormValues extends LoginFormValues {
+type RegisterFormValues = LoginFormValues & {
   name: string;
   confirmPassword: string;
-}
+};
 
-interface AuthFormProps {
+type AuthFormProps = {
   mode: 'login' | 'register';
-}
+};
 
 export const AuthForm = ({ mode }: AuthFormProps) => {
   const locale = useLocale();
@@ -58,11 +58,15 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
 
   const password = watch('password');
 
-  useEffect(() => {
-    if (isRegister) {
-      trigger('confirmPassword');
-    }
-  }, [password, trigger, isRegister]);
+  if (isRegister && password) {
+    trigger('confirmPassword');
+  }
+
+  // useEffect(() => {
+  //   if (isRegister && password) {
+  //     trigger('confirmPassword');
+  //   }
+  // }, [password, trigger, isRegister]);
 
   useEffect(() => {
     if (error) {

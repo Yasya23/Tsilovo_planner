@@ -38,11 +38,11 @@ export class GoalsService {
         (task) =>
           task.goalId.toString() === goal._id.toString() &&
           !task.isCompleted &&
-          task.date > new Date(currentWeek.weekEnd),
+          new Date(task.date) > new Date(currentWeek.weekStart),
       ).length;
 
       return {
-        _id: goal._id.toString(),
+        _id: goal._id,
         title: goal.title,
         emoji: goal.emoji,
         isActive: goal.isActive,
@@ -87,7 +87,7 @@ export class GoalsService {
   }
 
   async update(dto: UpdateGoalDto) {
-    const taskId = new Types.ObjectId(dto.id);
+    const taskId = new Types.ObjectId(dto._id);
 
     const goal = await this.goalModel.findById(taskId);
     if (!goal) {
@@ -102,7 +102,7 @@ export class GoalsService {
   }
 
   async delete(dto: UpdateGoalDto) {
-    const taskId = new Types.ObjectId(dto.id);
+    const taskId = new Types.ObjectId(dto._id);
     const goal = await this.goalModel.findById(taskId);
     if (!goal) {
       throw new NotFoundException('Goal not found');

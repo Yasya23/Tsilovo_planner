@@ -11,6 +11,11 @@ import { usePlanning } from '../../hooks/usePlanning';
 
 import styles from './index.module.scss';
 
+const initialGoal: CreateGoal = {
+  title: '',
+  emoji: '@',
+  isActive: true,
+};
 const GoalsList = () => {
   const t = useTranslations('Common');
 
