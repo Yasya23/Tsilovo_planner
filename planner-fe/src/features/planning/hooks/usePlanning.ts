@@ -1,21 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { TaskServices } from '../services/tasks.service';
 import { GoalServices } from '../services/goals.service';
-import { Task } from '../types/task.type';
-import { ActiveGoals } from '../types/goals.type';
+import { ActiveGoalsData } from '../types/goals.type';
 
 export const usePlanning = () => {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery<ActiveGoals, Error>({
+  const { data, isLoading, isError } = useQuery<ActiveGoalsData, Error>({
     queryKey: ['planning'],
     queryFn: async () => {
-      const goals = await GoalServices.getActive();
-
-      const activeGoals = goals?.activeGoals ?? [];
-      const weeklyTasks = goals?.weeklyTasks ?? [];
-
-      return { activeGoals, weeklyTasks };
+      const data = await GoalServices.getActive();
+      return data;
+      // const activeGoals = goals?.activeGoals ?? [];
+      // const weeklyTasks = goals?.weeklyTasks ?? [];
+      // const weeklyStatistics = goals?.weeklyStatistics ?? null;
+      // return { activeGoals, weeklyTasks, weeklyStatistics };
     },
   });
 
@@ -63,6 +62,7 @@ export const usePlanning = () => {
 
   const activeGoals = data?.activeGoals ?? [];
   const tasks = data?.weeklyTasks ?? [];
+  const weeklyStatistics = data?.weeklyStatistics ?? null;
   const currentWeek = tasks.length > 7 ? tasks.slice(0, 7) : tasks;
   const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
 
@@ -70,6 +70,7 @@ export const usePlanning = () => {
     activeGoals,
     currentWeek,
     nextWeek,
+    weeklyStatistics,
     isLoading,
     isError,
     createGoal,

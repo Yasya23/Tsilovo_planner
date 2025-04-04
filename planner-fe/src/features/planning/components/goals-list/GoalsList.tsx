@@ -9,13 +9,9 @@ import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
 import { useTranslations } from 'next-intl';
 import { usePlanning } from '../../hooks/usePlanning';
 
-import styles from './index.module.scss';
+import styles from './GoalsList.module.scss';
 
-const initialGoal: CreateGoal = {
-  title: '',
-  emoji: '@',
-  isActive: true,
-};
+
 const GoalsList = () => {
   const t = useTranslations('Common');
 

@@ -14,7 +14,13 @@ type ActiveGoal = Goal & {
   pendingTasks: number;
 };
 
-export type ActiveGoals = {
+type WeeklyStatistics = {
+  completedTasks: number;
+  notCompletedTasks: number;
+};
+
+export type ActiveGoalsData = {
   activeGoals: ActiveGoal[];
   weeklyTasks: WeeklyTasks;
+  weeklyStatistics: WeeklyStatistics;
 };

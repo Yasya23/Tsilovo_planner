@@ -7,7 +7,6 @@ import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { TaskModel } from 'src/models/tasks.model';
 import { DateService } from '../date/date.service';
 import { TaskService } from '../tasks/tasks.service';
-import { weeksToDays } from 'date-fns';
 
 @Injectable()
 export class GoalsService {
@@ -70,9 +69,16 @@ export class GoalsService {
       tasks: tasksByDate[date] || [],
     }));
 
+    const completedTasks = tasks.filter((task) => task.isCompleted).length;
+    const notCompletedTasks = tasks.filter((task) => !task.isCompleted).length;
+
     return {
       activeGoals,
       weeklyTasks,
+      weeklyStatistics: {
+        completedTasks,
+        notCompletedTasks,
+      },
     };
   }
 

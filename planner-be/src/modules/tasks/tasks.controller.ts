@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Put, Delete, Post } from '@nestjs/common';
+import { Controller, Body, Put, Delete, Post } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -16,8 +16,8 @@ export class TaskController {
 
   @Put()
   @Auth()
-  async update(@Body() dto: TaskDto) {
-    return await this.taskService.update(dto);
+  async update(@User('id') userId: string, @Body() dto: TaskDto) {
+    return await this.taskService.update(userId, dto);
   }
 
   @Delete()

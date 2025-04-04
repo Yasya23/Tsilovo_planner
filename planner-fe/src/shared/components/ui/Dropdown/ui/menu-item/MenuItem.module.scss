@@ -1,0 +1,20 @@
+@use '@/styles/_variables' as *;
+
+.MenuItem {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  .Icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    color: $secondary;
+  }
+
+  &:hover {
+    background: $secondary-transparent;
+  }
+}

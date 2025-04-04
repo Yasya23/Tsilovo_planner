@@ -2,21 +2,17 @@
 
 import { useState, useRef, ReactNode } from 'react';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
-import Link from 'next/link';
-import styles from './index.module.scss';
+import { Divider, DividerItemType } from './ui/divider/Divider';
+import { Message, MessageItemType } from './ui/message/Message';
+import { MenuItemComponent, MenuItemType } from './ui/menu-item/MenuItem';
+import styles from './Dropdown.module.scss';
 
-export interface MenuItem {
-  icon?: ReactNode;
-  title?: string;
-  action?: () => void;
-  href?: string;
-  type?: 'button' | 'link' | 'divider' | 'message';
-}
+type MenuItem = MenuItemType | DividerItemType | MessageItemType;
 
-interface DropdownProps {
+type DropdownProps = {
   trigger: ReactNode;
   menuItems: MenuItem[];
-}
+};
 
 export const Dropdown = ({ trigger, menuItems }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +21,8 @@ export const Dropdown = ({ trigger, menuItems }: DropdownProps) => {
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const handleItemClick = (item: MenuItem) => {
-    item.action?.();
-    if (!item.href) setIsOpen(false);
+    if ('action' in item) item.action?.();
+    if (!('href' in item)) setIsOpen(false);
   };
 
   return (
@@ -40,42 +36,16 @@ export const Dropdown = ({ trigger, menuItems }: DropdownProps) => {
       {isOpen && (
         <ul className={styles.Menu} role="menu">
           {menuItems.map((item, index) => {
-            switch (item.type) {
-              case 'divider':
-                return <hr key={index} className={styles.Divider} />;
-              case 'message':
-                return (
-                  <p key={index} className={styles.Message}>
-                    {item.icon && (
-                      <span className={styles.Icon}>{item.icon}</span>
-                    )}
-                    {item.title}
-                  </p>
-                );
-              default:
-                return (
-                  <li
-                    key={index}
-                    className={styles.MenuItem}
-                    role="menuitem"
-                    tabIndex={0}
-                    onClick={() => handleItemClick(item)}>
-                    {item.icon && (
-                      <span className={styles.Icon}>{item.icon}</span>
-                    )}
-                    {item.type === 'link' && item.href ? (
-                      <Link
-                        href={item.href}
-                        className={styles.Link}
-                        onClick={() => setIsOpen(false)}>
-                        {item.title}
-                      </Link>
-                    ) : (
-                      <span>{item.title}</span>
-                    )}
-                  </li>
-                );
-            }
+            if (item.type === 'divider') return <Divider key={index} />;
+            if (item.type === 'message')
+              return <Message key={index} {...item} />;
+            return (
+              <MenuItemComponent
+                key={index}
+                item={item}
+                onClick={() => handleItemClick(item)}
+              />
+            );
           })}
         </ul>
       )}

@@ -2,11 +2,9 @@ import {
   IsBoolean,
   IsString,
   IsDate,
-  IsOptional,
   IsMongoId,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { isValidObjectId } from 'mongoose';
 
 export class CreateTaskDto {
   @IsBoolean()

@@ -1,10 +1,12 @@
 import { services } from '@/shared/constants/api-services';
 import { axiosClassic } from '@/api/interceptors';
-import { CreateGoal, Goal, ActiveGoals } from '../types/goals.type';
+import { CreateGoal, Goal, ActiveGoalsData } from '../types/goals.type';
 
 export const GoalServices = {
   async getActive() {
-    const { data } = await axiosClassic.get<ActiveGoals>(services.activeGoals);
+    const { data } = await axiosClassic.get<ActiveGoalsData>(
+      services.activeGoals
+    );
 
     return data;
   },

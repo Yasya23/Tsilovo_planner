@@ -4,6 +4,7 @@ import { TaskController } from './tasks.controller';
 import { TaskModel } from 'src/models/tasks.model';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule } from '@nestjs/config';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       },
     ]),
     ConfigModule,
+    StatisticsModule,
   ],
   providers: [TaskService],
   controllers: [TaskController],

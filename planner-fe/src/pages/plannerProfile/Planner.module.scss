@@ -9,6 +9,12 @@
   overflow-y: auto;
 }
 
+.Wrapper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .Title {
   padding-top: 40px;
   font-size: clamp(1.2rem, 5vw, 2rem);

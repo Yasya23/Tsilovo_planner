@@ -1,0 +1,22 @@
+@use '@/styles/_variables' as *;
+
+.Dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.Menu {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px #0000001a;
+  list-style: none;
+  min-width: 100px;
+  z-index: 10;
+}
+
+.Icon {
+  margin-right: 5px;
+}

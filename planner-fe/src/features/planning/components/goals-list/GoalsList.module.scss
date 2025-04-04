@@ -3,6 +3,7 @@
 
 .GoalsWrapper {
   padding: 10px 0;
+  width: clamp(250px, 100%, 550px);
 
   .GoalsList {
     display: flex;
