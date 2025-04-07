@@ -15,6 +15,15 @@ export class UserService {
     @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
   ) {}
 
+  async getAllUsers(): Promise<any[]> {
+    const users = await this.userModel.find().exec();
+
+    if (!users || users.length === 0) {
+      throw new NotFoundException('Users not found');
+    }
+    return users;
+  }
+
   async getByID(id: string) {
     const user = await this.userModel.findById(id).exec();
     if (!user) throw new NotFoundException('User not found');

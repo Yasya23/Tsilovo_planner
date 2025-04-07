@@ -1,0 +1,16 @@
+.Header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+  flex-wrap: wrap;
+}
+
+.Title {
+}
+
+.Statistics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

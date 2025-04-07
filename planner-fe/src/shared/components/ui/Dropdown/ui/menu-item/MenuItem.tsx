@@ -18,7 +18,7 @@ type LinkItem = {
 
 export type MenuItemType = ButtonItem | LinkItem;
 
-type MenuItemProps = { item: MenuItem; onClick: () => void };
+type MenuItemProps = { item: MenuItemType; onClick: () => void };
 
 export const MenuItemComponent = ({ item, onClick }: MenuItemProps) => (
   <li

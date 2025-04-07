@@ -9,7 +9,6 @@
   .Wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
     border: 1px solid $primary;
     border-radius: 10px;
@@ -23,6 +22,9 @@
   }
 
   .SubTitle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: clamp(1rem, 5vw, 1.2rem);
 
     span {

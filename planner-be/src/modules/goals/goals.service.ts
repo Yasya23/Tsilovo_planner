@@ -4,7 +4,6 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
 import { GoalModel } from 'src/models/goal.model';
 import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
-import { TaskModel } from 'src/models/tasks.model';
 import { DateService } from '../date/date.service';
 import { TaskService } from '../tasks/tasks.service';
 

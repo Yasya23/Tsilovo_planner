@@ -1,0 +1,29 @@
+.Goals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Goal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 1rem;
+
+  span:first-child {
+    flex-grow: 1;
+  }
+
+  span:last-child {
+    font-weight: bold;
+    color: #388e3c;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:before {
+      content: '✅';
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@use '@/styles/_mixins.scss' as *;
+@use '@/styles/_variables.scss' as *;
+
+.Data {
+  font-size: clamp(1rem, 5vw, 1.2rem);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  line-height: 1;
+
+  .Total {
+    font-weight: 600;
+  }
+
+  svg {
+    stroke: $primary;
+  }
+}
+
+.Title.HideTitle {
+  display: none;
+  @include md {
+    display: inline-block;
+  }
+}

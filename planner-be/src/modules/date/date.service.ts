@@ -3,19 +3,23 @@ import {
   startOfWeek,
   endOfWeek,
   addWeeks,
+  subWeeks,
   format,
   eachDayOfInterval,
 } from 'date-fns';
 
-interface WeekData {
+interface WeekInterval {
   weekStart: string;
   weekEnd: string;
+}
+interface WeekData extends WeekInterval {
   weekDates: string[];
 }
 
 @Injectable()
 export class DateService {
   private dateFormat: 'yyyy-MM-dd' = 'yyyy-MM-dd';
+
   private createDateArray(weekStart: Date, weekEnd: Date): string[] {
     return eachDayOfInterval({ start: weekStart, end: weekEnd }).map((date) =>
       format(date, this.dateFormat),
@@ -49,5 +53,16 @@ export class DateService {
     }
 
     return { currentWeek };
+  }
+
+  public getLastWeekData(): WeekInterval {
+    const today = new Date();
+    const lastWeekStart = startOfWeek(subWeeks(today, 1), { weekStartsOn: 1 });
+    const lastWeekEnd = endOfWeek(subWeeks(today, 1), { weekStartsOn: 1 });
+
+    return {
+      weekStart: format(lastWeekStart, this.dateFormat),
+      weekEnd: format(lastWeekEnd, this.dateFormat),
+    };
   }
 }

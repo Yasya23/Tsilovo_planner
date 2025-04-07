@@ -1,4 +1,4 @@
-import { Statistics } from '@/pages/statistics';
+import Statistics from '@/features/statistics/components/Statistics';
 
 const page = () => {
   return <Statistics />;

@@ -14,12 +14,16 @@ import {
   FiGrid,
   FiList,
   FiHelpCircle,
-  FiSunrise,
   FiActivity,
-  FiCalendar,
   FiSettings,
   FiAlignJustify,
+  FiChevronDown,
+  FiSunrise,
+  FiCalendar,
+  FiAward,
+  FiCheckCircle,
 } from 'react-icons/fi';
+
 import { RiDraggable } from 'react-icons/ri';
 
 const icons = {
@@ -44,6 +48,9 @@ const icons = {
   Calendar: FiCalendar,
   Settings: FiSettings,
   AlignJustify: FiAlignJustify,
+  ChevronDown: FiChevronDown,
+  Award: FiAward,
+  CheckCircle: FiCheckCircle,
 };
 
 export default icons;

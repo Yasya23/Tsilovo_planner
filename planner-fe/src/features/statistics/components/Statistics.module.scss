@@ -1,0 +1,26 @@
+@use '@/styles/variables' as *;
+
+.Statistics {
+  width: 100%;
+
+  .Title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    color: $secondary;
+    font-weight: bold;
+  }
+
+  .SubTitle {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    color: $secondary;
+  }
+
+  .Total {
+    padding: 20px 0;
+  }
+
+  .MonthlyContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}

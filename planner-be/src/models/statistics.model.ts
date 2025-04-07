@@ -18,6 +18,12 @@ export class MonthlyStats {
   @prop({ required: true })
   month: number;
 
+  @prop({ required: true })
+  totalGoals: number;
+
+  @prop({ required: true })
+  totalCompleted: number;
+
   @prop({ type: () => [GoalStats], default: [] })
   goals: GoalStats[];
 }
@@ -28,6 +34,12 @@ export class StatisticsModel extends TimeStamps {
 
   @prop({ required: true })
   year: number;
+
+  @prop({ required: true })
+  totalCompleted: number;
+
+  @prop({ required: true })
+  totalGoals: number;
 
   @prop({ type: () => [Number], default: [] })
   availableYears: number[];

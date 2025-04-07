@@ -36,6 +36,14 @@
       "settings": "Settings",
       "help": "How does it work?"
     },
+    "statistics": {
+      "completedTasks": "Completed tasks",
+      "totalGoals": "Total goals",
+      "annualStatistics": "Annual statistics",
+      "monthlyStatistics": "Monthly statistics",
+      "error": "Oops, something went wrong. Please try again later.",
+      "goals": "Goals"
+    },
     "theme": {
       "light": "Light",
       "dark": "Dark",

@@ -8,14 +8,12 @@ import { CreateTaskDto, TaskDto } from './dto/task.dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { TaskModel } from 'src/models/tasks.model';
 import { Types } from 'mongoose';
-import { StatisticsService } from '../statistics/statistics.service';
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectModel(TaskModel)
     private readonly taskModel: ModelType<TaskModel>,
-    private readonly statisticsService: StatisticsService,
   ) {}
 
   async getTasksByGoalIdsAndDateRange(
@@ -32,6 +30,23 @@ export class TaskService {
       .exec();
   }
 
+  async getUserTasksForStatistic(
+    userId: string,
+    startDate: Date,
+    endDate: Date,
+  ) {
+    const tasks = await this.taskModel
+      .find({
+        userId: userId,
+        isCompleted: true,
+        date: { $gte: startDate, $lte: endDate },
+      })
+      .select('_id goalId')
+      .exec();
+
+    return tasks;
+  }
+
   async create(userId: string, dto: CreateTaskDto) {
     if (!userId || !dto.goalId || !dto.title || !dto.date) {
       throw new BadRequestException('Missing required fields');
@@ -45,11 +60,6 @@ export class TaskService {
   }
 
   async update(userId: string, dto: TaskDto) {
-    const prevTask = await this.taskModel.findById(dto._id);
-    if (!prevTask) {
-      throw new NotFoundException(`Task with id ${dto._id} not found`);
-    }
-
     const task = await this.taskModel.findByIdAndUpdate(dto._id, dto, {
       new: true,
       runValidators: true,
@@ -58,12 +68,6 @@ export class TaskService {
     if (!task) {
       throw new NotFoundException(`Task with id ${dto._id} not found`);
     }
-
-    await this.statisticsService.updateTaskStatistics(
-      userId,
-      task,
-      prevTask.isCompleted,
-    );
 
     return task;
   }

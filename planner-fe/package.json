@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "clean": "rm .next -r && next dev",
+    "clean": "sudo rm -r .next && next dev",
     "lint": "next lint",
     "lint:fix": "eslint --fix ."
   },
