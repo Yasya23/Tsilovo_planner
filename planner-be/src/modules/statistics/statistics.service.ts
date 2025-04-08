@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { NotFoundException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { StatisticsModel } from 'src/models/statistics.model';
 import { TaskService } from '../tasks/tasks.service';
@@ -20,12 +21,15 @@ export class StatisticsService {
     private readonly taskService: TaskService,
   ) {}
 
-  async getYearlyStatistics(userId: string, year?: number) {
-    const currentYear = year || new Date().getFullYear();
+  async getYearlyStatistics(userId: string, year: string) {
     const staistics = await this.statisticsModel
-      .findOne({ userId, year: currentYear })
+      .findOne({ userId, year })
       .select('-__v -_id -createdAt -updatedAt')
       .lean();
+
+    if (!staistics)
+      return new NotFoundException(`Staristics for year ${year} not found`);
+
     return staistics;
   }
 
@@ -54,21 +58,31 @@ export class StatisticsService {
   }
 
   async saveStatistics(userId: string, tasks: TaskType[]) {
-    console.log(tasks.length);
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
 
     const goalMap = new Map<
       string,
-      { completedTasks: number; taskIds: Set<string> }
+      {
+        completedTasks: number;
+        taskIds: Set<string>;
+        title: string;
+        emoji: string;
+      }
     >();
 
     for (const task of tasks) {
-      const goalId = task.goalId.toString();
+      const goalId = task.goalId._id.toString();
+      const emoji = task.goalId.emoji;
       const taskId = task._id.toString();
 
       if (!goalMap.has(goalId)) {
-        goalMap.set(goalId, { completedTasks: 0, taskIds: new Set() });
+        goalMap.set(goalId, {
+          completedTasks: 0,
+          taskIds: new Set(),
+          title: task.title,
+          emoji: emoji,
+        });
       }
 
       const goalStats = goalMap.get(goalId);
@@ -81,6 +95,8 @@ export class StatisticsService {
         goalId,
         completedTasks: data.completedTasks,
         taskIds: Array.from(data.taskIds),
+        title: data.title,
+        emoji: data.emoji,
       }),
     );
 

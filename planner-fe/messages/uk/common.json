@@ -35,7 +35,7 @@
     "statistics": {
       "completedTasks": "Завершені завдання",
       "totalGoals": "Загальна кількість цілей",
-      "annualStatistics": "Річна статистика",
+      "annualStatistics": "Cтатистика",
       "monthlyStatistics": "Місячна статистика",
       "goals": "Цілі",
       "error": "Упс, щось пішло не так. Будь ласка, спробуйте ще раз пізніше."

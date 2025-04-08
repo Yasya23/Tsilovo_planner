@@ -1,0 +1,7 @@
+@use '@/styles/variables' as *;
+
+.Error {
+  padding: 20px;
+  color: $secondary;
+  font-size: clamp(1rem, 5vw, 1.2rem);
+}

@@ -11,10 +11,6 @@ export const usePlanning = () => {
     queryFn: async () => {
       const data = await GoalServices.getActive();
       return data;
-      // const activeGoals = goals?.activeGoals ?? [];
-      // const weeklyTasks = goals?.weeklyTasks ?? [];
-      // const weeklyStatistics = goals?.weeklyStatistics ?? null;
-      // return { activeGoals, weeklyTasks, weeklyStatistics };
     },
   });
 

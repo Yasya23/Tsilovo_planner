@@ -41,7 +41,11 @@ export class TaskService {
         isCompleted: true,
         date: { $gte: startDate, $lte: endDate },
       })
-      .select('_id goalId')
+      .select('_id title goalId')
+      .populate({
+        path: 'goalId',
+        select: '_id emoji',
+      })
       .exec();
 
     return tasks;

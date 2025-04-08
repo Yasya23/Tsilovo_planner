@@ -1,32 +1,19 @@
-export const useStatistic = () => {
-  const statistics = {
-    year: 2025,
-    availableYears: [2025],
-    totalGoals: 3,
-    totalCompleted: 10,
-    monthlyStats: [
-      {
-        _id: '1',
-        month: 4,
-        totalCompleted: 10,
-        totalGoals: 3,
-        goals: [
-          {
-            title: 'Goal 1',
-            completedTasks: 1,
-          },
-          {
-            title: 'Goal 2',
-            completedTasks: 1,
-          },
-          {
-            title: 'Goal 3',
-            completedTasks: 1,
-          },
-        ],
-      },
-    ],
-  };
+import { useQuery } from '@tanstack/react-query';
+import { getStatistics } from '../services/statistics.service';
+import { UserStatistics } from '../types/statistics.type';
 
-  return { statistics };
+export const useStatistics = (year: string) => {
+  const { data, isLoading, isError, refetch } = useQuery<UserStatistics>({
+    queryKey: ['user-statistics', year],
+    queryFn: () => getStatistics(year),
+    staleTime: 1000 * 60 * 60 * 6,
+    refetchOnWindowFocus: false,
+  });
+
+  return {
+    refetch,
+    data,
+    isLoading,
+    isError,
+  };
 };

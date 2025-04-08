@@ -21,7 +21,7 @@ export const MonthlyStatsHeader = ({
       <div className={styles.Statistics}>
         <StatisticsData
           icon={<icons.Award />}
-          title={t('statistics.totalGoals')}
+          title={t('statistics.goals')}
           total={totalGoals}
           hideTitleOnMobile={true}
         />

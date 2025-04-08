@@ -4,7 +4,7 @@ import styles from './StatisticsData.module.scss';
 
 type StatisticsDataProps = {
   icon: ReactNode;
-  title: string;
+  title?: string;
   total: number;
   hideTitleOnMobile?: boolean;
 };
@@ -17,12 +17,14 @@ export const StatisticsData = ({
   return (
     <p className={styles.Data}>
       {icon}
-      <span
-        className={classNames(styles.Title, {
-          [styles.HideTitle]: hideTitleOnMobile,
-        })}>
-        {title}:
-      </span>
+      {title && (
+        <span
+          className={classNames(styles.Title, {
+            [styles.HideTitle]: hideTitleOnMobile,
+          })}>
+          {title}:
+        </span>
+      )}
       <span className={styles.Total}>{total}</span>
     </p>
   );

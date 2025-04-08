@@ -1,20 +1,30 @@
 import { useTranslations } from 'next-intl';
+import { GoalStats } from '@/features/statistics/types/statistics.type';
+import { StatisticsData } from '../statistics-data/StatisticsData';
+import icons from '@/shared/icons/icons';
 import styles from './GoalsList.module.scss';
-export const GoalsList = ({ goals }) => {
+type GoalsListProps = {
+  goals: GoalStats[];
+};
+
+export const GoalsList = ({ goals }: GoalsListProps) => {
   const t = useTranslations('Common.statistics');
 
   return (
     <div className={styles.AccordionContent}>
-      <div className={styles.Goals}>
+      <ul className={styles.Goals}>
         {goals.map((goal) => (
-          <div key={goal.title} className={styles.Goal}>
-            <span>{goal.title}</span>
-            <span>
-              {t('completedTasks')}: {goal.completedTasks}
-            </span>
-          </div>
+          <li key={goal.title} className={styles.Goal}>
+            <p className={styles.GoalTitle}>
+              {goal.emoji} {goal.title}
+            </p>
+            <StatisticsData
+              icon={<icons.CheckCircle />}
+              total={goal.completedTasks}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

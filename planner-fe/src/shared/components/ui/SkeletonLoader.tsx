@@ -2,13 +2,13 @@ import Skeleton from '@mui/material/Skeleton';
 
 interface SkeletonItem {
   variant: 'rounded' | 'circular' | 'rectangular';
-  width: number;
+  width: number | string;
   height: number;
 }
 
 interface SkeletonLoaderProps {
   count?: number;
-  width?: number;
+  width?: number | string;
   height?: number;
   variant?: 'rounded' | 'circular' | 'rectangular';
   items?: SkeletonItem[];

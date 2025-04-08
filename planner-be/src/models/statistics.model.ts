@@ -7,6 +7,12 @@ export class GoalStats {
   @prop({ required: true })
   goalId: string;
 
+  @prop({ default: '' })
+  title: string;
+
+  @prop({ default: '' })
+  emoji: string;
+
   @prop({ default: 0 })
   completedTasks: number;
 

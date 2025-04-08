@@ -1,5 +1,6 @@
 export type TaskType = {
+  _id: Types.ObjectId;
   goalId: Types.ObjectId;
   userId: Types.ObjectId;
-  _id: Types.ObjectId;
+  title: string;
 };

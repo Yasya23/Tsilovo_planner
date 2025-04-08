@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypegooseModule } from 'nestjs-typegoose';
@@ -13,19 +12,17 @@ import { StatisticsModule } from './statistics/statistics.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    ScheduleModule.forRoot(),
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: getMongoDbConfig,
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     UserModule,
     GoalsModule,
     StatisticsModule,
     TaskModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

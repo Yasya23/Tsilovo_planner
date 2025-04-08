@@ -5,4 +5,5 @@ export const services = {
   activeGoals: '/goals',
   token: 'auth/login/access-token',
   tasks: '/tasks',
+  statistics: '/statistics',
 };

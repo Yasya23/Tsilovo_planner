@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
@@ -9,7 +9,7 @@ export class StatisticsController {
 
   @Get()
   @Auth()
-  async get(@User('id') userId: string) {
-    return await this.statisticsService.getYearlyStatistics(userId);
+  async get(@User('id') userId: string, @Query('year') year: string) {
+    return await this.statisticsService.getYearlyStatistics(userId, year);
   }
 }

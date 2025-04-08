@@ -39,7 +39,7 @@
     "statistics": {
       "completedTasks": "Completed tasks",
       "totalGoals": "Total goals",
-      "annualStatistics": "Annual statistics",
+      "annualStatistics": "Statistics",
       "monthlyStatistics": "Monthly statistics",
       "error": "Oops, something went wrong. Please try again later.",
       "goals": "Goals"

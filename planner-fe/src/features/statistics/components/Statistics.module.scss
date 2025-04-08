@@ -2,11 +2,13 @@
 
 .Statistics {
   width: 100%;
+  padding: 10px;
 
   .Title {
     font-size: clamp(1.5rem, 5vw, 2rem);
     color: $secondary;
     font-weight: bold;
+    line-height: 1;
   }
 
   .SubTitle {
@@ -16,6 +18,9 @@
 
   .Total {
     padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .MonthlyContent {

@@ -1,16 +1,19 @@
+@use '@/styles/_variables.scss' as *;
+
 .Header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-right: 20px;
   flex-wrap: wrap;
 }
 
 .Title {
+  font-size: clamp(1rem, 5vw, 1.2rem);
 }
 
 .Statistics {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  margin-right: 20px;
 }
