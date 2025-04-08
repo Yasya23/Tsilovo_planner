@@ -3,31 +3,39 @@
 import { useState } from 'react';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
-import ManageGoals from '../manage-goal/ManageGoal';
-import { Goal, CreateGoal } from '../../types/goals.type';
+import ManageGoals from '../_parts/manage-goal/ManageGoal';
+import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
 import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
 import { useTranslations } from 'next-intl';
-import { usePlanning } from '../../hooks/usePlanning';
 
 import styles from './GoalsList.module.scss';
 
+type GoalsListProps = {
+  activeGoals: ActiveGoal[];
+  createGoal: (goal: CreateGoal) => void;
+  updateGoal: (goal: Goal) => void;
+  deleteGoal: (goal: Goal) => void;
+};
 
-const GoalsList = () => {
+const GoalsList = ({
+  activeGoals,
+  createGoal,
+  updateGoal,
+  deleteGoal,
+}: GoalsListProps) => {
   const t = useTranslations('Common');
-
-  const { activeGoals, isLoading, createGoal, updateGoal, deleteGoal } =
-    usePlanning();
 
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [addingGoal, setAddingGoal] = useState(false);
 
   const handleSaveGoal = (goalData: CreateGoal | Goal) => {
-    const title = goalData.title.length === 0 ? 'No title' : goalData.title;
+    if (!goalData.title.length) return;
+
     if ('_id' in goalData) {
-      updateGoal({ ...goalData, title });
+      updateGoal({ ...goalData });
       setEditingGoalId(null);
     } else {
-      createGoal({ ...goalData, title, isActive: true });
+      createGoal({ ...goalData, isActive: true });
       setAddingGoal(false);
     }
   };
@@ -39,51 +47,45 @@ const GoalsList = () => {
 
   return (
     <section className={styles.GoalsWrapper}>
-      <h2 className={styles.Subtitle}>Goals</h2>
+      <h2 className={styles.Subtitle}>{t('planning.goals')}</h2>
 
-      {isLoading ? (
-        <div className={styles.Skeleton}>
-          <SkeletonLoader count={3} width={250} height={20} />
-        </div>
-      ) : (
-        <ul className={styles.GoalsList}>
-          {activeGoals?.map((goal) => (
-            <li key={goal._id} className={styles.Goal}>
-              {editingGoalId === goal._id ? (
-                <ManageGoals
-                  goal={goal}
-                  onSave={handleSaveGoal}
-                  onCancel={handleCancel}
-                  onDelete={() => deleteGoal(goal)}
-                />
-              ) : (
-                <div className={styles.Content}>
-                  <p className={styles.GoalTitle}>
-                    <span className={styles.Emoji}>{goal.emoji}</span>
-                    {goal.title}
-                  </p>
-                  <IconButtonCustom
-                    icon={<icons.Edit />}
-                    name={t('buttons.edit')}
-                    onClick={() => setEditingGoalId(goal._id)}
-                    size="small"
-                  />
-                </div>
-              )}
-            </li>
-          ))}
-
-          {addingGoal && (
-            <li className={styles.Goal}>
+      <ul className={styles.GoalsList}>
+        {activeGoals?.map((goal) => (
+          <li key={goal._id} className={styles.Goal}>
+            {editingGoalId === goal._id ? (
               <ManageGoals
-                goal={null}
+                goal={goal}
                 onSave={handleSaveGoal}
                 onCancel={handleCancel}
+                onDelete={() => deleteGoal(goal)}
               />
-            </li>
-          )}
-        </ul>
-      )}
+            ) : (
+              <div className={styles.Content}>
+                <p className={styles.GoalTitle}>
+                  <span className={styles.Emoji}>{goal.emoji}</span>
+                  {goal.title}
+                </p>
+                <IconButtonCustom
+                  icon={<icons.Edit />}
+                  name={t('buttons.edit')}
+                  onClick={() => setEditingGoalId(goal._id)}
+                  size="small"
+                />
+              </div>
+            )}
+          </li>
+        ))}
+
+        {addingGoal && (
+          <li className={styles.Goal}>
+            <ManageGoals
+              goal={null}
+              onSave={handleSaveGoal}
+              onCancel={handleCancel}
+            />
+          </li>
+        )}
+      </ul>
 
       {activeGoals && activeGoals.length < 3 && !addingGoal && (
         <div className={styles.AddGoal}>

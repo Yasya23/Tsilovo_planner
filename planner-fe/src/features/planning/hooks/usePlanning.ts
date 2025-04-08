@@ -63,6 +63,7 @@ export const usePlanning = () => {
   const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
 
   return {
+    data,
     activeGoals,
     currentWeek,
     nextWeek,

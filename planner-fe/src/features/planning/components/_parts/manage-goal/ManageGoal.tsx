@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import EmojiPickerCompoment from '../ui/emojy-picker/EmojiPicker';
+import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
 
 import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
-import { Goal, CreateGoal, ActiveGoal } from '../../types/goals.type';
+import { Goal, CreateGoal, ActiveGoal } from '../../../types/goals.type';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
@@ -13,7 +13,7 @@ import styles from './index.module.scss';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 
 type ManageGoalsProps = {
-  goal: ActiveGoal;
+  goal: ActiveGoal | null;
   onSave: (goal: Goal | CreateGoal) => void;
   onCancel: () => void;
   onDelete?: (goal: Goal) => void;
@@ -38,7 +38,6 @@ const ManageGoals = ({
     goal || defaultGoal
   );
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
-  console.log(localGoal);
   const handleGoal = () => {
     if (JSON.stringify(localGoal) !== JSON.stringify(defaultGoal)) {
       onSave(localGoal);
@@ -81,7 +80,7 @@ const ManageGoals = ({
         onChange={(e) =>
           setLocalGoal((prev) => ({ ...prev, title: e.target.value }))
         }
-        placeholder="Add goal title"
+        placeholder={t('planner.goalPlaceholder')}
         maxLength={50}
       />
 
@@ -104,13 +103,13 @@ const ManageGoals = ({
           menuItems={[
             {
               icon: <icons.Trash />,
-              title: !!goal.pendingTasks
+              title: !!goal?.pendingTasks
                 ? t('notifications.forbiddenDeleteTask')
                 : t('buttons.delete'),
               action: () => {
                 if ('_id' in localGoal && onDelete) onDelete(localGoal as Goal);
               },
-              type: !!goal.pendingTasks ? 'message' : 'button',
+              type: !!goal?.pendingTasks ? 'message' : 'button',
             },
           ]}
         />

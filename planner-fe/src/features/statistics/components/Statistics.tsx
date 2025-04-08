@@ -3,15 +3,15 @@
 import { useState } from 'react';
 import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
 import icons from '@/shared/icons/icons';
-import { StatisticsData } from './ui/statistics-data/StatisticsData';
-import { MonthlyStatsHeader } from './ui/montly-states-header/MonthlyStatsHeader';
-import { GoalsList } from './ui/goals-list/GoalsList';
+import { StatisticsData } from './_parts/statistics-data/StatisticsData';
+import { MonthlyStatsHeader } from './_parts/montly-states-header/MonthlyStatsHeader';
+import { GoalsList } from './_parts/goals-list/GoalsList';
 import styles from './Statistics.module.scss';
 import { useTranslations } from 'next-intl';
 import { useStatistics } from '../hooks/use-statistics';
-import { ErrorMessage } from './ui/error-message/Error';
-import { SelectYear } from './ui/SelectYear';
-import { Skeleton } from './ui/skeleton/Skeleton';
+import { ErrorMessage } from './_parts/error-message/Error';
+import { SelectYear } from './_parts/SelectYear';
+import { Skeleton } from './_parts/skeleton/Skeleton';
 
 const currentYear = new Date().getFullYear().toString();
 export const Statistics = () => {

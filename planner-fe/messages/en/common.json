@@ -36,12 +36,21 @@
       "settings": "Settings",
       "help": "How does it work?"
     },
+    "planning": {
+      "title": "Weekly to-do",
+      "goals": "Goals",
+      "goalPlaceholder": "Add goal title",
+      "error": "Oops, something went wrong..."
+    },
     "statistics": {
       "completedTasks": "Completed tasks",
       "totalGoals": "Total goals",
       "annualStatistics": "Statistics",
       "monthlyStatistics": "Monthly statistics",
-      "error": "Oops, something went wrong. Please try again later.",
+      "weeklyStatistics": "Weekly statistics",
+      "completed": "Completed",
+      "todo": "To-Do",
+      "error": "Oops, something went wrong...",
       "goals": "Goals",
       "notification": "Note: Statistics do not include active week."
     },

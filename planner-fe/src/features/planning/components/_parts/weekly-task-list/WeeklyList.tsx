@@ -4,10 +4,10 @@ import { useState } from 'react';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import { useTranslations } from 'next-intl';
-import { CreateTask, WeeklyTasks } from '../../types/task.type';
-import { ActiveGoal } from '../../types/goals.type';
+import { CreateTask, WeeklyTasks } from '../../../types/task.type';
+import { ActiveGoal } from '../../../types/goals.type';
 import ManageTask from '../manage-task/ManageTask';
-import { filterTasks } from '../../helpers/filter-tasks';
+import { filterTasks } from '../../../helpers/filter-tasks';
 
 import styles from './index.module.scss';
 import classNames from 'classnames';
@@ -24,6 +24,7 @@ export const WeeklyList = ({
   isListView = false,
 }: WeeklyListProps) => {
   const t = useTranslations('Common');
+
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
 
   return (

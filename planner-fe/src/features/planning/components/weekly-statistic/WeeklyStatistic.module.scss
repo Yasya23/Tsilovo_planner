@@ -1,5 +1,12 @@
 @use '@/styles/_variables.scss' as *;
 
+.Skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid $secondary;
+}
+
 .Statistic {
   display: flex;
   justify-content: center;
@@ -10,6 +17,8 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    gap: 10px;
+    line-height: 1.1;
     border: 1px solid $secondary;
     border-radius: 10px;
     padding: 15px;
@@ -24,11 +33,16 @@
   .SubTitle {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     font-size: clamp(1rem, 5vw, 1.2rem);
 
     span {
       font-weight: 600;
+      color: $primary;
     }
+  }
+
+  svg {
+    color: $primary;
   }
 }

@@ -1,4 +1,4 @@
-import { StatisticsData } from '@/features/statistics/components/ui/statistics-data/StatisticsData';
+import { StatisticsData } from '@/features/statistics/components/_parts/statistics-data/StatisticsData';
 import icons from '@/shared/icons/icons';
 import { useTranslations } from 'next-intl';
 import styles from './MonthlyStatsHeader.module.scss';

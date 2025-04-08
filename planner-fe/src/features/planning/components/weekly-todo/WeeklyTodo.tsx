@@ -8,16 +8,27 @@ import { filterDays } from '@/features/planning/helpers/filter-days';
 
 import icons from '@/shared/icons/icons';
 import IconButton from '@/shared/components/ui/buttons/IconButton';
-import WeeklyList from '@/features/planning/components/weekly-task-list/WeeklyList';
+import WeeklyList from '@/features/planning/components/_parts/weekly-task-list/WeeklyList';
+import { WeeklyTasks } from '../../types/task.type';
+import { ActiveGoal } from '../../types/goals.type';
+import styles from './WeeklyToDo.module.scss';
 
-import styles from './index.module.scss';
+type WeekProps = {
+  currentWeek: WeeklyTasks;
+  nextWeek: WeeklyTasks | null;
+  activeGoals: ActiveGoal[];
+};
 
-export const WeeklyTodo = () => {
-  const { currentWeek, nextWeek, activeGoals } = usePlanning();
+export const WeeklyTodo = ({
+  currentWeek,
+  nextWeek,
+  activeGoals,
+}: WeekProps) => {
+  const t = useTranslations('Common');
+
   const [isListView, setIsListView] = useState(false);
   const [prioritizeTaskDays, setPrioritizeTaskDays] = useState(false);
 
-  const t = useTranslations('Common');
   const weeks = nextWeek ? [currentWeek, nextWeek] : [currentWeek];
 
   return (

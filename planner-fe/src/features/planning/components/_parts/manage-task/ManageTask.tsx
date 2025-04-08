@@ -11,7 +11,7 @@ import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import toast from 'react-hot-toast';
-import { usePlanning } from '../../hooks/usePlanning';
+import { usePlanning } from '../../../hooks/usePlanning';
 import styles from './index.module.scss';
 
 type ManageTaskProps = {
