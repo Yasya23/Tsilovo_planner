@@ -5,6 +5,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import icons from '@/shared/icons/icons';
 
+import styles from './Accordion.module.scss';
+
 type AccordionItem = {
   title: React.ReactNode | string;
   description: React.ReactNode | string;
@@ -18,7 +20,7 @@ export const AccordionUsage = ({ items }: AccordionProps) => {
   return (
     <div>
       {items.map((item, index) => (
-        <Accordion key={index}>
+        <Accordion key={index} className={styles.Wrapper}>
           <AccordionSummary
             expandIcon={<icons.ChevronDown />}
             aria-controls={`panel${index}-content`}

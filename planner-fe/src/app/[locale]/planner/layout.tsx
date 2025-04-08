@@ -1,4 +1,4 @@
-import { Sidebar } from '@/pages/plannerProfile/_sidebar/Sidebar';
+import { Sidebar } from './components/_sidebar/Sidebar';
 import styles from './Layout.module.scss';
 
 export const Layout = ({

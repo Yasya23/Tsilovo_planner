@@ -15,13 +15,9 @@ import { Skeleton } from './ui/skeleton/Skeleton';
 
 const currentYear = new Date().getFullYear().toString();
 export const Statistics = () => {
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  const {
-    data: statistics,
-    isLoading,
-    isError,
-  } = useStatistics(selectedYear ?? currentYear);
+  const { data: statistics, isLoading, isError } = useStatistics(selectedYear);
 
   const t = useTranslations('Common');
 
@@ -33,16 +29,14 @@ export const Statistics = () => {
   return (
     <div className={styles.Statistics}>
       <h1 className={styles.Title}>{t('statistics.annualStatistics')}</h1>
-      <div className={styles.Year}>
-        <p>Year: </p>
-        <SelectYear
-          availableYears={statistics.availableYears}
-          currentYear={statistics.year}
-          onChange={(year) => {
-            setSelectedYear(year);
-          }}
-        />
-      </div>
+
+      <p className={styles.Notification}>{t('statistics.notification')}</p>
+
+      <SelectYear
+        availableYears={statistics.availableYears}
+        currentYear={statistics.year}
+        onChange={(year) => setSelectedYear(year)}
+      />
 
       <div className={styles.Total}>
         <StatisticsData

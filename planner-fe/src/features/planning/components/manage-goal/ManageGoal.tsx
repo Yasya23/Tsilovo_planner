@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
+import EmojiPickerCompoment from '../ui/emojy-picker/EmojiPicker';
 
 import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
 import { Goal, CreateGoal, ActiveGoal } from '../../types/goals.type';

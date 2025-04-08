@@ -42,7 +42,8 @@
       "annualStatistics": "Statistics",
       "monthlyStatistics": "Monthly statistics",
       "error": "Oops, something went wrong. Please try again later.",
-      "goals": "Goals"
+      "goals": "Goals",
+      "notification": "Note: Statistics do not include active week."
     },
     "theme": {
       "light": "Light",

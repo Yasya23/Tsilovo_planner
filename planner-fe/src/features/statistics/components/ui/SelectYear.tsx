@@ -23,7 +23,11 @@ export const SelectYear = ({
   return (
     <SelectCustom
       value={currentYear.toString()}
-      onChange={(year) => onChange(year)}
+      onChange={(year) => {
+        if (+year !== currentYear) {
+          onChange(year);
+        }
+      }}
       options={years}
       format="outlined"
       disabled={false}

@@ -3,7 +3,7 @@
 import React, { MouseEventHandler } from 'react';
 import Button from '@mui/material/Button';
 import { useLocale } from 'next-intl';
-interface ButtonProps {
+type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   iconStart?: React.ReactNode;
   iconEnd?: React.ReactNode;
@@ -13,7 +13,7 @@ interface ButtonProps {
   style?: 'contained' | 'outlined' | 'text';
   color?: 'primary' | 'secondary';
   href?: string;
-}
+};
 
 export const ButtonCustom = ({
   onClick,
@@ -26,13 +26,14 @@ export const ButtonCustom = ({
   href,
 }: ButtonProps) => {
   const locale = useLocale();
+  console.log(href);
   return (
     <Button
       variant={style}
       color={color}
       disabled={disabled}
       onClick={href ? undefined : onClick}
-      href={`${locale}/${href}`}
+      href={`/${locale}/${href}`}
       startIcon={iconStart}
       endIcon={iconEnd}>
       {name}

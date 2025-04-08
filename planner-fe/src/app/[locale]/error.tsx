@@ -2,12 +2,12 @@
 
 import DefaultLayout from '@/shared/components/layouts/Default';
 
-import { MessageNavigator } from '@/shared/components/messageNavigator/MessageNavigator';
+import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 
 const ServerError = () => {
   return (
     <DefaultLayout>
-      <MessageNavigator message="500 | Internal Server Error" />
+      <ErrorMessage message="500 | Internal Server Error" />
     </DefaultLayout>
   );
 };

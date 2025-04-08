@@ -1,4 +1,4 @@
-import { MessageNavigator } from '@/shared/components/messageNavigator/MessageNavigator';
+import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 import { Metadata } from 'next';
 import DefaultLayout from '@/shared/components/layouts/Default';
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Custom404 = () => {
   return (
     <DefaultLayout>
-      <MessageNavigator message="404 | Page Not Found" />
+      <ErrorMessage message="404 | Page Not Found" />
     </DefaultLayout>
   );
 };

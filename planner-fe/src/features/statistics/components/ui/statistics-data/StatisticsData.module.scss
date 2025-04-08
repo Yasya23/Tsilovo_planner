@@ -8,18 +8,13 @@
   align-items: center;
   line-height: 1;
 
-  &:not(.Title) {
-    svg {
-      order: 2;
-    }
-  }
-
   .Total {
     font-weight: 600;
   }
 
   svg {
     stroke: $primary;
+    margin-right: 5px;
   }
 }
 
