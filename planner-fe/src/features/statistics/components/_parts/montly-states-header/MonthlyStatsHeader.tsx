@@ -1,6 +1,7 @@
 import { StatisticsData } from '@/features/statistics/components/_parts/statistics-data/StatisticsData';
 import icons from '@/shared/icons/icons';
 import { useTranslations } from 'next-intl';
+
 import styles from './MonthlyStatsHeader.module.scss';
 
 type MonthlyStateProps = {
@@ -15,9 +16,11 @@ export const MonthlyStatsHeader = ({
 }: MonthlyStateProps) => {
   const t = useTranslations('Common');
 
+  const monthFromZero = month - 1;
+
   return (
     <div className={styles.Header}>
-      <h3 className={styles.Title}>{t(`months.${month}`)}</h3>
+      <h3 className={styles.Title}>{t(`months.${monthFromZero}`)}</h3>
       <div className={styles.Statistics}>
         <StatisticsData
           icon={<icons.Award />}

@@ -9,7 +9,7 @@ import { ActiveGoal } from '../../../types/goals.type';
 import ManageTask from '../manage-task/ManageTask';
 import { filterTasks } from '../../../helpers/filter-tasks';
 
-import styles from './index.module.scss';
+import styles from './WeeklyList.module.scss';
 import classNames from 'classnames';
 
 interface WeeklyListProps {
@@ -24,6 +24,7 @@ export const WeeklyList = ({
   isListView = false,
 }: WeeklyListProps) => {
   const t = useTranslations('Common');
+  const today = new Date().getDate();
 
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
 
@@ -38,7 +39,10 @@ export const WeeklyList = ({
         return (
           <div key={date} className={styles.DayWrapper}>
             <div className={styles.Header}>
-              <h3 className={styles.HeaderTitle}>
+              <h3
+                className={classNames(styles.HeaderTitle, {
+                  [styles.Today]: new Date(date).getDate() === today,
+                })}>
                 {t(`days.${index}`)}
                 <span> {new Date(date).getDate()}</span>
               </h3>

@@ -3,7 +3,8 @@
 .MenuItem {
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
+  gap: 5px;
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s;

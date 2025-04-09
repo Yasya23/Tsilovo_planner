@@ -12,7 +12,7 @@ import { CreateTask, Task } from '@/features/planning/types/task.type';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import toast from 'react-hot-toast';
 import { usePlanning } from '../../../hooks/usePlanning';
-import styles from './index.module.scss';
+import styles from './ManageTask.module.scss';
 
 type ManageTaskProps = {
   task: Task | CreateTask;
@@ -20,26 +20,30 @@ type ManageTaskProps = {
 };
 
 export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
+  const t = useTranslations('Common');
+
   const { createTask, updateTask, deleteTask, isLoading, isError } =
     usePlanning();
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const t = useTranslations('Common');
   const [localTask, setLocalTask] = useState<Task | CreateTask>(task);
+
+  const hasId = '_id' in localTask;
+
   const handleSaveTask = () => {
     if (JSON.stringify(localTask) !== JSON.stringify(task)) {
-      if ('_id' in localTask) {
+      if (hasId) {
         updateTask(localTask as Task);
       } else {
         createTask(localTask);
       }
+      finishManage();
+      inputRef.current?.blur();
     }
     if (isError) {
-      toast.error('Something went wrong');
+      toast.error(t('errors.somethingWentWrong'));
     }
-    finishManage();
-    inputRef.current?.blur();
   };
 
   const handleCheckboxChange = (task: Task) => {
@@ -75,25 +79,36 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
         />
 
         <div className={styles.Actions}>
-          <Dropdown
-            trigger={
-              <IconButtonCustom
-                icon={<icons.MoreVertical />}
-                name={t('buttons.menu')}
-                size="small"
-              />
-            }
-            menuItems={[
-              {
-                icon: <icons.Trash />,
-                title: `${t('buttons.delete')}`,
-                action: () => {
-                  if ('_id' in localTask) deleteTask(localTask._id);
+          {hasId ? (
+            <Dropdown
+              trigger={
+                <IconButtonCustom
+                  icon={<icons.MoreVertical />}
+                  name={t('buttons.menu')}
+                  size="small"
+                />
+              }
+              menuItems={[
+                {
+                  icon: <icons.Trash />,
+                  title: `${t('buttons.delete')}`,
+                  action: () => {
+                    if ('_id' in localTask) deleteTask(localTask._id);
+                  },
+                  type: 'button',
                 },
-                type: 'button',
-              },
-            ]}
-          />
+              ]}
+            />
+          ) : (
+            <div>
+              <IconButtonCustom
+                icon={<icons.X />}
+                name={t('buttons.cancel')}
+                size="small"
+                onClick={finishManage}
+              />
+            </div>
+          )}
         </div>
       </fieldset>
     </form>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
@@ -16,6 +16,7 @@ import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
+import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
 
 const menuItems = [
   {
@@ -37,14 +38,17 @@ const menuItems = [
 ];
 
 export const Sidebar = () => {
-  const isPastThreshold = window.innerWidth > 768;
+  const isPastThreshold = useWidthThreshold(768);
   const t = useTranslations('Common');
 
-  const [isMenuOpen, setIsMenuOpen] = useState(isPastThreshold);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const currentLang = useLocale();
-
   const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMenuOpen(isPastThreshold);
+  }, [isPastThreshold]);
 
   return (
     <div

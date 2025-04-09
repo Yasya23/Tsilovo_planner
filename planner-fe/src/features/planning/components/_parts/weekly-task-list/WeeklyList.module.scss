@@ -3,6 +3,7 @@
 .Day {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   padding: 20px 0;
   gap: 10px;
   justify-content: flex-start;
@@ -21,8 +22,9 @@
     border-radius: 10px;
     border: 1px solid $secondary;
     background-color: var(--bg-color);
-    overflow-y: auto;
     max-width: 100%;
+    min-width: 300px;
+    padding-bottom: 10px;
   }
 
   &.listView {
@@ -45,6 +47,11 @@
     font-size: 1.1rem;
     span {
       font-weight: 600;
+    }
+
+    &.Today {
+      color: $primary;
+      font-size: 1.1rem;
     }
   }
 }
