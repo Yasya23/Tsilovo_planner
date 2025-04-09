@@ -1,5 +1,7 @@
-.Wrapper {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  border-bottom: 1px solid white;
+.Accordion {
+  .Wrapper {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-bottom: 1px solid white;
+  }
 }

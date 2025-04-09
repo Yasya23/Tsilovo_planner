@@ -18,6 +18,7 @@
       "addTask": "Додати завдання",
       "menu": "Меню",
       "list": "Список",
+      "openMenu": "Відкрити меню",
       "daysWithTasksFirst": "Дні з завданнями перші"
     },
     "errors": {

@@ -35,7 +35,10 @@ const SelectCustom = ({
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: minWidth }} size="small">
+    <FormControl
+      sx={{ m: 1, minWidth: minWidth }}
+      size="small"
+      className={styles.FormControl}>
       <Select
         className={styles.Select}
         onChange={handleChange}

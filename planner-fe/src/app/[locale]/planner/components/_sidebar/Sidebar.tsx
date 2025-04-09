@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
@@ -13,26 +13,38 @@ import Avatar from '@/shared/components/ui/avatar/Avatar';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
+
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
 
 const menuItems = [
-  { labelKey: `planner`, href: routes.planner, icon: <icons.Calendar /> },
-  { labelKey: 'statistics', href: routes.statistics, icon: <icons.Activity /> },
-  { labelKey: 'settings', href: routes.settings, icon: <icons.Settings /> },
-  { labelKey: 'help', href: routes.help, icon: <icons.Help /> },
+  {
+    labelKey: `sidebar.planner`,
+    href: routes.planner,
+    icon: <icons.Calendar />,
+  },
+  {
+    labelKey: 'sidebar.statistics',
+    href: routes.statistics,
+    icon: <icons.Activity />,
+  },
+  {
+    labelKey: 'sidebar.settings',
+    href: routes.settings,
+    icon: <icons.Settings />,
+  },
+  { labelKey: 'sidebar.help', href: routes.help, icon: <icons.Help /> },
 ];
 
-const isPastThreshold = window.innerWidth > 768;
-
 export const Sidebar = () => {
+  const isPastThreshold = window.innerWidth > 768;
+  const t = useTranslations('Common');
+
   const [isMenuOpen, setIsMenuOpen] = useState(isPastThreshold);
 
   const currentLang = useLocale();
 
   const pathname = usePathname();
-  const t = useTranslations('Common.sidebar');
 
   return (
     <div
@@ -44,7 +56,7 @@ export const Sidebar = () => {
           <div className={styles.MobileMenuIcon}>
             <IconButtonCustom
               icon={<icons.AlignJustify />}
-              name="Open menu"
+              name={t('buttons.openMenu')}
               size="small"
               onClick={() => setIsMenuOpen(true)}
             />
@@ -59,7 +71,7 @@ export const Sidebar = () => {
 
             <IconButtonCustom
               icon={<icons.FiChevronsLeft />}
-              name="close"
+              name={t('buttons.close')}
               size="medium"
               onClick={() => setIsMenuOpen(false)}
             />

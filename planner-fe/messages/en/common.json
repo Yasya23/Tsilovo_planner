@@ -17,6 +17,7 @@
       "addGoal": "Add goal",
       "addTask": "Add task",
       "list": "List",
+      "openMenu": "Open menu",
       "daysWithTasksFirst": "Days with tasks first",
       "menu": "Menu"
     },

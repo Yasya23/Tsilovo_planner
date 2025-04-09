@@ -18,7 +18,7 @@ type AccordionProps = {
 
 export const AccordionUsage = ({ items }: AccordionProps) => {
   return (
-    <div>
+    <div className={styles.Accordion}>
       {items.map((item, index) => (
         <Accordion key={index} className={styles.Wrapper}>
           <AccordionSummary

@@ -1,6 +1,8 @@
 @use '@/styles/_variables' as *;
 
-.Select {
-  border: 0.5px solid $secondary-transparent;
-  color: var(--text-color);
+.FormControl {
+  .Select {
+    border: 0.5px solid $secondary-transparent;
+    color: var(--text-color);
+  }
 }
