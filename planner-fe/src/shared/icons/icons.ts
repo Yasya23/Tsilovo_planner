@@ -22,6 +22,7 @@ import {
   FiCalendar,
   FiAward,
   FiCheckCircle,
+  FiChevronsLeft,
 } from 'react-icons/fi';
 
 import { RiDraggable } from 'react-icons/ri';
@@ -51,6 +52,7 @@ const icons = {
   ChevronDown: FiChevronDown,
   Award: FiAward,
   CheckCircle: FiCheckCircle,
+  FiChevronsLeft: FiChevronsLeft,
 };
 
 export default icons;

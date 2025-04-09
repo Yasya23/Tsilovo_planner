@@ -87,7 +87,7 @@ const GoalsList = ({
         )}
       </ul>
 
-      {activeGoals && activeGoals.length < 3 && !addingGoal && (
+      {activeGoals && activeGoals.length < 5 && !addingGoal && (
         <div className={styles.AddGoal}>
           <IconButtonCustom
             icon={<icons.PlusCircle />}

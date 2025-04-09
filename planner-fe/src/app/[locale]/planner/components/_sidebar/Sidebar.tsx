@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
@@ -15,7 +15,7 @@ import { useTranslations } from 'next-intl';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
 import classNames from 'classnames';
-import styles from './index.module.scss';
+import styles from './Sidebar.module.scss';
 
 const menuItems = [
   { labelKey: `planner`, href: routes.planner, icon: <icons.Calendar /> },
@@ -24,67 +24,70 @@ const menuItems = [
   { labelKey: 'help', href: routes.help, icon: <icons.Help /> },
 ];
 
+const isPastThreshold = window.innerWidth > 768;
+
 export const Sidebar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isPastThreshold = useWidthThreshold(765);
+  const [isMenuOpen, setIsMenuOpen] = useState(isPastThreshold);
+
   const currentLang = useLocale();
 
   const pathname = usePathname();
   const t = useTranslations('Common.sidebar');
 
-  if (isPastThreshold && isMenuOpen) setIsMenuOpen(false);
-
   return (
-    <>
-      <div className={styles.MobileMenuIcon}>
-        {isMenuOpen ? (
-          <IconButtonCustom
-            icon={<icons.X />}
-            name="Close menu"
-            size="large"
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-          />
+    <div
+      className={classNames(styles.SideBar, {
+        [styles.Open]: isMenuOpen,
+      })}>
+      <div className={styles.Header}>
+        {!isMenuOpen ? (
+          <div className={styles.MobileMenuIcon}>
+            <IconButtonCustom
+              icon={<icons.AlignJustify />}
+              name="Open menu"
+              size="small"
+              onClick={() => setIsMenuOpen(true)}
+            />
+          </div>
         ) : (
-          <IconButtonCustom
-            icon={<icons.AlignJustify />}
-            name="Open menu"
-            size="large"
-            onClick={() => {
-              setIsMenuOpen(true);
-            }}
-          />
+          <>
+            <div className={styles.UserInfo}>
+              <Avatar name="Yana" />
+              {isMenuOpen && <h2>Yana</h2>}
+              <LogOut />
+            </div>
+
+            <IconButtonCustom
+              icon={<icons.FiChevronsLeft />}
+              name="close"
+              size="medium"
+              onClick={() => setIsMenuOpen(false)}
+            />
+          </>
         )}
       </div>
-      <div
-        className={classNames(styles.SideBar, {
-          [styles.Open]: isMenuOpen,
-        })}>
-        <div className={styles.Header}>
-          <div className={styles.UserInfo}>
-            <Avatar name="Yana" />
-            <h2>Yana</h2>
-          </div>
-          <LogOut />
-        </div>
-        <div className={styles.Menu}>
-          {menuItems.map(({ labelKey, href, icon }) => (
+
+      <div className={styles.Menu}>
+        {menuItems.map(({ labelKey, href, icon }) => {
+          const title = t(labelKey);
+          return (
             <Link
               key={href}
               href={href}
               className={classNames(styles.Link, {
                 [styles.Active]: pathname === `/${currentLang}${href}`,
               })}>
-              {icon} {t(labelKey)}
+              {icon} {isMenuOpen && title}
             </Link>
-          ))}
-        </div>
+          );
+        })}
+      </div>
+      {isMenuOpen && (
         <div className={styles.GlobalSettings}>
           <LanguageToggle />
           <TeamSwitcher />
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 };

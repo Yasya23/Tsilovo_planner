@@ -80,7 +80,7 @@ const ManageGoals = ({
         onChange={(e) =>
           setLocalGoal((prev) => ({ ...prev, title: e.target.value }))
         }
-        placeholder={t('planner.goalPlaceholder')}
+        placeholder={t('placeholders.addGoal')}
         maxLength={50}
       />
 

@@ -24,7 +24,8 @@
       "general": "Something went wrong..."
     },
     "placeholders": {
-      "addTask": "Add task"
+      "addTask": "Add task",
+      "addGoal": "Add goal"
     },
     "notifications": {
       "noTask": "No task",
@@ -39,7 +40,6 @@
     "planning": {
       "title": "Weekly to-do",
       "goals": "Goals",
-      "goalPlaceholder": "Add goal title",
       "error": "Oops, something went wrong..."
     },
     "statistics": {

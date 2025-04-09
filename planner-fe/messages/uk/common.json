@@ -24,7 +24,8 @@
       "general": "Щось пішло не так..."
     },
     "placeholders": {
-      "addTask": "Додати завдання"
+      "addTask": "Додати завдання",
+      "addGoal": "Додати ціль"
     },
     "sidebar": {
       "planner": "Планувальник",
@@ -35,7 +36,6 @@
     "planning": {
       "title": "Тижневий список справ",
       "goals": "Цілі",
-      "goalPlaceholder": "Додати назву цілі",
       "error": "Упс, щось пішло не так..."
     },
     "statistics": {
