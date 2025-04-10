@@ -22,7 +22,7 @@ type ManageTaskProps = {
 export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   const t = useTranslations('Common');
 
-  const { createTask, updateTask, deleteTask, isLoading, isError } =
+  const { createTask, updateTask, deleteTask, isPending, isError } =
     usePlanning();
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +62,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
       onSubmit={handleSubmit}
       ref={formRef}
       className={styles.ManageTaskForm}>
-      <fieldset className={styles.Wrapper} disabled={isLoading}>
+      <fieldset className={styles.Wrapper} disabled={isPending}>
         <CheckboxCustom
           isCompleted={!!task.isCompleted}
           isDisabled={!task.title}

@@ -1,0 +1,27 @@
+@use '@/styles/_mixins.scss' as *;
+
+.TaskItem {
+  display: flex;
+  align-items: center;
+  flex-direction: start;
+
+  input[type='checkbox'] {
+    font-size: 1rem;
+  }
+
+  .Description {
+    overflow-wrap: break-word;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .DraggableIcon {
+    display: none;
+  }
+
+  @include lg {
+    .DraggableIcon {
+      display: block;
+    }
+  }
+}

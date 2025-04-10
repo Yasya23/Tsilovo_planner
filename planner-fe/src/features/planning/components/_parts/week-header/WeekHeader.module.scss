@@ -1,0 +1,28 @@
+@use '@/styles/_variables' as *;
+
+.Header {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  border-bottom: 1px solid $secondary-transparent;
+}
+
+.Title {
+  font-size: clamp(1rem, 5vw, 1.5rem);
+  font-weight: 600;
+}
+
+.FilterList {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  .Active {
+    background-color: $secondary-transparent;
+    border-radius: 50%;
+
+    button svg {
+      stroke: $primary;
+    }
+  }
+}

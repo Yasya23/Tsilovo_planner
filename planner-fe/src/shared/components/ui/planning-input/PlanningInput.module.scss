@@ -4,12 +4,12 @@
   display: flex;
   position: relative;
   width: 100%;
-  // width: clamp(250px, 100%, 350px);
 
   .Input {
     padding: 0 5px;
     width: 100%;
     border-bottom: 1px solid $secondary;
+    padding-right: 25px;
   }
 
   .Counter {

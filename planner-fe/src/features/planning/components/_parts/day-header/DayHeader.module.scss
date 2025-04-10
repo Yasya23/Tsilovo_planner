@@ -1,0 +1,19 @@
+@use '@/styles/_variables' as *;
+
+.Header {
+  padding: 5px;
+  background-color: $secondary-transparent;
+  border-bottom: 1px solid $secondary;
+
+  .HeaderTitle {
+    font-size: 1.1rem;
+    span {
+      font-weight: 600;
+    }
+
+    &.Active {
+      color: $primary;
+      font-size: 1.1rem;
+    }
+  }
+}

@@ -6,7 +6,7 @@ import { ActiveGoalsData } from '../types/goals.type';
 export const usePlanning = () => {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery<ActiveGoalsData, Error>({
+  const { data, isPending, isError } = useQuery<ActiveGoalsData, Error>({
     queryKey: ['planning'],
     queryFn: async () => {
       const data = await GoalServices.getActive();
@@ -68,7 +68,7 @@ export const usePlanning = () => {
     currentWeek,
     nextWeek,
     weeklyStatistics,
-    isLoading,
+    isPending,
     isError,
     createGoal,
     updateGoal,

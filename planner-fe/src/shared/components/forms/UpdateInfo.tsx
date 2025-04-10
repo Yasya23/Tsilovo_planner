@@ -36,7 +36,7 @@ export const UpdateInfo = () => {
     resolver: yupResolver(updateInfoSchema),
     mode: 'onChange',
   });
-  const { userAuth, authenticate, isLoading, error } = useAuthStore(
+  const { userAuth, authenticate, isPending, error } = useAuthStore(
     (state) => state
   );
   const newPassword = watch('newPassword');
@@ -44,7 +44,7 @@ export const UpdateInfo = () => {
   const isChecked = watch('newPasswordCheckbox');
   const token = getToken();
 
-  const isSubmitDisabled = email !== userAuth?.email || isChecked || isLoading;
+  const isSubmitDisabled = email !== userAuth?.email || isChecked || isPending;
 
   const onSubmit = (values: FormValues) => {
     const { email, password } = values;

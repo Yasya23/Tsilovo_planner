@@ -1,4 +1,4 @@
-import styles from './index.module.scss';
+import styles from './PlanningInput.module.scss';
 
 type PlanningInput = {
   value: string;

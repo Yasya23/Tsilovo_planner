@@ -17,11 +17,11 @@ const currentYear = new Date().getFullYear().toString();
 export const Statistics = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  const { data: statistics, isLoading, isError } = useStatistics(selectedYear);
+  const { data: statistics, isPending, isError } = useStatistics(selectedYear);
 
   const t = useTranslations('Common');
 
-  if (isLoading) return <Skeleton />;
+  if (isPending) return <Skeleton />;
 
   if (isError || !statistics)
     return <ErrorMessage error={t('statistics.error')} />;

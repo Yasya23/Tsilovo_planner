@@ -13,7 +13,7 @@ import { encryptData, decryptData } from '@/shared/utils';
 interface UserAuthState {
   userAuth: User | undefined;
   anonimUser: boolean;
-  isLoading: boolean;
+  isPending: boolean;
   error: string | null;
   authenticate: (
     data: LoginFormValues | RegisterFormValues | null,
@@ -41,14 +41,14 @@ export const useAuthStore = create<UserAuthState>()(
     (set) => ({
       userAuth: undefined,
       anonimUser: false,
-      isLoading: false,
+      isPending: false,
       error: null,
 
       authenticate: async (
         data: LoginFormValues | RegisterFormValues | null,
         action: 'login' | 'register' | 'update' | 'anonimUser'
       ) => {
-        set({ isLoading: true, error: null });
+        set({ isPending: true, error: null });
         try {
           let user;
           if (action === 'login') {
@@ -76,7 +76,7 @@ export const useAuthStore = create<UserAuthState>()(
             set({
               userAuth: user.data,
               anonimUser: isAnonim,
-              isLoading: false,
+              isPending: false,
             });
             if (action !== 'update') {
               setCookies(user.data);
@@ -84,7 +84,7 @@ export const useAuthStore = create<UserAuthState>()(
           }
         } catch (error) {
           console.error(`Auth error: ${error}`);
-          set({ isLoading: false, error: responseError(error) });
+          set({ isPending: false, error: responseError(error) });
         }
       },
 

@@ -1,0 +1,15 @@
+@use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
+
+.DayWrapper {
+  border-radius: 10px;
+  border: 1px solid $secondary;
+  background-color: var(--bg-color);
+  max-width: 550px;
+  min-width: 200px;
+  padding-bottom: 10px;
+
+  @include md {
+    min-width: 300px;
+  }
+}

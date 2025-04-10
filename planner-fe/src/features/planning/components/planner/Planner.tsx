@@ -1,6 +1,6 @@
 'use client';
 
-import WeeklyTodo from '../weekly-todo/WeeklyTodo';
+import { WeeklyTodo } from '../weekly-todo/WeeklyTodo';
 import GoalsList from '../goals-list/GoalsList';
 import { WeeklyStatistic } from '../weekly-statistic/WeeklyStatistic';
 import { usePlanning } from '../../hooks/usePlanning';
@@ -21,11 +21,14 @@ export const Planner = () => {
     createGoal,
     updateGoal,
     deleteGoal,
+    createTask,
+    updateTask,
+    deleteTask,
     isError,
-    isLoading,
+    isPending,
   } = usePlanning();
 
-  if (isLoading) return <Skeleton />;
+  if (isPending) return <Skeleton />;
 
   if (isError || !data) return <ErrorMessage message={t('error')} />;
 
@@ -42,13 +45,16 @@ export const Planner = () => {
         <WeeklyStatistic
           statistics={weeklyStatistics}
           isError={isError}
-          isLoading={isLoading}
+          isPending={isPending}
         />
       </div>
       <WeeklyTodo
         activeGoals={activeGoals}
         currentWeek={currentWeek}
         nextWeek={nextWeek}
+        createTask={createTask}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 @use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
 
 .Day {
   display: flex;
@@ -6,25 +7,11 @@
   align-items: stretch;
   padding: 20px 0;
   gap: 10px;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
 
-  .GoalHeader {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    padding: 5px;
-  }
-
-  .DayWrapper {
-    border-radius: 10px;
-    border: 1px solid $secondary;
-    background-color: var(--bg-color);
-    max-width: 100%;
-    min-width: 300px;
-    padding-bottom: 10px;
+  @include md {
+    justify-content: flex-start;
   }
 
   &.listView {
@@ -35,51 +22,5 @@
       flex-direction: row-reverse;
       justify-content: flex-end;
     }
-  }
-}
-
-.Header {
-  padding: 5px;
-  background-color: $secondary-transparent;
-  border-bottom: 1px solid $secondary;
-
-  .HeaderTitle {
-    font-size: 1.1rem;
-    span {
-      font-weight: 600;
-    }
-
-    &.Today {
-      color: $primary;
-      font-size: 1.1rem;
-    }
-  }
-}
-
-.TaskItem {
-  display: flex;
-  align-items: center;
-  flex-direction: start;
-
-  input[type='checkbox'] {
-    font-size: 1rem;
-  }
-
-  .Description {
-    overflow-wrap: break-word;
-    width: 100%;
-    overflow: hidden;
-  }
-}
-
-.Goal {
-  border-bottom: 1px solid $secondary-transparent;
-}
-
-.Goal:has(.GoalTasks:empty) {
-  border-bottom: none;
-
-  .GoalTitle {
-    opacity: 0.5;
   }
 }

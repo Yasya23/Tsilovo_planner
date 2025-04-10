@@ -52,7 +52,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
 
   const router = useRouter();
   const token = getToken();
-  const { userAuth, authenticate, isLoading, error } = useAuthStore(
+  const { userAuth, authenticate, isPending, error } = useAuthStore(
     (state) => state
   );
 
@@ -181,7 +181,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
         )}
 
         <ButtonCustom
-          disabled={isLoading}
+          disabled={isPending}
           name={isRegister ? 'Реєстрація' : 'Увійти'}
           style="outlined"
           onClick={handleSubmit(onSubmit)}
@@ -204,7 +204,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
         )}
 
         <div className={styles.Error}>
-          {isLoading ? <Spinner /> : errors.root?.serverError?.message}
+          {isPending ? <Spinner /> : errors.root?.serverError?.message}
         </div>
       </form>
     </div>

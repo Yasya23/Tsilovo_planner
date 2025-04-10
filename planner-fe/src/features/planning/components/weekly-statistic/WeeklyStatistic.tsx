@@ -7,7 +7,7 @@ import styles from './WeeklyStatistic.module.scss';
 
 type WeeklyStatisticProps = {
   statistics: WeeklyStatistics | null;
-  isLoading: boolean;
+  isPending: boolean;
   isError: boolean;
 };
 
