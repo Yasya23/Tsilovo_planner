@@ -7,25 +7,27 @@ import { useTranslations } from 'next-intl';
 import { CreateTask, Task } from '../../../types/task.type';
 import { ActiveGoal } from '../../../types/goals.type';
 import ManageTask from '../manage-task/ManageTask';
-import { TaskItem } from '../task-item/TaskItem';
+import { Draggable } from '@hello-pangea/dnd';
 
-import styles from './GoalSection.module.scss';
+import styles from './TasksSection.module.scss';
 
-interface GoalSectionProps {
+interface TasksSectionProps {
   goal: ActiveGoal;
   goalTasks: Task[];
   date: string;
   allTasks: Task[];
 }
 
-export const GoalSection = ({
+export const TasksSection = ({
   goal,
   goalTasks,
   date,
   allTasks,
-}: GoalSectionProps) => {
+}: TasksSectionProps) => {
   const t = useTranslations('Common');
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
+
+  const onFinishManage = () => setManageTask(null);
 
   return (
     <div className={styles.Goal}>
@@ -54,7 +56,7 @@ export const GoalSection = ({
             isCompleted: false,
             date,
           }}
-          finishManage={() => setManageTask(null)}
+          finishManage={onFinishManage}
         />
       )}
 
@@ -63,12 +65,24 @@ export const GoalSection = ({
           const globalIndex = allTasks.findIndex((t) => t._id === task._id);
 
           return (
-            <TaskItem
-              key={task._id}
-              task={task}
-              globalIndex={globalIndex}
-              onFinishManage={() => setManageTask(null)}
-            />
+            <Draggable
+              draggableId={task._id}
+              index={globalIndex}
+              key={task._id}>
+              {(provided) => (
+                <div
+                  className={styles.TaskItem}
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}>
+                  <div className={styles.DraggableIcon}>
+                    <icons.Draggable />
+                  </div>
+
+                  <ManageTask task={task} finishManage={onFinishManage} />
+                </div>
+              )}
+            </Draggable>
           );
         })}
       </div>

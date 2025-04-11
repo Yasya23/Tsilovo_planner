@@ -41,7 +41,31 @@
     "planning": {
       "title": "Weekly to-do",
       "goals": "Goals",
-      "error": "Oops, something went wrong..."
+      "error": "Oops, something went wrong...",
+      "createTask": {
+        "error": "Failed to create task. Please try again.",
+        "success": "Task created successfully."
+      },
+      "updateTask": {
+        "error": "Failed to update task. Please try again.",
+        "success": "Task updated successfully."
+      },
+      "deleteTask": {
+        "error": "Failed to delete task. Please try again.",
+        "success": "Task deleted successfully."
+      },
+      "createGoal": {
+        "error": "Failed to create goal. Please try again.",
+        "success": "Goal created successfully."
+      },
+      "updateGoal": {
+        "error": "Failed to update goal. Please try again.",
+        "success": "Goal updated successfully."
+      },
+      "deleteGoal": {
+        "error": "Failed to delete goal. Please try again.",
+        "success": "Goal deleted successfully."
+      }
     },
     "statistics": {
       "completedTasks": "Completed tasks",

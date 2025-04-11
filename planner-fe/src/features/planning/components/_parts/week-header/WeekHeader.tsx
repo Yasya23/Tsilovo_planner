@@ -2,11 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import IconButton from '@/shared/components/ui/buttons/IconButton';
+import { createTitle } from '@/features/planning/helpers/create-week-title';
 import styles from './WeekHeader.module.scss';
 import icons from '@/shared/icons/icons';
-
+import { WeeklyTasks } from '@/features/planning/types/task.type';
 interface WeekHeaderProps {
-  title: string;
+  week: WeeklyTasks;
   isListView: boolean;
   prioritizeTaskDays: boolean;
   onToggleListView: () => void;
@@ -14,7 +15,7 @@ interface WeekHeaderProps {
 }
 
 export const WeekHeader = ({
-  title,
+  week,
   isListView,
   prioritizeTaskDays,
   onToggleListView,
@@ -24,7 +25,9 @@ export const WeekHeader = ({
 
   return (
     <div className={styles.Header}>
-      <h2 className={styles.Title}>{title}</h2>
+      <h2 className={styles.Title}>
+        {createTitle(week, useTranslations('Common'))}
+      </h2>
       <ul className={styles.FilterList}>
         <li className={isListView ? styles.Active : ''}>
           <IconButton

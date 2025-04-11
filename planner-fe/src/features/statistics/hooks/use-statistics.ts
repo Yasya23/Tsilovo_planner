@@ -6,7 +6,6 @@ export const useStatistics = (year: string) => {
   const { data, isPending, isError, refetch } = useQuery<UserStatistics>({
     queryKey: ['user-statistics', year],
     queryFn: () => getStatistics(year),
-    staleTime: 1000 * 60 * 60 * 6,
     refetchOnWindowFocus: false,
   });
 

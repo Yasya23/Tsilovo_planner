@@ -4,22 +4,20 @@ import { ActiveGoal } from '../../../types/goals.type';
 import { filterTasks } from '../../../helpers/filter-tasks';
 import { Droppable } from '@hello-pangea/dnd';
 import { DayHeader } from '../day-header/DayHeader';
-import { GoalSection } from '../goal-section/GoalSection';
+import { TasksSection } from '../tasks-section/TasksSection';
 import { Task } from '@/features/planning/types/task.type';
+import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 
 import styles from './DaySection.module.scss';
 
 interface DaySectionProps {
   date: string;
   dayTasks: Task[];
-  activeGoals: ActiveGoal[];
 }
 
-export const DaySection = ({
-  date,
-  dayTasks,
-  activeGoals,
-}: DaySectionProps) => {
+export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
+  const { activeGoals } = usePlanningContext();
+
   const { goalsWithTasks, goalsWithoutTasks } = filterTasks(
     dayTasks,
     activeGoals
@@ -32,7 +30,6 @@ export const DaySection = ({
   return (
     <div className={styles.DayWrapper}>
       <DayHeader date={date} />
-
       <Droppable droppableId={date}>
         {(provided) => (
           <div
@@ -43,9 +40,8 @@ export const DaySection = ({
               const goalTasks = dayTasks.filter(
                 (task) => task.goalId === goal._id
               );
-
               return (
-                <GoalSection
+                <TasksSection
                   key={goal._id}
                   goal={goal}
                   goalTasks={goalTasks}

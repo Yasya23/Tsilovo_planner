@@ -11,9 +11,9 @@ import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import toast from 'react-hot-toast';
-import { usePlanning } from '../../../hooks/usePlanning';
-import styles from './ManageTask.module.scss';
 
+import styles from './ManageTask.module.scss';
+import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 type ManageTaskProps = {
   task: Task | CreateTask;
   finishManage: () => void;
@@ -21,9 +21,8 @@ type ManageTaskProps = {
 
 export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   const t = useTranslations('Common');
+  const { updateTask, createTask, deleteTask } = usePlanningContext();
 
-  const { createTask, updateTask, deleteTask, isPending, isError } =
-    usePlanning();
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,9 +40,9 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
       finishManage();
       inputRef.current?.blur();
     }
-    if (isError) {
-      toast.error(t('errors.somethingWentWrong'));
-    }
+    // if (isError) {
+    //   toast.error(t('errors.somethingWentWrong'));
+    // }
   };
 
   const handleCheckboxChange = (task: Task) => {
@@ -62,7 +61,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
       onSubmit={handleSubmit}
       ref={formRef}
       className={styles.ManageTaskForm}>
-      <fieldset className={styles.Wrapper} disabled={isPending}>
+      <fieldset className={styles.Wrapper}>
         <CheckboxCustom
           isCompleted={!!task.isCompleted}
           isDisabled={!task.title}

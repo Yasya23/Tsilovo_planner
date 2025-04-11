@@ -1,0 +1,49 @@
+@use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
+
+.Goal {
+  border-bottom: 1px solid $secondary-transparent;
+}
+
+.Goal:has(.GoalTasks:empty) {
+  border-bottom: none;
+
+  .GoalTitle {
+    opacity: 0.5;
+  }
+}
+
+.GoalHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+}
+
+.TaskItem {
+  display: flex;
+  align-items: center;
+  flex-direction: start;
+
+  input[type='checkbox'] {
+    font-size: 1rem;
+  }
+
+  .Description {
+    overflow-wrap: break-word;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .DraggableIcon {
+    display: none;
+  }
+
+  @include lg {
+    .DraggableIcon {
+      display: block;
+    }
+  }
+}
