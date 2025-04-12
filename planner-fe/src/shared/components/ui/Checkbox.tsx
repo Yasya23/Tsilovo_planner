@@ -23,6 +23,7 @@ export const CheckboxCustom = ({
 
   return (
     <Checkbox
+      color={'warning'}
       checked={isChecked}
       onChange={handleChange}
       disabled={isDisabled}

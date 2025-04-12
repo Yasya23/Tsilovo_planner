@@ -19,7 +19,8 @@
       "menu": "Меню",
       "list": "Список",
       "openMenu": "Відкрити меню",
-      "daysWithTasksFirst": "Дні з завданнями перші"
+      "daysWithTasksFirst": "Дні з завданнями перші",
+      "todayTasks": "Сьогодняшні завдання"
     },
     "errors": {
       "general": "Щось пішло не так..."

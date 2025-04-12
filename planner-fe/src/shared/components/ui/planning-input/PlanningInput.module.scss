@@ -10,6 +10,11 @@
     width: 100%;
     border-bottom: 1px solid $secondary;
     padding-right: 25px;
+
+    &.Completed {
+      text-decoration: line-through;
+      color: $secondary;
+    }
   }
 
   .Counter {

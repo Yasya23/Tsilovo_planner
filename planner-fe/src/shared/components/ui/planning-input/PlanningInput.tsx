@@ -1,5 +1,5 @@
 import styles from './PlanningInput.module.scss';
-
+import classNames from 'classnames';
 type PlanningInput = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -7,6 +7,7 @@ type PlanningInput = {
   maxLength?: number;
   type?: 'text' | 'password';
   inputRef?: React.RefObject<HTMLInputElement | null>;
+  isCompleted?: boolean;
 };
 
 export const PlanningInput = ({
@@ -16,6 +17,7 @@ export const PlanningInput = ({
   type = 'text',
   maxLength = 100,
   inputRef,
+  isCompleted,
 }: PlanningInput) => {
   return (
     <>
@@ -26,7 +28,9 @@ export const PlanningInput = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={styles.Input}
+          className={classNames(styles.Input, {
+            [styles.Completed]: isCompleted,
+          })}
           maxLength={maxLength}
           required
         />

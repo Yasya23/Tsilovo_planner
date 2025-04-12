@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
-import toast from 'react-hot-toast';
+import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 
 import styles from './ManageTask.module.scss';
 import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
@@ -31,18 +31,15 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   const hasId = '_id' in localTask;
 
   const handleSaveTask = () => {
-    if (JSON.stringify(localTask) !== JSON.stringify(task)) {
+    if (!isObjectTheSame(localTask, task)) {
       if (hasId) {
-        updateTask(localTask as Task);
+        updateTask(localTask);
       } else {
         createTask(localTask);
       }
       finishManage();
       inputRef.current?.blur();
     }
-    // if (isError) {
-    //   toast.error(t('errors.somethingWentWrong'));
-    // }
   };
 
   const handleCheckboxChange = (task: Task) => {
@@ -74,6 +71,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
           }
           placeholder={t('placeholders.addTask')}
           maxLength={50}
+          isCompleted={task.isCompleted}
           inputRef={inputRef}
         />
 

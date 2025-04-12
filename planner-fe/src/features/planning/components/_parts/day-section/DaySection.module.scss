@@ -9,6 +9,11 @@
   min-width: 200px;
   padding-bottom: 10px;
 
+  .Header {
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+  }
+
   @include md {
     min-width: 300px;
   }

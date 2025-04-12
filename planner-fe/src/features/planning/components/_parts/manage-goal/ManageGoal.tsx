@@ -9,8 +9,10 @@ import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
 import { useTranslations } from 'next-intl';
-import styles from './index.module.scss';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
+import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
+
+import styles from './ManageGoal.module.scss';
 
 type ManageGoalsProps = {
   goal: ActiveGoal | null;
@@ -39,7 +41,10 @@ const ManageGoals = ({
   );
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const handleGoal = () => {
-    if (JSON.stringify(localGoal) !== JSON.stringify(defaultGoal)) {
+    if (
+      !isObjectTheSame(localGoal, defaultGoal) &&
+      !isObjectTheSame(localGoal, goal)
+    ) {
       onSave(localGoal);
     } else {
       onCancel();

@@ -63,7 +63,7 @@ export class TaskService {
     });
   }
 
-  async update(userId: string, dto: TaskDto) {
+  async update(dto: TaskDto) {
     const task = await this.taskModel.findByIdAndUpdate(dto._id, dto, {
       new: true,
       runValidators: true,

@@ -22,7 +22,7 @@ export const ButtonCustom = ({
   name,
   disabled = false,
   style = 'contained',
-  color = 'primary',
+  color = 'secondary',
   href,
 }: ButtonProps) => {
   const locale = useLocale();

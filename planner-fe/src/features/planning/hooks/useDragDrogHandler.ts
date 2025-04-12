@@ -104,10 +104,12 @@ export const useDragDropHandler = ({
       return;
     }
 
+    const [destGoalId, destDate] = destination.droppableId.split('|');
+
     const taskData = findTaskById(draggableId);
     if (!taskData) return;
 
-    const destDay = findDayByDate(destination.droppableId);
+    const destDay = findDayByDate(destDate);
     if (!destDay) return;
 
     const updatedWeeks = cloneWeeksData();
@@ -118,7 +120,11 @@ export const useDragDropHandler = ({
       taskIndex: taskData.taskIndex,
     });
 
-    const taskToMove = { ...taskData.task, date: destination.droppableId };
+    const taskToMove = {
+      ...taskData.task,
+      date: destDate,
+      goalId: destGoalId,
+    };
 
     insertTaskAtDestination(
       updatedWeeks,

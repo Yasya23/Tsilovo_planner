@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 
-import styles from './index.module.scss';
+import styles from './Input.module.scss';
 import classNames from 'classnames';
 
 interface InputProps {

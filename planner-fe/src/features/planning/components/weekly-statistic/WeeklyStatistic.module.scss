@@ -19,9 +19,9 @@
     flex-direction: column;
     gap: 10px;
     line-height: 1.1;
-    border: 1px solid $secondary;
+    border: 1px solid $primary;
     border-radius: 10px;
-    padding: 15px;
+    padding: 25px;
   }
 
   .Title {
@@ -33,16 +33,32 @@
   .SubTitle {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 15px;
     font-size: clamp(1rem, 5vw, 1.2rem);
 
     span {
       font-weight: 600;
+      svg {
+        color: $primary;
+      }
+    }
+
+    span:first-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    span:last-child {
       color: $primary;
     }
   }
 
-  svg {
-    color: $primary;
+  .Completed {
+    span svg,
+    span:last-child {
+      color: $accent;
+    }
   }
 }

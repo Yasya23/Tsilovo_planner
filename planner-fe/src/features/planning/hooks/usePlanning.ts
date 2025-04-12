@@ -74,6 +74,7 @@ export const usePlanning = () => {
   const activeGoals = data?.activeGoals ?? [];
   const tasks = data?.weeklyTasks ?? [];
   const weeklyStatistics = data?.weeklyStatistics ?? null;
+  // const todayStatistics = tasks.filter(task)
   const currentWeek = tasks.length > 7 ? tasks.slice(0, 7) : tasks;
   const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
 

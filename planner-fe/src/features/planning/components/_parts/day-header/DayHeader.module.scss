@@ -1,19 +1,59 @@
 @use '@/styles/_variables' as *;
 
 .Header {
-  padding: 5px;
+  display: flex;
+  justify-content: space-between;
   background-color: $secondary-transparent;
   border-bottom: 1px solid $secondary;
+  width: 100%;
+
+  & .Statistic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px;
+
+    .Completed,
+    .NotCompleted {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .Completed {
+      color: $accent;
+    }
+
+    .NotCompleted {
+      color: $primary;
+    }
+  }
+
+  &.Active {
+    background-color: $primary;
+    color: #ffffff;
+
+    svg {
+      fill: $accent;
+    }
+
+    .Completed,
+    .NotCompleted {
+      color: #ffffff;
+    }
+  }
 
   .HeaderTitle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    // width: 100%;
+    padding: 5px;
     font-size: 1.1rem;
     span {
       font-weight: 600;
-    }
-
-    &.Active {
-      color: $primary;
-      font-size: 1.1rem;
     }
   }
 }

@@ -75,7 +75,7 @@ export const TasksSection = ({
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}>
-                  <div className={styles.DraggableIcon}>
+                  <div className={styles.DraggableIcon} role-type="button">
                     <icons.Draggable />
                   </div>
 

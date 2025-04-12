@@ -9,8 +9,9 @@ interface Props {
   type?: 'button' | 'submit' | 'reset';
   showName?: boolean;
   hasTooltip?: boolean;
-  color?: 'primary' | 'default';
+  color?: 'secondary' | 'default';
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 export const IconButtonCustom = ({
@@ -22,6 +23,7 @@ export const IconButtonCustom = ({
   type = 'button',
   color = 'default',
   onClick,
+  disabled = false,
 }: Props) => {
   const button = (
     <IconButton
@@ -29,7 +31,8 @@ export const IconButtonCustom = ({
       onClick={onClick}
       aria-label={name}
       type={type}
-      color={color}>
+      color={color}
+      disabled={disabled}>
       {icon} {showName && name}
     </IconButton>
   );

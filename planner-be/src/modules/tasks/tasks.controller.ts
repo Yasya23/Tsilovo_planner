@@ -16,8 +16,8 @@ export class TaskController {
 
   @Put()
   @Auth()
-  async update(@User('id') userId: string, @Body() dto: TaskDto) {
-    return await this.taskService.update(userId, dto);
+  async update(@Body() dto: TaskDto) {
+    return await this.taskService.update(dto);
   }
 
   @Delete()

@@ -1,6 +1,5 @@
 'use client';
 
-import { ActiveGoal } from '../../../types/goals.type';
 import { filterTasks } from '../../../helpers/filter-tasks';
 import { Droppable } from '@hello-pangea/dnd';
 import { DayHeader } from '../day-header/DayHeader';
@@ -18,42 +17,42 @@ interface DaySectionProps {
 export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
   const { activeGoals } = usePlanningContext();
 
-  const { goalsWithTasks, goalsWithoutTasks } = filterTasks(
-    dayTasks,
-    activeGoals
-  );
-
-  const allTasks = [...goalsWithTasks, ...goalsWithoutTasks].flatMap((goal) =>
-    dayTasks.filter((task) => task.goalId === goal._id)
-  );
+  const {
+    orderedGoals,
+    allTasks,
+    completedTasksNumber,
+    notCompletedTasksNumber,
+  } = filterTasks(dayTasks, activeGoals);
 
   return (
     <div className={styles.DayWrapper}>
-      <DayHeader date={date} />
-      <Droppable droppableId={date}>
-        {(provided) => (
-          <div
-            className={styles.Goals}
-            ref={provided.innerRef}
-            {...provided.droppableProps}>
-            {[...goalsWithTasks, ...goalsWithoutTasks].map((goal) => {
-              const goalTasks = dayTasks.filter(
-                (task) => task.goalId === goal._id
-              );
-              return (
-                <TasksSection
-                  key={goal._id}
-                  goal={goal}
-                  goalTasks={goalTasks}
-                  date={date}
-                  allTasks={allTasks}
-                />
-              );
-            })}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <div className={styles.Header}>
+        <DayHeader date={date} completedTasks={completedTasksNumber} notCompletedTasks={ notCompletedTasksNumber} />
+      </div>
+      <div className={styles.Goals}>
+        {orderedGoals.map((goal) => {
+          const goalTasks = dayTasks.filter((task) => task.goalId === goal._id);
+
+          return (
+            <Droppable
+              key={goal._id}
+              droppableId={`${goal._id}|${date}`}
+              type="task">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <TasksSection
+                    goal={goal}
+                    goalTasks={goalTasks}
+                    date={date}
+                    allTasks={allTasks}
+                  />
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          );
+        })}
+      </div>
     </div>
   );
 };

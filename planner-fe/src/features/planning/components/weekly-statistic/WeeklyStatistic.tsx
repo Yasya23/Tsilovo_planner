@@ -3,6 +3,7 @@
 import icons from '@/shared/icons/icons';
 import { useTranslations } from 'next-intl';
 import { WeeklyStatistics } from '../../types/goals.type';
+import classNames from 'classnames';
 import styles from './WeeklyStatistic.module.scss';
 
 type WeeklyStatisticProps = {
@@ -19,12 +20,17 @@ export const WeeklyStatistic = ({ statistics }: WeeklyStatisticProps) => {
       <div className={styles.Wrapper}>
         <h2 className={styles.Title}>{t('weeklyStatistics')}</h2>
 
-        <p className={styles.SubTitle}>
-          <icons.CheckCircle /> {t('completed')}:
+        <p className={classNames(styles.SubTitle, styles.Completed)}>
+          <span>
+            <icons.CheckCircle />
+            {t('completed')}
+          </span>
           <span>{statistics?.completedTasks ?? '-'}</span>
         </p>
         <p className={styles.SubTitle}>
-          <icons.Calendar /> {t('todo')}:
+          <span>
+            <icons.Calendar /> {t('todo')}
+          </span>
           <span>{statistics?.notCompletedTasks ?? '-'}</span>
         </p>
       </div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import { filterDays } from '@/features/planning/helpers/filter-days';
 import { usePlanningContext } from '../../context/usePlanningContext';
-
+import { isDateToday } from '../../helpers/is-today';
 import { WeeklyTasks } from '../../types/task.type';
 import { useDragDropHandler } from '../../hooks/useDragDrogHandler';
 import { WeekHeader } from '../_parts/week-header/WeekHeader';
@@ -21,6 +21,7 @@ export const WeeklyTodo = ({ weeks }: WeekProps) => {
 
   const [isListView, setIsListView] = useState(false);
   const [prioritizeTaskDays, setPrioritizeTaskDays] = useState(false);
+  const [isTodayView, setIsTodayView] = useState(false);
 
   const [weeksData, setWeeksData] = useState<WeeklyTasks[]>(weeks);
 
@@ -35,11 +36,21 @@ export const WeeklyTodo = ({ weeks }: WeekProps) => {
     activeGoals,
   });
 
+  const toggleTodayView = () => {
+    if (isListView) setIsListView(false);
+    if (prioritizeTaskDays) setPrioritizeTaskDays(false);
+    setIsTodayView((prev) => !prev);
+  };
+
   return (
     <section className={styles.WeeklyTodo}>
       <DragDropContext onDragEnd={handleDragEnd}>
         {weeksData.map((week) => {
-          const tasks = prioritizeTaskDays ? filterDays(week) : week;
+          const tasks = prioritizeTaskDays
+            ? filterDays(week)
+            : isTodayView
+            ? week.filter(({ date }) => isDateToday(date))
+            : week;
 
           return (
             <div
@@ -49,14 +60,16 @@ export const WeeklyTodo = ({ weeks }: WeekProps) => {
                 week={week}
                 isListView={isListView}
                 prioritizeTaskDays={prioritizeTaskDays}
+                isTodayView={isTodayView}
                 onToggleListView={() => setIsListView((prev) => !prev)}
                 onTogglePrioritizeDays={() =>
                   setPrioritizeTaskDays((prev) => !prev)
                 }
+                onToggleIsTodayView={toggleTodayView}
               />
               <div
                 className={classNames(styles.Day, {
-                  [styles.listView]: isListView,
+                  [styles.listView]: isListView || isTodayView,
                 })}>
                 {tasks.map(({ date, tasks: dayTasks }) => (
                   <DaySection key={date} date={date} dayTasks={dayTasks} />

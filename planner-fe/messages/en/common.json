@@ -19,6 +19,7 @@
       "list": "List",
       "openMenu": "Open menu",
       "daysWithTasksFirst": "Days with tasks first",
+      "todayTasks": "Today tasks",
       "menu": "Menu"
     },
     "errors": {
@@ -39,7 +40,7 @@
       "help": "How does it work?"
     },
     "planning": {
-      "title": "Weekly to-do",
+      "title": "Weekly planning",
       "goals": "Goals",
       "error": "Oops, something went wrong...",
       "createTask": {

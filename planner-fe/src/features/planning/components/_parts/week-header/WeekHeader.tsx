@@ -10,16 +10,20 @@ interface WeekHeaderProps {
   week: WeeklyTasks;
   isListView: boolean;
   prioritizeTaskDays: boolean;
+  isTodayView: boolean;
   onToggleListView: () => void;
   onTogglePrioritizeDays: () => void;
+  onToggleIsTodayView: () => void;
 }
 
 export const WeekHeader = ({
   week,
   isListView,
   prioritizeTaskDays,
+  isTodayView,
   onToggleListView,
   onTogglePrioritizeDays,
+  onToggleIsTodayView,
 }: WeekHeaderProps) => {
   const t = useTranslations('Common');
 
@@ -34,6 +38,7 @@ export const WeekHeader = ({
             icon={<icons.List />}
             name={t('buttons.list')}
             onClick={onToggleListView}
+            disabled={isTodayView}
           />
         </li>
         <li className={prioritizeTaskDays ? styles.Active : ''}>
@@ -41,6 +46,14 @@ export const WeekHeader = ({
             icon={<icons.Sunrise />}
             name={t('buttons.daysWithTasksFirst')}
             onClick={onTogglePrioritizeDays}
+            disabled={isTodayView}
+          />
+        </li>
+        <li className={isTodayView ? styles.Active : ''}>
+          <IconButton
+            icon={<icons.Calendar />}
+            name={t('buttons.todayTasks')}
+            onClick={onToggleIsTodayView}
           />
         </li>
       </ul>

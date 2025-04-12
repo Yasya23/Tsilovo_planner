@@ -3,10 +3,12 @@
 
 .Goal {
   border-bottom: 1px solid $secondary-transparent;
+  font-weight: 600;
 }
 
 .Goal:has(.GoalTasks:empty) {
   border-bottom: none;
+  font-weight: 400;
 
   .GoalTitle {
     opacity: 0.5;
@@ -44,6 +46,10 @@
   @include lg {
     .DraggableIcon {
       display: block;
+      color: $primary;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
     }
   }
 }
