@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
 
 import Spinner from '@/shared/components/ui/Spinner';
 import Input from '@/shared/components/ui/input/Input';
@@ -17,6 +18,7 @@ import { getToken } from '@/shared/helpers';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
 import styles from './index.module.scss';
+import { AuthService } from '@/shared/services/auth.service';
 
 type LoginFormValues = {
   email: string;
@@ -99,9 +101,22 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
     authenticate(values, isRegister ? 'register' : 'login');
   };
 
+  const handleGoogleLogin = () => {
+    AuthService.googleAuth();
+  };
+
   return (
     <div className={styles.Wrapper}>
-      <form className={styles.Form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
+        <div className={styles.googleButton} onClick={handleGoogleLogin}>
+          <FcGoogle size={24} />
+          <span>Continue with Google</span>
+        </div>
+
+        <div className={styles.divider}>
+          <span>or</span>
+        </div>
+
         {isRegister && (
           <Controller
             name="name"

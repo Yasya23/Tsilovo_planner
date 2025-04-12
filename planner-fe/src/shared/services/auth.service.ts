@@ -37,4 +37,8 @@ export const AuthService = {
     });
     return response.data;
   },
+
+  async googleAuth() {
+    window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google`;
+  },
 };

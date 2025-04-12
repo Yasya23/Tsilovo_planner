@@ -9,6 +9,7 @@ import { UserModel } from 'src/models/user.model';
 import { AuthDto, RefreshTokenDto, RegistrationDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -91,6 +92,28 @@ export class AuthService {
     const tokens = await this.createTokenPair(user.id);
     return {
       userId: user.id,
+      ...tokens,
+    };
+  }
+
+  async googleLogin(user: any) {
+    let existingUser = await this.userModel.findOne({ email: user.email });
+
+    if (!existingUser) {
+      // Create new user if doesn't exist
+      existingUser = new this.userModel({
+        email: user.email,
+        name: user.name,
+        password: await hash(Math.random().toString(36), 10), // Random password for Google users
+      });
+      await existingUser.save();
+    }
+
+    const tokens = await this.createTokenPair(existingUser._id.toString());
+    return {
+      id: existingUser._id,
+      name: existingUser.name,
+      email: existingUser.email,
       ...tokens,
     };
   }
