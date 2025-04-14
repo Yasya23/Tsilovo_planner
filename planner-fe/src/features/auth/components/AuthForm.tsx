@@ -64,13 +64,29 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
     trigger('confirmPassword');
   }
 
-  // useEffect(() => {
-  //   if (isRegister && password) {
-  //     trigger('confirmPassword');
-  //   }
-  // }, [password, trigger, isRegister]);
-
   useEffect(() => {
+    // Check for error in URL query params
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorParam = urlParams.get('error');
+
+    if (errorParam) {
+      try {
+        const errorData = JSON.parse(decodeURIComponent(errorParam));
+        setError('root.serverError', {
+          type: 'custom',
+          message: errorData.message,
+        });
+        // Clear the error from URL
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
+      } catch (e) {
+        console.error('Failed to parse error from URL:', e);
+      }
+    }
+
     if (error) {
       setError('root.serverError', {
         type: 'custom',
@@ -84,7 +100,17 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
       reset();
       clearErrors();
     }
-  }, [userAuth, error, setError, isRegister]);
+  }, [
+    userAuth,
+    error,
+    setError,
+    isRegister,
+    locale,
+    router,
+    token,
+    reset,
+    clearErrors,
+  ]);
 
   const handleOnFocus = (
     entity: 'email' | 'password' | 'name' | 'confirmPassword'
@@ -111,10 +137,6 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
         <div className={styles.googleButton} onClick={handleGoogleLogin}>
           <FcGoogle size={24} />
           <span>Continue with Google</span>
-        </div>
-
-        <div className={styles.divider}>
-          <span>or</span>
         </div>
 
         {isRegister && (

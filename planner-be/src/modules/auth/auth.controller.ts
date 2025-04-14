@@ -98,17 +98,18 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req: Request, @Res() res: Response) {
+    const locale = req.cookies?.NEXT_LOCALE ?? 'en';
+
     try {
-      const { locale = 'en' } = req.query;
       const { accessToken, refreshToken } = await this.authService.googleLogin(
         req.user,
       );
       this.setAuthCookies(res, accessToken, refreshToken);
+
       return res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/planner`,
       );
     } catch (err) {
-      const locale = req.query.locale || 'en';
       return res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/login?error=oauth_failed`,
       );
