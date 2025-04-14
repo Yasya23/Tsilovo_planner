@@ -78,7 +78,7 @@
       "todo": "To-Do",
       "error": "Oops, something went wrong...",
       "goals": "Goals",
-      "notification": "Note: Statistics do not include active week."
+      "notification": "Note: Statistics udpate every 24 hours."
     },
     "theme": {
       "light": "Light",
