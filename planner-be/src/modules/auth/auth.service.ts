@@ -6,7 +6,7 @@ import {
 import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../user/user.service'; // adjust path as needed
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -32,6 +32,7 @@ export class AuthService {
       id: user.id,
       name: user.name,
       email: user.email,
+      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -59,6 +60,7 @@ export class AuthService {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
+      image: newUser.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -82,6 +84,10 @@ export class AuthService {
     const tokens = await this.createTokenPair(user.id);
 
     return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -95,6 +101,7 @@ export class AuthService {
         name: userData.name || 'No Name',
         email: userData.email,
         password: userData.password,
+        image: userData.picture,
         provider: 'google',
       });
     }
@@ -105,6 +112,7 @@ export class AuthService {
       id: user.id,
       name: user.name,
       email: user.email,
+      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };

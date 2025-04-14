@@ -4,15 +4,17 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { routes } from '@/shared/constants/routes';
 import { useLocale } from 'next-intl';
+import Image from 'next/image';
 
 import icons from '@/shared/icons/icons';
 import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
 import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
 import LogOut from '@/shared/components/LogOut';
-import Avatar from '@/shared/components/ui/avatar/Avatar';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import { useAuthContext } from '@/features/auth/context/AuthProvider';
+import Avatar from '@/shared/components/ui/avatar/Avatar';
 
 import classNames from 'classnames';
 import styles from './Sidebar.module.scss';
@@ -40,7 +42,8 @@ const menuItems = [
 export const Sidebar = () => {
   const isPastThreshold = useWidthThreshold(768);
   const t = useTranslations('Common');
-
+  const { user } = useAuthContext();
+  console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const currentLang = useLocale();
@@ -68,8 +71,9 @@ export const Sidebar = () => {
         ) : (
           <>
             <div className={styles.UserInfo}>
-              <Avatar name="Yana" />
-              {isMenuOpen && <h2>Yana</h2>}
+              <Avatar name={user?.name} imageUrl={user?.image} />
+
+              {isMenuOpen && <h2>{user?.name}</h2>}
               <LogOut />
             </div>
 

@@ -6,4 +6,5 @@ export const services = {
   token: 'auth/login/access-token',
   tasks: '/tasks',
   statistics: '/statistics',
+  googleCallback: '/auth/google/callback',
 };

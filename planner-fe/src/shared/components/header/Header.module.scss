@@ -8,6 +8,7 @@ $mobile-menu-open-icon-color: #ffffff;
   padding: 10px;
   background-color: var(--bg-color);
   transition: padding 0.4s ease-in-out;
+  z-index: 10;
 
   &.Sticky {
     position: sticky;

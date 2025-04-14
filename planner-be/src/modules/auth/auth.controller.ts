@@ -47,9 +47,13 @@ export class AuthController {
   @Post('login')
   async login(@Body() dto: AuthDto, @Res() res: Response) {
     try {
-      const { accessToken, refreshToken } = await this.authService.login(dto);
+      const { accessToken, refreshToken, id, name, email, image } =
+        await this.authService.login(dto);
       this.setAuthCookies(res, accessToken, refreshToken);
-      return res.status(HttpStatus.OK).json({ message: 'Login successful' });
+      return res.status(HttpStatus.OK).json({
+        message: 'Login successful',
+        user: { id, name, email, image },
+      });
     } catch (err) {
       return res
         .status(HttpStatus.UNAUTHORIZED)
@@ -60,12 +64,13 @@ export class AuthController {
   @Post('register')
   async register(@Body() dto: RegistrationDto, @Res() res: Response) {
     try {
-      const { accessToken, refreshToken } =
+      const { accessToken, refreshToken, id, name, email, image } =
         await this.authService.register(dto);
       this.setAuthCookies(res, accessToken, refreshToken);
-      return res
-        .status(HttpStatus.CREATED)
-        .json({ message: 'Registration successful' });
+      return res.status(HttpStatus.CREATED).json({
+        message: 'Registration successful',
+        user: { id, name, email, image },
+      });
     } catch (err) {
       return res
         .status(HttpStatus.BAD_REQUEST)
@@ -78,10 +83,18 @@ export class AuthController {
   async refresh(@Req() req: Request, @Res() res: Response) {
     try {
       const refreshToken = req.cookies?.refreshToken;
-      const { accessToken, refreshToken: newRefresh } =
-        await this.authService.getNewTokens(refreshToken);
+      const {
+        accessToken,
+        refreshToken: newRefresh,
+        id,
+        name,
+        email,
+        image,
+      } = await this.authService.getNewTokens(refreshToken);
       this.setAuthCookies(res, accessToken, newRefresh);
-      return res.status(HttpStatus.OK).json({ message: 'Token refreshed' });
+      return res.status(HttpStatus.OK).json({
+        user: { id, name, email, image },
+      });
     } catch (err) {
       return res
         .status(HttpStatus.UNAUTHORIZED)
@@ -101,9 +114,8 @@ export class AuthController {
     const locale = req.cookies?.NEXT_LOCALE ?? 'en';
 
     try {
-      const { accessToken, refreshToken } = await this.authService.googleLogin(
-        req.user,
-      );
+      const { accessToken, refreshToken, id, name, email, image } =
+        await this.authService.googleLogin(req.user);
       this.setAuthCookies(res, accessToken, refreshToken);
 
       return res.redirect(

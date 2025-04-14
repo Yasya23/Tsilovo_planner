@@ -3,9 +3,12 @@ export type UserAuth = {
 };
 
 export type User = {
-  id: string;
-  email: string;
   name: string;
-  refreshToken: string;
-  accessToken: string;
+  email: string;
+  image: string;
 } & UserAuth;
+
+export type UserResponse = {
+  message: string;
+  user: User;
+};
