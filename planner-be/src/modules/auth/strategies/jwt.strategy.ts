@@ -4,22 +4,35 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from 'nestjs-typegoose';
 import { UserModel } from 'src/models/user.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Request } from 'express';
+
+interface JwtPayload {
+  id: string;
+}
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    @InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>,
+    @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
-      secretOrKey: configService.get('JWT_SECRET'),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request): string | null => {
+          return request?.cookies?.['accessToken'] || null;
+        },
+      ]),
+      ignoreExpiration: false,
+      secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
 
-  async validate({ id }: Pick<UserModel, 'id'>) {
-    return await this.UserModel.findById(id).exec();
+  async validate(payload: JwtPayload): Promise<UserModel> {
+    const user = await this.userModel.findById(payload.id).exec();
+    if (!user) {
+      throw new UnauthorizedException('User not found or token invalid');
+    }
+    return user;
   }
 }

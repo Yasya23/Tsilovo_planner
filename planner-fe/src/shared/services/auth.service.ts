@@ -5,7 +5,6 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from '@/shared/types/interfaces/loginFormValues';
-import { getToken } from '@/shared/helpers';
 import instance from '@/api/interceptors';
 
 export const AuthService = {
@@ -31,10 +30,7 @@ export const AuthService = {
   },
 
   async getTokens(): Promise<User> {
-    const refreshToken = getToken();
-    const response = await instance.post<User>(services.token, {
-      refreshToken,
-    });
+    const response = await instance.post<User>(services.token);
     return response.data;
   },
 

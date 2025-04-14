@@ -15,4 +15,7 @@ export class UserModel extends TimeStamps {
 
   @prop({ default: false })
   isAdmin: boolean;
+
+  @prop({ default: 'local' })
+  provider: string;
 }

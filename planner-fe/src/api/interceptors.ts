@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '@/shared/helpers';
 import { responseError } from '@/shared/utils';
-import { deleteCookies, setCookies } from '@/shared/helpers';
+import { deleteCookies } from '@/shared/helpers';
 import { AuthService } from '@/shared/services/auth.service';
 
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
@@ -9,14 +9,16 @@ const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 export const axiosClassic = axios.create({
   baseURL: `${baseURL}/api`,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 const instance = axios.create({
   baseURL: `${baseURL}/api`,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
-axiosClassic.interceptors.request.use((config) => {
+instance.interceptors.request.use((config) => {
   const accessToken = getToken();
 
   if (config.headers && accessToken) {
@@ -41,15 +43,7 @@ instance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        const newTokens = await AuthService.getTokens();
-        const { accessToken } = newTokens;
-        setCookies(newTokens);
-
-        instance.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accessToken}`;
-
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+        await AuthService.getTokens();
         return instance(originalRequest);
       } catch (refreshError) {
         if (responseError(refreshError) === 'jwt expired') {

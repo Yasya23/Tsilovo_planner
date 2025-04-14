@@ -3,127 +3,119 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ModelType } from '@typegoose/typegoose/lib/types';
-import { InjectModel } from 'nestjs-typegoose';
-import { UserModel } from 'src/models/user.model';
-import { AuthDto, RefreshTokenDto, RegistrationDto } from 'src/typing/dto';
+import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { UserService } from '../user/user.service'; // adjust path as needed
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
     private readonly jwtService: JwtService,
+    private readonly userService: UserService,
   ) {}
 
   async login(loginDto: AuthDto) {
-    const user = await this.userModel
-      .findOne({
-        email: loginDto.email,
-      })
-      .exec();
-
+    const user = await this.userService.findByEmail(loginDto.email);
     if (!user) {
-      throw new UnauthorizedException("User with this email doesn't found");
+      throw new UnauthorizedException("User with this email doesn't exist");
     }
 
     const isPasswordValid = await compare(loginDto.password, user.password);
-
     if (!isPasswordValid) {
       throw new UnauthorizedException('Wrong password');
     }
 
     const tokens = await this.createTokenPair(user.id);
-    if (!tokens) {
-      throw new UnauthorizedException('Error to get token');
-    }
-    const { id, name, email } = user;
+
     return {
-      id,
-      name,
-      email,
-      ...tokens,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
   async register(registrationDto: RegistrationDto) {
-    const user = await this.userModel.findOne({
-      email: registrationDto.email,
-    });
-
-    if (user) {
+    const existingUser = await this.userService.findByEmail(
+      registrationDto.email,
+    );
+    if (existingUser) {
       throw new BadRequestException('User with this email already exists');
     }
 
-    const numberForSaltGenerator = 10;
-    const salt = await genSalt(numberForSaltGenerator);
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(registrationDto.password, salt);
 
-    const createUser = new this.userModel({
+    const newUser = await this.userService.create({
       ...registrationDto,
-      password: await hash(registrationDto.password, salt),
+      password: hashedPassword,
     });
 
-    await createUser.save();
+    const tokens = await this.createTokenPair(newUser.id);
 
-    const tokens = await this.createTokenPair(createUser._id.toString());
-
-    const { _id, name, email } = createUser;
     return {
-      id: _id,
-      name,
-      email,
-      ...tokens,
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
-  async getNewTokens({ refrehToken }: RefreshTokenDto) {
-    if (!refrehToken) {
-      throw new UnauthorizedException('Please Sing in');
+  async getNewTokens(refreshToken: string) {
+    if (!refreshToken) {
+      throw new UnauthorizedException('Please sign in');
     }
 
-    const result = await this.jwtService.verifyAsync(refrehToken);
-
-    if (!result) {
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(refreshToken);
+    } catch {
       throw new UnauthorizedException('Invalid or expired token');
     }
 
-    const user = await this.userModel.findById(result.id);
+    const user = await this.userService.getByID(payload.id);
+    if (!user) throw new UnauthorizedException('User not found');
+
     const tokens = await this.createTokenPair(user.id);
+
     return {
-      userId: user.id,
-      ...tokens,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
-  async googleLogin(user: any) {
-    let existingUser = await this.userModel.findOne({ email: user.email });
+  async googleLogin(userData: any) {
+    let user = await this.userService.findByEmail(userData.email);
 
-    if (!existingUser) {
-      // Create new user if doesn't exist
-      existingUser = new this.userModel({
-        email: user.email,
-        name: user.name,
-        password: await hash(Math.random().toString(36), 10), // Random password for Google users
+    if (!user) {
+      user = await this.userService.create({
+        name: userData.name || 'No Name',
+        email: userData.email,
+        password: userData.password,
+        provider: 'google',
       });
-      await existingUser.save();
     }
 
-    const tokens = await this.createTokenPair(existingUser._id.toString());
+    const tokens = await this.createTokenPair(user.id);
+
     return {
-      id: existingUser._id,
-      name: existingUser.name,
-      email: existingUser.email,
-      ...tokens,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
-  async createTokenPair(userId: string) {
-    const data = { id: userId };
-    const refreshToken = await this.jwtService.signAsync(data, {
+  private async createTokenPair(userId: string) {
+    const payload = { id: userId };
+    const refreshToken = await this.jwtService.signAsync(payload, {
       expiresIn: '21d',
     });
-    const accessToken = await this.jwtService.signAsync(data, {
+    const accessToken = await this.jwtService.signAsync(payload, {
       expiresIn: '10h',
     });
     return { refreshToken, accessToken };

@@ -9,7 +9,7 @@ import { getJWTDbConfig } from 'src/config/jwt.config';
 import { JwtStrategy } from './strategies';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { PassportModule } from '@nestjs/passport';
-
+import { UserModule } from '../user/user.module';
 @Module({
   imports: [
     TypegooseModule.forFeature([
@@ -22,6 +22,7 @@ import { PassportModule } from '@nestjs/passport';
     ]),
     ConfigModule,
     PassportModule,
+    UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

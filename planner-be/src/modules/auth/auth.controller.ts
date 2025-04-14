@@ -6,57 +6,112 @@ import {
   Req,
   Res,
   UseGuards,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto, RegistrationDto, RefreshTokenDto } from 'src/typing/dto';
+import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
+import { JwtAuthGuard } from './guard/auth.guard';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
-  @Post('login')
-  async login(@Body() registrationDto: AuthDto) {
-    return this.authService.login(registrationDto);
+  private setAuthCookies(
+    res: Response,
+    accessToken: string,
+    refreshToken: string,
+  ) {
+    const isProduction = this.configService.get('NODE_ENV') === 'production';
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax',
+      maxAge: 10 * 60 * 60 * 1000, // 10h
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'lax',
+      maxAge: 21 * 24 * 60 * 60 * 1000, // 21d
+    });
   }
 
-  @Post('login/access-token')
-  async getNewTokens(@Body() tokensDto: RefreshTokenDto) {
-    return this.authService.getNewTokens(tokensDto);
+  @Post('login')
+  async login(@Body() dto: AuthDto, @Res() res: Response) {
+    try {
+      const { accessToken, refreshToken } = await this.authService.login(dto);
+      this.setAuthCookies(res, accessToken, refreshToken);
+      return res.status(HttpStatus.OK).json({ message: 'Login successful' });
+    } catch (err) {
+      return res
+        .status(HttpStatus.UNAUTHORIZED)
+        .json({ message: 'Invalid credentials' });
+    }
   }
 
   @Post('register')
-  async register(@Body() registrationDto: RegistrationDto) {
-    return this.authService.register(registrationDto);
+  async register(@Body() dto: RegistrationDto, @Res() res: Response) {
+    try {
+      const { accessToken, refreshToken } =
+        await this.authService.register(dto);
+      this.setAuthCookies(res, accessToken, refreshToken);
+      return res
+        .status(HttpStatus.CREATED)
+        .json({ message: 'Registration successful' });
+    } catch (err) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: err.message || 'Registration failed' });
+    }
+  }
+
+  @Post('login/access-token')
+  @UseGuards(JwtAuthGuard)
+  async refresh(@Req() req: Request, @Res() res: Response) {
+    try {
+      const refreshToken = req.cookies?.refreshToken;
+      const { accessToken, refreshToken: newRefresh } =
+        await this.authService.getNewTokens(refreshToken);
+      this.setAuthCookies(res, accessToken, newRefresh);
+      return res.status(HttpStatus.OK).json({ message: 'Token refreshed' });
+    } catch (err) {
+      return res
+        .status(HttpStatus.UNAUTHORIZED)
+        .json({ message: 'Refresh token invalid or expired' });
+    }
   }
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
   async googleAuth() {
-    // This is handled by the Google Strategy
+    // No body needed, Passport will handle redirect
   }
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthCallback(@Req() req: Request, @Res() res: Response) {
-    const user = req.user;
-    const tokens = await this.authService.googleLogin(user);
-
-    // Set cookies
-    res.cookie('accessToken', tokens.accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    });
-
-    res.cookie('refreshToken', tokens.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    });
-
-    // Redirect to frontend
-    res.redirect(process.env.FRONTEND_URL);
+  async googleCallback(@Req() req: Request, @Res() res: Response) {
+    try {
+      const { locale = 'en' } = req.query;
+      const { accessToken, refreshToken } = await this.authService.googleLogin(
+        req.user,
+      );
+      this.setAuthCookies(res, accessToken, refreshToken);
+      return res.redirect(
+        `${this.configService.get('FRONTEND_URL')}/${locale}/planner`,
+      );
+    } catch (err) {
+      const locale = req.query.locale || 'en';
+      return res.redirect(
+        `${this.configService.get('FRONTEND_URL')}/${locale}/login?error=oauth_failed`,
+      );
+    }
   }
 }

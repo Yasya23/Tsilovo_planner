@@ -53,13 +53,11 @@ export class UserService {
           'Old password is required to update the password',
         );
       }
-      // Check if the old password matches
       const isPasswordValid = await compare(userDto.password, user.password);
 
       if (!isPasswordValid) {
         throw new BadRequestException('Old password is incorrect');
       }
-      // Hash and update the new password
       const salt = await genSalt(10);
       user.password = await hash(userDto.newPassword, salt);
     }
@@ -74,6 +72,15 @@ export class UserService {
       name,
       email,
     };
+  }
+
+  async findByEmail(email: string) {
+    return this.userModel.findOne({ email }).exec();
+  }
+
+  async create(userData: Partial<UserModel>) {
+    const user = new this.userModel(userData);
+    return user.save();
   }
 
   async delete(id: string) {
