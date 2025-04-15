@@ -13,6 +13,7 @@
       "create": "Create",
       "logout": "Logout",
       "login": "Log in",
+      "register": "Register",
       "profile": "Profile",
       "addGoal": "Add goal",
       "addTask": "Add task",
@@ -20,7 +21,8 @@
       "openMenu": "Open menu",
       "daysWithTasksFirst": "Days with tasks first",
       "todayTasks": "Today tasks",
-      "menu": "Menu"
+      "menu": "Menu",
+      "googleAuth": "Continue with Google"
     },
     "errors": {
       "general": "Something went wrong..."

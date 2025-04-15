@@ -9,8 +9,8 @@ import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 import QueryProvider from '@/shared/components/providers/QueryClientProvider';
-import { AuthProvider } from '@/features/auth/context/AuthProvider';
 import '@/styles/globals.scss';
+import { AuthProvider } from '@/features/auth/context/AuthProvider';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 
@@ -72,8 +72,8 @@ export default async function RootLayout({
       suppressHydrationWarning={true}>
       <body suppressHydrationWarning>
         <QueryProvider>
-          <AuthProvider>
-            <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider messages={messages}>
+            <AuthProvider>
               <ThemeProvider>{children}</ThemeProvider>
               <Toaster
                 position="bottom-right"
@@ -86,8 +86,8 @@ export default async function RootLayout({
                   },
                 }}
               />
-            </NextIntlClientProvider>
-          </AuthProvider>
+            </AuthProvider>
+          </NextIntlClientProvider>
         </QueryProvider>
       </body>
     </html>

@@ -26,6 +26,7 @@ import {
 } from 'react-icons/fi';
 
 import { RiDraggable } from 'react-icons/ri';
+import { FcGoogle } from 'react-icons/fc';
 
 const icons = {
   Home: FiHome,
@@ -53,6 +54,7 @@ const icons = {
   Award: FiAward,
   CheckCircle: FiCheckCircle,
   FiChevronsLeft: FiChevronsLeft,
+  Google: FcGoogle,
 };
 
 export default icons;

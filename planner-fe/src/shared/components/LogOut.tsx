@@ -1,10 +1,10 @@
-import useLogOut from '@/shared/hooks/useLogOut';
 import IconButtonCustom from './ui/buttons/IconButton';
 import { FiLogOut } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
+import { useAuthContext } from '@/features/auth/context/AuthProvider';
 
 export const LogOut = () => {
-  const { logOut } = useLogOut();
+  const { logout } = useAuthContext();
   const t = useTranslations('Common.buttons');
 
   return (
@@ -12,7 +12,7 @@ export const LogOut = () => {
       name={t('logout')}
       icon={<FiLogOut />}
       color="secondary"
-      onClick={() => logOut()}
+      onClick={() => logout()}
     />
   );
 };

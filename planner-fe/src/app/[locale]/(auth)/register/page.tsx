@@ -1,4 +1,4 @@
-import AuthPage from '@/pages/auth';
+import AuthForm from '@/features/auth/components/AuthForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <AuthPage mode="register" />;
+  return <AuthForm mode="register" />;
 }

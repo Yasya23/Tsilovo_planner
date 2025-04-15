@@ -20,7 +20,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: Request): string | null => {
-          return request?.cookies?.['accessToken'] || null;
+          const token = request?.cookies?.['accessToken'];
+          if (!token) {
+            throw new UnauthorizedException('No access token provided');
+          }
+          return token;
         },
       ]),
       ignoreExpiration: false,
@@ -29,6 +33,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<UserModel> {
+    if (!payload?.id) {
+      throw new UnauthorizedException('Invalid token payload');
+    }
+
     const user = await this.userModel.findById(payload.id).exec();
     if (!user) {
       throw new UnauthorizedException('User not found or token invalid');

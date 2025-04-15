@@ -28,19 +28,18 @@ export class AuthController {
     refreshToken: string,
   ) {
     const isProduction = this.configService.get('NODE_ENV') === 'production';
-
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: 'lax',
-      maxAge: 10 * 60 * 60 * 1000, // 10h
+      maxAge: 10 * 60 * 60 * 1000,
     });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: 'lax',
-      maxAge: 21 * 24 * 60 * 60 * 1000, // 21d
+      maxAge: 21 * 24 * 60 * 60 * 1000,
     });
   }
 
@@ -78,27 +77,55 @@ export class AuthController {
     }
   }
 
-  @Post('login/access-token')
-  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+    });
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+    });
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Logged out successfully' });
+  }
+
+  @Post('access-token')
   async refresh(@Req() req: Request, @Res() res: Response) {
     try {
       const refreshToken = req.cookies?.refreshToken;
+
+      if (!refreshToken) {
+        return res.status(HttpStatus.UNAUTHORIZED).json({
+          message: 'Missing refresh token',
+        });
+      }
       const {
         accessToken,
-        refreshToken: newRefresh,
+        refreshToken: newRefreshToken,
         id,
         name,
         email,
         image,
       } = await this.authService.getNewTokens(refreshToken);
-      this.setAuthCookies(res, accessToken, newRefresh);
+
+      this.setAuthCookies(res, accessToken, newRefreshToken);
+
       return res.status(HttpStatus.OK).json({
         user: { id, name, email, image },
       });
     } catch (err) {
-      return res
-        .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Refresh token invalid or expired' });
+      console.error('Token refresh failed:', err);
+      return res.status(HttpStatus.UNAUTHORIZED).json({
+        message: 'Refresh token invalid or expired',
+      });
     }
   }
 

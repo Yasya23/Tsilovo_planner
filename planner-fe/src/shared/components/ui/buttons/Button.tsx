@@ -26,7 +26,7 @@ export const ButtonCustom = ({
   href,
 }: ButtonProps) => {
   const locale = useLocale();
-  console.log(href);
+
   return (
     <Button
       variant={style}

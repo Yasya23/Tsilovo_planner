@@ -13,11 +13,16 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     user: TUser | null,
     info: AuthInfo,
   ): TUser {
-    if (err || !user) {
+    if (err) {
+      throw new UnauthorizedException(err.message || 'Authentication failed');
+    }
+
+    if (!user) {
       throw new UnauthorizedException(
-        info?.message || 'Invalid or expired token',
+        info?.message || 'No user found in request',
       );
     }
+
     return user;
   }
 }

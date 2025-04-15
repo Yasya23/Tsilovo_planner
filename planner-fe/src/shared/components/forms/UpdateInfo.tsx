@@ -7,8 +7,8 @@ import { Spinner } from '@/shared/components/ui/Spinner';
 import { Input } from '@/shared/components/ui/input/Input';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import { updateInfoSchema } from '@/shared/utils';
-import { useAuthStore } from '@/shared/store/AuthStore';
-import { getToken } from '@/shared/helpers';
+// import { useAuthStore } from '@/features/auth/hooks/AuthStore';
+// import { getToken } from '@/shared/helpers';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
 import ButtonCustom from '../ui/buttons/Button';
 import toast from 'react-hot-toast';
@@ -36,13 +36,11 @@ export const UpdateInfo = () => {
     resolver: yupResolver(updateInfoSchema),
     mode: 'onChange',
   });
-  const { userAuth, authenticate, isPending, error } = useAuthStore(
-    (state) => state
-  );
+
   const newPassword = watch('newPassword');
   const email = watch('email');
   const isChecked = watch('newPasswordCheckbox');
-  const token = getToken();
+  // const token = getToken();
 
   const isSubmitDisabled = email !== userAuth?.email || isChecked || isPending;
 

@@ -1,10 +1,14 @@
 export const services = {
+  auth: '/auth/',
   login: '/auth/login',
   register: '/auth/register',
-  update: '/user/profile',
+  logout: '/auth/logout',
+  googleAuth: '/auth/google',
+  token: 'auth/access-token',
+  updateUser: '/user/profile',
   activeGoals: '/goals',
-  token: 'auth/login/access-token',
+
   tasks: '/tasks',
   statistics: '/statistics',
-  googleCallback: '/auth/google/callback',
+  userProfile: '/user',
 };

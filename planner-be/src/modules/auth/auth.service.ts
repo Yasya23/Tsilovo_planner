@@ -7,10 +7,12 @@ import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
-
+import { JwtPayload } from './types/jwt-payload.type';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
   ) {}
@@ -68,20 +70,27 @@ export class AuthService {
 
   async getNewTokens(refreshToken: string) {
     if (!refreshToken) {
-      throw new UnauthorizedException('Please sign in');
+      throw new UnauthorizedException('Refresh token is missing');
     }
 
-    let payload: any;
+    let payload: JwtPayload;
     try {
-      payload = await this.jwtService.verifyAsync(refreshToken);
-    } catch {
-      throw new UnauthorizedException('Invalid or expired token');
+      payload = await this.jwtService.verifyAsync<JwtPayload>(refreshToken, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+      });
+    } catch (err) {
+      throw new UnauthorizedException('Invalid or expired refresh token');
     }
 
     const user = await this.userService.getByID(payload.id);
-    if (!user) throw new UnauthorizedException('User not found');
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
 
     const tokens = await this.createTokenPair(user.id);
+    if (!tokens.accessToken || !tokens.refreshToken) {
+      throw new UnauthorizedException('Failed to create new tokens');
+    }
 
     return {
       id: user.id,
@@ -119,13 +128,24 @@ export class AuthService {
   }
 
   private async createTokenPair(userId: string) {
+    if (!userId) {
+      throw new UnauthorizedException('User ID is required for token creation');
+    }
+
     const payload = { id: userId };
-    const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '21d',
-    });
-    const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '10h',
-    });
+    const [refreshToken, accessToken] = await Promise.all([
+      this.jwtService.signAsync(payload, {
+        expiresIn: '21d',
+      }),
+      this.jwtService.signAsync(payload, {
+        expiresIn: '10h',
+      }),
+    ]);
+
+    if (!refreshToken || !accessToken) {
+      throw new UnauthorizedException('Failed to create tokens');
+    }
+
     return { refreshToken, accessToken };
   }
 }

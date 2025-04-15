@@ -14,6 +14,12 @@ export class UserController {
     return this.userService.getByID(id);
   }
 
+  @Get()
+  @Auth()
+  async getUser(@User('id') id: string) {
+    return this.userService.getByID(id);
+  }
+
   @Put('profile')
   @Auth()
   async update(@User('id') id: string, @Body() dto: UpdateUserDto) {

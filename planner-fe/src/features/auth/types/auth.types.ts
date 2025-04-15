@@ -1,14 +1,11 @@
-export type UserAuth = {
-  id: string;
-};
-
 export type User = {
+  id: string;
   name: string;
   email: string;
   image?: string;
-} & UserAuth;
+};
 
-export type UserResponse = {
+export type AuthResponse = {
   message: string;
   user: User;
 };

@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { getToken } from '@/shared/helpers';
-import { responseError } from '@/shared/utils';
-import { deleteCookies } from '@/shared/helpers';
 import { AuthService } from '@/features/auth/services/auth.service';
+import { services } from '@/shared/constants/api-services';
 
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -12,48 +10,37 @@ export const axiosClassic = axios.create({
   withCredentials: true,
 });
 
-const instance = axios.create({
+const axiosAuth = axios.create({
   baseURL: `${baseURL}/api`,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
 
-instance.interceptors.request.use((config) => {
-  const accessToken = getToken();
+axiosAuth.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    const originalRequest = err.config;
+    const status = err.response?.status;
 
-  if (config.headers && accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-  return config;
-});
-
-instance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    const errorStatus = error.response?.status;
-    const errorMessage = responseError(error);
+    if (!originalRequest._retry) {
+      originalRequest._retry = true;
+    }
 
     if (
-      (errorStatus === 401 ||
-        errorMessage === 'jwt expired' ||
-        errorMessage === 'jwt must be provided') &&
-      originalRequest &&
-      !originalRequest._retry
+      status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes(`${services.auth}`)
     ) {
-      originalRequest._retry = true;
       try {
-        await AuthService.getTokens();
-        return instance(originalRequest);
-      } catch (refreshError) {
-        if (responseError(refreshError) === 'jwt expired') {
-          deleteCookies();
-        }
-        return Promise.reject(refreshError);
+        await AuthService.getNewTokens();
+        return axiosAuth(originalRequest);
+      } catch (error) {
+        console.error('Token refresh failed:', error);
       }
     }
-    return Promise.reject(error);
+
+    return Promise.reject(err);
   }
 );
 
-export default instance;
+export { axiosAuth };

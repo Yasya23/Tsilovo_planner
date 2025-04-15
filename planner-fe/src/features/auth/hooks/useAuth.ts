@@ -1,10 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+
 import { AuthService } from '../services/auth.service';
-import { setCookies, deleteCookies } from '@/shared/helpers';
 import { responseError } from '@/shared/utils';
-import { UserResponse } from '@/shared/types/user.type';
+import { User } from '../types/auth.types';
 import {
   LoginFormValues,
   RegisterFormValues,
@@ -14,82 +15,63 @@ export const useAuth = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data, isLoading: isUserLoading } = useQuery<UserResponse | null>({
+  const { data: user, isPending } = useQuery<User | null>({
     queryKey: ['user'],
     queryFn: async () => {
       try {
-        const response = await AuthService.getTokens();
-        return response;
-      } catch (error) {
-        console.error('Auth check error:', error);
+        return await AuthService.getProfile();
+      } catch {
         return null;
       }
     },
-    staleTime: 1000 * 60 * 5,
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 
-  const authenticateMutation = useMutation<
-    UserResponse,
-    Error,
-    {
-      data: LoginFormValues | RegisterFormValues;
-      action: 'login' | 'register' | 'update';
-    }
-  >({
-    mutationFn: async ({ data, action }) => {
-      let response;
-      if (action === 'login') {
-        response = await AuthService.login(data as LoginFormValues);
-      } else if (action === 'register') {
-        response = await AuthService.register(data as RegisterFormValues);
-      } else if (action === 'update') {
-        response = await AuthService.update(data as LoginFormValues);
-      }
-
-      if (response?.data) {
-        if (action !== 'update') {
-          setCookies(response.data.user);
-        }
-        return response.data;
-      }
-      throw new Error('Authentication failed');
-    },
+  const loginMutation = useMutation({
+    mutationFn: (data: LoginFormValues) =>
+      AuthService.login(data.email, data.password),
     onSuccess: (data) => {
-      queryClient.setQueryData(['user'], data);
+      queryClient.setQueryData(['user'], data.user);
+      toast.success('Login successful');
     },
     onError: (error) => {
-      console.error(`Auth error: ${error}`);
-      throw error;
+      console.log(error);
+      toast.error(responseError(error));
     },
   });
 
-  const logout = useCallback(() => {
-    queryClient.setQueryData(['user'], null);
-    deleteCookies();
-    router.push('/');
-  }, [router, queryClient]);
+  const registerMutation = useMutation({
+    mutationFn: (data: RegisterFormValues) =>
+      AuthService.register(data.email, data.password, data.name),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['user'], data.user);
+      toast.success('Registration successful');
+    },
+    onError: (error) => {
+      toast.error(responseError(error));
+    },
+  });
 
-  const checkAuth = useCallback(async () => {
+  const logout = useCallback(async () => {
+    console.log(1);
     try {
-      const response = await AuthService.getTokens();
-      if (response) {
-        queryClient.setQueryData(['user'], response);
-        return response;
-      }
-    } catch (err) {
-      console.error('Auth check error:', err);
-      logout();
+      await AuthService.logout();
+      queryClient.setQueryData(['user'], null);
+      router.push('/');
+    } catch (error) {
+      toast.error(responseError(error));
     }
-  }, [logout, queryClient]);
+  }, [queryClient, router]);
 
   return {
-    user: data?.user || null,
-    isLoading: isUserLoading || authenticateMutation.isPending,
-    error: authenticateMutation.error
-      ? responseError(authenticateMutation.error)
-      : null,
-    authenticate: authenticateMutation.mutate,
+    user,
+    isPending,
+    isAuthenticated: !!user,
+    error: loginMutation.error || registerMutation.error,
+    login: loginMutation.mutate,
+    register: registerMutation.mutate,
     logout,
-    checkAuth,
   };
 };
