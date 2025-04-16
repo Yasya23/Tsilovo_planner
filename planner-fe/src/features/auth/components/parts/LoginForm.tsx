@@ -1,19 +1,22 @@
 // LoginForm.tsx
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
+import { useTranslations, useLocale } from 'next-intl';
+import * as yup from 'yup';
 
 import Input from '@/shared/components/ui/input/Input';
 import ButtonCustom from '@/shared/components/ui/buttons/Button';
 import FormError from '@/features/auth/components/parts/error/Error';
 import { responseError } from '@/shared/utils';
-import { loginSchema } from '@/shared/utils';
+import { createLoginSchema } from '@/shared/utils/validation/login-schema';
 import { routes } from '@/shared/constants/routes';
 import styles from '@/features/auth/components/AuthForm.module.scss';
 import { User } from '@/shared/types/user.type';
+
 type LoginFormValues = {
   email: string;
   password: string;
@@ -32,6 +35,18 @@ export const LoginForm = ({
   error,
   login,
 }: LoginFormValuesProps) => {
+  const t = useTranslations('Common');
+  const locale = useLocale();
+  const [schema, setSchema] = useState<yup.ObjectSchema<any>>();
+
+  useEffect(() => {
+    const initSchema = async () => {
+      const newSchema = await createLoginSchema(locale);
+      setSchema(newSchema);
+    };
+    initSchema();
+  }, [locale]);
+
   const {
     control,
     handleSubmit,
@@ -41,7 +56,7 @@ export const LoginForm = ({
     formState: { errors },
     reset,
   } = useForm<LoginFormValues>({
-    resolver: yupResolver(loginSchema),
+    resolver: schema ? yupResolver(schema) : undefined,
     mode: 'onChange',
   });
 
@@ -79,8 +94,8 @@ export const LoginForm = ({
         render={({ field }) => (
           <Input
             type="email"
-            label="Електронна пошта"
-            placeholder="Введіть електронну пошту"
+            label={t('form.labels.email')}
+            placeholder={t('form.placeholders.email')}
             {...field}
             icon={AiOutlineMail}
             error={getError('email')}
@@ -97,8 +112,8 @@ export const LoginForm = ({
         render={({ field }) => (
           <Input
             type="password"
-            label="Пароль"
-            placeholder="Введіть пароль"
+            label={t('form.labels.password')}
+            placeholder={t('form.placeholders.password')}
             {...field}
             icon={AiOutlineLock}
             hasAbilityHideValue
@@ -111,16 +126,16 @@ export const LoginForm = ({
 
       <ButtonCustom
         disabled={isPending}
-        name="Увійти"
+        name={t('buttons.signIn')}
         style="outlined"
         onClick={handleSubmit(onSubmit)}
       />
 
       <div>
-        Ще не зареєстровані?
+        {t('form.messages.notRegistered')}
         <ButtonCustom
           href={routes.register}
-          name="Зареєструватися"
+          name={t('buttons.register')}
           style="text"
         />
       </div>

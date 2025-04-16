@@ -1,9 +1,6 @@
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  image?: string;
-};
+import { User as SharedUser } from '@/shared/types/user.type';
+
+export type User = SharedUser;
 
 export type AuthResponse = {
   message: string;

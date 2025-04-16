@@ -10,7 +10,7 @@ import GoogleAuthButton from './GoogleAuthButton';
 import { useTranslations } from 'next-intl';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
-  const t = useTranslations('Common.buttons');
+  const t = useTranslations('Common');
   const { user, isPending, error, login, register } = useAuth();
 
   return (
@@ -19,9 +19,9 @@ export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
         <div className={styles.Wrapper}>
           {mode === 'login' && (
             <>
-              <h1 className={styles.Title}>{t('login')}</h1>
+              <h1 className={styles.Title}>{t('buttons.login')}</h1>
               <GoogleAuthButton disabled={isPending} />
-              <div>or</div>
+              <div>{t('buttons.or')}</div>
 
               <LoginForm
                 user={user}
@@ -33,9 +33,9 @@ export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
           )}
           {mode === 'register' && (
             <>
-              <h1 className={styles.Title}>{t('register')}</h1>
+              <h1 className={styles.Title}>{t('buttons.register')}</h1>
               <GoogleAuthButton disabled={isPending} />
-              <div>or</div>
+              <div>{t('buttons.or')}</div>
 
               <RegisterForm
                 user={user}

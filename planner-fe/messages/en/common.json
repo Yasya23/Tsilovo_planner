@@ -22,10 +22,18 @@
       "daysWithTasksFirst": "Days with tasks first",
       "todayTasks": "Today tasks",
       "menu": "Menu",
-      "googleAuth": "Continue with Google"
+      "googleAuth": "Continue with Google",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "or": "or"
     },
     "errors": {
-      "general": "Something went wrong..."
+      "general": "Something went wrong...",
+      "server": {
+        "default": "An error occurred. Please try again.",
+        "invalidCredentials": "Invalid email or password",
+        "emailExists": "User with this email already exists"
+      }
     },
     "placeholders": {
       "addTask": "Add task",
@@ -109,6 +117,30 @@
       "4": "Thursday",
       "5": "Friday",
       "6": "Saturday"
+    },
+    "form": {
+      "labels": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholders": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      },
+      "validation": {
+        "email": {
+          "required": "Email is required",
+          "invalid": "Invalid email address"
+        },
+        "password": {
+          "required": "Password is required",
+          "minLength": "Password must be at least 6 characters long"
+        }
+      },
+      "messages": {
+        "notRegistered": "Not registered yet?",
+        "alreadyRegistered": "Already registered?"
+      }
     }
   }
 }
