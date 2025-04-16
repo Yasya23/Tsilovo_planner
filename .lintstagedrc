@@ -1,0 +1,12 @@
+{
+  "planner-fe/**/*.{js,jsx,ts,tsx}": [
+    "cd planner-fe && eslint --fix",
+    "cd planner-fe && prettier --write"
+  ],
+  "planner-fe/**/*.{json,md}": ["cd planner-fe && prettier --write"],
+  "planner-be/**/*.ts": [
+    "cd planner-be && eslint --fix",
+    "cd planner-be && prettier --write"
+  ],
+  "planner-be/**/*.{json,md}": ["cd planner-be && prettier --write"]
+}
