@@ -1,5 +1,7 @@
-import SkeletonLoader from "@/shared/components/ui/SkeletonLoader";
-import styles from "./Skeleton.module.scss";
+import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+
+import styles from './Skeleton.module.scss';
+
 export const Skeleton = () => {
   return (
     <div className={styles.Skeleton}>
@@ -12,4 +14,3 @@ export const Skeleton = () => {
     </div>
   );
 };
-

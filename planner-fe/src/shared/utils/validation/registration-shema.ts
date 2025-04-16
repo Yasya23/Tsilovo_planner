@@ -1,5 +1,7 @@
+import { Formats, TranslationValues } from 'next-intl';
+
 import * as yup from 'yup';
-import { TranslationValues, Formats } from 'next-intl';
+
 import { emailRegx } from './email-regx';
 
 export const createRegistrationSchema = (t: {

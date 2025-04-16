@@ -1,15 +1,19 @@
 'use client';
 
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
+import { Controller, useForm } from 'react-hook-form';
+
 import { useTranslations } from 'next-intl';
-import Input from '@/shared/components/ui/input/Input';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import ButtonCustom from '@/shared/components/ui/buttons/Button';
-import { createLoginSchema } from '@/shared/utils/validation/login-schema';
+import Input from '@/shared/components/ui/input/Input';
 import { routes } from '@/shared/constants/routes';
-import styles from '@/features/auth/components/AuthForm.module.scss';
+import icons from '@/shared/icons/icons';
 import { User } from '@/shared/types/user.type';
+import { createLoginSchema } from '@/shared/utils/validation/login-schema';
+
+import styles from '@/features/auth/components/AuthForm.module.scss';
 
 type LoginFormValues = {
   email: string;
@@ -68,7 +72,7 @@ export const LoginForm = ({
               label={t('form.labels.email')}
               placeholder={t('form.placeholders.email')}
               {...field}
-              icon={AiOutlineMail}
+              icon={<icons.Home />}
               error={getError('email')}
               serverError={!!error}
               onFocus={() => handleOnFocus('email')}
@@ -87,7 +91,7 @@ export const LoginForm = ({
               label={t('form.labels.password')}
               placeholder={t('form.placeholders.password')}
               {...field}
-              icon={AiOutlineLock}
+              icon={<icons.Home />}
               hasAbilityHideValue
               error={getError('password')}
               serverError={!!error}

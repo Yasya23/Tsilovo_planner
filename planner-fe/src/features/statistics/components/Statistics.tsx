@@ -1,17 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
 import icons from '@/shared/icons/icons';
-import { StatisticsData } from './_parts/statistics-data/StatisticsData';
-import { MonthlyStatsHeader } from './_parts/montly-states-header/MonthlyStatsHeader';
-import { GoalsList } from './_parts/goals-list/GoalsList';
-import styles from './Statistics.module.scss';
-import { useTranslations } from 'next-intl';
+
 import { useStatistics } from '../hooks/use-statistics';
 import { ErrorMessage } from './_parts/error-message/Error';
+import { GoalsList } from './_parts/goals-list/GoalsList';
+import { MonthlyStatsHeader } from './_parts/montly-states-header/MonthlyStatsHeader';
 import { SelectYear } from './_parts/SelectYear';
 import { Skeleton } from './_parts/skeleton/Skeleton';
+import { StatisticsData } from './_parts/statistics-data/StatisticsData';
+import styles from './Statistics.module.scss';
 
 const currentYear = new Date().getFullYear().toString();
 export const Statistics = () => {

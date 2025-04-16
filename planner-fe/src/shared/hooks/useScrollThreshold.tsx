@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const useScrollThreshold = (threshold: number) => {
   const [isPastThreshold, setIsPastThreshold] = useState(false);

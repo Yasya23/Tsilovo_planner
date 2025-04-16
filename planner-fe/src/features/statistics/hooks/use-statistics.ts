@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { getStatistics } from '../services/statistics.service';
 import { UserStatistics } from '../types/statistics.type';
 

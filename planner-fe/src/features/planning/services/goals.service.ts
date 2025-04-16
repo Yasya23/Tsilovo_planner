@@ -1,6 +1,8 @@
-import { services } from '@/shared/constants/api-services';
 import { axiosAuth } from '@/api/interceptors';
-import { CreateGoal, Goal, ActiveGoalsData } from '../types/goals.type';
+
+import { services } from '@/shared/constants/api-services';
+
+import { ActiveGoalsData, CreateGoal, Goal } from '../types/goals.type';
 
 export const GoalServices = {
   async getActive() {

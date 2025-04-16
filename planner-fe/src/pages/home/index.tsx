@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import DefaultLayout from '@/shared/components/layouts/Default';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
+import DefaultLayout from '../../shared/components/layouts/Default';
 import style from './Home.module.scss';
 
 export const Main = () => {

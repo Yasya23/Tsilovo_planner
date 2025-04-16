@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import Link from 'next/link';
+
 import styles from './MenuItem.module.scss';
 
 type ButtonItem = {
@@ -25,7 +27,8 @@ export const MenuItemComponent = ({ item, onClick }: MenuItemProps) => (
     className={styles.MenuItem}
     role="menuitem"
     tabIndex={0}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     {item.icon && <span className={styles.Icon}>{item.icon}</span>}
     {item.type === 'link' ? (
       <Link href={item.href} className={styles.Link} onClick={onClick}>

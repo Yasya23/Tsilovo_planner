@@ -1,7 +1,6 @@
 'use client';
 
 import DefaultLayout from '@/shared/components/layouts/Default';
-
 import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 
 const ServerError = () => {

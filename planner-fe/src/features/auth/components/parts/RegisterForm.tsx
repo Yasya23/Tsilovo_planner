@@ -1,18 +1,21 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
+import { Controller, useForm } from 'react-hook-form';
 
-import Input from '@/shared/components/ui/input/Input';
-import ButtonCustom from '@/shared/components/ui/buttons/Button';
-
-import { createRegistrationSchema } from '@/shared/utils';
-import { routes } from '@/shared/constants/routes';
-import { User } from '@/shared/types/user.type';
-import styles from '@/features/auth/components/AuthForm.module.scss';
 import { useTranslations } from 'next-intl';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import ButtonCustom from '@/shared/components/ui/buttons/Button';
+import Input from '@/shared/components/ui/input/Input';
+import { routes } from '@/shared/constants/routes';
+import icons from '@/shared/icons/icons';
+import { User } from '@/shared/types/user.type';
+import { createRegistrationSchema } from '@/shared/utils';
+
+import styles from '@/features/auth/components/AuthForm.module.scss';
+
 type RegisterFormValues = {
   email: string;
   password: string;
@@ -82,7 +85,7 @@ export const RegisterForm = ({
               label={t('form.labels.name')}
               placeholder={t('form.placeholders.name')}
               {...field}
-              icon={AiOutlineUser}
+              icon={<icons.Home />}
               error={getError('name')}
               serverError={!!error}
               onFocus={() => handleOnFocus('name')}
@@ -101,7 +104,7 @@ export const RegisterForm = ({
               label={t('form.labels.email')}
               placeholder={t('form.placeholders.email')}
               {...field}
-              icon={AiOutlineMail}
+              icon={<icons.Home />}
               error={getError('email')}
               serverError={!!error}
               onFocus={() => handleOnFocus('email')}
@@ -120,7 +123,7 @@ export const RegisterForm = ({
               label={t('form.labels.password')}
               placeholder={t('form.placeholders.password')}
               {...field}
-              icon={AiOutlineLock}
+              icon={<icons.Home />}
               hasAbilityHideValue
               error={getError('password')}
               serverError={!!error}
@@ -140,7 +143,7 @@ export const RegisterForm = ({
               label={t('form.labels.confirmPassword')}
               placeholder={t('form.placeholders.confirmPassword')}
               {...field}
-              icon={AiOutlineLock}
+              icon={<icons.Home />}
               hasAbilityHideValue
               error={getError('confirmPassword')}
               serverError={!!error}

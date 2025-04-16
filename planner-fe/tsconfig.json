@@ -23,7 +23,7 @@
       "@/styles/*": ["styles/*"],
       "@/pages/*": ["pages/*"],
       "@/features/*": ["features/*"],
-      "@/shared/*": ["shared/*"],
+      "@/shared/*": ["shared/*"]
     },
     "target": "ES2017"
   },

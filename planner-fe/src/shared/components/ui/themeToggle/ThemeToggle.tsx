@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
-import IconButtonCustom from '../buttons/IconButton';
+import { useTheme } from 'next-themes';
+
 import icons from '@/shared/icons/icons';
 
+import IconButtonCustom from '../buttons/IconButton';
 import styles from './ThemeToggle.module.scss';
 
 const themes = [

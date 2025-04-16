@@ -1,14 +1,15 @@
 'use client';
 
-import { WeeklyTodo } from '../weekly-todo/WeeklyTodo';
+import { useTranslations } from 'next-intl';
+
+import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
+
+import { PlanningContext } from '../../context/usePlanningContext';
+import { usePlanning } from '../../hooks/usePlanning';
+import Skeleton from '../_parts/skeleton/Skeleton';
 import GoalsList from '../goals-list/GoalsList';
 import { WeeklyStatistic } from '../weekly-statistic/WeeklyStatistic';
-import { usePlanning } from '../../hooks/usePlanning';
-import { useTranslations } from 'next-intl';
-import Skeleton from '../_parts/skeleton/Skeleton';
-import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
-import { PlanningContext } from '@/features/planning/context/usePlanningContext';
-
+import { WeeklyTodo } from '../weekly-todo/WeeklyTodo';
 import styles from './Planner.module.scss';
 
 export const Planner = () => {
@@ -34,7 +35,8 @@ export const Planner = () => {
 
   return (
     <PlanningContext.Provider
-      value={{ activeGoals, createTask, updateTask, deleteTask }}>
+      value={{ activeGoals, createTask, updateTask, deleteTask }}
+    >
       <div className={styles.Planner}>
         <h1 className={styles.Title}>{t('title')}</h1>
         <div className={styles.Header}>

@@ -1,5 +1,7 @@
-import { WeeklyTasks } from '../types/task.type';
 import { Formats, TranslationValues } from 'next-intl';
+
+import { WeeklyTasks } from '../types/task.type';
+
 export const createTitle = (
   week: WeeklyTasks,
   t: (key: string, values?: TranslationValues, formats?: Formats) => string

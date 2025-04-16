@@ -1,23 +1,23 @@
 'use client';
 
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import {
-  FiEye,
-  FiEyeOff,
   FiAlertTriangle,
   FiCheckCircle,
+  FiEye,
+  FiEyeOff,
 } from 'react-icons/fi';
-import { IconType } from 'react-icons';
+
+import classNames from 'classnames';
 
 import styles from './Input.module.scss';
-import classNames from 'classnames';
 
 interface InputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  icon?: IconType;
+  icon?: React.ReactNode;
   type?: 'text' | 'password' | 'email';
   label?: string;
   hasMessages?: boolean;
@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onFocus,
       onBlur,
       type = 'text',
-      icon: Icon,
+      icon,
       error,
       placeholder,
       hasMessages = true,
@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={styles.Wrapper}>
         <div className={inputClass}>
           {isSuccess && <FiCheckCircle className={styles.SuccessValidation} />}
-          {Icon && <Icon className={styles.Icon} />}
+          {icon && <div className={styles.Icon}>{icon}</div>}
 
           <input
             type={fieldType}
@@ -90,7 +90,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <div
               role="button"
               onClick={toggleVisibility}
-              className={styles.EyeIcon}>
+              className={styles.EyeIcon}
+            >
               {fieldType === 'password' ? <FiEyeOff /> : <FiEye />}
             </div>
           )}

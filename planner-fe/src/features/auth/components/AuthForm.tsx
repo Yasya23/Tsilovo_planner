@@ -1,13 +1,15 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import DefaultLayout from '@/shared/components/layouts/Default';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
+
 import styles from './AuthForm.module.scss';
+import GoogleAuthButton from './parts/GoogleAuthButton';
 import LoginForm from './parts/LoginForm';
 import RegisterForm from './parts/RegisterForm';
-import GoogleAuthButton from './parts/GoogleAuthButton';
-import { useTranslations } from 'next-intl';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
   const t = useTranslations('Common');

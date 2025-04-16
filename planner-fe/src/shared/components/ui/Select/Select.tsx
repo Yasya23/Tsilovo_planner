@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
+
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from './Select.module.scss';
@@ -38,13 +39,15 @@ const SelectCustom = ({
     <FormControl
       sx={{ m: 1, minWidth: minWidth }}
       size="small"
-      className={styles.FormControl}>
+      className={styles.FormControl}
+    >
       <Select
         className={styles.Select}
         onChange={handleChange}
         value={selectedValue}
         variant={format}
-        disabled={disabled}>
+        disabled={disabled}
+      >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label} {showValue && option.value}

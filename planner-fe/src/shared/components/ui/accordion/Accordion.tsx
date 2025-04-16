@@ -1,8 +1,10 @@
 import * as React from 'react';
+
 import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
+
 import icons from '@/shared/icons/icons';
 
 import styles from './Accordion.module.scss';
@@ -24,7 +26,8 @@ export const AccordionUsage = ({ items }: AccordionProps) => {
           <AccordionSummary
             expandIcon={<icons.ChevronDown />}
             aria-controls={`panel${index}-content`}
-            id={`panel${index}-header`}>
+            id={`panel${index}-header`}
+          >
             <Typography component="div" sx={{ width: '100%' }}>
               {item.title}
             </Typography>

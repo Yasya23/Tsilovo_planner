@@ -1,7 +1,8 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
+
 import SelectCustom from './select/Select';
 
 const Languages = [

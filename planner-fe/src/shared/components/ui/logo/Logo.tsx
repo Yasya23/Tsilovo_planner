@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { routes } from '@/shared/constants/routes';
 
 import styles from './Logo.module.scss';

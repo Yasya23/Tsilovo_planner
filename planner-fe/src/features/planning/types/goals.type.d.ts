@@ -1,4 +1,5 @@
 import { Task, WeeklyTasks } from './task.type';
+
 export type CreateGoal = {
   title: string;
   emoji?: string;

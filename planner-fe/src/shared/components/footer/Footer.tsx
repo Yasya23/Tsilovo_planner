@@ -1,7 +1,7 @@
 import Link from 'next/link';
+
 import LanguageToggle from '../ui/LanguageSwitch';
 import ThemeToggle from '../ui/themeToggle/ThemeToggle';
-
 import styles from './Footer.module.scss';
 
 export const Footer = () => {

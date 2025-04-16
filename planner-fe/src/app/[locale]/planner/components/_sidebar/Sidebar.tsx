@@ -1,24 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import { routes } from '@/shared/constants/routes';
+import { useEffect, useState } from 'react';
+
 import { useLocale } from 'next-intl';
-import Image from 'next/image';
-
-import icons from '@/shared/icons/icons';
-import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
-import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
-import LogOut from '@/shared/components/LogOut';
-import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import { useAuthContext } from '@/features/auth/context/AuthProvider';
-import Avatar from '@/shared/components/ui/avatar/Avatar';
+import { usePathname } from 'next/navigation';
 
+import { Link } from '@/i18n/navigation';
 import classNames from 'classnames';
-import styles from './Sidebar.module.scss';
+
+import LogOut from '@/shared/components/LogOut';
+import Avatar from '@/shared/components/ui/avatar/Avatar';
+import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
+import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
+import { routes } from '@/shared/constants/routes';
 import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
+import icons from '@/shared/icons/icons';
+
+import { useAuthContext } from '@/features/auth/context/AuthProvider';
+
+import styles from './Sidebar.module.scss';
 
 const menuItems = [
   {
@@ -57,7 +59,8 @@ export const Sidebar = () => {
     <div
       className={classNames(styles.SideBar, {
         [styles.Open]: isMenuOpen,
-      })}>
+      })}
+    >
       <div className={styles.Header}>
         {!isMenuOpen ? (
           <div className={styles.MobileMenuIcon}>
@@ -96,7 +99,8 @@ export const Sidebar = () => {
               href={href}
               className={classNames(styles.Link, {
                 [styles.Active]: pathname === `/${currentLang}${href}`,
-              })}>
+              })}
+            >
               {icon} {isMenuOpen && title}
             </Link>
           );

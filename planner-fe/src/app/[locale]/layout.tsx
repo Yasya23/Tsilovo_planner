@@ -1,15 +1,19 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
-import { ThemeProvider } from 'next-themes';
+
+import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+import { ThemeProvider } from 'next-themes';
+import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
+
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
-import QueryProvider from '@/shared/components/providers/QueryClientProvider';
 import '@/styles/globals.scss';
+
+import QueryProvider from '@/shared/components/providers/QueryClientProvider';
+
 import { AuthProvider } from '@/features/auth/context/AuthProvider';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
@@ -23,7 +27,7 @@ export async function generateMetadata({
 
   const t = await getTranslations({
     locale,
-    namespace: `globalMetadata`,
+    namespace: 'globalMetadata',
   });
 
   if (!t) {
@@ -69,7 +73,8 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={inter.className}
-      suppressHydrationWarning={true}>
+      suppressHydrationWarning={true}
+    >
       <body suppressHydrationWarning>
         <QueryProvider>
           <NextIntlClientProvider messages={messages}>

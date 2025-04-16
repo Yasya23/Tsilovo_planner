@@ -1,8 +1,11 @@
 'use client';
 
 import React, { MouseEventHandler } from 'react';
-import Button from '@mui/material/Button';
+
 import { useLocale } from 'next-intl';
+
+import Button from '@mui/material/Button';
+
 type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   iconStart?: React.ReactNode;
@@ -35,7 +38,8 @@ export const ButtonCustom = ({
       onClick={href ? undefined : onClick}
       href={`/${locale}/${href}`}
       startIcon={iconStart}
-      endIcon={iconEnd}>
+      endIcon={iconEnd}
+    >
       {name}
     </Button>
   );

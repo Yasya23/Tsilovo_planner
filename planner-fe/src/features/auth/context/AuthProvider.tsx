@@ -1,12 +1,14 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import { useAuth } from '@/features/auth/hooks/useAuth';
-import { User } from '@/shared/types/user.type';
+
 import {
   LoginFormValues,
   RegisterFormValues,
 } from '@/shared/types/interfaces/loginFormValues';
+import { User } from '@/shared/types/user.type';
+
+import { useAuth } from '@/features/auth/hooks/useAuth';
 
 interface AuthContextType {
   user: User | null | undefined;

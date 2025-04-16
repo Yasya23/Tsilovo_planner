@@ -1,5 +1,6 @@
-import Tooltip from '@mui/material/Tooltip';
 import { ReactElement } from 'react';
+
+import Tooltip from '@mui/material/Tooltip';
 
 interface BasicTooltipProps {
   title: string;
@@ -21,7 +22,8 @@ const TooltipCustom = ({ title, children }: BasicTooltipProps) => {
             },
           ],
         },
-      }}>
+      }}
+    >
       {children}
     </Tooltip>
   );

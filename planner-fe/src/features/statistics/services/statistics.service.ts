@@ -1,4 +1,5 @@
 import { axiosClassic } from '@/api/interceptors';
+
 import { UserStatistics } from '../types/statistics.type';
 
 const api = '/statistics';

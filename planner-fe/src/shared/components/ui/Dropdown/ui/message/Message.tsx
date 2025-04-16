@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import styles from './Message.module.scss';
 
 export type MessageItemType = {

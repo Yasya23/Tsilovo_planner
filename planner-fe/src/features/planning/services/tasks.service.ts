@@ -1,5 +1,7 @@
-import { services } from '@/shared/constants/api-services';
 import { axiosClassic } from '@/api/interceptors';
+
+import { services } from '@/shared/constants/api-services';
+
 import { CreateTask, Task } from '../types/task.type';
 
 export const TaskServices = {

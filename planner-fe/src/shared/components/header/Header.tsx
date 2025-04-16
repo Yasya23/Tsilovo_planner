@@ -1,18 +1,21 @@
 'use client';
 
-import Logo from '../ui/logo/Logo';
-import ButtonCustom from '../ui/buttons/Button';
-import { routes } from '@/shared/constants/routes';
-import icons from '@/shared/icons/icons';
-import LogOut from '@/shared/components/LogOut';
-import { usePathname } from 'next/navigation';
-import useScrollThreshold from '@/shared/hooks/useScrollThreshold';
-import { isCurrentRoute } from '@/shared/utils/check-current-route';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
-import styles from './Header.module.scss';
 import classNames from 'classnames';
+
+import LogOut from '@/shared/components/LogOut';
+import { routes } from '@/shared/constants/routes';
+import useScrollThreshold from '@/shared/hooks/useScrollThreshold';
+import icons from '@/shared/icons/icons';
+import { isCurrentRoute } from '@/shared/utils/check-current-route';
+
 import { useAuth } from '@/features/auth/hooks/useAuth';
+
+import ButtonCustom from '../ui/buttons/Button';
+import Logo from '../ui/logo/Logo';
+import styles from './Header.module.scss';
 
 export const Header = () => {
   const isSticky = useScrollThreshold(100);
@@ -24,7 +27,8 @@ export const Header = () => {
 
   return (
     <header
-      className={classNames(styles.Header, { [styles.Sticky]: isSticky })}>
+      className={classNames(styles.Header, { [styles.Sticky]: isSticky })}
+    >
       <div className={styles.Wrapper}>
         <Logo />
         {user?.id ? (

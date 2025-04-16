@@ -1,8 +1,9 @@
 'use client';
 
 import { createContext, useContext } from 'react';
+
 import { ActiveGoal } from '@/features/planning/types/goals.type';
-import { Task, CreateTask } from '@/features/planning/types/task.type';
+import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 type PlanningContextProps = {
   activeGoals: ActiveGoal[];

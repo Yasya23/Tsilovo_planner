@@ -1,5 +1,7 @@
-import styles from './PlanningInput.module.scss';
 import classNames from 'classnames';
+
+import styles from './PlanningInput.module.scss';
+
 type PlanningInput = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

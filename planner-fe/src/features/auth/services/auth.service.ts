@@ -1,6 +1,8 @@
-import { axiosClassic, axiosAuth } from '@/api/interceptors';
-import { AuthResponse, User } from '../types/auth.types';
+import { axiosAuth, axiosClassic } from '@/api/interceptors';
+
 import { services } from '@/shared/constants/api-services';
+
+import { AuthResponse, User } from '../types/auth.types';
 
 export const AuthService = {
   async login(email: string, password: string): Promise<AuthResponse> {

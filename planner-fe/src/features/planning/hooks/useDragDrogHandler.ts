@@ -1,5 +1,7 @@
 import { DropResult } from '@hello-pangea/dnd';
-import { WeeklyTasks, Task } from '@/features/planning/types/task.type';
+
+import { Task, WeeklyTasks } from '@/features/planning/types/task.type';
+
 import { filterTasks } from '../helpers/filter-tasks';
 import { ActiveGoal } from '../types/goals.type';
 

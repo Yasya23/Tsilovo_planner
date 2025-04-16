@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const useWidthThreshold = (widthThreshold: number) => {
   const [isPastThreshold, setIsPastThreshold] = useState(false);

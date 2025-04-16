@@ -1,9 +1,13 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { TaskServices } from '../services/tasks.service';
-import { GoalServices } from '../services/goals.service';
-import { ActiveGoalsData } from '../types/goals.type';
 import toast from 'react-hot-toast';
+
 import { useTranslations } from 'next-intl';
+
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+import { GoalServices } from '../services/goals.service';
+import { TaskServices } from '../services/tasks.service';
+import { ActiveGoalsData } from '../types/goals.type';
+
 export const usePlanning = () => {
   const t = useTranslations('Common.planning');
   const queryClient = useQueryClient();

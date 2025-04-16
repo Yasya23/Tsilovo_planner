@@ -1,6 +1,8 @@
-import IconButton from '@mui/material/IconButton';
-import TooltipCustom from '@/shared/components/ui/Tooltip';
 import { MouseEventHandler } from 'react';
+
+import IconButton from '@mui/material/IconButton';
+
+import TooltipCustom from '@/shared/components/ui/Tooltip';
 
 interface Props {
   icon: React.ReactNode;
@@ -32,7 +34,8 @@ export const IconButtonCustom = ({
       aria-label={name}
       type={type}
       color={color}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {icon} {showName && name}
     </IconButton>
   );

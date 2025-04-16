@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import classNames from 'classnames';
+
 import styles from './StatisticsData.module.scss';
 
 type StatisticsDataProps = {
@@ -21,7 +23,8 @@ export const StatisticsData = ({
         <span
           className={classNames(styles.Title, {
             [styles.HideTitle]: hideTitleOnMobile,
-          })}>
+          })}
+        >
           {title}:
         </span>
       )}

@@ -1,20 +1,24 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Spinner } from '@/shared/components/ui/Spinner';
-import { Input } from '@/shared/components/ui/input/Input';
-import CheckboxCustom from '@/shared/components/ui/Checkbox';
-import { updateInfoSchema } from '@/shared/utils';
+import { Controller, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 // import { useAuthStore } from '@/features/auth/hooks/AuthStore';
 // import { getToken } from '@/shared/helpers';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
-import ButtonCustom from '../ui/buttons/Button';
-import toast from 'react-hot-toast';
-import { LoginFormValues } from '@/shared/types/interfaces/loginFormValues';
+
+import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
+
+import CheckboxCustom from '@/shared/components/ui/Checkbox';
+import { Input } from '@/shared/components/ui/input/Input';
+import { Spinner } from '@/shared/components/ui/Spinner';
+import { LoginFormValues } from '@/shared/types/interfaces/loginFormValues';
+import { updateInfoSchema } from '@/shared/utils';
+
+import ButtonCustom from '../ui/buttons/Button';
 import styles from './UpdateInfo.module.scss';
+
 interface FormValues extends LoginFormValues {
   newPassword?: string;
   confirmNewPassword?: string;

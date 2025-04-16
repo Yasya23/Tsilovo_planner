@@ -1,9 +1,12 @@
 'use client';
 
-import icons from '@/shared/icons/icons';
 import { useTranslations } from 'next-intl';
-import { WeeklyStatistics } from '../../types/goals.type';
+
 import classNames from 'classnames';
+
+import icons from '@/shared/icons/icons';
+
+import { WeeklyStatistics } from '../../types/goals.type';
 import styles from './WeeklyStatistic.module.scss';
 
 type WeeklyStatisticProps = {

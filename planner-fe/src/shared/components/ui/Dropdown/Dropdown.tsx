@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useRef, ReactNode } from 'react';
+import { ReactNode, useRef, useState } from 'react';
+
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
-import { Divider, DividerItemType } from './ui/divider/Divider';
-import { Message, MessageItemType } from './ui/message/Message';
-import { MenuItemComponent, MenuItemType } from './ui/menu-item/MenuItem';
+
 import styles from './Dropdown.module.scss';
+import { Divider, DividerItemType } from './ui/divider/Divider';
+import { MenuItemComponent, MenuItemType } from './ui/menu-item/MenuItem';
+import { Message, MessageItemType } from './ui/message/Message';
 
 type MenuItem = MenuItemType | DividerItemType | MessageItemType;
 
@@ -29,7 +31,8 @@ export const Dropdown = ({ trigger, menuItems }: DropdownProps) => {
     <div className={styles.Dropdown} ref={dropdownRef}>
       <div
         onClick={() => setIsOpen((prev) => !prev)}
-        className={styles.Trigger}>
+        className={styles.Trigger}
+      >
         {trigger}
       </div>
 

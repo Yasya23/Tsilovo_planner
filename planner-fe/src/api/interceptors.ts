@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { AuthService } from '@/features/auth/services/auth.service';
+
 import { services } from '@/shared/constants/api-services';
+
+import { AuthService } from '@/features/auth/services/auth.service';
 
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 

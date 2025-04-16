@@ -1,8 +1,12 @@
 import { useTranslations } from 'next-intl';
-import { GoalStats } from '@/features/statistics/types/statistics.type';
-import { StatisticsData } from '../statistics-data/StatisticsData';
+
 import icons from '@/shared/icons/icons';
+
+import { GoalStats } from '@/features/statistics/types/statistics.type';
+
+import { StatisticsData } from '../statistics-data/StatisticsData';
 import styles from './GoalsList.module.scss';
+
 type GoalsListProps = {
   goals: GoalStats[];
 };

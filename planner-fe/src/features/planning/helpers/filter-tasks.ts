@@ -1,5 +1,6 @@
 import { ActiveGoal } from '@/features/planning/types/goals.type';
 import { Task } from '@/features/planning/types/task.type';
+
 export const filterTasks = (tasks: Task[], goals: ActiveGoal[]) => {
   const goalsWithTasks = goals.filter((goal) =>
     tasks.some((task) => task.goalId === goal._id)

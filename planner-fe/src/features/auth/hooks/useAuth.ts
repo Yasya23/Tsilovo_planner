@@ -1,15 +1,18 @@
 import { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { AuthService } from '../services/auth.service';
-import { responseError } from '@/shared/utils';
-import { User } from '../types/auth.types';
+import { useRouter } from 'next/navigation';
+
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import {
   LoginFormValues,
   RegisterFormValues,
 } from '@/shared/types/interfaces/loginFormValues';
+import { responseError } from '@/shared/utils';
+
+import { AuthService } from '../services/auth.service';
+import { User } from '../types/auth.types';
 
 export const useAuth = () => {
   const router = useRouter();

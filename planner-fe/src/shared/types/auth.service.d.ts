@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
-import { UserResponse } from './user.type';
+
 import {
   LoginFormValues,
   RegisterFormValues,
 } from '../types/interfaces/loginFormValues';
+import { UserResponse } from './user.type';
 
 export interface AuthService {
   login({
