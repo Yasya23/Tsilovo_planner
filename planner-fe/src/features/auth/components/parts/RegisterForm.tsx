@@ -7,7 +7,6 @@ import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 
 import Input from '@/shared/components/ui/input/Input';
 import ButtonCustom from '@/shared/components/ui/buttons/Button';
-import { FormError } from '@/features/auth/components/parts/error/Error';
 
 import { createRegistrationSchema } from '@/shared/utils';
 import { routes } from '@/shared/constants/routes';
@@ -40,37 +39,22 @@ export const RegisterForm = ({
   const {
     control,
     handleSubmit,
-    setError,
     clearErrors,
     trigger,
     formState: { errors },
     watch,
-    reset,
   } = useForm<RegisterFormValues>({
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
   });
 
   const password = watch('password');
-  const isServerError = !!errors?.root?.serverError?.message;
 
   useEffect(() => {
     if (password) {
       trigger('confirmPassword');
     }
   }, [password, trigger]);
-  console.log(error);
-  useEffect(() => {
-    if (user) {
-      reset();
-      clearErrors();
-    } else if (error) {
-      setError('root.serverError', {
-        type: 'custom',
-        message: `${error}`,
-      });
-    }
-  }, [error, user, clearErrors, reset, setError]);
 
   const getError = (name: keyof RegisterFormValues) => {
     return errors?.[name]?.message || undefined;
@@ -100,7 +84,7 @@ export const RegisterForm = ({
               {...field}
               icon={AiOutlineUser}
               error={getError('name')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('name')}
               onBlur={() => trigger('name')}
             />
@@ -119,7 +103,7 @@ export const RegisterForm = ({
               {...field}
               icon={AiOutlineMail}
               error={getError('email')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('email')}
               onBlur={() => trigger('email')}
             />
@@ -139,7 +123,7 @@ export const RegisterForm = ({
               icon={AiOutlineLock}
               hasAbilityHideValue
               error={getError('password')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('password')}
               onBlur={() => trigger('password')}
             />
@@ -159,7 +143,7 @@ export const RegisterForm = ({
               icon={AiOutlineLock}
               hasAbilityHideValue
               error={getError('confirmPassword')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('confirmPassword')}
               onBlur={() => trigger('confirmPassword')}
             />
@@ -181,11 +165,6 @@ export const RegisterForm = ({
             style="text"
           />
         </div>
-
-        <FormError
-          isPending={isPending}
-          error={errors.root?.serverError?.message}
-        />
       </fieldset>
     </form>
   );

@@ -6,7 +6,7 @@ import { useAuth } from '@/features/auth/hooks/useAuth';
 import styles from './AuthForm.module.scss';
 import LoginForm from './parts/LoginForm';
 import RegisterForm from './parts/RegisterForm';
-import GoogleAuthButton from './GoogleAuthButton';
+import GoogleAuthButton from './parts/GoogleAuthButton';
 import { useTranslations } from 'next-intl';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {

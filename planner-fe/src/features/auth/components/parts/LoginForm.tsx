@@ -1,16 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
-import { useTranslations, useLocale } from 'next-intl';
-import * as yup from 'yup';
-
+import { useTranslations } from 'next-intl';
 import Input from '@/shared/components/ui/input/Input';
 import ButtonCustom from '@/shared/components/ui/buttons/Button';
-import FormError from '@/features/auth/components/parts/error/Error';
-import { responseError } from '@/shared/utils';
 import { createLoginSchema } from '@/shared/utils/validation/login-schema';
 import { routes } from '@/shared/constants/routes';
 import styles from '@/features/auth/components/AuthForm.module.scss';
@@ -29,7 +24,6 @@ type LoginFormValuesProps = {
 };
 
 export const LoginForm = ({
-  user,
   isPending,
   error,
   login,
@@ -40,29 +34,13 @@ export const LoginForm = ({
   const {
     control,
     handleSubmit,
-    setError,
     clearErrors,
     trigger,
     formState: { errors },
-    reset,
   } = useForm<LoginFormValues>({
     resolver: schema ? yupResolver(schema) : undefined,
     mode: 'onChange',
   });
-
-  const isServerError = !!errors?.root?.serverError?.message;
-
-  useEffect(() => {
-    if (user) {
-      reset();
-      clearErrors();
-    } else if (error) {
-      setError('root.serverError', {
-        type: 'custom',
-        message: responseError(error),
-      });
-    }
-  }, [user, error, reset, clearErrors, setError]);
 
   const getError = (name: keyof LoginFormValues) => {
     return errors?.[name]?.message || undefined;
@@ -92,7 +70,7 @@ export const LoginForm = ({
               {...field}
               icon={AiOutlineMail}
               error={getError('email')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('email')}
               onBlur={() => trigger('email')}
             />
@@ -112,7 +90,7 @@ export const LoginForm = ({
               icon={AiOutlineLock}
               hasAbilityHideValue
               error={getError('password')}
-              serverError={isServerError}
+              serverError={!!error}
               onFocus={() => handleOnFocus('password')}
               onBlur={() => trigger('password')}
             />
@@ -134,11 +112,6 @@ export const LoginForm = ({
             style="text"
           />
         </div>
-
-        <FormError
-          isPending={isPending}
-          error={errors.root?.serverError?.message}
-        />
       </fieldset>
     </form>
   );

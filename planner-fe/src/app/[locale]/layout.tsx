@@ -76,7 +76,7 @@ export default async function RootLayout({
             <AuthProvider>
               <ThemeProvider>{children}</ThemeProvider>
               <Toaster
-                position="bottom-right"
+                position="top-right"
                 toastOptions={{
                   duration: 7000,
                   style: {
