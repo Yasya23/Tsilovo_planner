@@ -1,7 +1,6 @@
-// LoginForm.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
@@ -36,16 +35,7 @@ export const LoginForm = ({
   login,
 }: LoginFormValuesProps) => {
   const t = useTranslations('Common');
-  const locale = useLocale();
-  const [schema, setSchema] = useState<yup.ObjectSchema<any>>();
-
-  useEffect(() => {
-    const initSchema = async () => {
-      const newSchema = await createLoginSchema(locale);
-      setSchema(newSchema);
-    };
-    initSchema();
-  }, [locale]);
+  const schema = createLoginSchema(t);
 
   const {
     control,
@@ -59,6 +49,8 @@ export const LoginForm = ({
     resolver: schema ? yupResolver(schema) : undefined,
     mode: 'onChange',
   });
+
+  const isServerError = !!errors?.root?.serverError?.message;
 
   useEffect(() => {
     if (user) {
@@ -87,63 +79,67 @@ export const LoginForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
-      <Controller
-        name="email"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            type="email"
-            label={t('form.labels.email')}
-            placeholder={t('form.placeholders.email')}
-            {...field}
-            icon={AiOutlineMail}
-            error={getError('email')}
-            onFocus={() => handleOnFocus('email')}
-            onBlur={() => trigger('email')}
-          />
-        )}
-      />
-
-      <Controller
-        name="password"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            type="password"
-            label={t('form.labels.password')}
-            placeholder={t('form.placeholders.password')}
-            {...field}
-            icon={AiOutlineLock}
-            hasAbilityHideValue
-            error={getError('password')}
-            onFocus={() => handleOnFocus('password')}
-            onBlur={() => trigger('password')}
-          />
-        )}
-      />
-
-      <ButtonCustom
-        disabled={isPending}
-        name={t('buttons.signIn')}
-        style="outlined"
-        onClick={handleSubmit(onSubmit)}
-      />
-
-      <div>
-        {t('form.messages.notRegistered')}
-        <ButtonCustom
-          href={routes.register}
-          name={t('buttons.register')}
-          style="text"
+      <fieldset disabled={isPending}>
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="email"
+              label={t('form.labels.email')}
+              placeholder={t('form.placeholders.email')}
+              {...field}
+              icon={AiOutlineMail}
+              error={getError('email')}
+              serverError={isServerError}
+              onFocus={() => handleOnFocus('email')}
+              onBlur={() => trigger('email')}
+            />
+          )}
         />
-      </div>
 
-      <FormError
-        isPending={isPending}
-        error={errors.root?.serverError?.message}
-      />
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="password"
+              label={t('form.labels.password')}
+              placeholder={t('form.placeholders.password')}
+              {...field}
+              icon={AiOutlineLock}
+              hasAbilityHideValue
+              error={getError('password')}
+              serverError={isServerError}
+              onFocus={() => handleOnFocus('password')}
+              onBlur={() => trigger('password')}
+            />
+          )}
+        />
+
+        <ButtonCustom
+          disabled={isPending}
+          name={t('buttons.signIn')}
+          style="outlined"
+          onClick={handleSubmit(onSubmit)}
+        />
+
+        <div>
+          {t('form.messages.notRegistered')}
+          <ButtonCustom
+            href={routes.register}
+            name={t('buttons.register')}
+            style="text"
+          />
+        </div>
+
+        <FormError
+          isPending={isPending}
+          error={errors.root?.serverError?.message}
+        />
+      </fieldset>
     </form>
   );
 };

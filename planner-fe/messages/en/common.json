@@ -121,11 +121,15 @@
     "form": {
       "labels": {
         "email": "Email",
-        "password": "Password"
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "name": "Name"
       },
       "placeholders": {
         "email": "Enter your email",
-        "password": "Enter your password"
+        "password": "Enter your password",
+        "confirmPassword": "Confirm your password",
+        "name": "Enter your name"
       },
       "validation": {
         "email": {
@@ -135,6 +139,15 @@
         "password": {
           "required": "Password is required",
           "minLength": "Password must be at least 6 characters long"
+        },
+        "confirmPassword": {
+          "required": "Please confirm your password",
+          "match": "Passwords must match"
+        },
+        "name": {
+          "required": "Name is required",
+          "minLength": "Name must be at least 3 characters long",
+          "letters": "Name must contain only letters"
         }
       },
       "messages": {

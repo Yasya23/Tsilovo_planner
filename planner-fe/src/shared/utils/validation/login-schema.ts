@@ -1,10 +1,14 @@
 import * as yup from 'yup';
+import { TranslationValues, Formats } from 'next-intl';
 import { emailRegx } from './email-regx';
-import { getTranslations } from 'next-intl/server';
 
-export const createLoginSchema = async (locale: string) => {
-  const t = await getTranslations({ locale, namespace: 'Common' });
-
+export const createLoginSchema = (t: {
+  <TargetKey extends any>(
+    key: TargetKey,
+    values?: TranslationValues,
+    formats?: Formats
+  ): string;
+}) => {
   return yup.object().shape({
     email: yup
       .string()

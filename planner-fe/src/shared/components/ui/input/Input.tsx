@@ -26,6 +26,7 @@ interface InputProps {
   isLabelVisibilityHidden?: boolean;
   disabled?: boolean;
   placeholder?: string;
+  serverError?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -42,6 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       hasMessages = true,
       hasAbilityHideValue = false,
       disabled = false,
+      serverError = false,
     },
     ref
   ) => {
@@ -54,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       );
     };
 
-    const isSuccess = hasMessages && !error && value;
+    const isSuccess = hasMessages && !error && value && !serverError;
     const inputClass = classNames(styles.InputWrapper, {
       [styles.error]: error,
       [styles.success]: isSuccess,

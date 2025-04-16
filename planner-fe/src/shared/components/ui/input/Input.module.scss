@@ -3,7 +3,7 @@
 
 $error-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
 $success-shadow: 0 0 3px rgba(0, 165, 0, 0.5);
-$success: #018801;
+$success: $success;
 
 .Wrapper {
   width: 100%;
@@ -19,8 +19,7 @@ $success: #018801;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #004b00;
-    fill: #86d986;
+    color: $success;
   }
 
   .EyeIcon {
