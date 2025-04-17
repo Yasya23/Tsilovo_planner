@@ -1,10 +1,12 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
+import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { routes } from '@/shared/constants/routes';
 import {
   LoginFormValues,
   RegisterFormValues,
@@ -15,6 +17,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../types/auth.types';
 
 export const useAuth = () => {
+  const locale = useLocale();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -38,6 +41,7 @@ export const useAuth = () => {
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
       toast.success('Login successful');
+      router.push(`${routes.planner}`);
     },
     onError: (error) => {
       console.log(error);
@@ -51,6 +55,7 @@ export const useAuth = () => {
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
       toast.success('Registration successful');
+      router.push(`${routes.planner}`);
     },
     onError: (error) => {
       toast.error(responseError(error));
@@ -58,7 +63,6 @@ export const useAuth = () => {
   });
 
   const logout = useCallback(async () => {
-    console.log(1);
     try {
       await AuthService.logout();
       queryClient.setQueryData(['user'], null);

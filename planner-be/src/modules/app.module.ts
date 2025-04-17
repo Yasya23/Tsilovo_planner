@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypegooseModule } from 'nestjs-typegoose';
@@ -9,10 +8,11 @@ import { UserModule } from './user/user.module';
 import { TaskModule } from './tasks/tasks.module';
 import { GoalsModule } from './goals/goals.module';
 import { StatisticsModule } from './statistics/statistics.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     ThrottlerModule.forRoot({
       throttlers: [
         {
@@ -21,6 +21,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
         },
       ],
     }),
+    ConfigModule.forRoot(),
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -32,6 +33,12 @@ import { ThrottlerModule } from '@nestjs/throttler';
     GoalsModule,
     StatisticsModule,
     TaskModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

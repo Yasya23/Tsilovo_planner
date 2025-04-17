@@ -21,7 +21,6 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Handle authentication
   const isAuth =
     request.cookies.has('accessToken') || request.cookies.has('refreshToken');
 
@@ -30,7 +29,6 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(`/${pathLocale}/login`) ||
     pathname.startsWith(`/${pathLocale}/register`);
 
-  // If user is not authenticated and trying to access protected routes
   if (!isAuth && isPlannerPage) {
     const redirectUrl = new URL(`/${pathLocale}/login`, request.url);
     return NextResponse.redirect(redirectUrl);
@@ -42,7 +40,6 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Handle next-intl routing
   return createMiddleware(routing)(request);
 }
 

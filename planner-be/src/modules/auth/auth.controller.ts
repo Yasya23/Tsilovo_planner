@@ -6,8 +6,8 @@ import {
   Req,
   Res,
   UseGuards,
-  HttpStatus,
 } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -69,12 +69,10 @@ export class AuthController {
     try {
       const refreshToken = req.cookies?.refreshToken;
 
-      if (!refreshToken) {
-        clearAuthCookies(res);
-        return {
-          message: 'Missing refresh token',
-        };
-      }
+      // if (!refreshToken) {
+      //   clearAuthCookies(res);
+      //   throw new UnauthorizedException('Missing refresh token');
+      // }
 
       const {
         accessToken,
@@ -93,10 +91,7 @@ export class AuthController {
     } catch (err) {
       clearAuthCookies(res);
       console.error('Token refresh failed:', err?.message || err);
-
-      return {
-        message: 'Refresh token invalid or expired',
-      };
+      throw new UnauthorizedException('Refresh token invalid or expired');
     }
   }
 
