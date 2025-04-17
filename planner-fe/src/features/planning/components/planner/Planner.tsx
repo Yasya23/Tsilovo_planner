@@ -4,12 +4,13 @@ import { useTranslations } from 'next-intl';
 
 import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 
-import { PlanningContext } from '../../context/usePlanningContext';
-import { usePlanning } from '../../hooks/usePlanning';
-import Skeleton from '../_parts/skeleton/Skeleton';
-import GoalsList from '../goals-list/GoalsList';
-import { WeeklyStatistic } from '../weekly-statistic/WeeklyStatistic';
-import { WeeklyTodo } from '../weekly-todo/WeeklyTodo';
+import { Skeleton } from '@/features/planning/components/./_parts/skeleton/Skeleton';
+import { GoalsList } from '@/features/planning/components/goals-list/GoalsList';
+import { WeeklyStatistic } from '@/features/planning/components/weekly-statistic/WeeklyStatistic';
+import { WeeklyTodo } from '@/features/planning/components/weekly-todo/WeeklyTodo';
+import { PlanningContext } from '@/features/planning/context/usePlanningContext';
+import { usePlanning } from '@/features/planning/hooks/usePlanning';
+
 import styles from './Planner.module.scss';
 
 export const Planner = () => {
@@ -59,5 +60,3 @@ export const Planner = () => {
     </PlanningContext.Provider>
   );
 };
-
-export default Planner;

@@ -8,7 +8,11 @@ interface AvatarProps {
   imageUrl?: string;
 }
 
-const Avatar = ({ name = 'AA', size = 'small', imageUrl }: AvatarProps) => {
+export const Avatar = ({
+  name = 'AA',
+  size = 'small',
+  imageUrl,
+}: AvatarProps) => {
   const initials = name ? name.slice(0, 2).toUpperCase() : '';
 
   return (
@@ -17,5 +21,3 @@ const Avatar = ({ name = 'AA', size = 'small', imageUrl }: AvatarProps) => {
     </div>
   );
 };
-
-export default Avatar;

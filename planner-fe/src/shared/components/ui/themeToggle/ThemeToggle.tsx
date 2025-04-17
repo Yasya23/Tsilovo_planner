@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 
 import icons from '@/shared/icons/icons';
 
-import IconButtonCustom from '../buttons/IconButton';
+import { IconButtonCustom } from '../buttons/IconButton';
 import styles from './ThemeToggle.module.scss';
 
 const themes = [

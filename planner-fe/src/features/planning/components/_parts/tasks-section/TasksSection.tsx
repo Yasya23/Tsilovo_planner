@@ -1,14 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import icons from '@/shared/icons/icons';
+
 import { useTranslations } from 'next-intl';
-import { CreateTask, Task } from '../../../types/task.type';
-import { ActiveGoal } from '../../../types/goals.type';
-import ManageTask from '../manage-task/ManageTask';
+
 import { Draggable } from '@hello-pangea/dnd';
 
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
+import icons from '@/shared/icons/icons';
+
+import { ActiveGoal } from '../../../types/goals.type';
+import { CreateTask, Task } from '../../../types/task.type';
+import ManageTask from '../manage-task/ManageTask';
 import styles from './TasksSection.module.scss';
 
 interface TasksSectionProps {
@@ -68,13 +71,15 @@ export const TasksSection = ({
             <Draggable
               draggableId={task._id}
               index={globalIndex}
-              key={task._id}>
+              key={task._id}
+            >
               {(provided) => (
                 <div
                   className={styles.TaskItem}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
-                  {...provided.dragHandleProps}>
+                  {...provided.dragHandleProps}
+                >
                   <div className={styles.DraggableIcon} role-type="button">
                     <icons.Draggable />
                   </div>

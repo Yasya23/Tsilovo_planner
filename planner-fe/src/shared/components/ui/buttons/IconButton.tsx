@@ -46,4 +46,3 @@ export const IconButtonCustom = ({
     button
   );
 };
-export default IconButtonCustom;

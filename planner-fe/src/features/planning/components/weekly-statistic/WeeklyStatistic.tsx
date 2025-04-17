@@ -6,7 +6,8 @@ import classNames from 'classnames';
 
 import icons from '@/shared/icons/icons';
 
-import { WeeklyStatistics } from '../../types/goals.type';
+import { WeeklyStatistics } from '@/features/planning/types/goals.type';
+
 import styles from './WeeklyStatistic.module.scss';
 
 type WeeklyStatisticProps = {

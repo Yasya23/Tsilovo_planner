@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import icons from '@/shared/icons/icons';
-import ManageGoals from '../_parts/manage-goal/ManageGoal';
-import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
-import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+
 import { useTranslations } from 'next-intl';
 
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
+import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+import icons from '@/shared/icons/icons';
+
+import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
+import ManageGoals from '../_parts/manage-goal/ManageGoal';
 import styles from './GoalsList.module.scss';
 
 type GoalsListProps = {
@@ -17,7 +19,7 @@ type GoalsListProps = {
   deleteGoal: (goal: Goal) => void;
 };
 
-const GoalsList = ({
+export const GoalsList = ({
   activeGoals,
   createGoal,
   updateGoal,
@@ -101,5 +103,3 @@ const GoalsList = ({
     </section>
   );
 };
-
-export default GoalsList;

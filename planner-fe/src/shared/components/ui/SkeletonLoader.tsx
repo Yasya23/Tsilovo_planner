@@ -14,7 +14,7 @@ interface SkeletonLoaderProps {
   items?: SkeletonItem[];
 }
 
-const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
+export const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
   count = 3,
   width = 320,
   height = 20,
@@ -43,5 +43,3 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
     </>
   );
 };
-
-export default SkeletonLoader;

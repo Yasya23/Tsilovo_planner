@@ -1,19 +1,22 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 
-import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import icons from '@/shared/icons/icons';
-import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
 import { useTranslations } from 'next-intl';
-import { useClickOutside } from '@/shared/hooks/ useClickOutside';
-import { CreateTask, Task } from '@/features/planning/types/task.type';
+
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
+import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
+import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
 import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
+import { useClickOutside } from '@/shared/hooks/ useClickOutside';
+import icons from '@/shared/icons/icons';
+
+import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
+import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 import styles from './ManageTask.module.scss';
-import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
+
 type ManageTaskProps = {
   task: Task | CreateTask;
   finishManage: () => void;
@@ -57,7 +60,8 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
     <form
       onSubmit={handleSubmit}
       ref={formRef}
-      className={styles.ManageTaskForm}>
+      className={styles.ManageTaskForm}
+    >
       <fieldset className={styles.Wrapper}>
         <CheckboxCustom
           isCompleted={!!task.isCompleted}

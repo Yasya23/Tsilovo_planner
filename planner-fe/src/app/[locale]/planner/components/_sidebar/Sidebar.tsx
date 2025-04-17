@@ -10,8 +10,8 @@ import { Link } from '@/i18n/navigation';
 import classNames from 'classnames';
 
 import LogOut from '@/shared/components/LogOut';
-import Avatar from '@/shared/components/ui/avatar/Avatar';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
+import { Avatar } from '@/shared/components/ui/avatar/Avatar';
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
 import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
 import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
 import { routes } from '@/shared/constants/routes';

@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
+import { useRef, useState } from 'react';
 
-import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
-import { Goal, CreateGoal, ActiveGoal } from '../../../types/goals.type';
-import IconButtonCustom from '@/shared/components/ui/buttons/IconButton';
-import icons from '@/shared/icons/icons';
-import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
 import { useTranslations } from 'next-intl';
-import { useClickOutside } from '@/shared/hooks/ useClickOutside';
-import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
+import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
+import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
+import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
+import { useClickOutside } from '@/shared/hooks/ useClickOutside';
+import icons from '@/shared/icons/icons';
+
+import { ActiveGoal, CreateGoal, Goal } from '../../../types/goals.type';
+import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
 import styles from './ManageGoal.module.scss';
 
 type ManageGoalsProps = {
@@ -61,12 +62,14 @@ const ManageGoals = ({
     <form
       onSubmit={handleSubmit}
       className={styles.ManageGoalForm}
-      ref={formRef}>
+      ref={formRef}
+    >
       <div className={styles.EmojyPickerWrapper}>
         <button
           onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
           className={styles.EmojiButton}
-          type="button">
+          type="button"
+        >
           {localGoal.emoji || '@'}
         </button>
         {isEmojiPickerOpen && (

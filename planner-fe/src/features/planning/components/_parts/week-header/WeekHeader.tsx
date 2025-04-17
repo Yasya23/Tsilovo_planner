@@ -1,11 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import IconButton from '@/shared/components/ui/buttons/IconButton';
-import { createTitle } from '@/features/planning/helpers/create-week-title';
-import styles from './WeekHeader.module.scss';
 import icons from '@/shared/icons/icons';
+
+import { createTitle } from '@/features/planning/helpers/create-week-title';
 import { WeeklyTasks } from '@/features/planning/types/task.type';
+
+import styles from './WeekHeader.module.scss';
+
 interface WeekHeaderProps {
   week: WeeklyTasks;
   isListView: boolean;
