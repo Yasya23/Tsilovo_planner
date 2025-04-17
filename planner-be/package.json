@@ -30,6 +30,7 @@
     "@nestjs/schedule": "^5.0.1",
     "@nestjs/serve-static": "^4.0.2",
     "@nestjs/swagger": "^11.1.2",
+    "@nestjs/throttler": "^6.4.0",
     "@typegoose/typegoose": "^12.8.0",
     "@types/app-root-path": "^1.2.8",
     "@types/cookie-parser": "^1.4.8",

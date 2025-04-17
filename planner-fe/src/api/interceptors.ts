@@ -22,17 +22,15 @@ axiosAuth.interceptors.response.use(
   (res) => res,
   async (err) => {
     const originalRequest = err.config;
-    const status = err.response?.status;
-
-    if (!originalRequest._retry) {
-      originalRequest._retry = true;
-    }
+    const status = err.response?.status || err?.status;
 
     if (
       status === 401 &&
       !originalRequest._retry &&
-      !originalRequest.url.includes(`${services.auth}`)
+      !originalRequest.url.endsWith(services.token)
     ) {
+      originalRequest._retry = true;
+
       try {
         await AuthService.getNewTokens();
         return axiosAuth(originalRequest);

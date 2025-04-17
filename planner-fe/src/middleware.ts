@@ -33,11 +33,9 @@ export function middleware(request: NextRequest) {
   // If user is not authenticated and trying to access protected routes
   if (!isAuth && isPlannerPage) {
     const redirectUrl = new URL(`/${pathLocale}/login`, request.url);
-    redirectUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
-  // If user is authenticated and trying to access auth pages
   if (isAuth && isAuthPage) {
     return NextResponse.redirect(
       new URL(`/${pathLocale}/planner`, request.url)

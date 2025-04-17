@@ -12,8 +12,9 @@ import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from 'src/typing/dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { JwtAuthGuard } from './guard/auth.guard';
+import { clearAuthCookies, setAuthCookies } from './helpers/auth';
 import { ConfigService } from '@nestjs/config';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
@@ -22,91 +23,59 @@ export class AuthController {
     private readonly configService: ConfigService,
   ) {}
 
-  private setAuthCookies(
-    res: Response,
-    accessToken: string,
-    refreshToken: string,
-  ) {
-    const isProduction = this.configService.get('NODE_ENV') === 'production';
-    res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: 'lax',
-      maxAge: 10 * 60 * 60 * 1000,
-    });
-
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: 'lax',
-      maxAge: 21 * 24 * 60 * 60 * 1000,
-    });
-  }
-
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('login')
-  async login(@Body() dto: AuthDto, @Res() res: Response) {
-    try {
-      const { accessToken, refreshToken, id, name, email, image } =
-        await this.authService.login(dto);
-      this.setAuthCookies(res, accessToken, refreshToken);
-      return res.status(HttpStatus.OK).json({
-        message: 'Login successful',
-        user: { id, name, email, image },
-      });
-    } catch (err) {
-      return res
-        .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Invalid credentials' });
-    }
+  async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
+    const { accessToken, refreshToken, id, name, email, image } =
+      await this.authService.login(dto);
+
+    setAuthCookies(res, accessToken, refreshToken);
+
+    return {
+      message: 'Login successful',
+      user: { id, name, email, image },
+    };
   }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('register')
-  async register(@Body() dto: RegistrationDto, @Res() res: Response) {
-    try {
-      const { accessToken, refreshToken, id, name, email, image } =
-        await this.authService.register(dto);
-      this.setAuthCookies(res, accessToken, refreshToken);
-      return res.status(HttpStatus.CREATED).json({
-        message: 'Registration successful',
-        user: { id, name, email, image },
-      });
-    } catch (err) {
-      return res
-        .status(HttpStatus.BAD_REQUEST)
-        .json({ message: err.message || 'Registration failed' });
-    }
+  async register(
+    @Body() dto: RegistrationDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { accessToken, refreshToken, id, name, email, image } =
+      await this.authService.register(dto);
+
+    setAuthCookies(res, accessToken, refreshToken);
+
+    return {
+      message: 'Registration successful',
+      user: { id, name, email, image },
+    };
   }
 
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('accessToken', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-    });
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-    });
-
-    return res
-      .status(HttpStatus.OK)
-      .json({ message: 'Logged out successfully' });
+    clearAuthCookies(res);
+    return { message: 'Logged out successfully' };
   }
 
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('access-token')
-  async refresh(@Req() req: Request, @Res() res: Response) {
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     try {
       const refreshToken = req.cookies?.refreshToken;
 
       if (!refreshToken) {
-        return res.status(HttpStatus.UNAUTHORIZED).json({
+        clearAuthCookies(res);
+        return {
           message: 'Missing refresh token',
-        });
+        };
       }
+
       const {
         accessToken,
         refreshToken: newRefreshToken,
@@ -116,24 +85,24 @@ export class AuthController {
         image,
       } = await this.authService.getNewTokens(refreshToken);
 
-      this.setAuthCookies(res, accessToken, newRefreshToken);
+      setAuthCookies(res, accessToken, newRefreshToken);
 
-      return res.status(HttpStatus.OK).json({
+      return {
         user: { id, name, email, image },
-      });
+      };
     } catch (err) {
-      console.error('Token refresh failed:', err);
-      return res.status(HttpStatus.UNAUTHORIZED).json({
+      clearAuthCookies(res);
+      console.error('Token refresh failed:', err?.message || err);
+
+      return {
         message: 'Refresh token invalid or expired',
-      });
+      };
     }
   }
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth() {
-    // No body needed, Passport will handle redirect
-  }
+  async googleAuth() {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
@@ -141,9 +110,11 @@ export class AuthController {
     const locale = req.cookies?.NEXT_LOCALE ?? 'en';
 
     try {
-      const { accessToken, refreshToken, id, name, email, image } =
-        await this.authService.googleLogin(req.user);
-      this.setAuthCookies(res, accessToken, refreshToken);
+      const { accessToken, refreshToken } = await this.authService.googleLogin(
+        req.user,
+      );
+
+      setAuthCookies(res, accessToken, refreshToken);
 
       return res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/planner`,

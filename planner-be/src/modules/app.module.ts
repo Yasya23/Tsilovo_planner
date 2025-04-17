@@ -9,9 +9,18 @@ import { UserModule } from './user/user.module';
 import { TaskModule } from './tasks/tasks.module';
 import { GoalsModule } from './goals/goals.module';
 import { StatisticsModule } from './statistics/statistics.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
