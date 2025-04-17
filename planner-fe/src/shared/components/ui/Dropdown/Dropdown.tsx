@@ -4,10 +4,10 @@ import { ReactNode, useRef, useState } from 'react';
 
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 
+import { Divider, DividerItemType } from './_parts/divider/Divider';
+import { MenuItemComponent, MenuItemType } from './_parts/menu-item/MenuItem';
+import { Message, MessageItemType } from './_parts/message/Message';
 import styles from './Dropdown.module.scss';
-import { Divider, DividerItemType } from './ui/divider/Divider';
-import { MenuItemComponent, MenuItemType } from './ui/menu-item/MenuItem';
-import { Message, MessageItemType } from './ui/message/Message';
 
 type MenuItem = MenuItemType | DividerItemType | MessageItemType;
 

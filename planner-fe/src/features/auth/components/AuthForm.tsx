@@ -6,10 +6,10 @@ import DefaultLayout from '@/shared/components/layouts/Default';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
 
+import GoogleAuthButton from './_parts/GoogleAuthButton';
+import LoginForm from './_parts/LoginForm';
+import RegisterForm from './_parts/RegisterForm';
 import styles from './AuthForm.module.scss';
-import GoogleAuthButton from './parts/GoogleAuthButton';
-import LoginForm from './parts/LoginForm';
-import RegisterForm from './parts/RegisterForm';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
   const t = useTranslations('Common');

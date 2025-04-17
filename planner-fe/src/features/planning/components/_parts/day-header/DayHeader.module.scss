@@ -32,16 +32,12 @@
   }
 
   &.Active {
-    background-color: $primary;
-    color: #ffffff;
+    background-color: $primary-soft;
 
-    svg {
-      fill: $accent;
-    }
-
-    .Completed,
-    .NotCompleted {
-      color: #ffffff;
+    .HeaderTitle {
+      svg {
+        color: $primary;
+      }
     }
   }
 

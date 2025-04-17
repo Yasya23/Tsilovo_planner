@@ -57,11 +57,10 @@ $link-active-bg: rgba(158, 158, 158, 0.189);
     }
 
     & .Active {
-      background-color: $primary;
-      color: #ffffff;
+      background-color: $primary-soft;
 
       & svg {
-        stroke: #ffffff;
+        stroke: $primary;
       }
     }
   }

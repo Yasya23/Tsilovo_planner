@@ -1,0 +1,20 @@
+@use '@/styles/_variables' as *;
+
+.Wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  height: max-content;
+}
+
+.Button {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .Message {
+    color: $secondary;
+    font-size: 0.8em;
+  }
+}

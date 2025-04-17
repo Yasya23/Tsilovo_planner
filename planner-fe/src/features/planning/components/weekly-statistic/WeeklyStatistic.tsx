@@ -24,6 +24,7 @@ export const WeeklyStatistic = ({ statistics }: WeeklyStatisticProps) => {
       <div className={styles.Wrapper}>
         <h2 className={styles.Title}>{t('weeklyStatistics')}</h2>
 
+
         <p className={classNames(styles.SubTitle, styles.Completed)}>
           <span>
             <icons.CheckCircle />

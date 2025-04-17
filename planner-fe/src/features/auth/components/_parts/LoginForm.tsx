@@ -6,14 +6,14 @@ import { useTranslations } from 'next-intl';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import ButtonCustom from '@/shared/components/ui/buttons/Button';
+import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
 import Input from '@/shared/components/ui/input/Input';
 import { routes } from '@/shared/constants/routes';
 import icons from '@/shared/icons/icons';
 import { User } from '@/shared/types/user.type';
-import { createLoginSchema } from '@/shared/utils/validation/login-schema';
 
 import styles from '@/features/auth/components/AuthForm.module.scss';
+import { createLoginSchema } from '@/features/auth/helpers/login-schema';
 
 type LoginFormValues = {
   email: string;

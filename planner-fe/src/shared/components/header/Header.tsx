@@ -13,7 +13,7 @@ import { isCurrentRoute } from '@/shared/utils/check-current-route';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
 
-import ButtonCustom from '../ui/buttons/Button';
+import { ButtonCustom } from '../ui/buttons/Button';
 import Logo from '../ui/logo/Logo';
 import styles from './Header.module.scss';
 

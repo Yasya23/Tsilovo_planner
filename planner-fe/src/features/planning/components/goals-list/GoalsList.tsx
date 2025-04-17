@@ -72,6 +72,7 @@ export const GoalsList = ({
                   name={t('buttons.edit')}
                   onClick={() => setEditingGoalId(goal._id)}
                   size="small"
+                  color="default"
                 />
               </div>
             )}

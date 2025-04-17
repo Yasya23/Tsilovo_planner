@@ -11,7 +11,7 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from '@/shared/types/interfaces/loginFormValues';
-import { responseError } from '@/shared/utils';
+import { responseError } from '@/shared/utils/response-error';
 
 import { AuthService } from '../services/auth.service';
 import { User } from '../types/auth.types';

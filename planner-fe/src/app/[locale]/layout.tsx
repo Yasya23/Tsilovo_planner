@@ -48,7 +48,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
-      siteName: 'Tempo',
+      siteName: 'Tsiľovo',
       title: t('ogTitle'),
       description: t('ogDescription'),
       url: process.env.NEXT_PUBLIC_BASE_URL,

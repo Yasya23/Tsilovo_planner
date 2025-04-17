@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import ButtonCustom from '@/shared/components/ui/buttons/Button';
+import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
 import Input from '@/shared/components/ui/input/Input';
 import { routes } from '@/shared/constants/routes';
 import icons from '@/shared/icons/icons';
@@ -23,19 +23,18 @@ type RegisterFormValues = {
   name: string;
 };
 
-type RegisterFormValuesProps = {
+type ChangePasswordsProps = {
   user: User | null | undefined;
   isPending: boolean;
   error: Error | null;
   register: (data: RegisterFormValues) => void;
 };
 
-export const RegisterForm = ({
-  user,
+export const ChangePassword = ({
   isPending,
   error,
   register,
-}: RegisterFormValuesProps) => {
+}: ChangePasswordsProps) => {
   const t = useTranslations('Common');
   const registrationSchema = createRegistrationSchema(t);
 
@@ -51,7 +50,7 @@ export const RegisterForm = ({
     mode: 'onChange',
   });
 
-  const password = watch('password');
+  const password = watch('newPassword');
 
   useEffect(() => {
     if (password) {
@@ -76,45 +75,7 @@ export const RegisterForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
       <fieldset disabled={isPending}>
         <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="text"
-              label={t('form.labels.name')}
-              placeholder={t('form.placeholders.name')}
-              {...field}
-              icon={<icons.Home />}
-              error={getError('name')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('name')}
-              onBlur={() => trigger('name')}
-            />
-          )}
-        />
-
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="email"
-              label={t('form.labels.email')}
-              placeholder={t('form.placeholders.email')}
-              {...field}
-              icon={<icons.Home />}
-              error={getError('email')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('email')}
-              onBlur={() => trigger('email')}
-            />
-          )}
-        />
-
-        <Controller
-          name="password"
+          name="oldPassword"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -129,6 +90,26 @@ export const RegisterForm = ({
               serverError={!!error}
               onFocus={() => handleOnFocus('password')}
               onBlur={() => trigger('password')}
+            />
+          )}
+        />
+
+        <Controller
+          name="newPassword"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              type="password"
+              label={t('form.labels.password')}
+              placeholder={t('form.placeholders.password')}
+              {...field}
+              icon={<icons.Home />}
+              hasAbilityHideValue
+              error={getError('newPassword')}
+              serverError={!!error}
+              onFocus={() => handleOnFocus('newPassword')}
+              onBlur={() => trigger('newPassword')}
             />
           )}
         />
@@ -155,22 +136,11 @@ export const RegisterForm = ({
 
         <ButtonCustom
           disabled={isPending}
-          name={t('buttons.register')}
+          name={t('buttons.update')}
           style="outlined"
           onClick={handleSubmit(onSubmit)}
         />
-
-        <div>
-          {t('form.messages.alreadyRegistered')}
-          <ButtonCustom
-            href={routes.login}
-            name={t('buttons.signIn')}
-            style="text"
-          />
-        </div>
       </fieldset>
     </form>
   );
 };
-
-export default RegisterForm;

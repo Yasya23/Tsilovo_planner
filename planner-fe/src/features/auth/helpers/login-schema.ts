@@ -2,7 +2,7 @@ import { Formats, TranslationValues } from 'next-intl';
 
 import * as yup from 'yup';
 
-import { emailRegx } from './email-regx';
+import { emailRegx } from '@/shared/utils/email-regx';
 
 export const createLoginSchema = (t: {
   <TargetKey extends any>(

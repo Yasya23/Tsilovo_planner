@@ -14,7 +14,7 @@ type ButtonProps = {
   disabled?: boolean;
   className?: string;
   style?: 'contained' | 'outlined' | 'text';
-  color?: 'primary' | 'secondary';
+  color?:  'secondary' | 'warning' | 'success' | 'error';
   href?: string;
 };
 
@@ -25,7 +25,7 @@ export const ButtonCustom = ({
   name,
   disabled = false,
   style = 'contained',
-  color = 'secondary',
+  color = 'warning',
   href,
 }: ButtonProps) => {
   const locale = useLocale();
@@ -44,5 +44,3 @@ export const ButtonCustom = ({
     </Button>
   );
 };
-
-export default ButtonCustom;

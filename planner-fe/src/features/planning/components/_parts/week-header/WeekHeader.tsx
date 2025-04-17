@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import IconButton from '@/shared/components/ui/buttons/IconButton';
+import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
 import { createTitle } from '@/features/planning/helpers/create-week-title';
@@ -38,7 +38,7 @@ export const WeekHeader = ({
       </h2>
       <ul className={styles.FilterList}>
         <li className={isListView ? styles.Active : ''}>
-          <IconButton
+          <IconButtonCustom
             icon={<icons.List />}
             name={t('buttons.list')}
             onClick={onToggleListView}
@@ -46,7 +46,7 @@ export const WeekHeader = ({
           />
         </li>
         <li className={prioritizeTaskDays ? styles.Active : ''}>
-          <IconButton
+          <IconButtonCustom
             icon={<icons.Sunrise />}
             name={t('buttons.daysWithTasksFirst')}
             onClick={onTogglePrioritizeDays}
@@ -54,7 +54,7 @@ export const WeekHeader = ({
           />
         </li>
         <li className={isTodayView ? styles.Active : ''}>
-          <IconButton
+          <IconButtonCustom
             icon={<icons.Calendar />}
             name={t('buttons.todayTasks')}
             onClick={onToggleIsTodayView}
