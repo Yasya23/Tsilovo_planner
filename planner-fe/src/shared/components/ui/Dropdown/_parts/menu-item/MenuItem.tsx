@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import Link from 'next/link';
 
-import styles from './MenuItem.module.scss';
+import styles from './Item.module.scss';
 
 type ButtonItem = {
   icon?: ReactNode;

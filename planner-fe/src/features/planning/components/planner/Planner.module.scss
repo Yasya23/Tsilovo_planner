@@ -23,7 +23,7 @@
 
 .Title {
   font-size: clamp(1.5rem, 5vw, 2rem);
-  color: $primary;
+  color: var(--text-color);
   font-weight: 600;
   border-bottom: 1px solid $secondary-transparent;
 }
