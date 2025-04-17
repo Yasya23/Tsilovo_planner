@@ -63,6 +63,7 @@
       "title": "Weekly planning",
       "goals": "Goals",
       "error": "Oops, something went wrong...",
+      "noGoalsMessage": "Add goals before adding tasks",
       "createTask": {
         "error": "Failed to create task. Please try again.",
         "success": "Task created successfully."

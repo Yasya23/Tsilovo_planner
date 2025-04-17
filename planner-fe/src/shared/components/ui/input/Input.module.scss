@@ -35,7 +35,8 @@ $success: $success;
     position: absolute;
     left: 10px;
     color: $secondary;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    line-height: 1;
   }
 
   .Label {
@@ -58,7 +59,9 @@ $success: $success;
     background-color: var(--bg-color);
     box-sizing: border-box;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
 
     &::placeholder {
       font-size: 0.7em;

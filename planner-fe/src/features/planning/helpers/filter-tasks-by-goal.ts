@@ -1,7 +1,7 @@
 import { ActiveGoal } from '@/features/planning/types/goals.type';
 import { Task } from '@/features/planning/types/task.type';
 
-export const filterTasks = (tasks: Task[], goals: ActiveGoal[]) => {
+export const filterTasksByGoals = (tasks: Task[], goals: ActiveGoal[]) => {
   const goalsWithTasks = goals.filter((goal) =>
     tasks.some((task) => task.goalId === goal._id)
   );
@@ -25,22 +25,23 @@ export const filterTasks = (tasks: Task[], goals: ActiveGoal[]) => {
     }
   });
 
-  const allTasks = tasks.filter((task) => !task.goalId);
   const completedTasksNumber = tasks.filter((task) => task.isCompleted).length;
   const notCompletedTasksNumber = tasks.filter(
     (task) => !task.isCompleted
   ).length;
 
-  const orderedGoals = [
+  const goalsWithOrderedTasks = [
     ...goalsWithNonCompletedTasks,
     ...goalsWithAllCompletedTasks,
-    ...goalsWithoutTasks,
   ];
+
+  const orderedGoals = [...goalsWithOrderedTasks, ...goalsWithoutTasks];
 
   return {
     orderedGoals,
-    allTasks,
     completedTasksNumber,
     notCompletedTasksNumber,
+    goalsWithOrderedTasks,
+    goalsWithoutTasks,
   };
 };

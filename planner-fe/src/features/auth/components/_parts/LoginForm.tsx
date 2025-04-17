@@ -72,7 +72,7 @@ export const LoginForm = ({
               label={t('form.labels.email')}
               placeholder={t('form.placeholders.email')}
               {...field}
-              icon={<icons.Home />}
+              icon={<icons.Mail />}
               error={getError('email')}
               serverError={!!error}
               onFocus={() => handleOnFocus('email')}
@@ -91,7 +91,7 @@ export const LoginForm = ({
               label={t('form.labels.password')}
               placeholder={t('form.placeholders.password')}
               {...field}
-              icon={<icons.Home />}
+              icon={<icons.Password />}
               hasAbilityHideValue
               error={getError('password')}
               serverError={!!error}

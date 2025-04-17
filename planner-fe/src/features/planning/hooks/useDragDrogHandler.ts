@@ -1,9 +1,8 @@
 import { DropResult } from '@hello-pangea/dnd';
 
+import { filterTasksByGoals } from '@/features/planning/helpers/filter-tasks-by-goal';
+import { ActiveGoal } from '@/features/planning/types/goals.type';
 import { Task, WeeklyTasks } from '@/features/planning/types/task.type';
-
-import { filterTasks } from '../helpers/filter-tasks';
-import { ActiveGoal } from '../types/goals.type';
 
 interface DragDropHandlerProps {
   weeksData: WeeklyTasks[];
@@ -53,8 +52,8 @@ export const useDragDropHandler = ({
 
   const getFlattenedTasks = (dayTasks: Task[]) => {
     const relevantGoals = [
-      ...filterTasks(dayTasks, activeGoals).goalsWithTasks,
-      ...filterTasks(dayTasks, activeGoals).goalsWithoutTasks,
+      ...filterTasksByGoals(dayTasks, activeGoals).goalsWithOrderedTasks,
+      ...filterTasksByGoals(dayTasks, activeGoals).goalsWithoutTasks,
     ];
 
     return relevantGoals.flatMap((goal) =>
@@ -97,7 +96,6 @@ export const useDragDropHandler = ({
 
   const handleDragEnd = async (result: DropResult) => {
     const { source, destination, draggableId } = result;
-
     if (!destination) return;
     if (
       source.droppableId === destination.droppableId &&

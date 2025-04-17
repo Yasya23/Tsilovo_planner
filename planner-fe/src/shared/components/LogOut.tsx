@@ -13,7 +13,7 @@ export const LogOut = () => {
   return (
     <IconButtonCustom
       name={t('logout')}
-      icon={<icons.User />}
+      icon={<icons.Exit />}
       color="secondary"
       onClick={() => logout()}
     />

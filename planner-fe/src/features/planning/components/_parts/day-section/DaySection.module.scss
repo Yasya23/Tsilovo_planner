@@ -9,6 +9,12 @@
   min-width: 200px;
   padding-bottom: 10px;
 
+  .NoGoals {
+    color: $secondary;
+    padding: 10px;
+    text-align: center;
+  }
+
   .Header {
     border-radius: 10px 10px 0 0;
     overflow: hidden;

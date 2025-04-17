@@ -44,7 +44,6 @@ export const useAuth = () => {
       router.push(`${routes.planner}`);
     },
     onError: (error) => {
-      console.log(error);
       toast.error(responseError(error));
     },
   });

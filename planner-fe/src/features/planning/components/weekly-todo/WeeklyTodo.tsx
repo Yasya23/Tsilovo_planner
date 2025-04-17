@@ -20,7 +20,7 @@ type WeekProps = {
 };
 
 export const WeeklyTodo = ({ weeks }: WeekProps) => {
-  const { activeGoals, updateTask } = usePlanningContext();
+  const { activeGoals, updateTask, isPending } = usePlanningContext();
 
   const [isListView, setIsListView] = useState(false);
   const [prioritizeTaskDays, setPrioritizeTaskDays] = useState(false);
@@ -29,8 +29,8 @@ export const WeeklyTodo = ({ weeks }: WeekProps) => {
   const [weeksData, setWeeksData] = useState<WeeklyTasks[]>(weeks);
 
   useEffect(() => {
-    setWeeksData(weeks);
-  }, [weeks]);
+    if (isPending) setWeeksData(weeks);
+  }, [weeks, isPending]);
 
   const { handleDragEnd } = useDragDropHandler({
     weeksData,

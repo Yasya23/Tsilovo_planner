@@ -9,7 +9,5 @@ export const getStatistics = async (year: string): Promise<UserStatistics> => {
     params: year ? { year } : {},
   });
 
-  console.log('Statistics data', data);
-
   return data;
 };

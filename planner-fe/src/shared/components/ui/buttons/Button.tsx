@@ -2,9 +2,17 @@
 
 import React, { MouseEventHandler } from 'react';
 
+
+
 import { useLocale } from 'next-intl';
 
+
+
 import Button from '@mui/material/Button';
+
+
+
+
 
 type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -14,7 +22,7 @@ type ButtonProps = {
   disabled?: boolean;
   className?: string;
   style?: 'contained' | 'outlined' | 'text';
-  color?:  'secondary' | 'warning' | 'success' | 'error';
+  color?:  'secondary' | 'success' | 'error';
   href?: string;
 };
 
@@ -25,7 +33,7 @@ export const ButtonCustom = ({
   name,
   disabled = false,
   style = 'contained',
-  color = 'warning',
+  color = 'secondary',
   href,
 }: ButtonProps) => {
   const locale = useLocale();

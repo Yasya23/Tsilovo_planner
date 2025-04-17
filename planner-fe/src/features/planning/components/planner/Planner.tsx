@@ -36,7 +36,7 @@ export const Planner = () => {
 
   return (
     <PlanningContext.Provider
-      value={{ activeGoals, createTask, updateTask, deleteTask }}
+      value={{ activeGoals, createTask, updateTask, deleteTask, isPending }}
     >
       <div className={styles.Planner}>
         <h1 className={styles.Title}>{t('title')}</h1>

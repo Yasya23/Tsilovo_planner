@@ -57,7 +57,7 @@ $link-active-bg: rgba(158, 158, 158, 0.189);
     }
 
     & .Active {
-      background-color: $primary-soft;
+      background-color: $primary-transparent;
 
       & svg {
         stroke: $primary;

@@ -1,4 +1,4 @@
-import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+import { SkeletonLoader } from '@/shared/components/ui/SkeletonLoader';
 
 import styles from './Skeleton.module.scss';
 

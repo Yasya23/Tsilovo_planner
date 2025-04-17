@@ -10,6 +10,7 @@ type PlanningContextProps = {
   createTask: (task: CreateTask) => void;
   updateTask: (task: Task) => void;
   deleteTask: (taskId: string) => void;
+  isPending: boolean;
 };
 
 export const PlanningContext = createContext<PlanningContextProps | undefined>(

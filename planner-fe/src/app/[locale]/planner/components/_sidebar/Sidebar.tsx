@@ -45,7 +45,6 @@ export const Sidebar = () => {
   const isPastThreshold = useWidthThreshold(768);
   const t = useTranslations('Common');
   const { user } = useAuthContext();
-  console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const currentLang = useLocale();

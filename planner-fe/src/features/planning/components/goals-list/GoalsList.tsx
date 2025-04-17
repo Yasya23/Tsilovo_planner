@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
-import SkeletonLoader from '@/shared/components/ui/SkeletonLoader';
+import { SkeletonLoader } from '@/shared/components/ui/SkeletonLoader';
 import icons from '@/shared/icons/icons';
 
 import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
