@@ -35,8 +35,6 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
 
   const handleSaveTask = () => {
     if (!isObjectTheSame(localTask, task)) {
-      console.log('ManageTask');
-
       if (hasId) {
         updateTask(localTask);
       } else {
@@ -48,6 +46,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   };
 
   const handleCheckboxChange = (task: Task) => {
+    console.log(task.isCompleted);
     updateTask({ ...task, isCompleted: !task.isCompleted });
   };
 

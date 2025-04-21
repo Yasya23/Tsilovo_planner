@@ -57,7 +57,7 @@
       ]
     },
     "settings": {
-      "title:": "Налаштування",
+      "title": "Налаштування",
       "forgetPassword": "Забули пароль?",
       "deleteAccount": "Видалити аккаунт",
       "changePassword": "Змінити пароль",
@@ -169,7 +169,10 @@
         "email": "Введіть електронну пошту",
         "password": "Введіть пароль",
         "confirmPassword": "Підтвердіть пароль",
-        "name": "Введіть ім'я"
+        "name": "Введіть ім'я",
+        "oldPassword": "Введіть старий пароль",
+        "newPassword": "Введіть новий пароль",
+        "confirmNewPassword": "Підтвердіть новий пароль"
       },
       "validation": {
         "email": {
