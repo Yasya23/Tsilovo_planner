@@ -1,10 +1,13 @@
 {
-  "name": "cinema-be",
+  "name": "planner-be",
   "version": "0.0.1",
   "description": "Planner",
   "author": "Yana Zahoruiko",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+  "node": ">=18.0.0"
+},
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -52,7 +55,7 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "string-width": "4",
+    "string-width": "4.2.3",
     "telegraf": "^4.16.3",
     "wrap-ansi": "7"
   },
@@ -96,5 +99,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "resolutions": {
+    "string-width": "4.2.3"
   }
 }
