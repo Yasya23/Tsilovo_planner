@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
-import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
+import { Dropdown } from '@/shared/components/ui/dropdown-custom/Dropdown';
 import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
 import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';

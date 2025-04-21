@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
-import { Dropdown } from '@/shared/components/ui/dropdown/Dropdown';
+import { Dropdown } from '@/shared/components/ui/dropdown-custom/Dropdown';
 import { PlanningInput } from '@/shared/components/ui/planning-input/PlanningInput';
 import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
