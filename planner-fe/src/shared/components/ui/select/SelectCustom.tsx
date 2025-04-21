@@ -5,7 +5,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import styles from './Select.module.scss';
+import styles from './SelectCustom.module.scss';
 
 interface CustomSelectProps {
   value: string;
@@ -58,3 +58,5 @@ export const SelectCustom = ({
     </FormControl>
   );
 };
+
+export default SelectCustom;

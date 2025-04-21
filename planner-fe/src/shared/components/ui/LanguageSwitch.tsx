@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { SelectCustom } from '@/shared/components/ui/select/Select';
+import { SelectCustom } from '@/shared/components/ui/select/SelectCustom';
 
 const Languages = [
   { label: '🇺🇦 УK', value: 'uk' },

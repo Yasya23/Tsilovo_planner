@@ -4,10 +4,10 @@ import { ReactNode, useRef, useState } from 'react';
 
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 
-import { Divider, DividerItemType } from './_parts/divider/Divider';
-import { MenuItemComponent, MenuItemType } from './_parts/menu-item/MenuItem';
-import { Message, MessageItemType } from './_parts/message/Message';
 import styles from './Dropdown.module.scss';
+import { Divider, DividerItemType } from './parts/divider/Divider';
+import { MenuItemComponent, MenuItemType } from './parts/menu-item/MenuItem';
+import { Message, MessageItemType } from './parts/message/Message';
 
 type MenuItem = MenuItemType | DividerItemType | MessageItemType;
 
@@ -55,3 +55,5 @@ export const Dropdown = ({ trigger, menuItems }: DropdownProps) => {
     </div>
   );
 };
+
+export default Dropdown;
