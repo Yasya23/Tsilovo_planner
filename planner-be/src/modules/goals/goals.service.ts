@@ -64,7 +64,7 @@ export class GoalsService {
     }
 
     const weeklyTasks = allDates.map((date) => ({
-      date,
+      date: new Date(date).toISOString(),
       tasks: tasksByDate[date] || [],
     }));
 

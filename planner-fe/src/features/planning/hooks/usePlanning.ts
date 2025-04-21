@@ -24,7 +24,6 @@ export const usePlanning = () => {
     mutationFn: TaskServices.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('createTask.success'));
     },
     onError: () => toast.error(t('createTask.error')),
   }).mutate;
@@ -33,7 +32,6 @@ export const usePlanning = () => {
     mutationFn: TaskServices.update,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('updateTask.success'));
     },
     onError: () => toast.error(t('updateTask.error')),
   }).mutate;
@@ -42,7 +40,6 @@ export const usePlanning = () => {
     mutationFn: TaskServices.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('deleteTask.success'));
     },
 
     onError: () => toast.error(t('deleteTask.error')),
@@ -52,7 +49,6 @@ export const usePlanning = () => {
     mutationFn: GoalServices.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('createGoal.success'));
     },
     onError: () => toast.error(t('createGoal.error')),
   }).mutate;
@@ -61,7 +57,6 @@ export const usePlanning = () => {
     mutationFn: GoalServices.update,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('updateGoal.success'));
     },
     onError: () => toast.error(t('updateGoal.error')),
   }).mutate;
@@ -70,7 +65,6 @@ export const usePlanning = () => {
     mutationFn: GoalServices.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
-      toast.success(t('deleteGoal.success'));
     },
     onError: () => toast.error(t('deleteGoal.error')),
   }).mutate;
@@ -78,7 +72,6 @@ export const usePlanning = () => {
   const activeGoals = data?.activeGoals ?? [];
   const tasks = data?.weeklyTasks ?? [];
   const weeklyStatistics = data?.weeklyStatistics ?? null;
-  // const todayStatistics = tasks.filter(task)
   const currentWeek = tasks.length > 7 ? tasks.slice(0, 7) : tasks;
   const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
 

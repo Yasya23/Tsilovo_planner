@@ -6,16 +6,16 @@ import { Task, WeeklyTasks } from '@/features/planning/types/task.type';
 
 interface DragDropHandlerProps {
   weeksData: WeeklyTasks[];
-  setWeeksData: (data: WeeklyTasks[]) => void;
   updateTask: (task: Task) => void;
+  addOptimistic: (weeksData: WeeklyTasks[]) => void;
   activeGoals: ActiveGoal[];
 }
 
 export const useDragDropHandler = ({
   weeksData,
-  setWeeksData,
   updateTask,
   activeGoals,
+  addOptimistic,
 }: DragDropHandlerProps) => {
   const findTaskById = (taskId: string) => {
     for (let wi = 0; wi < weeksData.length; wi++) {
@@ -97,10 +97,7 @@ export const useDragDropHandler = ({
   const handleDragEnd = async (result: DropResult) => {
     const { source, destination, draggableId } = result;
     if (!destination) return;
-    if (
-      source.droppableId === destination.droppableId &&
-      source.index === destination.index
-    ) {
+    if (source.droppableId === destination.droppableId) {
       return;
     }
 
@@ -122,7 +119,7 @@ export const useDragDropHandler = ({
 
     const taskToMove = {
       ...taskData.task,
-      date: destDate,
+      date: new Date(destDate),
       goalId: destGoalId,
     };
 
@@ -133,14 +130,8 @@ export const useDragDropHandler = ({
       taskToMove
     );
 
-    setWeeksData(updatedWeeks);
-
-    try {
-      updateTask(taskToMove);
-    } catch (error) {
-      console.error('Failed to update task:', error);
-      setWeeksData(weeksData);
-    }
+    addOptimistic(updatedWeeks);
+    updateTask(taskToMove);
   };
 
   return { handleDragEnd };

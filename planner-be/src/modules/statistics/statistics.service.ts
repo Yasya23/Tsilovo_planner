@@ -33,7 +33,7 @@ export class StatisticsService {
     return staistics;
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_WEEK)
   async updateWeeklyStatistics() {
     this.logger.log('Updating weekly statistics...');
 

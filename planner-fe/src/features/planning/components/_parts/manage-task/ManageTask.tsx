@@ -35,6 +35,8 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
 
   const handleSaveTask = () => {
     if (!isObjectTheSame(localTask, task)) {
+      console.log('ManageTask');
+
       if (hasId) {
         updateTask(localTask);
       } else {
