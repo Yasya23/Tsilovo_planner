@@ -8,7 +8,6 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const pathname = url.pathname;
   const pathLocale = pathname.split('/')[1];
-
   // Handle locale detection and redirection
   if (!availableLocales.includes(pathLocale)) {
     const acceptLanguage = request.headers.get('accept-language') || '';
@@ -45,9 +44,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
     '/(uk|en)/planner/:path*',
     '/(uk|en)/login',
     '/(uk|en)/register',
+    '/((?!api|_next/|images/|.*\\.(?:png|jpg|jpeg|webp|svg|gif|avif|ico)$).*)',
   ],
 };

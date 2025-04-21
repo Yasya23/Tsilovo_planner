@@ -3,21 +3,25 @@ import Image from 'next/image';
 
 import DefaultLayout from '@/shared/components/layouts/Default';
 
-import style from './Home.module.scss';
+import styles from './Home.module.scss';
 
 export default function Page() {
   const t = useTranslations('HomePage');
 
   return (
     <DefaultLayout>
-      <div className={style.Wrapper}>
-        <h1>{t('title')}</h1>
+      <div className={styles.Wrapper}>
+        <h1
+          dangerouslySetInnerHTML={{ __html: t.raw('title') }}
+          className={styles.Title}
+        />
         <Image
           src="/images/planner.png"
-          width={700}
-          height={0}
           alt="Planner main page"
-          layout="intrinsic"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '800px', height: 'auto' }}
         />
       </div>
     </DefaultLayout>

@@ -38,6 +38,32 @@
         "emailExists": "User with this email already exists"
       }
     },
+
+    "help": {
+      "title": "How it works",
+      "qa": [
+        {
+          "title": "What is the main purpose of this planner?",
+          "description": "This planner helps you focus on up to five key goals to move steadily toward your main goals."
+        },
+        {
+          "title": "Can I track progress toward my goals?",
+          "description": "Yes, you can link tasks to specific goals and view your progress through weekly and overall statistics."
+        },
+        {
+          "title": "How do I add a new task?",
+          "description": "Click the plus button next to your goal on the selected day and fill in the task details."
+        },
+        {
+          "title": "What happens after I complete all tasks for today?",
+          "description": "You’ll unlock a full-color quote of the day and move closer to unlocking the special puzzle coloring page."
+        },
+        {
+          "title": "Can I use the planner for a week ahead?",
+          "description": "Yes, the planner allows you to plan tasks for each day of the week and connect them to specific goal steps."
+        }
+      ]
+    },
     "settings": {
       "title": "Settings",
       "maxImageSize": "Maximum image size is 1MB",

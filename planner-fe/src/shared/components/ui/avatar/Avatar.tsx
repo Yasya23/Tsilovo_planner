@@ -17,7 +17,11 @@ export const Avatar = ({
 
   return (
     <div className={`${styles.Avatar} ${styles[size]}`}>
-      {imageUrl ? <img src={imageUrl} alt="avatar" /> : <span>{initials}</span>}
+      {imageUrl ? (
+        <img src={imageUrl} alt="avatar" loading="lazy" />
+      ) : (
+        <span>{initials}</span>
+      )}
     </div>
   );
 };

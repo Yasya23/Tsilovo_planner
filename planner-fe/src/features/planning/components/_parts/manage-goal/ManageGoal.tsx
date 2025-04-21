@@ -44,6 +44,7 @@ const ManageGoals = ({
   const handleGoal = () => {
     if (
       !isObjectTheSame(localGoal, defaultGoal) &&
+      goal &&
       !isObjectTheSame(localGoal, goal)
     ) {
       onSave(localGoal);
