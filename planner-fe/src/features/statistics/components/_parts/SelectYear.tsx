@@ -1,6 +1,6 @@
 'use client';
 
-import SelectCustom from '@/shared/components/ui/select/Select';
+import { SelectCustom } from '@/shared/components/ui/select/Select';
 
 type YearProps = {
   currentYear: number;

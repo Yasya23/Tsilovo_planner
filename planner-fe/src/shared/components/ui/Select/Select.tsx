@@ -18,7 +18,7 @@ interface CustomSelectProps {
   minWidth?: number;
 }
 
-const SelectCustom = ({
+export const SelectCustom = ({
   value,
   onChange,
   options,
@@ -58,5 +58,3 @@ const SelectCustom = ({
     </FormControl>
   );
 };
-
-export default SelectCustom;
