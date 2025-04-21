@@ -2,7 +2,7 @@ import { Formats, TranslationValues } from 'next-intl';
 
 import * as yup from 'yup';
 
-export const createUpdateEmailSchema = (t: {
+export const createUpdatePasswordSchema = (t: {
   <TargetKey extends any>(
     key: TargetKey,
     values?: TranslationValues,

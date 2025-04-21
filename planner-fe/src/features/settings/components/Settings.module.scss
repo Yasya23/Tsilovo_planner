@@ -1,18 +1,39 @@
 @use '@/styles/_variables' as *;
 
-.wrapper {
+.Wrapper {
   padding: 15px;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   align-items: stretch;
-  flex-wrap: wrap;
   height: 100%;
   gap: 1rem;
+  width: 100%;
 }
 
-.block {
-  border: 1px solid $secondary;
-  border-radius: 10px;
-  padding: 10px 15px;
-  width: 350px;
-  height: fit-content;
+.Title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  color: $secondary;
+  border-bottom: 1px solid $secondary-transparent;
+  font-weight: 600;
+}
+
+.FormsWrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+
+.Delete {
+  padding: 20px 0;
+  border-top: 1px solid $secondary-transparent;
+  width: 100%;
+}
+
+.Note {
+  color: $secondary;
+  padding: 5px 0;
 }

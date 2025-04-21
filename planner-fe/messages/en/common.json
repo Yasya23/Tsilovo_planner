@@ -27,7 +27,8 @@
       "signIn": "Sign In",
       "signUp": "Sign Up",
       "or": "or",
-      "uploadImage": "Upload image"
+      "uploadImage": "Upload image",
+      "update": "Update"
     },
     "errors": {
       "general": "Something went wrong...",
@@ -40,10 +41,12 @@
     "settings": {
       "title": "Settings",
       "maxImageSize": "Maximum image size is 1MB",
+      "changePassword": "Change password",
+      "changeEmail": "Change email",
       "forgetPassword": "Forgot password?",
       "deleteAccount": "Delete account",
       "googleAuth": "Google authentication",
-      "deleteNotifications": "After deleting the account, all data will be deleted"
+      "deleteNotification": "Note: After deleting the account, all data will be deleted"
     },
     "placeholders": {
       "addTask": "Add task",
@@ -97,9 +100,9 @@
       "weeklyStatistics": "Weekly statistics",
       "completed": "Completed",
       "todo": "To-Do",
-      "error": "Oops, something went wrong...",
+      "error": "No data for showing statistics",
       "goals": "Goals",
-      "notification": "Note: Statistics udpate every 24 hours."
+      "notification": "Note: Statistics not include active week."
     },
     "theme": {
       "light": "Light",

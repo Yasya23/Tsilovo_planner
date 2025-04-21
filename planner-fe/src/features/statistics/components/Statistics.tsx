@@ -26,53 +26,54 @@ export const Statistics = () => {
 
   if (isPending) return <Skeleton />;
 
-  if (isError || !statistics)
-    return <ErrorMessage error={t('statistics.error')} />;
-
   return (
     <div className={styles.Statistics}>
       <h1 className={styles.Title}>{t('statistics.annualStatistics')}</h1>
-
       <p className={styles.Notification}>{t('statistics.notification')}</p>
-
-      <SelectYear
-        availableYears={statistics.availableYears}
-        currentYear={statistics.year}
-        onChange={(year) => setSelectedYear(year)}
-      />
-
-      <div className={styles.Total}>
-        <StatisticsData
-          icon={<icons.Award />}
-          title={t('statistics.totalGoals')}
-          total={statistics.totalGoals}
-        />
-        <StatisticsData
-          icon={<icons.CheckCircle />}
-          title={t('statistics.completedTasks')}
-          total={statistics.totalCompleted}
-        />
-      </div>
-
-      <section className={styles.Monthly}>
-        <div className={styles.MonthlyContent}>
-          <h2 className={styles.SubTitle}>
-            {t('statistics.monthlyStatistics')}
-          </h2>
-          <AccordionUsage
-            items={statistics.monthlyStats.map((item) => ({
-              title: (
-                <MonthlyStatsHeader
-                  month={item.month}
-                  totalGoals={item.totalGoals}
-                  totalCompleted={item.totalCompleted}
-                />
-              ),
-              description: <GoalsList goals={item.goals} />,
-            }))}
+      {isError || !statistics?.monthlyStats ? (
+        <ErrorMessage error={t('statistics.error')} />
+      ) : (
+        <>
+          <SelectYear
+            availableYears={statistics.availableYears}
+            currentYear={statistics.year}
+            onChange={(year) => setSelectedYear(year)}
           />
-        </div>
-      </section>
+
+          <div className={styles.Total}>
+            <StatisticsData
+              icon={<icons.Award />}
+              title={t('statistics.totalGoals')}
+              total={statistics.totalGoals}
+            />
+            <StatisticsData
+              icon={<icons.CheckCircle />}
+              title={t('statistics.completedTasks')}
+              total={statistics.totalCompleted}
+            />
+          </div>
+
+          <section className={styles.Monthly}>
+            <div className={styles.MonthlyContent}>
+              <h2 className={styles.SubTitle}>
+                {t('statistics.monthlyStatistics')}
+              </h2>
+              <AccordionUsage
+                items={statistics.monthlyStats.map((item) => ({
+                  title: (
+                    <MonthlyStatsHeader
+                      month={item.month}
+                      totalGoals={item.totalGoals}
+                      totalCompleted={item.totalCompleted}
+                    />
+                  ),
+                  description: <GoalsList goals={item.goals} />,
+                }))}
+              />
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };

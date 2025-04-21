@@ -8,7 +8,7 @@ export type MessageItemType = {
   type: 'message';
 };
 
-export const Message = ({ icon, title }: MessageProps) => (
+export const Message = ({ icon, title }: MessageItemType) => (
   <p className={styles.Message}>
     {icon && <span className={styles.Icon}>{icon}</span>}
     {title}

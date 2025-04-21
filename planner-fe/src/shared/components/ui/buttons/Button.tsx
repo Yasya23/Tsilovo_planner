@@ -2,17 +2,9 @@
 
 import React, { MouseEventHandler } from 'react';
 
-
-
 import { useLocale } from 'next-intl';
 
-
-
 import Button from '@mui/material/Button';
-
-
-
-
 
 type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -22,7 +14,7 @@ type ButtonProps = {
   disabled?: boolean;
   className?: string;
   style?: 'contained' | 'outlined' | 'text';
-  color?:  'secondary' | 'success' | 'error';
+  color?: 'secondary' | 'success' | 'error';
   href?: string;
 };
 

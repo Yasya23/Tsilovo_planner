@@ -9,44 +9,40 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
 import Input from '@/shared/components/ui/input/Input';
-import { routes } from '@/shared/constants/routes';
 import icons from '@/shared/icons/icons';
-import { User } from '@/shared/types/user.type';
-import { createRegistrationSchema } from '@/shared/utils';
 
-import styles from '@/features/auth/components/AuthForm.module.scss';
+import { createUpdatePasswordSchema } from '@/features/settings/helpers/update-password-schema';
 
-type RegisterFormValues = {
-  email: string;
+import styles from './ChangePassword.module.scss';
+
+type FormValues = {
   password: string;
+  newPassword: string;
   confirmPassword: string;
-  name: string;
 };
 
 type ChangePasswordsProps = {
-  user: User | null | undefined;
   isPending: boolean;
   error: Error | null;
-  register: (data: RegisterFormValues) => void;
+  updatePassword: (data: FormValues) => void;
 };
 
 export const ChangePassword = ({
   isPending,
   error,
-  register,
+  updatePassword,
 }: ChangePasswordsProps) => {
   const t = useTranslations('Common');
-  const registrationSchema = createRegistrationSchema(t);
+  const updatePasswordSchema = createUpdatePasswordSchema(t);
 
   const {
     control,
     handleSubmit,
-    clearErrors,
     trigger,
     formState: { errors },
     watch,
-  } = useForm<RegisterFormValues>({
-    resolver: yupResolver(registrationSchema),
+  } = useForm<FormValues>({
+    resolver: yupResolver(updatePasswordSchema),
     mode: 'onChange',
   });
 
@@ -58,89 +54,91 @@ export const ChangePassword = ({
     }
   }, [password, trigger]);
 
-  const getError = (name: keyof RegisterFormValues) => {
+  const getError = (name: keyof FormValues) => {
     return errors?.[name]?.message || undefined;
   };
 
-  const onSubmit = (values: RegisterFormValues) => {
-    register(values);
+  const onSubmit = (values: FormValues) => {
+    updatePassword(values);
   };
 
-  const handleOnFocus = (field: keyof RegisterFormValues) => {
+  const handleOnFocus = (field: keyof FormValues) => {
     trigger(field);
-    clearErrors('root.serverError');
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
-      <fieldset disabled={isPending}>
-        <Controller
-          name="oldPassword"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.password')}
-              placeholder={t('form.placeholders.password')}
-              {...field}
-              icon={<icons.Home />}
-              hasAbilityHideValue
-              error={getError('password')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('password')}
-              onBlur={() => trigger('password')}
-            />
-          )}
-        />
+    <div className={styles.Wrapper}>
+      <h2 className={styles.Title}>{t('settings.changePassword')}</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
+        <fieldset disabled={isPending}>
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                type="password"
+                label={t('form.labels.password')}
+                placeholder={t('form.placeholders.oldPassword')}
+                {...field}
+                icon={<icons.Home />}
+                hasAbilityHideValue
+                error={getError('password')}
+                serverError={!!error}
+                onFocus={() => handleOnFocus('password')}
+                onBlur={() => trigger('password')}
+              />
+            )}
+          />
 
-        <Controller
-          name="newPassword"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.password')}
-              placeholder={t('form.placeholders.password')}
-              {...field}
-              icon={<icons.Home />}
-              hasAbilityHideValue
-              error={getError('newPassword')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('newPassword')}
-              onBlur={() => trigger('newPassword')}
-            />
-          )}
-        />
+          <Controller
+            name="newPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                type="password"
+                label={t('form.labels.password')}
+                placeholder={t('form.placeholders.newPassword')}
+                {...field}
+                icon={<icons.Home />}
+                hasAbilityHideValue
+                error={getError('newPassword')}
+                serverError={!!error}
+                onFocus={() => handleOnFocus('newPassword')}
+                onBlur={() => trigger('newPassword')}
+              />
+            )}
+          />
 
-        <Controller
-          name="confirmPassword"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.confirmPassword')}
-              placeholder={t('form.placeholders.confirmPassword')}
-              {...field}
-              icon={<icons.Home />}
-              hasAbilityHideValue
-              error={getError('confirmPassword')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('confirmPassword')}
-              onBlur={() => trigger('confirmPassword')}
-            />
-          )}
-        />
+          <Controller
+            name="confirmPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                type="password"
+                label={t('form.labels.confirmPassword')}
+                placeholder={t('form.placeholders.confirmNewPassword')}
+                {...field}
+                icon={<icons.Home />}
+                hasAbilityHideValue
+                error={getError('confirmPassword')}
+                serverError={!!error}
+                onFocus={() => handleOnFocus('confirmPassword')}
+                onBlur={() => trigger('confirmPassword')}
+              />
+            )}
+          />
 
-        <ButtonCustom
-          disabled={isPending}
-          name={t('buttons.update')}
-          style="outlined"
-          onClick={handleSubmit(onSubmit)}
-        />
-      </fieldset>
-    </form>
+          <ButtonCustom
+            disabled={isPending}
+            name={t('buttons.update')}
+            style="outlined"
+            onClick={handleSubmit(onSubmit)}
+          />
+        </fieldset>
+      </form>
+    </div>
   );
 };
