@@ -1,8 +1,0 @@
-{
-  "buildCommand": "yarn build",
-  "devCommand": "yarn dev",
-  "framework": "other",
-  "installCommand": "yarn install",
-  "outputDirectory": "dist",
-  "nodeVersion": "18.x"
-}
