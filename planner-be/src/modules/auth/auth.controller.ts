@@ -103,7 +103,7 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req: Request, @Res() res: Response) {
     const locale = req.cookies?.NEXT_LOCALE ?? 'en';
-
+    console.log('locale', locale);
     try {
       const { accessToken, refreshToken } = await this.authService.googleLogin(
         req.user,
