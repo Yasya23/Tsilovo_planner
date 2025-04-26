@@ -10,7 +10,7 @@ export const TaskServices = {
     return data;
   },
 
-  async update(task: Task): Promise<Task[]> {
+  async update(task: Task): Promise<Task> {
     const { data } = await axiosClassic.put(services.tasks, { ...task });
     return data;
   },

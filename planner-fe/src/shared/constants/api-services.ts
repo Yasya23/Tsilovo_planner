@@ -7,7 +7,6 @@ export const services = {
   token: 'auth/access-token',
   updateUser: '/user/profile',
   activeGoals: '/goals',
-
   tasks: '/tasks',
   statistics: '/statistics',
   userProfile: '/user',

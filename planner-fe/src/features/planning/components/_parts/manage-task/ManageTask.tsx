@@ -34,20 +34,15 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   const hasId = '_id' in localTask;
 
   const handleSaveTask = () => {
-    if (!isObjectTheSame(localTask, task)) {
-      if (hasId) {
-        updateTask(localTask);
-      } else {
-        createTask(localTask);
-      }
-      finishManage();
-      inputRef.current?.blur();
-    }
+    if (isObjectTheSame(localTask, task)) return;
+    hasId ? updateTask(localTask) : createTask(localTask);
+    finishManage();
+    inputRef.current?.blur();
   };
 
-  const handleCheckboxChange = (task: Task) => {
-    console.log(task.isCompleted);
-    updateTask({ ...task, isCompleted: !task.isCompleted });
+  const handleCheckboxChange = () => {
+    setLocalTask((prev) => ({ ...prev, isCompleted: !prev.isCompleted }));
+    handleSaveTask();
   };
 
   useClickOutside(formRef, handleSaveTask);
@@ -67,7 +62,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
         <CheckboxCustom
           isCompleted={!!task.isCompleted}
           isDisabled={!task.title}
-          handleCheckboxChange={() => handleCheckboxChange(task as Task)}
+          handleCheckboxChange={handleCheckboxChange}
         />
         <PlanningInput
           value={localTask?.title || ''}
@@ -95,7 +90,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
                   icon: <icons.Trash />,
                   title: `${t('buttons.delete')}`,
                   action: () => {
-                    if ('_id' in localTask) deleteTask(localTask._id);
+                    if (hasId) deleteTask(localTask._id);
                   },
                   type: 'button',
                 },

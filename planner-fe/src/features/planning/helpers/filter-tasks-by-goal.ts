@@ -35,7 +35,7 @@ export const filterTasksByGoals = (tasks: Task[], goals: ActiveGoal[]) => {
     ...goalsWithAllCompletedTasks,
   ];
 
-  const orderedGoals = [...goalsWithOrderedTasks, ...goalsWithoutTasks];
+  const orderedGoals = [...goalsWithTasks, ...goalsWithoutTasks];
 
   return {
     orderedGoals,

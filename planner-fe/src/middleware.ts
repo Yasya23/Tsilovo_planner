@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const pathname = url.pathname;
   const pathLocale = pathname.split('/')[1];
-  // Handle locale detection and redirection
+
   if (!availableLocales.includes(pathLocale)) {
     const acceptLanguage = request.headers.get('accept-language') || '';
     const preferredLang =
