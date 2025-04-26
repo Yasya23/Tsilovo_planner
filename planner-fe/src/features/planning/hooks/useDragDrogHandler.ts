@@ -52,8 +52,7 @@ export const useDragDropHandler = ({
 
   const getFlattenedTasks = (dayTasks: Task[]) => {
     const relevantGoals = [
-      ...filterTasksByGoals(dayTasks, activeGoals).goalsWithOrderedTasks,
-      ...filterTasksByGoals(dayTasks, activeGoals).goalsWithoutTasks,
+      ...filterTasksByGoals(dayTasks, activeGoals).orderedGoals,
     ];
 
     return relevantGoals.flatMap((goal) =>

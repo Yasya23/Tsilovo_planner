@@ -5,6 +5,10 @@
   width: clamp(250px, 100%, 550px);
 }
 
+.Pending {
+  opacity: 0.8;
+}
+
 .Wrapper {
   display: flex;
   align-items: center;

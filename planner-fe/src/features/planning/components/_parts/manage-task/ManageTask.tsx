@@ -4,6 +4,8 @@ import { useRef, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import classNames from 'classnames';
+
 import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
 import CheckboxCustom from '@/shared/components/ui/Checkbox';
 import { Dropdown } from '@/shared/components/ui/dropdown-custom/Dropdown';
@@ -24,7 +26,8 @@ type ManageTaskProps = {
 
 export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
   const t = useTranslations('Common');
-  const { updateTask, createTask, deleteTask } = usePlanningContext();
+  const { updateTask, createTask, deleteTask, isPending } =
+    usePlanningContext();
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +45,7 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
 
   const handleCheckboxChange = () => {
     setLocalTask((prev) => ({ ...prev, isCompleted: !prev.isCompleted }));
-    handleSaveTask();
+    updateTask({ ...localTask, isCompleted: !localTask.isCompleted } as Task);
   };
 
   useClickOutside(formRef, handleSaveTask);
@@ -56,12 +59,14 @@ export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
     <form
       onSubmit={handleSubmit}
       ref={formRef}
-      className={styles.ManageTaskForm}
+      className={classNames(styles.ManageTaskForm, {
+        [styles.Pending]: isPending,
+      })}
     >
       <fieldset className={styles.Wrapper}>
         <CheckboxCustom
           isCompleted={!!task.isCompleted}
-          isDisabled={!task.title}
+          isDisabled={!task.title || isPending}
           handleCheckboxChange={handleCheckboxChange}
         />
         <PlanningInput
