@@ -2,16 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import * as express from 'express';
-import { Handler, Context } from 'aws-lambda';
-import { Server } from 'http';
-import { createServer, proxy } from 'aws-serverless-express';
+import express from 'express';
 
-let cachedServer: Server;
-
-async function bootstrapServer(): Promise<Server> {
+async function bootstrap() {
   const expressApp = express();
   const app = await NestFactory.create(
     AppModule,
@@ -32,21 +27,18 @@ async function bootstrapServer(): Promise<Server> {
   });
 
   await app.init();
-  return createServer(expressApp);
-}
 
-export const handler: Handler = async (event: any, context: Context) => {
-  if (!cachedServer) {
-    cachedServer = await bootstrapServer();
+  // For Vercel serverless
+  if (process.env.VERCEL) {
+    const server = expressApp.listen(0); // Random port for serverless
+    return server;
   }
-  return proxy(cachedServer, event, context, 'PROMISE').promise;
-};
 
-// Local development
-if (process.env.NODE_ENV === 'development') {
-  bootstrapServer().then((server) => {
-    server.listen(4200, () => {
-      console.log('🚀 Server running on http://localhost:4200');
-    });
+  // For local development
+  return expressApp.listen(4200, () => {
+    console.log('🚀 Server running on http://localhost:4200');
   });
 }
+
+// Export for Vercel serverless
+export default bootstrap();
