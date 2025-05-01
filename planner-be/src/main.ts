@@ -5,11 +5,19 @@ import { ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
+import { Handler, Context } from 'aws-lambda';
+import { Server } from 'http';
+import { createServer, proxy } from 'aws-serverless-express';
 
-const server = express();
+let cachedServer: Server;
 
-async function createApp() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+async function bootstrapServer(): Promise<Server> {
+  const expressApp = express();
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressApp),
+  );
+
   const configService = app.get(ConfigService);
 
   app.setGlobalPrefix('api');
@@ -24,16 +32,21 @@ async function createApp() {
   });
 
   await app.init();
-  return server;
+  return createServer(expressApp);
 }
 
+export const handler: Handler = async (event: any, context: Context) => {
+  if (!cachedServer) {
+    cachedServer = await bootstrapServer();
+  }
+  return proxy(cachedServer, event, context, 'PROMISE').promise;
+};
+
+// Local development
 if (process.env.NODE_ENV === 'development') {
-  createApp().then((app) => {
-    const port = process.env.PORT || 4200;
-    app.listen(port, () => {
-      console.log(`🚀 Server running on http://localhost:${port}`);
+  bootstrapServer().then((server) => {
+    server.listen(4200, () => {
+      console.log('🚀 Server running on http://localhost:4200');
     });
   });
 }
-
-export default createApp();
