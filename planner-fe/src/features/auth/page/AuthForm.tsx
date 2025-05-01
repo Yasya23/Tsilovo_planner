@@ -6,9 +6,9 @@ import DefaultLayout from '@/shared/components/layouts/Default';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
 
-import GoogleAuthButton from './_parts/GoogleAuthButton';
-import LoginForm from './_parts/LoginForm';
-import RegisterForm from './_parts/RegisterForm';
+import GoogleAuthButton from '../components/GoogleAuthButton';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import styles from './AuthForm.module.scss';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {

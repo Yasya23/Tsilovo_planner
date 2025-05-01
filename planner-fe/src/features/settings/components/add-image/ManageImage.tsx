@@ -9,7 +9,7 @@ import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
 
 import { useUploadImage } from '@/features/settings/hooks/useUploadImages';
 
-import styles from './AddImage.module.scss';
+import styles from './ManageImage.module.scss';
 
 type AddImageProps = {
   imageUrl?: string;
