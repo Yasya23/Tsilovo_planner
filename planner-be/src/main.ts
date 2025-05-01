@@ -6,12 +6,10 @@ import cookieParser from 'cookie-parser';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import express from 'express';
 
+const server = express();
+
 async function bootstrap() {
-  const expressApp = express();
-  const app = await NestFactory.create(
-    AppModule,
-    new ExpressAdapter(expressApp),
-  );
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
   const configService = app.get(ConfigService);
 
@@ -28,17 +26,17 @@ async function bootstrap() {
 
   await app.init();
 
-  // For Vercel serverless
-  if (process.env.VERCEL) {
-    const server = expressApp.listen(0); // Random port for serverless
-    return server;
-  }
+  return server;
+}
 
-  // For local development
-  return expressApp.listen(4200, () => {
-    console.log('🚀 Server running on http://localhost:4200');
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap().then((server) => {
+    server.listen(4200, () => {
+      console.log('🚀 Server running on http://localhost:4200');
+    });
   });
 }
 
-// Export for Vercel serverless
+// For Vercel serverless
 export default bootstrap();
