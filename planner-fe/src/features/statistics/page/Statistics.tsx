@@ -7,12 +7,13 @@ import { useTranslations } from 'next-intl';
 import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
 import icons from '@/shared/icons/icons';
 
-import { GoalsList } from '../components/_parts/goals-list/GoalsList';
-import { ErrorMessage } from '../components/error-message/Error';
-import { MonthlyStatsHeader } from '../components/montly-states-header/MonthlyStatsHeader';
-import { SelectYear } from '../components/SelectYear';
-import { Skeleton } from '../components/skeleton/Skeleton';
-import { StatisticsData } from '../components/statistics-data/StatisticsData';
+import { ErrorMessage } from '@/features/statistics/components/error-message/Error';
+import { GoalsList } from '@/features/statistics/components/goals-list/GoalsList';
+import { MonthlyStatsHeader } from '@/features/statistics/components/montly-states-header/MonthlyStatsHeader';
+import { SelectYear } from '@/features/statistics/components/SelectYear';
+import { Skeleton } from '@/features/statistics/components/skeleton/Skeleton';
+import { StatisticsData } from '@/features/statistics/components/statistics-data/StatisticsData';
+
 import { useStatistics } from '../hooks/use-statistics';
 import styles from './Statistics.module.scss';
 
