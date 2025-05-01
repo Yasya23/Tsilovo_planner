@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "vercel-build",
-  "outputDirectory": "dist",
   "builds": [
     {
       "src": "dist/main.js",
