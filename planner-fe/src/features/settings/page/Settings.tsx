@@ -2,22 +2,28 @@
 
 import { useTranslations } from 'next-intl';
 
-import { ChangeEmail } from 'features/settings/components/_parts/change-email/ChangeEmail';
-
 import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
 import icons from '@/shared/icons/icons';
 
-import { AddImage } from '@/features/settings/components/_parts/add-image/AddImage';
-import { ChangePassword } from '@/features/settings/components/_parts/change-password/ChangePassword';
+import { useAuthContext } from '@/features/auth/context/AuthProvider';
+import { AddImage } from '@/features/settings/components/add-image/AddImage';
+import { ChangeEmail } from '@/features/settings/components/change-email/ChangeEmail';
+import { ChangePassword } from '@/features/settings/components/change-password/ChangePassword';
 
 import styles from './Settings.module.scss';
 
 export const Settings = () => {
   const t = useTranslations('Common.settings');
+  const { user, invalidateQueries } = useAuthContext();
+
   return (
     <div className={styles.Wrapper}>
       <h1 className={styles.Title}>{t('title')}</h1>
-      <AddImage />
+      <AddImage
+        imageUrl={user?.image}
+        name={user?.name}
+        onUpdate={invalidateQueries}
+      />
       <div className={styles.FormsWrapper}>
         <ChangePassword
           updatePassword={(data: any) => {}}

@@ -1,0 +1,11 @@
+@use '@/styles/_variables' as *;
+
+.Wrapper {
+  padding: 10px;
+}
+.Title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  color: $secondary;
+  font-weight: 600;
+  margin-bottom: 20px;
+}

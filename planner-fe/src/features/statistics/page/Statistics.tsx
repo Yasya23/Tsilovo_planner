@@ -7,13 +7,13 @@ import { useTranslations } from 'next-intl';
 import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
 import icons from '@/shared/icons/icons';
 
+import { GoalsList } from '../components/_parts/goals-list/GoalsList';
+import { ErrorMessage } from '../components/error-message/Error';
+import { MonthlyStatsHeader } from '../components/montly-states-header/MonthlyStatsHeader';
+import { SelectYear } from '../components/SelectYear';
+import { Skeleton } from '../components/skeleton/Skeleton';
+import { StatisticsData } from '../components/statistics-data/StatisticsData';
 import { useStatistics } from '../hooks/use-statistics';
-import { ErrorMessage } from './_parts/error-message/Error';
-import { GoalsList } from './_parts/goals-list/GoalsList';
-import { MonthlyStatsHeader } from './_parts/montly-states-header/MonthlyStatsHeader';
-import { SelectYear } from './_parts/SelectYear';
-import { Skeleton } from './_parts/skeleton/Skeleton';
-import { StatisticsData } from './_parts/statistics-data/StatisticsData';
 import styles from './Statistics.module.scss';
 
 const currentYear = new Date().getFullYear().toString();

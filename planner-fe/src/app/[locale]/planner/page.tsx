@@ -1,4 +1,4 @@
-import { Planner } from '@/features/planning/components/planner/Planner';
+import { Planner } from '@/features/planning/page/Planner';
 
 export default function Page() {
   return <Planner />;

@@ -5,7 +5,7 @@ export const services = {
   logout: '/auth/logout',
   googleAuth: '/auth/google',
   token: 'auth/access-token',
-  updateUser: '/user/profile',
+  updateAvatar: '/user/avatar',
   activeGoals: '/goals',
   tasks: '/tasks',
   statistics: '/statistics',

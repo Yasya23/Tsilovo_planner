@@ -74,6 +74,14 @@ export class UserService {
     };
   }
 
+  async updateAvatar(userId: string, { image }: { image: string }) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+
+    user.image = image;
+    return await user.save();
+  }
+
   async findByEmail(email: string) {
     return this.userModel.findOne({ email }).exec();
   }

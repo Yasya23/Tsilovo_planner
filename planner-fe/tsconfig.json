@@ -20,6 +20,7 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
+      "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"],
       "@/features/*": ["features/*"],
       "@/shared/*": ["shared/*"]

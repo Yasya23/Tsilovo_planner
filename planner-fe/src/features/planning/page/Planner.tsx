@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 
 import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 
-import { Skeleton } from '@/features/planning/components/_parts/skeleton/Skeleton';
 import { GoalsList } from '@/features/planning/components/goals-list/GoalsList';
+import { Skeleton } from '@/features/planning/components/skeleton/Skeleton';
 import { WeeklyStatistic } from '@/features/planning/components/weekly-statistic/WeeklyStatistic';
 import { WeeklyTodo } from '@/features/planning/components/weekly-todo/WeeklyTodo';
 import { PlanningContext } from '@/features/planning/context/usePlanningContext';

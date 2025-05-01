@@ -9,7 +9,7 @@ import { SkeletonLoader } from '@/shared/components/ui/SkeletonLoader';
 import icons from '@/shared/icons/icons';
 
 import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
-import ManageGoals from '../_parts/manage-goal/ManageGoal';
+import ManageGoals from '../manage-goal/ManageGoal';
 import styles from './GoalsList.module.scss';
 
 type GoalsListProps = {

@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
-import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -17,7 +16,6 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../types/auth.types';
 
 export const useAuth = () => {
-  const locale = useLocale();
   const router = useRouter();
   const queryClient = useQueryClient();
 

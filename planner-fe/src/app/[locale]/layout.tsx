@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation';
 
 import { routing } from '@/i18n/routing';
 import { Locale } from '@/i18n/routing';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 import '@/styles/globals.scss';
 
 import QueryProvider from '@/shared/components/providers/QueryClientProvider';
@@ -37,7 +38,7 @@ export async function generateMetadata({
   }
 
   return {
-    metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
     title: {
       default: t('titleDefault'),
       template: `%s | ${t('titleTemplate')}`,
@@ -51,7 +52,7 @@ export async function generateMetadata({
       siteName: 'Tsiľovo',
       title: t('ogTitle'),
       description: t('ogDescription'),
-      url: process.env.NEXT_PUBLIC_BASE_URL,
+      url: process.env.NEXT_PUBLIC_APP_URL,
     },
   };
 }
@@ -76,24 +77,26 @@ export default async function RootLayout({
       suppressHydrationWarning={true}
     >
       <body suppressHydrationWarning>
-        <QueryProvider>
-          <NextIntlClientProvider messages={messages}>
-            <AuthProvider>
-              <ThemeProvider>{children}</ThemeProvider>
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 7000,
-                  style: {
-                    width: '350px',
-                    height: '70px',
-                    maxWidth: '100%',
-                  },
-                }}
-              />
-            </AuthProvider>
-          </NextIntlClientProvider>
-        </QueryProvider>
+        <EdgeStoreProvider>
+          <QueryProvider>
+            <NextIntlClientProvider messages={messages}>
+              <AuthProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 7000,
+                    style: {
+                      width: '350px',
+                      height: '70px',
+                      maxWidth: '100%',
+                    },
+                  }}
+                />
+              </AuthProvider>
+            </NextIntlClientProvider>
+          </QueryProvider>
+        </EdgeStoreProvider>
       </body>
     </html>
   );

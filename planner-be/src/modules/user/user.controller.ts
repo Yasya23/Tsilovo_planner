@@ -26,6 +26,12 @@ export class UserController {
     return await this.userService.update(id, dto);
   }
 
+  @Put('avatar')
+  @Auth()
+  async updateAvatar(@User('id') id: string, @Body() dto: { image: string }) {
+    return await this.userService.updateAvatar(id, dto);
+  }
+
   @Delete(':id')
   @Auth()
   async delete(@Param('id') id: string) {

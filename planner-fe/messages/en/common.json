@@ -28,6 +28,7 @@
       "signUp": "Sign Up",
       "or": "or",
       "uploadImage": "Upload image",
+      "uploading": "Uploading...",
       "update": "Update"
     },
     "errors": {
@@ -67,6 +68,8 @@
     "settings": {
       "title": "Settings",
       "maxImageSize": "Maximum image size is 1MB",
+      "fileTooLarge": "File is too large. Maximum size is 1MB",
+      "uploadError": "Error uploading image. Please try again",
       "changePassword": "Change password",
       "changeEmail": "Change email",
       "forgetPassword": "Forgot password?",

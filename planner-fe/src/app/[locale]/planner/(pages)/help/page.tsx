@@ -1,7 +1,7 @@
-import { HelpSection } from '@/shared/components/how-it-works/HowItWorks';
+import { HowItWorks } from './components/HowItWorks';
 
 const page = () => {
-  return <HelpSection />;
+  return <HowItWorks />;
 };
 
 export default page;

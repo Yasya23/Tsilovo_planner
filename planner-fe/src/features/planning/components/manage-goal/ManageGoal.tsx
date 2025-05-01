@@ -11,7 +11,7 @@ import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import icons from '@/shared/icons/icons';
 
-import { ActiveGoal, CreateGoal, Goal } from '../../../types/goals.type';
+import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
 import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
 import styles from './ManageGoal.module.scss';
 

@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 
 import { Droppable } from '@hello-pangea/dnd';
 
-import { DayHeader } from '@/features/planning/components/_parts/day-header/DayHeader';
-import { TasksSection } from '@/features/planning/components/_parts/tasks-section/TasksSection';
+import { DayHeader } from '@/features/planning/components/day-header/DayHeader';
+import { TasksSection } from '@/features/planning/components/tasks-section/TasksSection';
 import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 import { filterTasksByGoals } from '@/features/planning/helpers/filter-tasks-by-goal';
 import { Task } from '@/features/planning/types/task.type';

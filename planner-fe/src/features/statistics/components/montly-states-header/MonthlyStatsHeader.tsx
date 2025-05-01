@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import icons from '@/shared/icons/icons';
 
-import { StatisticsData } from '@/features/statistics/components/_parts/statistics-data/StatisticsData';
+import { StatisticsData } from '@/features/statistics/components/statistics-data/StatisticsData';
 
 import styles from './MonthlyStatsHeader.module.scss';
 

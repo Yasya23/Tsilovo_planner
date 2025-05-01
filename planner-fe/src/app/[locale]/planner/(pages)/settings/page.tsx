@@ -1,4 +1,4 @@
-import { Settings } from '@/features/settings/components/Settings';
+import { Settings } from '@/features/settings/page/Settings';
 
 const page = () => {
   return <Settings />;

@@ -11,11 +11,16 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        source: '/api/edgestore/:path*',
+        destination: '/api/edgestore/:path*',
+      },
+      {
         source: '/api/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
       },
     ];
   },
+
   async headers() {
     return [
       {
