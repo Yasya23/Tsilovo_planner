@@ -17,7 +17,12 @@ export declare class StatisticsController {
                 title: string;
                 emoji: string;
                 completedTasks: number;
-                taskIds: string[];
+                tasks: {
+                    _id: Types.ObjectId;
+                    goalId: Types.ObjectId;
+                    userId: Types.ObjectId;
+                    title: string;
+                }[];
             }[];
         }[];
         createdAt?: Date;

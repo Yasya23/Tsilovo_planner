@@ -9,11 +9,11 @@ import { usePathname } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import classNames from 'classnames';
 
+import { Avatar } from '@/shared/components/avatar/Avatar';
+import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
+import LanguageToggle from '@/shared/components/LanguageSwitch';
 import LogOut from '@/shared/components/LogOut';
-import { Avatar } from '@/shared/components/ui/avatar/Avatar';
-import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
-import LanguageToggle from '@/shared/components/ui/LanguageSwitch';
-import TeamSwitcher from '@/shared/components/ui/themeToggle/ThemeToggle';
+import TeamSwitcher from '@/shared/components/themeToggle/ThemeToggle';
 import { routes } from '@/shared/constants/routes';
 import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
 import icons from '@/shared/icons/icons';

@@ -4,7 +4,7 @@ import icons from '@/shared/icons/icons';
 
 import { useAuthContext } from '@/features/auth/context/AuthProvider';
 
-import { IconButtonCustom } from './ui/buttons/IconButton';
+import { IconButtonCustom } from './buttons/IconButton';
 
 export const LogOut = () => {
   const { logout } = useAuthContext();

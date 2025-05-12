@@ -1,4 +1,5 @@
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import { TaskType } from 'src/modules/statistics/types/task.type';
 export interface StatisticsModel extends Base {
 }
 export declare class GoalStats {
@@ -6,7 +7,7 @@ export declare class GoalStats {
     title: string;
     emoji: string;
     completedTasks: number;
-    taskIds: string[];
+    tasks: TaskType[];
 }
 export declare class MonthlyStats {
     month: number;

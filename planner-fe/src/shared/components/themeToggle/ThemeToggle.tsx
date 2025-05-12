@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 
+import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
-import { IconButtonCustom } from '../buttons/IconButton';
 import styles from './ThemeToggle.module.scss';
 
 const themes = [

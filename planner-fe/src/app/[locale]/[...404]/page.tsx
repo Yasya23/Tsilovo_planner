@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
+import { ErrorMessage } from '@/shared/components/errorMessage/ErrorMessage';
 import { DefaultLayout } from '@/shared/components/layouts/Default';
-import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
 
 export const metadata: Metadata = {
   title: '404 | Page Not Found',

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
+import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
 import { createTitle } from '@/features/planning/helpers/create-week-title';

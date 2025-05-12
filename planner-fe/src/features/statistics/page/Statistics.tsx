@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
+import { AccordionUsage } from '@/shared/components/accordion/Accordion';
 import icons from '@/shared/icons/icons';
 
 import { ErrorMessage } from '@/features/statistics/components/error-message/Error';

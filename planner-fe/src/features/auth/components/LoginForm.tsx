@@ -6,8 +6,8 @@ import { useTranslations } from 'next-intl';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
-import Input from '@/shared/components/ui/input/Input';
+import { ButtonCustom } from '@/shared/components/buttons/Button';
+import Input from '@/shared/components/input/Input';
 import { routes } from '@/shared/constants/routes';
 import icons from '@/shared/icons/icons';
 import { User } from '@/shared/types/user.type';

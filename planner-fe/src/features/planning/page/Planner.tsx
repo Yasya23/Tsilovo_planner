@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { ErrorMessage } from '@/shared/components/ui/errorMessage/ErrorMessage';
+import { ErrorMessage } from '@/shared/components/errorMessage/ErrorMessage';
 
 import { GoalsList } from '@/features/planning/components/goals-list/GoalsList';
 import { Skeleton } from '@/features/planning/components/skeleton/Skeleton';

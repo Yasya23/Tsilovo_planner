@@ -44,7 +44,7 @@ export class TaskService {
       .select('_id title goalId')
       .populate({
         path: 'goalId',
-        select: '_id emoji',
+        select: '_id emoji title',
       })
       .exec();
 

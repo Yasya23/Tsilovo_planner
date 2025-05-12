@@ -7,8 +7,8 @@ import { useTranslations } from 'next-intl';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
-import Input from '@/shared/components/ui/input/Input';
+import { ButtonCustom } from '@/shared/components/buttons/Button';
+import Input from '@/shared/components/input/Input';
 import icons from '@/shared/icons/icons';
 
 import { createUpdatePasswordSchema } from '@/features/settings/helpers/update-password-schema';

@@ -2,7 +2,7 @@ import { MouseEventHandler } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 
-import TooltipCustom from '@/shared/components/ui/Tooltip';
+import TooltipCustom from '@/shared/components/Tooltip';
 
 interface Props {
   icon: React.ReactNode;

@@ -1,5 +1,7 @@
-import { prop } from '@typegoose/typegoose';
+import { prop, Ref } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import { TaskModel } from './tasks.model';
+import { TaskType } from 'src/modules/statistics/types/task.type';
 
 export interface StatisticsModel extends Base {}
 
@@ -16,8 +18,8 @@ export class GoalStats {
   @prop({ default: 0 })
   completedTasks: number;
 
-  @prop({ type: () => [String], default: [] })
-  taskIds: string[];
+  @prop({ default: [] })
+  tasks: TaskType[];
 }
 
 export class MonthlyStats {

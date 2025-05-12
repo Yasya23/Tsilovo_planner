@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
+import { ButtonCustom } from '@/shared/components/buttons/Button';
 import icons from '@/shared/icons/icons';
 
 import { useAuthContext } from '@/features/auth/context/AuthProvider';

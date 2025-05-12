@@ -22,6 +22,7 @@ const statistics_model_1 = require("../../models/statistics.model");
 const tasks_service_1 = require("../tasks/tasks.service");
 const date_service_1 = require("../date/date.service");
 const schedule_1 = require("@nestjs/schedule");
+const inspector_1 = require("inspector");
 let StatisticsService = StatisticsService_1 = class StatisticsService {
     constructor(statisticsModel, userService, dateService, taskService) {
         this.statisticsModel = statisticsModel;
@@ -46,6 +47,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         for (const user of users) {
             const userId = user._id.toString();
             const tasks = await this.taskService.getUserTasksForStatistic(userId, new Date(weekStart), new Date(weekEnd));
+            inspector_1.console.log('tasks', tasks);
             if (!tasks.length) {
                 this.logger.warn(`No completed tasks for user ${userId}`);
                 continue;
@@ -60,27 +62,36 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         for (const task of tasks) {
             const goalId = task.goalId._id.toString();
             const emoji = task.goalId.emoji;
-            const taskId = task._id.toString();
             if (!goalMap.has(goalId)) {
                 goalMap.set(goalId, {
                     completedTasks: 0,
-                    taskIds: new Set(),
-                    title: task.title,
+                    tasks: [],
+                    title: task.goalId.title,
                     emoji: emoji,
                 });
             }
             const goalStats = goalMap.get(goalId);
-            goalStats.completedTasks += 1;
-            goalStats.taskIds.add(taskId);
+            const taskId = task._id.toString();
+            const existingTaskIds = new Set(goalStats.tasks.map((t) => t._id.toString()));
+            if (!existingTaskIds.has(taskId)) {
+                goalStats.tasks.push(task);
+                goalStats.completedTasks = goalStats.tasks.length;
+            }
         }
         const goalStatsArray = Array.from(goalMap.entries()).map(([goalId, data]) => ({
             goalId,
             completedTasks: data.completedTasks,
-            taskIds: Array.from(data.taskIds),
             title: data.title,
             emoji: data.emoji,
+            tasks: data.tasks,
         }));
         let userStats = await this.statisticsModel.findOne({ userId });
+        const monthlyStats = {
+            month: currentMonth,
+            totalCompleted: tasks.length,
+            totalGoals: goalStatsArray.length,
+            goals: goalStatsArray,
+        };
         const createUserStatistics = async () => {
             return await this.statisticsModel.create({
                 userId,
@@ -88,42 +99,22 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
                 totalCompleted: tasks.length,
                 totalGoals: goalStatsArray.length,
                 availableYears: [currentYear],
-                monthlyStats: [
-                    {
-                        month: currentMonth,
-                        totalCompleted: tasks.length,
-                        totalGoals: goalStatsArray.length,
-                        goals: goalStatsArray,
-                    },
-                ],
+                monthlyStats: [monthlyStats],
             });
         };
-        const addNewMonthStats = () => {
-            userStats.monthlyStats.push({
-                month: currentMonth,
-                totalCompleted: tasks.length,
-                totalGoals: goalStatsArray.length,
-                goals: goalStatsArray,
-            });
-        };
+        const addNewMonthStats = () => userStats.monthlyStats.push(monthlyStats);
         const updateUserStatistics = async () => {
             const monthStats = userStats.monthlyStats.find((m) => m.month === currentMonth);
+            inspector_1.console.log(monthStats);
             if (monthStats) {
+                inspector_1.console.log(1);
                 for (const newGoal of goalStatsArray) {
                     const existingGoal = monthStats.goals.find((g) => g.goalId === newGoal.goalId);
-                    if (existingGoal) {
-                        const existingTaskIds = new Set(existingGoal.taskIds);
-                        for (const id of newGoal.taskIds) {
-                            existingTaskIds.add(id);
-                        }
-                        existingGoal.taskIds = Array.from(existingTaskIds);
-                        existingGoal.completedTasks = existingGoal.taskIds.length;
-                    }
-                    else {
+                    if (!existingGoal)
                         monthStats.goals.push(newGoal);
-                    }
+                    inspector_1.console.log('existingGoal', newGoal);
                 }
-                monthStats.totalCompleted = tasks.length;
+                monthStats.totalCompleted = monthStats.goals.reduce((acc, m) => acc + m.completedTasks, 0);
                 monthStats.totalGoals = monthStats.goals.length;
             }
             else {
@@ -146,7 +137,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
 };
 exports.StatisticsService = StatisticsService;
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_30_SECONDS),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

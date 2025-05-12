@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { AccordionUsage } from '@/shared/components/ui/accordion/Accordion';
+import { AccordionUsage } from '@/shared/components/accordion/Accordion';
 
 import styles from './HowItWorks.module.scss';
 

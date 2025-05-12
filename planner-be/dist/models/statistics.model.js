@@ -32,9 +32,9 @@ __decorate([
     __metadata("design:type", Number)
 ], GoalStats.prototype, "completedTasks", void 0);
 __decorate([
-    (0, typegoose_1.prop)({ type: () => [String], default: [] }),
+    (0, typegoose_1.prop)({ default: [] }),
     __metadata("design:type", Array)
-], GoalStats.prototype, "taskIds", void 0);
+], GoalStats.prototype, "tasks", void 0);
 class MonthlyStats {
 }
 exports.MonthlyStats = MonthlyStats;

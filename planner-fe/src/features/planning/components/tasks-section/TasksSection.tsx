@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { Draggable } from '@hello-pangea/dnd';
 
-import { IconButtonCustom } from '@/shared/components/ui/buttons/IconButton';
+import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
 import { ActiveGoal } from '../../types/goals.type';

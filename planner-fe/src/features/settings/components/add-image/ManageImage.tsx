@@ -4,8 +4,8 @@ import { useRef } from 'react';
 
 import { useTranslations } from 'next-intl';
 
-import { Avatar } from '@/shared/components/ui/avatar/Avatar';
-import { ButtonCustom } from '@/shared/components/ui/buttons/Button';
+import { Avatar } from '@/shared/components/avatar/Avatar';
+import { ButtonCustom } from '@/shared/components/buttons/Button';
 
 import { useUploadImage } from '@/features/settings/hooks/useUploadImages';
 

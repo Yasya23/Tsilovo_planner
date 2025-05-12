@@ -13,12 +13,12 @@ import { isCurrentRoute } from '@/shared/utils/check-current-route';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
 
-import { ButtonCustom } from '../ui/buttons/Button';
-import Logo from '../ui/logo/Logo';
+import { ButtonCustom } from '../buttons/Button';
+import Logo from '../logo/Logo';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const isSticky = useScrollThreshold(100);
+  const isSticky = useScrollThreshold(120);
   const t = useTranslations('Common.buttons');
   const { user } = useAuth();
 

@@ -10,6 +10,7 @@
     width: 100%;
     border-bottom: 1px solid $secondary;
     padding-right: 25px;
+    color: inherit;
 
     &.Completed {
       text-decoration: line-through;
