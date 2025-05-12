@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import LogOut from '@/shared/components/LogOut';
 import { routes } from '@/shared/constants/routes';
-import useScrollThreshold from '@/shared/hooks/useScrollThreshold';
+import { useScrollThreshold } from '@/shared/hooks/useScrollThreshold';
 import icons from '@/shared/icons/icons';
 import { isCurrentRoute } from '@/shared/utils/check-current-route';
 
@@ -18,10 +18,9 @@ import Logo from '../logo/Logo';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const isSticky = useScrollThreshold(120);
+  const isSticky = useScrollThreshold(150);
   const t = useTranslations('Common.buttons');
   const { user } = useAuth();
-
   const pathname = usePathname();
   const isHomePage = isCurrentRoute(pathname, routes.home);
 
