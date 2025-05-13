@@ -6,19 +6,19 @@ import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/lib/i18n/navigation';
 import classNames from 'classnames';
 
 import { Avatar } from '@/shared/components/avatar/Avatar';
 import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import LanguageToggle from '@/shared/components/LanguageSwitch';
 import LogOut from '@/shared/components/LogOut';
+import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import TeamSwitcher from '@/shared/components/themeToggle/ThemeToggle';
 import { routes } from '@/shared/constants/routes';
 import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
 import icons from '@/shared/icons/icons';
-
-import { useAuthContext } from '@/features/auth/context/AuthProvider';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import styles from './Sidebar.module.scss';
 
@@ -58,6 +58,7 @@ export const Sidebar = () => {
     <div
       className={classNames(styles.SideBar, {
         [styles.Open]: isMenuOpen,
+        [styles.Disabled]: !user,
       })}
     >
       <div className={styles.Header}>
@@ -73,9 +74,24 @@ export const Sidebar = () => {
         ) : (
           <>
             <div className={styles.UserInfo}>
-              <Avatar name={user?.name} imageUrl={user?.image} />
+              {user ? (
+                <Avatar name={user?.name} imageUrl={user?.image} />
+              ) : (
+                <SkeletonLoader
+                  width={30}
+                  height={30}
+                  count={1}
+                  variant="circular"
+                />
+              )}
 
-              {isMenuOpen && <h2>{user?.name}</h2>}
+              {isMenuOpen &&
+                (user ? (
+                  <h2>{user.name}</h2>
+                ) : (
+                  <SkeletonLoader width={70} count={1} />
+                ))}
+
               <LogOut />
             </div>
 

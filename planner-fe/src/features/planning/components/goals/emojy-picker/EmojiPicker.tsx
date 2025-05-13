@@ -12,7 +12,7 @@ interface EmojiPickerProps {
   width?: number;
   height?: number;
 }
-const EmojiPickerCompoment: React.FC<EmojiPickerProps> = ({
+export const EmojiPickerCompoment: React.FC<EmojiPickerProps> = ({
   onEmojiClick,
   handleClickOuside,
   width = 300,
@@ -33,4 +33,3 @@ const EmojiPickerCompoment: React.FC<EmojiPickerProps> = ({
   );
 };
 
-export default EmojiPickerCompoment;

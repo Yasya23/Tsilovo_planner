@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import classNames from 'classnames';
 
-import { DaySection } from '@/features/planning/components/day-section/DaySection';
-import { WeekHeader } from '@/features/planning/components/week-header/WeekHeader';
+import { DaySection } from '@/features/planning/components/tasks/day-section/DaySection';
+import { WeekHeader } from '@/features/planning/components/tasks/week-header/WeekHeader';
 import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 import { filterDays } from '@/features/planning/helpers/filter-days';
 import { isDateToday } from '@/features/planning/helpers/is-today';

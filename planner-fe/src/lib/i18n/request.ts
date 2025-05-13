@@ -9,9 +9,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale;
   }
 
-  const metadata = await import(`../../messages/${locale}/metadata.json`);
-  const home = await import(`../../messages/${locale}/home.json`);
-  const common = await import(`../../messages/${locale}/common.json`);
+  const metadata = await import(`./messages/${locale}/metadata.json`);
+  const home = await import(`./messages/${locale}/home.json`);
+  const common = await import(`./messages/${locale}/common.json`);
 
   return {
     locale,

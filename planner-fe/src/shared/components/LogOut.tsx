@@ -1,8 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import icons from '@/shared/icons/icons';
-
-import { useAuthContext } from '@/features/auth/context/AuthProvider';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { IconButtonCustom } from './buttons/IconButton';
 

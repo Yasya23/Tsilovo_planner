@@ -9,9 +9,10 @@ import { Draggable } from '@hello-pangea/dnd';
 import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
-import { ActiveGoal } from '../../types/goals.type';
-import { CreateTask, Task } from '../../types/task.type';
-import ManageTask from '../manage-task/ManageTask';
+import ManageTask from '@/features/planning/components/tasks/manage-task/ManageTask';
+import { ActiveGoal } from '@/features/planning/types/goals.type';
+import { CreateTask, Task } from '@/features/planning/types/task.type';
+
 import styles from './TasksSection.module.scss';
 
 interface TasksSectionProps {

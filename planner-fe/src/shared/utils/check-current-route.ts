@@ -1,4 +1,4 @@
-import { availableLocales } from '@/i18n/routing';
+import { availableLocales } from '@/lib/i18n/routing';
 
 export const isCurrentRoute = (
   pathname: string | null,

@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
 import icons from '@/shared/icons/icons';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
-import { useAuthContext } from '@/features/auth/context/AuthProvider';
 import { AddImage } from '@/features/settings/components/add-image/ManageImage';
 import { ChangeEmail } from '@/features/settings/components/change-email/ChangeEmail';
 import { ChangePassword } from '@/features/settings/components/change-password/ChangePassword';

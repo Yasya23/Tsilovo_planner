@@ -5,11 +5,15 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
-import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import icons from '@/shared/icons/icons';
 
-import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
-import ManageGoals from '../manage-goal/ManageGoal';
+import { ManageGoals } from '@/features/planning/components/goals/manage-goal/ManageGoal';
+import {
+  ActiveGoal,
+  CreateGoal,
+  Goal,
+} from '@/features/planning/types/goals.type';
+
 import styles from './GoalsList.module.scss';
 
 type GoalsListProps = {

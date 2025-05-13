@@ -1,8 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { routing } from './i18n/routing';
-import { availableLocales } from './i18n/routing';
+import { routing } from './lib/i18n/routing';
+import { availableLocales } from './lib/i18n/routing';
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;

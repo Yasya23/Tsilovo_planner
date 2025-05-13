@@ -11,8 +11,13 @@ import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import icons from '@/shared/icons/icons';
 
-import { ActiveGoal, CreateGoal, Goal } from '../../types/goals.type';
-import EmojiPickerCompoment from '../emojy-picker/EmojiPicker';
+import { EmojiPickerCompoment } from '@/features/planning/components/goals/emojy-picker/EmojiPicker';
+import {
+  ActiveGoal,
+  CreateGoal,
+  Goal,
+} from '@/features/planning/types/goals.type';
+
 import styles from './ManageGoal.module.scss';
 
 type ManageGoalsProps = {
@@ -28,7 +33,7 @@ export const defaultGoal: CreateGoal = {
   isActive: true,
 };
 
-const ManageGoals = ({
+export const ManageGoals = ({
   goal,
   onSave,
   onCancel,
@@ -125,5 +130,3 @@ const ManageGoals = ({
     </form>
   );
 };
-
-export default ManageGoals;

@@ -8,14 +8,13 @@ import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { routing } from '@/i18n/routing';
-import { Locale } from '@/i18n/routing';
 import { EdgeStoreProvider } from '@/lib/edgestore';
+import { routing } from '@/lib/i18n/routing';
+import { Locale } from '@/lib/i18n/routing';
 import '@/styles/globals.scss';
 
-import QueryProvider from '@/shared/components/providers/QueryClientProvider';
-
-import { AuthProvider } from '@/features/auth/context/AuthProvider';
+import { AuthProvider } from '@/shared/providers/AuthProvider';
+import QueryProvider from '@/shared/providers/QueryClientProvider';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap' });
 
