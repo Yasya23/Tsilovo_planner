@@ -60,6 +60,7 @@ export const TasksSection = ({
             date,
           }}
           finishManage={onFinishManage}
+          focusInput={true}
         />
       )}
 

@@ -119,7 +119,7 @@ export const useDragDropHandler = ({
 
     const taskToMove: Task = {
       ...taskData.task,
-      date: destDate,
+      date: new Date(destDate),
       goalId: destGoalId,
     };
 

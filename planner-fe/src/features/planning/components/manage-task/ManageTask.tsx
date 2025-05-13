@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
@@ -22,15 +22,26 @@ import styles from './ManageTask.module.scss';
 type ManageTaskProps = {
   task: Task | CreateTask;
   finishManage: () => void;
+  focusInput?: boolean;
 };
 
-export const ManageTask = ({ task, finishManage }: ManageTaskProps) => {
+export const ManageTask = ({
+  task,
+  finishManage,
+  focusInput,
+}: ManageTaskProps) => {
   const t = useTranslations('Common');
   const { updateTask, createTask, deleteTask, isPending } =
     usePlanningContext();
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (focusInput && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [focusInput]);
 
   const [localTask, setLocalTask] = useState<Task | CreateTask>(task);
 
