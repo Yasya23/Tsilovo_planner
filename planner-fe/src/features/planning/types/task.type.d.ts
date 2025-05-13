@@ -12,3 +12,5 @@ export type Task = CreateTask & {
 };
 
 export type WeeklyTasks = { date: string; tasks: Task[] }[];
+
+export type WeeklyTasksNoMapped = { allDates: []; tasks: Task[] }[];

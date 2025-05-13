@@ -48,36 +48,12 @@ export class GoalsService {
       };
     });
 
-    const tasksByDate = tasks.reduce(
-      (acc, task) => {
-        const dateStr = task.date.toISOString().split('T')[0];
-        (acc[dateStr] ??= []).push(task);
-        return acc;
-      },
-      {} as Record<string, (typeof tasks)[number][]>,
-    );
-
-    const allDates = currentWeek.weekDates;
-
-    if (nextWeek) {
-      allDates.push(...nextWeek.weekDates);
-    }
-
-    const weeklyTasks = allDates.map((date) => ({
-      date: new Date(date).toISOString(),
-      tasks: tasksByDate[date] || [],
-    }));
-
-    const completedTasks = tasks.filter((task) => task.isCompleted).length;
-    const notCompletedTasks = tasks.filter((task) => !task.isCompleted).length;
+    const dates = [...currentWeek.weekDates, ...(nextWeek?.weekDates || [])];
 
     return {
       activeGoals,
-      weeklyTasks,
-      weeklyStatistics: {
-        completedTasks,
-        notCompletedTasks,
-      },
+      dates,
+      tasks,
     };
   }
 

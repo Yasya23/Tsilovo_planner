@@ -7,15 +7,15 @@ import { Task, WeeklyTasks } from '@/features/planning/types/task.type';
 interface DragDropHandlerProps {
   weeksData: WeeklyTasks[];
   updateTask: (task: Task) => void;
-  addOptimistic: (weeksData: WeeklyTasks[]) => void;
+  updatedWeek: (week: WeeklyTasks[]) => void;
   activeGoals: ActiveGoal[];
 }
 
 export const useDragDropHandler = ({
   weeksData,
   updateTask,
+  updatedWeek,
   activeGoals,
-  addOptimistic,
 }: DragDropHandlerProps) => {
   const findTaskById = (taskId: string) => {
     for (let wi = 0; wi < weeksData.length; wi++) {
@@ -91,7 +91,8 @@ export const useDragDropHandler = ({
     }
   };
 
-  const cloneWeeksData = () => JSON.parse(JSON.stringify(weeksData));
+  const cloneWeeksData = (): WeeklyTasks[] =>
+    structuredClone(weeksData) as WeeklyTasks[];
 
   const handleDragEnd = async (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -116,9 +117,9 @@ export const useDragDropHandler = ({
       taskIndex: taskData.taskIndex,
     });
 
-    const taskToMove = {
+    const taskToMove: Task = {
       ...taskData.task,
-      date: new Date(destDate),
+      date: destDate,
       goalId: destGoalId,
     };
 
@@ -129,8 +130,8 @@ export const useDragDropHandler = ({
       taskToMove
     );
 
-    addOptimistic(updatedWeeks);
     updateTask(taskToMove);
+    updatedWeek(updatedWeeks);
   };
 
   return { handleDragEnd };

@@ -4,9 +4,12 @@ import { useTranslations } from 'next-intl';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { GoalServices } from '../services/goals.service';
-import { TaskServices } from '../services/tasks.service';
-import { ActiveGoalsData } from '../types/goals.type';
+import { mapWeeklyTasks } from '@/features/planning/helpers/map-weekly-tasks';
+import { createWeeklyStatistics } from '@/features/planning/helpers/weekly-statistic';
+import { GoalServices } from '@/features/planning/services/goals.service';
+import { TaskServices } from '@/features/planning/services/tasks.service';
+import { ActiveGoalsData } from '@/features/planning/types/goals.type';
+import { Task } from '@/features/planning/types/task.type';
 
 export const usePlanning = () => {
   const t = useTranslations('Common.planning');
@@ -30,10 +33,33 @@ export const usePlanning = () => {
 
   const updateTask = useMutation({
     mutationFn: TaskServices.update,
-    onSuccess: () => {
+    onMutate: async (newTask: Task) => {
+      await queryClient.cancelQueries({ queryKey: ['planning'] });
+
+      const previousData = queryClient.getQueryData(['planning']);
+
+      queryClient.setQueryData(['planning'], (oldData: ActiveGoalsData) => {
+        const updatedWeeklyTasks = oldData.tasks.map((task: Task) =>
+          task._id === newTask._id ? { ...task, ...newTask } : task
+        );
+
+        return {
+          ...oldData,
+          tasks: updatedWeeklyTasks,
+        };
+      });
+
+      return { previousData };
+    },
+
+    onError: (_err, _vars, context) => {
+      queryClient.setQueryData(['planning'], context?.previousData);
+      toast.error(t('updateTask.error'));
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
-    onError: () => toast.error(t('updateTask.error')),
   }).mutate;
 
   const deleteTask = useMutation({
@@ -70,10 +96,8 @@ export const usePlanning = () => {
   }).mutate;
 
   const activeGoals = data?.activeGoals ?? [];
-  const tasks = data?.weeklyTasks ?? [];
-  const weeklyStatistics = data?.weeklyStatistics ?? null;
-  const currentWeek = tasks.length > 7 ? tasks.slice(0, 7) : tasks;
-  const nextWeek = tasks.length > 7 ? tasks.slice(7) : null;
+  const { currentWeek, nextWeek } = mapWeeklyTasks(data);
+  const weeklyStatistics = createWeeklyStatistics(data);
 
   return {
     activeGoals,

@@ -17,18 +17,12 @@ export declare class GoalsService {
             isActive: boolean;
             pendingTasks: number;
         }[];
-        weeklyTasks: {
-            date: string;
-            tasks: (import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/tasks.model").TaskModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/tasks.model").TaskModel & Required<{
-                _id: Types.ObjectId;
-            }> & {
-                __v: number;
-            }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction)[];
-        }[];
-        weeklyStatistics: {
-            completedTasks: number;
-            notCompletedTasks: number;
-        };
+        dates: string[];
+        tasks: (import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/tasks.model").TaskModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/tasks.model").TaskModel & Required<{
+            _id: Types.ObjectId;
+        }> & {
+            __v: number;
+        }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction)[];
     }>;
     create(dto: CreateGoalDto, userId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
         _id: Types.ObjectId;

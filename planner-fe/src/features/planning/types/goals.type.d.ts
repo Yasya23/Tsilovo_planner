@@ -15,13 +15,8 @@ type ActiveGoal = Goal & {
   pendingTasks: number;
 };
 
-type WeeklyStatistics = {
-  completedTasks: number;
-  notCompletedTasks: number;
-};
-
 export type ActiveGoalsData = {
   activeGoals: ActiveGoal[];
-  weeklyTasks: WeeklyTasks;
-  weeklyStatistics: WeeklyStatistics;
+  dates: string[];
+  tasks: Task[];
 };
