@@ -11,8 +11,8 @@ import icons from '@/shared/icons/icons';
 
 import { DayHeader } from '@/features/planning/components/tasks/day-header/DayHeader';
 import { ManageTask } from '@/features/planning/components/tasks/manage-task/ManageTask';
-import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 import { filterTasksByGoals } from '@/features/planning/helpers/filter-tasks-by-goal';
+import { usePlanning } from '@/features/planning/hooks/usePlanning';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 import styles from './DaySection.module.scss';
@@ -23,20 +23,45 @@ interface DaySectionProps {
 }
 
 export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
-  const { activeGoals, updateTask, createTask, deleteTask, isPending } =
-    usePlanningContext();
+  const {
+    activeGoals,
+    updateTask,
+    createTask,
+    deleteTask,
+    isCreatingTask,
+    isUpdatingTask,
+    isDeletingTask,
+  } = usePlanning();
   const t = useTranslations('Common');
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
-
   const { orderedGoals, completedTasksNumber, notCompletedTasksNumber } =
     filterTasksByGoals(dayTasks, activeGoals);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
-  const handleSaveTask = (task: Task | CreateTask) => {
-    if ('_id' in task) {
-      updateTask(task);
+  const hasId = (task: Task | CreateTask) => '_id' in task;
+
+  const handleSaveTask = async (task: Task | CreateTask) => {
+    if (hasId(task)) {
+      setEditingTaskId(task._id);
+      try {
+        await updateTask(task);
+      } finally {
+        setEditingTaskId(null);
+      }
     } else {
-      createTask(task);
-      setManageTask(null);
+      await createTask(task);
+      if (!isCreatingTask) setManageTask(null);
+    }
+  };
+
+  const handleDeleteTask = async (task: Task) => {
+    if (hasId(task)) {
+      setEditingTaskId(task._id);
+      try {
+        await deleteTask(task._id);
+      } finally {
+        setEditingTaskId(null);
+      }
     }
   };
 
@@ -93,8 +118,7 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
                               isCompleted: false,
                               date,
                             }}
-                            deleteTask={deleteTask}
-                            isPending={isPending}
+                            isPending={isCreatingTask}
                             handleSaveTask={handleSaveTask}
                             finishManage={() => setManageTask(null)}
                           />
@@ -125,13 +149,18 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
                                   >
                                     <icons.Draggable />
                                   </div>
-
-                                  <ManageTask
-                                    task={task}
-                                    deleteTask={deleteTask}
-                                    handleSaveTask={handleSaveTask}
-                                    isPending={isPending}
-                                  />
+                                  <>
+                                    {console.log(editingTaskId, task._id)}
+                                    <ManageTask
+                                      task={task}
+                                      deleteTask={handleDeleteTask}
+                                      handleSaveTask={handleSaveTask}
+                                      isPending={
+                                        (isUpdatingTask || isDeletingTask) &&
+                                        editingTaskId === task._id
+                                      }
+                                    />
+                                  </>
                                 </div>
                               )}
                             </Draggable>

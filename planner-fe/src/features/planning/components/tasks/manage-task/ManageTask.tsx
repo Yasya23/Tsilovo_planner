@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
@@ -14,7 +14,6 @@ import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import icons from '@/shared/icons/icons';
 
-import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 import styles from './ManageTask.module.scss';
@@ -22,7 +21,7 @@ import styles from './ManageTask.module.scss';
 type ManageTaskProps = {
   task: Task | CreateTask;
   finishManage?: () => void;
-  deleteTask: (taskId: string) => void;
+  deleteTask?: (task: Task) => void;
   handleSaveTask: (task: Task | CreateTask) => void;
   isPending: boolean;
 };
@@ -41,7 +40,6 @@ export const ManageTask = ({
   const [localTask, setLocalTask] = useState<Task | CreateTask>(task);
 
   const hasId = '_id' in localTask;
-
   const saveTask = () => {
     if (isObjectTheSame(localTask, task)) return;
     handleSaveTask(localTask);
@@ -105,9 +103,7 @@ export const ManageTask = ({
                 {
                   icon: <icons.Trash />,
                   title: `${t('buttons.delete')}`,
-                  action: () => {
-                    if (hasId) deleteTask(localTask._id);
-                  },
+                  action: () => deleteTask && deleteTask(localTask as Task),
                   type: 'button',
                 },
               ]}

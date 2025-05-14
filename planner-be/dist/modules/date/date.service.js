@@ -10,11 +10,11 @@ exports.DateService = void 0;
 const common_1 = require("@nestjs/common");
 const date_fns_1 = require("date-fns");
 let DateService = class DateService {
-    constructor() {
-        this.dateFormat = 'yyyy-MM-dd';
+    toISOStringDate(date) {
+        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
     }
     createDateArray(weekStart, weekEnd) {
-        return (0, date_fns_1.eachDayOfInterval)({ start: weekStart, end: weekEnd }).map((date) => (0, date_fns_1.format)(date, this.dateFormat));
+        return (0, date_fns_1.eachDayOfInterval)({ start: weekStart, end: weekEnd }).map((date) => this.toISOStringDate(date));
     }
     getWeekData() {
         const today = new Date();
@@ -22,16 +22,16 @@ let DateService = class DateService {
         const currentWeekStart = (0, date_fns_1.startOfWeek)(today, { weekStartsOn: 1 });
         const currentWeekEnd = (0, date_fns_1.endOfWeek)(today, { weekStartsOn: 1 });
         const currentWeek = {
-            weekStart: (0, date_fns_1.format)(currentWeekStart, this.dateFormat),
-            weekEnd: (0, date_fns_1.format)(currentWeekEnd, this.dateFormat),
+            weekStart: this.toISOStringDate(currentWeekStart),
+            weekEnd: this.toISOStringDate(currentWeekEnd),
             weekDates: this.createDateArray(currentWeekStart, currentWeekEnd),
         };
         if (isSunday) {
             const nextWeekStart = (0, date_fns_1.addWeeks)(currentWeekStart, 1);
             const nextWeekEnd = (0, date_fns_1.endOfWeek)(nextWeekStart, { weekStartsOn: 1 });
             const nextWeek = {
-                weekStart: (0, date_fns_1.format)(nextWeekStart, this.dateFormat),
-                weekEnd: (0, date_fns_1.format)(nextWeekEnd, this.dateFormat),
+                weekStart: this.toISOStringDate(nextWeekStart),
+                weekEnd: this.toISOStringDate(nextWeekEnd),
                 weekDates: this.createDateArray(nextWeekStart, nextWeekEnd),
             };
             return { currentWeek, nextWeek };
@@ -43,8 +43,8 @@ let DateService = class DateService {
         const lastWeekStart = (0, date_fns_1.startOfWeek)((0, date_fns_1.subWeeks)(today, 1), { weekStartsOn: 1 });
         const lastWeekEnd = (0, date_fns_1.endOfWeek)((0, date_fns_1.subWeeks)(today, 1), { weekStartsOn: 1 });
         return {
-            weekStart: (0, date_fns_1.format)(lastWeekStart, this.dateFormat),
-            weekEnd: (0, date_fns_1.format)(lastWeekEnd, this.dateFormat),
+            weekStart: this.toISOStringDate(lastWeekStart),
+            weekEnd: this.toISOStringDate(lastWeekEnd),
         };
     }
 };

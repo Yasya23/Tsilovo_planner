@@ -9,7 +9,7 @@ import { createWeeklyStatistics } from '@/features/planning/helpers/weekly-stati
 import { GoalServices } from '@/features/planning/services/goals.service';
 import { TaskServices } from '@/features/planning/services/tasks.service';
 import { ActiveGoalsData } from '@/features/planning/types/goals.type';
-import { Task } from '@/features/planning/types/task.type';
+import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 export const usePlanning = () => {
   const t = useTranslations('Common.planning');
@@ -22,7 +22,6 @@ export const usePlanning = () => {
       const data = await GoalServices.getActive();
       return data;
     },
-    placeholderData: (previousData, previousQuery) => previousData,
   });
 
   const createTask = useMutation({
@@ -31,7 +30,7 @@ export const usePlanning = () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
     onError: () => toast.error(t('createTask.error')),
-  }).mutate;
+  });
 
   const updateTask = useMutation({
     mutationFn: TaskServices.update,
@@ -62,7 +61,7 @@ export const usePlanning = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
-  }).mutate;
+  });
 
   const deleteTask = useMutation({
     mutationFn: TaskServices.delete,
@@ -71,7 +70,7 @@ export const usePlanning = () => {
     },
 
     onError: () => toast.error(t('deleteTask.error')),
-  }).mutate;
+  });
 
   const createGoal = useMutation({
     mutationFn: GoalServices.create,
@@ -107,11 +106,14 @@ export const usePlanning = () => {
     weeklyStatistics,
     isPending,
     isError,
+    isCreatingTask: createTask.isPending,
+    isUpdatingTask: updateTask.isPending,
+    isDeletingTask: deleteTask.isPending,
     createGoal,
     updateGoal,
     deleteGoal,
-    createTask,
-    updateTask,
-    deleteTask,
+    createTask: createTask.mutateAsync,
+    updateTask: updateTask.mutateAsync,
+    deleteTask: deleteTask.mutateAsync,
   };
 };
