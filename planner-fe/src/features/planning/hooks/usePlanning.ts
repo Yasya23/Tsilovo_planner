@@ -17,10 +17,12 @@ export const usePlanning = () => {
 
   const { data, isPending, isError } = useQuery<ActiveGoalsData, Error>({
     queryKey: ['planning'],
+
     queryFn: async () => {
       const data = await GoalServices.getActive();
       return data;
     },
+    placeholderData: (previousData, previousQuery) => previousData,
   });
 
   const createTask = useMutation({
@@ -57,7 +59,7 @@ export const usePlanning = () => {
       toast.error(t('updateTask.error'));
     },
 
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
   }).mutate;
@@ -96,13 +98,12 @@ export const usePlanning = () => {
   }).mutate;
 
   const activeGoals = data?.activeGoals ?? [];
-  const { currentWeek, nextWeek } = mapWeeklyTasks(data);
+  const weeks = mapWeeklyTasks(data);
   const weeklyStatistics = createWeeklyStatistics(data);
 
   return {
     activeGoals,
-    currentWeek,
-    nextWeek,
+    weeks,
     weeklyStatistics,
     isPending,
     isError,

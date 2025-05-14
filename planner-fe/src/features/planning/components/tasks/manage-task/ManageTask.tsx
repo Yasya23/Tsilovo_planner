@@ -21,49 +21,48 @@ import styles from './ManageTask.module.scss';
 
 type ManageTaskProps = {
   task: Task | CreateTask;
-  finishManage: () => void;
-  focusInput?: boolean;
+  finishManage?: () => void;
+  deleteTask: (taskId: string) => void;
+  handleSaveTask: (task: Task | CreateTask) => void;
+  isPending: boolean;
 };
 
 export const ManageTask = ({
   task,
   finishManage,
-  focusInput,
+  deleteTask,
+  isPending,
+  handleSaveTask,
 }: ManageTaskProps) => {
   const t = useTranslations('Common');
-  const { updateTask, createTask, deleteTask, isPending } =
-    usePlanningContext();
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (focusInput && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [focusInput]);
-
   const [localTask, setLocalTask] = useState<Task | CreateTask>(task);
 
   const hasId = '_id' in localTask;
 
-  const handleSaveTask = () => {
+  const saveTask = () => {
     if (isObjectTheSame(localTask, task)) return;
-    hasId ? updateTask(localTask) : createTask(localTask);
-    finishManage();
-    inputRef.current?.blur();
+    handleSaveTask(localTask);
+    inputRef?.current?.blur();
   };
 
   const handleCheckboxChange = () => {
-    setLocalTask((prev) => ({ ...prev, isCompleted: !prev.isCompleted }));
-    updateTask({ ...localTask, isCompleted: !localTask.isCompleted } as Task);
+    const updatedTask = {
+      ...localTask,
+      isCompleted: !localTask.isCompleted,
+    } as Task;
+
+    setLocalTask(updatedTask);
+    handleSaveTask(updatedTask);
   };
 
-  useClickOutside(formRef, handleSaveTask);
+  useClickOutside(formRef, saveTask);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleSaveTask();
+    saveTask();
   };
 
   return (
@@ -76,8 +75,8 @@ export const ManageTask = ({
     >
       <fieldset className={styles.Wrapper}>
         <CheckboxCustom
-          isCompleted={!!task.isCompleted}
-          isDisabled={!task.title || isPending}
+          isCompleted={!!localTask.isCompleted}
+          isDisabled={!localTask.title || isPending}
           handleCheckboxChange={handleCheckboxChange}
         />
         <PlanningInput
@@ -87,8 +86,9 @@ export const ManageTask = ({
           }
           placeholder={t('placeholders.addTask')}
           maxLength={50}
-          isCompleted={task.isCompleted}
+          isCompleted={localTask.isCompleted}
           inputRef={inputRef}
+          autoFocus={!hasId}
         />
 
         <div className={styles.Actions}>

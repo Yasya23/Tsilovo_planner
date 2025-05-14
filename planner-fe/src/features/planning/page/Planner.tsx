@@ -18,8 +18,7 @@ export const Planner = () => {
   const {
     weeklyStatistics,
     activeGoals,
-    currentWeek,
-    nextWeek,
+    weeks,
     createGoal,
     updateGoal,
     deleteGoal,
@@ -36,7 +35,14 @@ export const Planner = () => {
 
   return (
     <PlanningContext.Provider
-      value={{ activeGoals, createTask, updateTask, deleteTask, isPending }}
+      value={{
+        activeGoals,
+        createTask,
+        updateTask,
+        deleteTask,
+        isPending,
+        weeks,
+      }}
     >
       <div className={styles.Planner}>
         <h1 className={styles.Title}>{t('title')}</h1>
@@ -53,9 +59,7 @@ export const Planner = () => {
             isPending={isPending}
           />
         </div>
-        <WeeklyTodo
-          weeks={nextWeek ? [currentWeek, nextWeek] : [currentWeek]}
-        />
+        <WeeklyTodo />
       </div>
     </PlanningContext.Provider>
   );

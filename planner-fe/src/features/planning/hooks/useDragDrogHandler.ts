@@ -7,7 +7,7 @@ import { Task, WeeklyTasks } from '@/features/planning/types/task.type';
 interface DragDropHandlerProps {
   weeksData: WeeklyTasks[];
   updateTask: (task: Task) => void;
-  updatedWeek: (week: WeeklyTasks[]) => void;
+  updatedWeek: (week: WeeklyTasks[], task: Task) => void;
   activeGoals: ActiveGoal[];
 }
 
@@ -130,8 +130,7 @@ export const useDragDropHandler = ({
       taskToMove
     );
 
-    updateTask(taskToMove);
-    updatedWeek(updatedWeeks);
+    updatedWeek(updatedWeeks, taskToMove);
   };
 
   return { handleDragEnd };

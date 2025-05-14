@@ -10,6 +10,10 @@ type PlanningContextProps = {
   createTask: (task: CreateTask) => void;
   updateTask: (task: Task) => void;
   deleteTask: (taskId: string) => void;
+  weeks: {
+    date: string;
+    tasks: Task[];
+  }[][];
   isPending: boolean;
 };
 

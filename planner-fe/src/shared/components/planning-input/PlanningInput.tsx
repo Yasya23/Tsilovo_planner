@@ -10,6 +10,7 @@ type PlanningInput = {
   type?: 'text' | 'password';
   inputRef?: React.RefObject<HTMLInputElement | null>;
   isCompleted?: boolean;
+  autoFocus?: boolean;
 };
 
 export const PlanningInput = ({
@@ -20,6 +21,7 @@ export const PlanningInput = ({
   maxLength = 100,
   inputRef,
   isCompleted,
+  autoFocus = false,
 }: PlanningInput) => {
   return (
     <>
@@ -35,6 +37,7 @@ export const PlanningInput = ({
           })}
           maxLength={maxLength}
           required
+          autoFocus={autoFocus}
         />
         <span className={styles.Counter}>{maxLength - value.length}</span>
       </div>

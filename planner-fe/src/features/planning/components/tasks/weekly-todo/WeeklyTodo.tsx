@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useOptimistic, useState, useTransition } from 'react';
 
 import { DragDropContext } from '@hello-pangea/dnd';
 import classNames from 'classnames';
@@ -15,27 +15,29 @@ import { WeeklyTasks } from '@/features/planning/types/task.type';
 
 import styles from './WeeklyToDo.module.scss';
 
-type WeekProps = {
-  weeks: WeeklyTasks[];
-};
-
-export const WeeklyTodo = ({ weeks }: WeekProps) => {
-  const { activeGoals, updateTask } = usePlanningContext();
+export const WeeklyTodo = () => {
+  const { activeGoals, updateTask, weeks } = usePlanningContext();
 
   const [isListView, setIsListView] = useState(false);
   const [prioritizeTaskDays, setPrioritizeTaskDays] = useState(false);
   const [isTodayView, setIsTodayView] = useState(false);
 
-  const [localWeeks, setLocalWeeks] = useState(weeks);
+  const [_, startTransition] = useTransition();
 
-  useEffect(() => {
-    setLocalWeeks(weeks);
-  }, [weeks]);
+  const [optimisticWeeks, addOptimisticWeeks] = useOptimistic(
+    weeks,
+    (_, newWeeks: WeeklyTasks[]) => newWeeks
+  );
 
   const { handleDragEnd } = useDragDropHandler({
-    weeksData: localWeeks,
+    weeksData: weeks,
     updateTask,
-    updatedWeek: setLocalWeeks,
+    updatedWeek: async (weeksData, taskToMove) => {
+      startTransition(() => {
+        addOptimisticWeeks(weeksData);
+      });
+      updateTask(taskToMove);
+    },
     activeGoals,
   });
 
@@ -48,7 +50,7 @@ export const WeeklyTodo = ({ weeks }: WeekProps) => {
   return (
     <section className={styles.WeeklyTodo}>
       <DragDropContext onDragEnd={handleDragEnd}>
-        {localWeeks.map((week) => {
+        {optimisticWeeks.map((week) => {
           const tasks = prioritizeTaskDays
             ? filterDays(week)
             : isTodayView

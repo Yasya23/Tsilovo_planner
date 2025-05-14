@@ -1,3 +1,5 @@
+import next from 'next';
+
 import { ActiveGoalsData } from '@/features/planning/types/goals.type';
 import { Task } from '@/features/planning/types/task.type';
 
@@ -35,8 +37,6 @@ export const mapWeeklyTasks = (data?: ActiveGoalsData) => {
   const nextWeek =
     mappedWeeklyTasks?.length > 7 ? mappedWeeklyTasks.slice(7) : null;
 
-  return {
-    currentWeek,
-    nextWeek,
-  };
+  const weeks = nextWeek ? [currentWeek, nextWeek] : [currentWeek];
+  return weeks;
 };
