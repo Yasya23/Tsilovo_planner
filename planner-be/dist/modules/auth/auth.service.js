@@ -24,18 +24,17 @@ let AuthService = class AuthService {
     async login(loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
         if (!user) {
-            throw new common_1.UnauthorizedException("User with this email doesn't exist");
+            throw new common_1.UnauthorizedException('LoginError');
         }
         const isPasswordValid = await (0, bcryptjs_1.compare)(loginDto.password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.UnauthorizedException('Wrong password');
+            throw new common_1.UnauthorizedException('LoginError');
         }
         const tokens = await this.createTokenPair(user.id);
+        if (!tokens.accessToken || !tokens.refreshToken) {
+            throw new common_1.UnauthorizedException('Failed to create tokens');
+        }
         return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            image: user.image,
             accessToken: tokens.accessToken,
             refreshToken: tokens.refreshToken,
         };
@@ -43,20 +42,20 @@ let AuthService = class AuthService {
     async register(registrationDto) {
         const existingUser = await this.userService.findByEmail(registrationDto.email);
         if (existingUser) {
-            throw new common_1.BadRequestException('User with this email already exists');
+            throw new common_1.BadRequestException('RegisterError');
         }
-        const salt = await (0, bcryptjs_1.genSalt)(10);
+        const saltHash = Number(this.configService.get('PASSWORD_SALT'));
+        const salt = await (0, bcryptjs_1.genSalt)(saltHash);
         const hashedPassword = await (0, bcryptjs_1.hash)(registrationDto.password, salt);
         const newUser = await this.userService.create({
             ...registrationDto,
             password: hashedPassword,
         });
         const tokens = await this.createTokenPair(newUser.id);
+        if (!tokens.accessToken || !tokens.refreshToken) {
+            throw new common_1.UnauthorizedException('Failed to create tokens');
+        }
         return {
-            id: newUser.id,
-            name: newUser.name,
-            email: newUser.email,
-            image: newUser.image,
             accessToken: tokens.accessToken,
             refreshToken: tokens.refreshToken,
         };
@@ -83,10 +82,6 @@ let AuthService = class AuthService {
             throw new common_1.UnauthorizedException('Failed to create new tokens');
         }
         return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            image: user.image,
             accessToken: tokens.accessToken,
             refreshToken: tokens.refreshToken,
         };
@@ -95,7 +90,7 @@ let AuthService = class AuthService {
         let user = await this.userService.findByEmail(userData.email);
         if (!user) {
             user = await this.userService.create({
-                name: userData.name || 'No Name',
+                name: userData.name || 'Anonim',
                 email: userData.email,
                 password: userData.password,
                 image: userData.picture,
@@ -103,26 +98,25 @@ let AuthService = class AuthService {
             });
         }
         const tokens = await this.createTokenPair(user.id);
+        if (!tokens.accessToken || !tokens.refreshToken) {
+            throw new common_1.UnauthorizedException('Failed to create tokens');
+        }
         return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            image: user.image,
             accessToken: tokens.accessToken,
             refreshToken: tokens.refreshToken,
         };
     }
     async createTokenPair(userId) {
         if (!userId) {
-            throw new common_1.UnauthorizedException('User ID is required for token creation');
+            throw new common_1.UnauthorizedException('User is required for token creation');
         }
         const payload = { id: userId };
         const [refreshToken, accessToken] = await Promise.all([
             this.jwtService.signAsync(payload, {
-                expiresIn: '21d',
+                expiresIn: this.configService.get('REFRESH_TOKEN_EXPIRATION'),
             }),
             this.jwtService.signAsync(payload, {
-                expiresIn: '10h',
+                expiresIn: this.configService.get('ACCESS_TOKEN_EXPIRATION'),
             }),
         ]);
         if (!refreshToken || !accessToken) {

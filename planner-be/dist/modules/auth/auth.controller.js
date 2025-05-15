@@ -27,19 +27,17 @@ let AuthController = class AuthController {
         this.configService = configService;
     }
     async login(dto, res) {
-        const { accessToken, refreshToken, id, name, email, image } = await this.authService.login(dto);
+        const { accessToken, refreshToken } = await this.authService.login(dto);
         (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
         return {
             message: 'Login successful',
-            user: { id, name, email, image },
         };
     }
     async register(dto, res) {
-        const { accessToken, refreshToken, id, name, email, image } = await this.authService.register(dto);
+        const { accessToken, refreshToken } = await this.authService.register(dto);
         (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
         return {
             message: 'Registration successful',
-            user: { id, name, email, image },
         };
     }
     logout(res) {
@@ -53,10 +51,10 @@ let AuthController = class AuthController {
                 (0, auth_1.clearAuthCookies)(res);
                 throw new common_2.UnauthorizedException('Missing refresh token');
             }
-            const { accessToken, refreshToken: newRefreshToken, id, name, email, image, } = await this.authService.getNewTokens(refreshToken);
+            const { accessToken, refreshToken: newRefreshToken } = await this.authService.getNewTokens(refreshToken);
             (0, auth_1.setAuthCookies)(res, accessToken, newRefreshToken);
             return {
-                user: { id, name, email, image },
+                message: 'Updated successful',
             };
         }
         catch (err) {
@@ -68,7 +66,6 @@ let AuthController = class AuthController {
     async googleAuth() { }
     async googleCallback(req, res) {
         const locale = req.cookies?.NEXT_LOCALE ?? 'en';
-        console.log('locale', locale);
         try {
             const { accessToken, refreshToken } = await this.authService.googleLogin(req.user);
             (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);

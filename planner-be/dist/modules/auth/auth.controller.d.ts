@@ -8,32 +8,15 @@ export declare class AuthController {
     constructor(authService: AuthService, configService: ConfigService);
     login(dto: AuthDto, res: Response): Promise<{
         message: string;
-        user: {
-            id: any;
-            name: string;
-            email: string;
-            image: string;
-        };
     }>;
     register(dto: RegistrationDto, res: Response): Promise<{
         message: string;
-        user: {
-            id: any;
-            name: string;
-            email: string;
-            image: string;
-        };
     }>;
     logout(res: Response): {
         message: string;
     };
     refresh(req: Request, res: Response): Promise<{
-        user: {
-            id: any;
-            name: string;
-            email: string;
-            image: string;
-        };
+        message: string;
     }>;
     googleAuth(): Promise<void>;
     googleCallback(req: Request, res: Response): Promise<void>;

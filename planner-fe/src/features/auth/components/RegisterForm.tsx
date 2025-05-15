@@ -11,7 +11,6 @@ import { ButtonCustom } from '@/shared/components/buttons/Button';
 import Input from '@/shared/components/input/Input';
 import { routes } from '@/shared/constants/routes';
 import icons from '@/shared/icons/icons';
-import { User } from '@/shared/types/user.type';
 
 import styles from '@/features/auth/components/AuthForm.module.scss';
 import { createRegistrationSchema } from '@/features/auth/helpers/registration-shema';
@@ -24,7 +23,6 @@ type RegisterFormValues = {
 };
 
 type RegisterFormValuesProps = {
-  user: User | null | undefined;
   isPending: boolean;
   error: Error | null;
   register: (data: RegisterFormValues) => void;

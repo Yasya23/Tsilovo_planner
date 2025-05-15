@@ -20,21 +20,22 @@ export class AuthService {
   async login(loginDto: AuthDto) {
     const user = await this.userService.findByEmail(loginDto.email);
     if (!user) {
-      throw new UnauthorizedException("User with this email doesn't exist");
+      throw new UnauthorizedException('LoginError');
     }
 
     const isPasswordValid = await compare(loginDto.password, user.password);
+
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Wrong password');
+      throw new UnauthorizedException('LoginError');
     }
 
     const tokens = await this.createTokenPair(user.id);
 
+    if (!tokens.accessToken || !tokens.refreshToken) {
+      throw new UnauthorizedException('Failed to create tokens');
+    }
+
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -45,10 +46,10 @@ export class AuthService {
       registrationDto.email,
     );
     if (existingUser) {
-      throw new BadRequestException('User with this email already exists');
+      throw new BadRequestException('RegisterError');
     }
-
-    const salt = await genSalt(10);
+    const saltHash = Number(this.configService.get('PASSWORD_SALT'));
+    const salt = await genSalt(saltHash);
     const hashedPassword = await hash(registrationDto.password, salt);
 
     const newUser = await this.userService.create({
@@ -58,11 +59,11 @@ export class AuthService {
 
     const tokens = await this.createTokenPair(newUser.id);
 
+    if (!tokens.accessToken || !tokens.refreshToken) {
+      throw new UnauthorizedException('Failed to create tokens');
+    }
+
     return {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      image: newUser.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -88,15 +89,12 @@ export class AuthService {
     }
 
     const tokens = await this.createTokenPair(user.id);
+
     if (!tokens.accessToken || !tokens.refreshToken) {
       throw new UnauthorizedException('Failed to create new tokens');
     }
 
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -107,7 +105,7 @@ export class AuthService {
 
     if (!user) {
       user = await this.userService.create({
-        name: userData.name || 'No Name',
+        name: userData.name || 'Anonim',
         email: userData.email,
         password: userData.password,
         image: userData.picture,
@@ -117,11 +115,11 @@ export class AuthService {
 
     const tokens = await this.createTokenPair(user.id);
 
+    if (!tokens.accessToken || !tokens.refreshToken) {
+      throw new UnauthorizedException('Failed to create tokens');
+    }
+
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
@@ -129,16 +127,16 @@ export class AuthService {
 
   private async createTokenPair(userId: string) {
     if (!userId) {
-      throw new UnauthorizedException('User ID is required for token creation');
+      throw new UnauthorizedException('User is required for token creation');
     }
 
     const payload = { id: userId };
     const [refreshToken, accessToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
-        expiresIn: '21d',
+        expiresIn: this.configService.get('REFRESH_TOKEN_EXPIRATION'),
       }),
       this.jwtService.signAsync(payload, {
-        expiresIn: '10h',
+        expiresIn: this.configService.get('ACCESS_TOKEN_EXPIRATION'),
       }),
     ]);
 

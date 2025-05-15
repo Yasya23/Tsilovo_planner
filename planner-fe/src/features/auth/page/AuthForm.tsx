@@ -13,7 +13,7 @@ import styles from './AuthForm.module.scss';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
   const t = useTranslations('Common');
-  const { user, isPending, error, login, register } = useAuth();
+  const { isPending, error, login, register } = useAuth();
 
   return (
     <DefaultLayout>
@@ -25,12 +25,7 @@ export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
               <GoogleAuthButton disabled={isPending} />
               <div>{t('buttons.or')}</div>
 
-              <LoginForm
-                user={user}
-                isPending={isPending}
-                error={error}
-                login={login}
-              />
+              <LoginForm isPending={isPending} error={error} login={login} />
             </>
           )}
           {mode === 'register' && (
@@ -40,7 +35,6 @@ export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
               <div>{t('buttons.or')}</div>
 
               <RegisterForm
-                user={user}
                 isPending={isPending}
                 error={error}
                 register={register}

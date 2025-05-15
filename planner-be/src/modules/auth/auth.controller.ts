@@ -26,14 +26,12 @@ export class AuthController {
   @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('login')
   async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
-    const { accessToken, refreshToken, id, name, email, image } =
-      await this.authService.login(dto);
+    const { accessToken, refreshToken } = await this.authService.login(dto);
 
     setAuthCookies(res, accessToken, refreshToken);
 
     return {
       message: 'Login successful',
-      user: { id, name, email, image },
     };
   }
 
@@ -43,14 +41,12 @@ export class AuthController {
     @Body() dto: RegistrationDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { accessToken, refreshToken, id, name, email, image } =
-      await this.authService.register(dto);
+    const { accessToken, refreshToken } = await this.authService.register(dto);
 
     setAuthCookies(res, accessToken, refreshToken);
 
     return {
       message: 'Registration successful',
-      user: { id, name, email, image },
     };
   }
 
@@ -74,19 +70,13 @@ export class AuthController {
         throw new UnauthorizedException('Missing refresh token');
       }
 
-      const {
-        accessToken,
-        refreshToken: newRefreshToken,
-        id,
-        name,
-        email,
-        image,
-      } = await this.authService.getNewTokens(refreshToken);
+      const { accessToken, refreshToken: newRefreshToken } =
+        await this.authService.getNewTokens(refreshToken);
 
       setAuthCookies(res, accessToken, newRefreshToken);
 
       return {
-        user: { id, name, email, image },
+        message: 'Updated successful',
       };
     } catch (err) {
       clearAuthCookies(res);
@@ -103,7 +93,6 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req: Request, @Res() res: Response) {
     const locale = req.cookies?.NEXT_LOCALE ?? 'en';
-    console.log('locale', locale);
     try {
       const { accessToken, refreshToken } = await this.authService.googleLogin(
         req.user,

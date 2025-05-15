@@ -1,45 +1,20 @@
-import { axiosAuth, axiosClassic } from '@/api/interceptors';
+import { axiosClassic } from '@/api/interceptors';
 
 import { services } from '@/features/auth/constants/api-services';
 
-import { AuthResponse, User } from '../types/auth.types';
-
 export const AuthService = {
-  async login(email: string, password: string): Promise<AuthResponse> {
-    const { data } = await axiosClassic.post<AuthResponse>(services.login, {
+  async login(email: string, password: string): Promise<void> {
+    await axiosClassic.post<Response>(services.login, {
       email,
       password,
     });
-    return data;
   },
 
-  async register(
-    email: string,
-    password: string,
-    name: string
-  ): Promise<AuthResponse> {
-    const { data } = await axiosClassic.post<AuthResponse>(services.register, {
+  async register(email: string, password: string, name: string): Promise<void> {
+    await axiosClassic.post<Response>(services.register, {
       email,
       password,
       name,
     });
-    return data;
-  },
-
-  async logout(): Promise<{ message: string }> {
-    const { data } = await axiosClassic.post<{ message: string }>(
-      services.logout
-    );
-    return data;
-  },
-
-  async getNewTokens(): Promise<AuthResponse> {
-    const { data } = await axiosClassic.post<AuthResponse>(services.token);
-    return data;
-  },
-
-  async getProfile(): Promise<User> {
-    const { data } = await axiosAuth.get<User>(services.userProfile);
-    return data;
   },
 };

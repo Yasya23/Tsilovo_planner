@@ -8,34 +8,18 @@ export declare class AuthService {
     private readonly userService;
     constructor(configService: ConfigService, jwtService: JwtService, userService: UserService);
     login(loginDto: AuthDto): Promise<{
-        id: any;
-        name: string;
-        email: string;
-        image: string;
         accessToken: string;
         refreshToken: string;
     }>;
     register(registrationDto: RegistrationDto): Promise<{
-        id: any;
-        name: string;
-        email: string;
-        image: string;
         accessToken: string;
         refreshToken: string;
     }>;
     getNewTokens(refreshToken: string): Promise<{
-        id: any;
-        name: string;
-        email: string;
-        image: string;
         accessToken: string;
         refreshToken: string;
     }>;
     googleLogin(userData: any): Promise<{
-        id: any;
-        name: string;
-        email: string;
-        image: string;
         accessToken: string;
         refreshToken: string;
     }>;
