@@ -10,10 +10,10 @@ import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import CheckboxCustom from '@/shared/components/Checkbox';
 import { Dropdown } from '@/shared/components/dropdown-custom/Dropdown';
 import { PlanningInput } from '@/shared/components/planning-input/PlanningInput';
-import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import icons from '@/shared/icons/icons';
 
+import { isObjectTheSame } from '@/features/planning/helpers/is-object-the-same';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 import styles from './ManageTask.module.scss';

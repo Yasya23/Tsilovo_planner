@@ -1,6 +1,6 @@
 import { axiosClassic } from '@/api/interceptors';
 
-import { services } from '@/shared/constants/api-services';
+import { services } from '@/features/planning/constants/api-services';
 
 import { CreateTask, Task } from '../types/task.type';
 

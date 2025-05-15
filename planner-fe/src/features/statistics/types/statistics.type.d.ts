@@ -1,8 +1,19 @@
+export type Task = {
+  _id: string;
+  userId: string;
+  date: string;
+  title: string;
+  goalId: string;
+  date: string;
+  isCompleted: boolean;
+};
+
 export type GoalStats = {
   goalId: string;
   emoji: string;
   completedTasks: number;
   taskIds: string[];
+  tasks: Task[];
   title: string;
   _id: string;
 };

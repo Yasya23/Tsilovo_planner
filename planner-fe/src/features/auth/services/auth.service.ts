@@ -1,6 +1,6 @@
 import { axiosAuth, axiosClassic } from '@/api/interceptors';
 
-import { services } from '@/shared/constants/api-services';
+import { services } from '@/features/auth/constants/api-services';
 
 import { AuthResponse, User } from '../types/auth.types';
 

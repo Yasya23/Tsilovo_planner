@@ -8,6 +8,7 @@ import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import icons from '@/shared/icons/icons';
 
 import { ManageGoals } from '@/features/planning/components/goals/manage-goal/ManageGoal';
+import { limits } from '@/features/planning/constants/limits';
 import {
   ActiveGoal,
   CreateGoal,
@@ -94,7 +95,7 @@ export const GoalsList = ({
         )}
       </ul>
 
-      {activeGoals && activeGoals.length < 5 && !addingGoal && (
+      {activeGoals && activeGoals.length < limits.maxGoals && !addingGoal && (
         <div className={styles.AddGoal}>
           <IconButtonCustom
             icon={<icons.PlusCircle />}

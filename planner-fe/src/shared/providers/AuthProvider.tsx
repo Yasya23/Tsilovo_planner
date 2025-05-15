@@ -4,10 +4,8 @@ import { createContext, useContext } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import {
-  LoginFormValues,
-  RegisterFormValues,
-} from '@/shared/types/interfaces/loginFormValues';
+import { queries } from '@/shared/constants/queries';
+import { LoginFormValues, RegisterFormValues } from '@/shared/types/auth.type';
 import { User } from '@/shared/types/user.type';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
@@ -29,7 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
 
   const invalidateQueries = () => {
-    queryClient.invalidateQueries({ queryKey: ['user'] });
+    queryClient.invalidateQueries({ queryKey: [queries.user] });
   };
 
   const contextValue: AuthContextType = {

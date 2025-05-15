@@ -7,11 +7,11 @@ import { useTranslations } from 'next-intl';
 import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import { Dropdown } from '@/shared/components/dropdown-custom/Dropdown';
 import { PlanningInput } from '@/shared/components/planning-input/PlanningInput';
-import { isObjectTheSame } from '@/shared/helpers/is-object-the-same';
 import { useClickOutside } from '@/shared/hooks/ useClickOutside';
 import icons from '@/shared/icons/icons';
 
 import { EmojiPickerCompoment } from '@/features/planning/components/goals/emojy-picker/EmojiPicker';
+import { isObjectTheSame } from '@/features/planning/helpers/is-object-the-same';
 import {
   ActiveGoal,
   CreateGoal,

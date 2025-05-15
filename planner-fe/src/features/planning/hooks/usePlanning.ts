@@ -65,12 +65,32 @@ export const usePlanning = () => {
 
   const deleteTask = useMutation({
     mutationFn: TaskServices.delete,
+
+    onMutate: async (deletedTaskId: string) => {
+      await queryClient.cancelQueries({ queryKey: ['planning'] });
+
+      const previousData = queryClient.getQueryData(['planning']);
+
+      queryClient.setQueryData(['planning'], (oldData: ActiveGoalsData) => {
+        const updatedWeeklyTasks = oldData.tasks.filter(
+          (task: Task) => task._id !== deletedTaskId
+        );
+        return {
+          ...oldData,
+          tasks: updatedWeeklyTasks,
+        };
+      });
+      return { previousData };
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
 
-    onError: () => toast.error(t('deleteTask.error')),
-  });
+    onError: (_err, _vars, context) => {
+      queryClient.setQueryData(['planning'], context?.previousData);
+      toast.error(t('deleteTask.error'));
+    },
+  }).mutate;
 
   const createGoal = useMutation({
     mutationFn: GoalServices.create,
@@ -90,6 +110,7 @@ export const usePlanning = () => {
 
   const deleteGoal = useMutation({
     mutationFn: GoalServices.delete,
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planning'] });
     },
@@ -108,12 +129,11 @@ export const usePlanning = () => {
     isError,
     isCreatingTask: createTask.isPending,
     isUpdatingTask: updateTask.isPending,
-    isDeletingTask: deleteTask.isPending,
     createGoal,
     updateGoal,
     deleteGoal,
     createTask: createTask.mutateAsync,
     updateTask: updateTask.mutateAsync,
-    deleteTask: deleteTask.mutateAsync,
+    deleteTask,
   };
 };

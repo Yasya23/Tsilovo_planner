@@ -7,16 +7,16 @@ import classNames from 'classnames';
 
 import { DaySection } from '@/features/planning/components/tasks/day-section/DaySection';
 import { WeekHeader } from '@/features/planning/components/tasks/week-header/WeekHeader';
-import { usePlanningContext } from '@/features/planning/context/usePlanningContext';
 import { filterDays } from '@/features/planning/helpers/filter-days';
 import { isDateToday } from '@/features/planning/helpers/is-today';
 import { useDragDropHandler } from '@/features/planning/hooks/useDragDrogHandler';
+import { usePlanning } from '@/features/planning/hooks/usePlanning';
 import { WeeklyTasks } from '@/features/planning/types/task.type';
 
 import styles from './WeeklyToDo.module.scss';
 
 export const WeeklyTodo = () => {
-  const { activeGoals, updateTask, weeks } = usePlanningContext();
+  const { activeGoals, updateTask, weeks } = usePlanning();
 
   const [isListView, setIsListView] = useState(false);
   const [prioritizeTaskDays, setPrioritizeTaskDays] = useState(false);
@@ -30,13 +30,13 @@ export const WeeklyTodo = () => {
   );
 
   const { handleDragEnd } = useDragDropHandler({
-    weeksData: weeks,
+    weeksData: optimisticWeeks,
     updateTask,
     updatedWeek: async (weeksData, taskToMove) => {
       startTransition(() => {
         addOptimisticWeeks(weeksData);
       });
-      updateTask(taskToMove);
+      await updateTask(taskToMove);
     },
     activeGoals,
   });

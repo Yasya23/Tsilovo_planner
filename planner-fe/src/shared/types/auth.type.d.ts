@@ -6,7 +6,7 @@ import {
 } from '../types/interfaces/loginFormValues';
 import { UserResponse } from './user.type';
 
-export interface AuthService {
+export type AuthService = {
   login({
     email,
     password,
@@ -20,4 +20,13 @@ export interface AuthService {
   logout(): Promise<AxiosResponse>;
   getTokens(): Promise<UserResponse>;
   googleAuth(): void;
-}
+};
+
+export type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
+export type RegisterFormValues = LoginFormValues & {
+  name: string;
+};

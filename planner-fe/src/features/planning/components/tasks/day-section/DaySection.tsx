@@ -11,8 +11,10 @@ import icons from '@/shared/icons/icons';
 
 import { DayHeader } from '@/features/planning/components/tasks/day-header/DayHeader';
 import { ManageTask } from '@/features/planning/components/tasks/manage-task/ManageTask';
+import { limits } from '@/features/planning/constants/limits';
 import { filterTasksByGoals } from '@/features/planning/helpers/filter-tasks-by-goal';
 import { usePlanning } from '@/features/planning/hooks/usePlanning';
+import { useTask } from '@/features/planning/hooks/useTasks';
 import { CreateTask, Task } from '@/features/planning/types/task.type';
 
 import styles from './DaySection.module.scss';
@@ -23,15 +25,9 @@ interface DaySectionProps {
 }
 
 export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
-  const {
-    activeGoals,
-    updateTask,
-    createTask,
-    deleteTask,
-    isCreatingTask,
-    isUpdatingTask,
-    isDeletingTask,
-  } = usePlanning();
+  const { activeGoals } = usePlanning();
+  const { updateTask, createTask, deleteTask, isCreatingTask, isUpdatingTask } =
+    useTask();
   const t = useTranslations('Common');
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
   const { orderedGoals, completedTasksNumber, notCompletedTasksNumber } =
@@ -55,14 +51,7 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
   };
 
   const handleDeleteTask = async (task: Task) => {
-    if (hasId(task)) {
-      setEditingTaskId(task._id);
-      try {
-        await deleteTask(task._id);
-      } finally {
-        setEditingTaskId(null);
-      }
-    }
+    deleteTask(task._id);
   };
 
   return (
@@ -96,17 +85,19 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
                         <h4 className={styles.GoalTitle}>
                           {goal.emoji} {goal.title}
                         </h4>
-                        <IconButtonCustom
-                          icon={<icons.PlusCircle />}
-                          name={t('buttons.addTask')}
-                          onClick={() =>
-                            setManageTask({
-                              date,
-                              goalId: goal._id,
-                            } as CreateTask)
-                          }
-                          size="small"
-                        />
+                        {dayTasks.length <= limits.maxTasksPerDayForGoal && (
+                          <IconButtonCustom
+                            icon={<icons.PlusCircle />}
+                            name={t('buttons.addTask')}
+                            onClick={() =>
+                              setManageTask({
+                                date,
+                                goalId: goal._id,
+                              } as CreateTask)
+                            }
+                            size="small"
+                          />
+                        )}
                       </div>
 
                       {manageTask?.goalId === goal._id &&
@@ -156,7 +147,7 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
                                       deleteTask={handleDeleteTask}
                                       handleSaveTask={handleSaveTask}
                                       isPending={
-                                        (isUpdatingTask || isDeletingTask) &&
+                                        isUpdatingTask &&
                                         editingTaskId === task._id
                                       }
                                     />
