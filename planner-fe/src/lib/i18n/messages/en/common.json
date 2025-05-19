@@ -35,7 +35,8 @@
       "general": "Something went wrong...",
       "registerError": "User with this email already exists",
       "loginError": "Invalid email or password",
-      "generalAuthError": "An error occurred. Please try again."
+      "generalAuthError": "An error occurred. Please try again.",
+      "logoutError": "Error logging out. Please try again."
     },
 
     "help": {

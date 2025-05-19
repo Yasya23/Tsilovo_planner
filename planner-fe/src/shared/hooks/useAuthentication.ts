@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -8,11 +9,10 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { queries } from '@/shared/constants/queries';
 import { routes } from '@/shared/constants/routes';
 import { AuthenticationService } from '@/shared/services/authentication.service';
-import { responseError } from '@/shared/utils/response-error';
-
-import { User } from '@/features/auth/types/auth.types';
+import { User } from '@/shared/types/user.type';
 
 export const useAuthentication = () => {
+  const t = useTranslations('Common');
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -40,7 +40,7 @@ export const useAuthentication = () => {
       queryClient.setQueryData([queries.user], null);
       router.push(routes.home);
     } catch (error) {
-      toast.error(responseError(error));
+      toast.error(t('errors.logoutError'));
     }
   }, [queryClient, router]);
 
