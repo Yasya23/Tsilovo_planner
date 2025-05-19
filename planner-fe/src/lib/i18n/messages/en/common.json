@@ -33,11 +33,9 @@
     },
     "errors": {
       "general": "Something went wrong...",
-      "server": {
-        "default": "An error occurred. Please try again.",
-        "invalidCredentials": "Invalid email or password",
-        "emailExists": "User with this email already exists"
-      }
+      "registerError": "User with this email already exists",
+      "loginError": "Invalid email or password",
+      "generalAuthError": "An error occurred. Please try again."
     },
 
     "help": {
@@ -83,7 +81,9 @@
     },
     "notifications": {
       "noTask": "No task",
-      "forbiddenDeleteTask": "Goal with active tasks can't be deleted"
+      "forbiddenDeleteTask": "Goal with active tasks can't be deleted",
+      "loginSuccess": "You have successfully logged in.",
+      "registerSuccess": "You have successfully registered."
     },
     "sidebar": {
       "planner": "Planner",

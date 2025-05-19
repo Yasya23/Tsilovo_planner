@@ -5,8 +5,7 @@
   border-radius: 10px;
   border: 1px solid $secondary;
   background-color: var(--bg-color);
-  max-width: 550px;
-  min-width: 200px;
+  min-width: 100%;
   padding-bottom: 10px;
 
   .NoGoals {
@@ -18,6 +17,11 @@
   .Header {
     border-radius: 10px 10px 0 0;
     overflow: hidden;
+  }
+
+  @include sm {
+    min-width: 200px;
+    max-width: 550px;
   }
 
   @include md {

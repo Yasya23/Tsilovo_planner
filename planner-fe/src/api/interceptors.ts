@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { services } from '@/shared/constants/api-services';
-
-import { AuthService } from '@/features/auth/services/auth.service';
+import { AuthenticationService } from '@/shared/services/authentication.service';
 
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -32,7 +31,7 @@ axiosAuth.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await AuthService.getNewTokens();
+        await AuthenticationService.getNewTokens();
         return axiosAuth(originalRequest);
       } catch (error) {
         console.error('Token refresh failed:', error);

@@ -24,11 +24,11 @@ let AuthService = class AuthService {
     async login(loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
         if (!user) {
-            throw new common_1.UnauthorizedException('LoginError');
+            throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const isPasswordValid = await (0, bcryptjs_1.compare)(loginDto.password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.UnauthorizedException('LoginError');
+            throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const tokens = await this.createTokenPair(user.id);
         if (!tokens.accessToken || !tokens.refreshToken) {
@@ -42,7 +42,7 @@ let AuthService = class AuthService {
     async register(registrationDto) {
         const existingUser = await this.userService.findByEmail(registrationDto.email);
         if (existingUser) {
-            throw new common_1.BadRequestException('RegisterError');
+            throw new common_1.BadRequestException('Email already exists');
         }
         const saltHash = Number(this.configService.get('PASSWORD_SALT'));
         const salt = await (0, bcryptjs_1.genSalt)(saltHash);

@@ -53,6 +53,7 @@ export const LoginForm = ({
   };
 
   const handleOnFocus = (field: keyof LoginFormValues) => {
+    console.log(field);
     trigger(field);
     clearErrors('root.serverError');
   };

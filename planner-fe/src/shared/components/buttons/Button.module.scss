@@ -1,0 +1,8 @@
+@use '@/styles/_variables' as *;
+
+[data-theme='dark'] {
+  .Button {
+    font-weight: 900;
+    font-size: clamp(1rem, 5vw, 1.1rem);
+  }
+}

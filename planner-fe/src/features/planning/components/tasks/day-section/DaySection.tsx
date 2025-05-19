@@ -140,18 +140,16 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
                                   >
                                     <icons.Draggable />
                                   </div>
-                                  <>
-                                    {console.log(editingTaskId, task._id)}
-                                    <ManageTask
-                                      task={task}
-                                      deleteTask={handleDeleteTask}
-                                      handleSaveTask={handleSaveTask}
-                                      isPending={
-                                        isUpdatingTask &&
-                                        editingTaskId === task._id
-                                      }
-                                    />
-                                  </>
+
+                                  <ManageTask
+                                    task={task}
+                                    deleteTask={handleDeleteTask}
+                                    handleSaveTask={handleSaveTask}
+                                    isPending={
+                                      isUpdatingTask &&
+                                      editingTaskId === task._id
+                                    }
+                                  />
                                 </div>
                               )}
                             </Draggable>

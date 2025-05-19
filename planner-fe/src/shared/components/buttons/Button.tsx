@@ -5,6 +5,9 @@ import React, { MouseEventHandler } from 'react';
 import { useLocale } from 'next-intl';
 
 import Button from '@mui/material/Button';
+import classNames from 'classnames';
+
+import styles from './Button.module.scss';
 
 type ButtonProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -29,6 +32,7 @@ export const ButtonCustom = ({
   href,
 }: ButtonProps) => {
   const locale = useLocale();
+  const boldText = style === 'outlined' || style === 'text';
 
   return (
     <Button
@@ -39,6 +43,9 @@ export const ButtonCustom = ({
       href={`/${locale}/${href}`}
       startIcon={iconStart}
       endIcon={iconEnd}
+      className={classNames({
+        [styles.Button]: boldText,
+      })}
     >
       {name}
     </Button>
