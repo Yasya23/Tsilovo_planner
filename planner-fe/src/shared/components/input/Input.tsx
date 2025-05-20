@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import styles from './Input.module.scss';
 
 interface InputProps {
-  value: string;
+  value?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -22,11 +22,11 @@ interface InputProps {
   label?: string;
   hasMessages?: boolean;
   error?: string;
+  isDirty?: boolean;
   hasAbilityHideValue?: boolean;
   isLabelVisibilityHidden?: boolean;
   disabled?: boolean;
   placeholder?: string;
-  serverError?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -41,9 +41,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       placeholder,
       hasMessages = true,
+      isDirty,
       hasAbilityHideValue = false,
       disabled = false,
-      serverError = false,
+      ...rest
     },
     ref
   ) => {
@@ -56,7 +57,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       );
     };
 
-    const isSuccess = hasMessages && !error && value && !serverError;
+    const isSuccess = !error && isDirty;
     const inputClass = classNames(styles.InputWrapper, {
       [styles.error]: error,
       [styles.success]: isSuccess,
@@ -82,6 +83,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             className={styles.Input}
             ref={ref}
+            {...rest}
           />
 
           <span className={styles.Label}>{placeholder}</span>

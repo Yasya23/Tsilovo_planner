@@ -18,6 +18,7 @@ type ButtonProps = {
   className?: string;
   style?: 'contained' | 'outlined' | 'text';
   color?: 'secondary' | 'success' | 'error';
+  type?: 'button' | 'submit' | 'reset';
   href?: string;
 };
 
@@ -30,12 +31,14 @@ export const ButtonCustom = ({
   style = 'contained',
   color = 'secondary',
   href,
+  type = 'button',
 }: ButtonProps) => {
   const locale = useLocale();
   const boldText = style === 'outlined' || style === 'text';
 
   return (
     <Button
+      type={type}
       variant={style}
       color={color}
       disabled={disabled}

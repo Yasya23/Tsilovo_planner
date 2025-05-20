@@ -5,11 +5,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px 0;
   gap: 15px;
-  height: 100%;
   width: 400px;
   max-width: 90vw;
+  border: 1px solid $secondary-transparent;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .Title {
@@ -17,6 +18,15 @@
   color: $secondary;
   font-weight: 600;
   font-size: clamp(1rem, 5vw, 1.2rem);
+}
+
+.OldData {
+  align-self: flex-start;
+  color: $secondary;
+
+  span: {
+    color: var(--text-color);
+  }
 }
 
 .Form {

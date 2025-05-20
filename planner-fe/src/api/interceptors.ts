@@ -33,8 +33,8 @@ axiosAuth.interceptors.response.use(
       try {
         await AuthenticationService.getNewTokens();
         return axiosAuth(originalRequest);
-      } catch (error) {
-        console.error('Token refresh failed:', error);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
       }
     }
 

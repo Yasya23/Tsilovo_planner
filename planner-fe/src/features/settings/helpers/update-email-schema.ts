@@ -16,5 +16,9 @@ export const createEmailSchema = (t: {
       .string()
       .matches(emailRegx, t('form.validation.email.invalid'))
       .required(t('form.validation.email.required')),
+    password: yup
+      .string()
+      .min(6, t('form.validation.password.minLength'))
+      .required(t('form.validation.password.required')),
   });
 };

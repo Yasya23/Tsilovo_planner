@@ -47,6 +47,6 @@ export const config = {
     '/(uk|en)/planner/:path*',
     '/(uk|en)/login',
     '/(uk|en)/register',
-    '/((?!api|_next/|images/|.*\\.(?:png|jpg|jpeg|webp|svg|gif|avif|ico)$).*)',
+    '/((?!api|_next/|images/|.*\\.(?:png|jpg|jpeg|webp|svg|gif|avif)$).*)',
   ],
 };

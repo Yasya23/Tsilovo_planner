@@ -74,7 +74,8 @@
       "forgetPassword": "Forgot password?",
       "deleteAccount": "Delete account",
       "googleAuth": "Google authentication",
-      "deleteNotification": "Note: After deleting the account, all data will be deleted"
+      "deleteNotification": "Note: After deleting the account, all data will be deleted",
+      "changeName": "Change name"
     },
     "placeholders": {
       "addTask": "Add task",
@@ -165,21 +166,25 @@
     "form": {
       "labels": {
         "email": "Email",
+        "newEmail": "New Email",
         "password": "Password",
         "confirmPassword": "Confirm Password",
         "oldPassword": "Old Password",
         "newPassword": "New Password",
         "confirmNewPassword": "Confirm New Password",
-        "name": "Name"
+        "name": "Name",
+        "newName": "New Name"
       },
       "placeholders": {
         "email": "Enter your email",
+        "newEmail": "Enter new email",
         "password": "Enter your password",
         "confirmPassword": "Confirm your password",
         "oldPassword": "Old Password",
         "newPassword": "New Password",
         "confirmNewPassword": "Confirm New Password",
-        "name": "Enter your name"
+        "name": "Enter your name",
+        "newName": "Enter new name"
       },
       "validation": {
         "email": {
