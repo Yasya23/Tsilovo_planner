@@ -19,27 +19,14 @@ export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
     <DefaultLayout>
       <div className={styles.Container}>
         <div className={styles.Wrapper}>
-          {mode === 'login' && (
-            <>
-              <h1 className={styles.Title}>{t('buttons.login')}</h1>
-              <GoogleAuthButton disabled={isPending} />
-              <div>{t('buttons.or')}</div>
+          <h1 className={styles.Title}>{t(`buttons.${mode}`)}</h1>
+          <GoogleAuthButton disabled={isPending} />
+          <div>{t('buttons.or')}</div>
 
-              <LoginForm isPending={isPending} error={error} login={login} />
-            </>
-          )}
-          {mode === 'register' && (
-            <>
-              <h1 className={styles.Title}>{t('buttons.register')}</h1>
-              <GoogleAuthButton disabled={isPending} />
-              <div>{t('buttons.or')}</div>
-
-              <RegisterForm
-                isPending={isPending}
-                error={error}
-                register={register}
-              />
-            </>
+          {mode === 'login' ? (
+            <LoginForm isPending={isPending} login={login} />
+          ) : (
+            <RegisterForm isPending={isPending} handleRegister={register} />
           )}
         </div>
       </div>

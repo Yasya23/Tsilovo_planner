@@ -71,6 +71,7 @@ export const ChangeName = ({ isPending, updateName, name }: Props) => {
         style="outlined"
         name={t('buttons.update')}
         disabled={disabledButton}
+        onClick={handleSubmit(onSubmit)}
       />
     </form>
   );

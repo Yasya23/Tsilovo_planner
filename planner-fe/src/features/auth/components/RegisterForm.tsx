@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { useTranslations } from 'next-intl';
 
@@ -24,136 +23,113 @@ type RegisterFormValues = {
 
 type RegisterFormValuesProps = {
   isPending: boolean;
-  error: Error | null;
-  register: (data: RegisterFormValues) => void;
+  handleRegister: (data: RegisterFormValues) => void;
 };
 
 export const RegisterForm = ({
   isPending,
-  error,
-  register,
+  handleRegister,
 }: RegisterFormValuesProps) => {
   const t = useTranslations('Common');
   const registrationSchema = createRegistrationSchema(t);
 
   const {
-    control,
+    register,
     handleSubmit,
     clearErrors,
-    trigger,
-    formState: { errors },
-    watch,
+    formState: { errors, isSubmitting, isValid, dirtyFields },
   } = useForm<RegisterFormValues>({
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
   });
 
-  const password = watch('password');
-
-  useEffect(() => {
-    if (password) {
-      trigger('confirmPassword');
-    }
-  }, [password, trigger]);
-
-  const getError = (name: keyof RegisterFormValues) => {
-    return errors?.[name]?.message || undefined;
-  };
-
   const onSubmit = (values: RegisterFormValues) => {
-    register(values);
+    handleRegister(values);
   };
 
-  const handleOnFocus = (field: keyof RegisterFormValues) => {
-    trigger(field);
-    clearErrors('root.serverError');
-  };
+  const disabledInput = isPending || isSubmitting;
+  const disabledButton = disabledInput || !isValid;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
       <fieldset disabled={isPending}>
-        <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="text"
-              label={t('form.labels.name')}
-              placeholder={t('form.placeholders.name')}
-              {...field}
-              icon={<icons.User />}
-              error={getError('name')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('name')}
-              onBlur={() => trigger('name')}
-            />
-          )}
+        <Input
+          {...register('name', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('name');
+              }
+            },
+          })}
+          type="text"
+          label={t('form.labels.name')}
+          placeholder={t('form.placeholders.name')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.name?.message}
+          isDirty={dirtyFields.name}
+          disabled={disabledInput}
         />
 
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="email"
-              label={t('form.labels.email')}
-              placeholder={t('form.placeholders.email')}
-              {...field}
-              icon={<icons.Mail />}
-              error={getError('email')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('email')}
-              onBlur={() => trigger('email')}
-            />
-          )}
+        <Input
+          {...register('email', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('email');
+              }
+            },
+          })}
+          type="email"
+          label={t('form.labels.email')}
+          placeholder={t('form.placeholders.email')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.email?.message}
+          isDirty={dirtyFields.email}
+          disabled={disabledInput}
         />
 
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.password')}
-              placeholder={t('form.placeholders.password')}
-              {...field}
-              icon={<icons.Password />}
-              hasAbilityHideValue
-              error={getError('password')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('password')}
-              onBlur={() => trigger('password')}
-            />
-          )}
+        <Input
+          {...register('password', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('password');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.password')}
+          placeholder={t('form.placeholders.password')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.password?.message}
+          disabled={disabledInput}
+          isDirty={dirtyFields.password}
         />
 
-        <Controller
-          name="confirmPassword"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.confirmPassword')}
-              placeholder={t('form.placeholders.confirmPassword')}
-              {...field}
-              icon={<icons.Password />}
-              hasAbilityHideValue
-              error={getError('confirmPassword')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('confirmPassword')}
-              onBlur={() => trigger('confirmPassword')}
-            />
-          )}
+        <Input
+          {...register('confirmPassword', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('confirmPassword');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.confirmPassword')}
+          placeholder={t('form.placeholders.confirmPassword')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.confirmPassword?.message}
+          disabled={disabledInput}
+          isDirty={dirtyFields.confirmPassword}
         />
 
         <ButtonCustom
-          disabled={isPending}
+          disabled={disabledButton}
           name={t('buttons.register')}
           style="outlined"
+          type="submit"
           onClick={handleSubmit(onSubmit)}
         />
 

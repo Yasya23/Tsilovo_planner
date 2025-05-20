@@ -53,7 +53,6 @@ export const ChangeEmail = ({
 
   const disabledInput = isPending || isSubmitting;
   const disabledButton = disabledInput || !isValid;
-  console.log(errors, dirtyFields);
 
   return (
     <div className={styles.Wrapper}>
@@ -104,6 +103,7 @@ export const ChangeEmail = ({
             name={t('buttons.update')}
             style="outlined"
             type="submit"
+            onClick={handleSubmit(onSubmit)}
           />
         </fieldset>
       </form>

@@ -21,89 +21,77 @@ type LoginFormValues = {
 
 type LoginFormValuesProps = {
   isPending: boolean;
-  error: Error | null;
   login: (data: LoginFormValues) => void;
 };
 
-export const LoginForm = ({
-  isPending,
-  error,
-  login,
-}: LoginFormValuesProps) => {
+export const LoginForm = ({ isPending, login }: LoginFormValuesProps) => {
   const t = useTranslations('Common');
   const schema = createLoginSchema(t);
 
   const {
-    control,
+    register,
     handleSubmit,
     clearErrors,
-    trigger,
-    formState: { errors },
+    formState: { errors, isSubmitting, isValid, dirtyFields },
   } = useForm<LoginFormValues>({
-    resolver: schema ? yupResolver(schema) : undefined,
+    resolver: yupResolver(schema),
     mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
-
-  const getError = (name: keyof LoginFormValues) => {
-    return errors?.[name]?.message || undefined;
-  };
 
   const onSubmit = (values: LoginFormValues) => {
     login(values);
   };
 
-  const handleOnFocus = (field: keyof LoginFormValues) => {
-    console.log(field);
-    trigger(field);
-    clearErrors('root.serverError');
-  };
+  const disabledInput = isPending || isSubmitting;
+  const disabledButton = disabledInput || !isValid;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
       <fieldset disabled={isPending}>
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="email"
-              label={t('form.labels.email')}
-              placeholder={t('form.placeholders.email')}
-              {...field}
-              icon={<icons.Mail />}
-              error={getError('email')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('email')}
-              onBlur={() => trigger('email')}
-            />
-          )}
+        <Input
+          {...register('email', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('email');
+              }
+            },
+          })}
+          type="email"
+          label={t('form.labels.email')}
+          placeholder={t('form.placeholders.email')}
+          icon={<icons.Mail />}
+          error={errors.email?.message}
+          isDirty={dirtyFields.email}
+          disabled={disabledInput}
         />
 
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input
-              type="password"
-              label={t('form.labels.password')}
-              placeholder={t('form.placeholders.password')}
-              {...field}
-              icon={<icons.Password />}
-              hasAbilityHideValue
-              error={getError('password')}
-              serverError={!!error}
-              onFocus={() => handleOnFocus('password')}
-              onBlur={() => trigger('password')}
-            />
-          )}
+        <Input
+          {...register('password', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('password');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.password')}
+          placeholder={t('form.placeholders.password')}
+          icon={<icons.Password />}
+          hasAbilityHideValue
+          error={errors.password?.message}
+          isDirty={dirtyFields.password}
+          disabled={disabledInput}
         />
 
         <ButtonCustom
-          disabled={isPending}
+          disabled={disabledButton}
           name={t('buttons.signIn')}
           style="outlined"
+          type="submit"
           onClick={handleSubmit(onSubmit)}
         />
 

@@ -119,6 +119,7 @@ export const ChangePassword = ({
             type="submit"
             name={t('buttons.update')}
             style="outlined"
+            onClick={handleSubmit(onSubmit)}
           />
         </fieldset>
       </form>
