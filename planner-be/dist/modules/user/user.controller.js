@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const auth_decorator_1 = require("../../decorators/auth.decorator");
 const user_decorator_1 = require("../../decorators/user.decorator");
-const dto_1 = require("../../typing/dto");
+const dto_1 = require("./dto");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -25,18 +25,20 @@ let UserController = class UserController {
     async getUserProfile(id) {
         return this.userService.getByID(id);
     }
-    async getUser(id) {
-        return this.userService.getByID(id);
+    async updateName(id, dto) {
+        return await this.userService.updateName(id, dto);
     }
-    async update(id, dto) {
-        return await this.userService.update(id, dto);
+    async updateEmail(id, dto) {
+        return await this.userService.updateEmail(id, dto);
+    }
+    async updatePassword(id, dto) {
+        return await this.userService.updatePassword(id, dto);
     }
     async updateAvatar(id, dto) {
         return await this.userService.updateAvatar(id, dto);
     }
     async delete(id) {
-        await this.userService.delete(id);
-        return { message: 'Profile deleted successfully' };
+        await this.userService.deleteProfile(id);
     }
 };
 exports.UserController = UserController;
@@ -49,35 +51,45 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserProfile", null);
 __decorate([
-    (0, common_1.Get)(),
-    (0, auth_decorator_1.Auth)(),
-    __param(0, (0, user_decorator_1.User)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "getUser", null);
-__decorate([
-    (0, common_1.Put)('profile'),
+    (0, common_1.Put)('name'),
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, user_decorator_1.User)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [String, dto_1.UpdateNameDto]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "update", null);
+], UserController.prototype, "updateName", null);
+__decorate([
+    (0, common_1.Put)('email'),
+    (0, auth_decorator_1.Auth)(),
+    __param(0, (0, user_decorator_1.User)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, dto_1.UpdateEmailDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateEmail", null);
+__decorate([
+    (0, common_1.Put)('password'),
+    (0, auth_decorator_1.Auth)(),
+    __param(0, (0, user_decorator_1.User)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, dto_1.UpdatePasswordDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updatePassword", null);
 __decorate([
     (0, common_1.Put)('avatar'),
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, user_decorator_1.User)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, dto_1.UpdateAvatarDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateAvatar", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)(),
     (0, auth_decorator_1.Auth)(),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, user_decorator_1.User)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

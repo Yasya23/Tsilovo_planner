@@ -1,23 +1,21 @@
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
-import { UpdateUserDto } from 'src/typing/dto';
+import { UpdateAvatarDto, UpdatePasswordDto, UpdateNameDto, UpdateEmailDto } from './dto';
+import { ConfigService } from '@nestjs/config';
 export declare class UserService {
     private readonly userModel;
-    constructor(userModel: ModelType<UserModel>);
+    private readonly configService;
+    constructor(userModel: ModelType<UserModel>, configService: ConfigService);
     getAllUsers(): Promise<any[]>;
     getByID(id: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    update(userId: string, userDto: UpdateUserDto): Promise<{
-        id: any;
-        name: string;
-        email: string;
-    }>;
-    updateAvatar(userId: string, { image }: {
-        image: string;
-    }): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
+    updateName(userId: string, userDto: UpdateNameDto): Promise<void>;
+    updatePassword(userId: string, userDto: UpdatePasswordDto): Promise<void>;
+    updateEmail(userId: string, userDto: UpdateEmailDto): Promise<void>;
+    updateAvatar(userId: string, { image }: UpdateAvatarDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {
         __v: number;
@@ -32,5 +30,5 @@ export declare class UserService {
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    delete(id: string): Promise<void>;
+    deleteProfile(id: string): Promise<void>;
 }

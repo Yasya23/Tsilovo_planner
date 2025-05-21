@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 const user_model_1 = require("../../models/user.model");
 const bcryptjs_1 = require("bcryptjs");
+const config_1 = require("@nestjs/config");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, configService) {
         this.userModel = userModel;
+        this.configService = configService;
     }
     async getAllUsers() {
         const users = await this.userModel.find().exec();
@@ -34,44 +36,42 @@ let UserService = class UserService {
             throw new common_1.NotFoundException('User not found');
         return user;
     }
-    async update(userId, userDto) {
+    async updateName(userId, userDto) {
+        const user = await this.userModel.findById(userId);
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        user.name = userDto.name;
+        await user.save();
+    }
+    async updatePassword(userId, userDto) {
+        const user = await this.userModel.findById(userId);
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        const isPasswordValid = await (0, bcryptjs_1.compare)(userDto.password, user.password);
+        if (!isPasswordValid) {
+            throw new common_1.BadRequestException('Old password is incorrect');
+        }
+        const saltHash = Number(this.configService.get('PASSWORD_SALT'));
+        const salt = await (0, bcryptjs_1.genSalt)(saltHash);
+        user.password = await (0, bcryptjs_1.hash)(userDto.password, salt);
+        await user.save();
+    }
+    async updateEmail(userId, userDto) {
         const user = await this.userModel.findById(userId);
         if (!user)
             throw new common_1.NotFoundException('User not found');
         const isEmailUnique = await this.userModel.findOne({
             email: userDto.email,
         });
-        const isEmailTheSame = userDto.email === user.email;
-        if (userDto.email &&
-            !isEmailTheSame &&
-            isEmailUnique &&
-            userId === isEmailUnique.id) {
+        if (isEmailUnique) {
             throw new common_1.NotFoundException('This email address is already used');
         }
-        if (userDto.newPassword) {
-            if (!userDto.password) {
-                throw new common_1.BadRequestException('Old password is required to update the password');
-            }
-            const isPasswordValid = await (0, bcryptjs_1.compare)(userDto.password, user.password);
-            if (!isPasswordValid) {
-                throw new common_1.BadRequestException('Old password is incorrect');
-            }
-            const salt = await (0, bcryptjs_1.genSalt)(10);
-            user.password = await (0, bcryptjs_1.hash)(userDto.newPassword, salt);
+        const isPasswordValid = await (0, bcryptjs_1.compare)(userDto.password, user.password);
+        if (!isPasswordValid) {
+            throw new common_1.BadRequestException('Old password is incorrect');
         }
-        if (userDto.email && !isEmailTheSame)
-            user.email = userDto.email;
-        if (userDto.name)
-            user.name = userDto.name;
-        if (!!userDto.isAdmin)
-            user.isAdmin = true;
+        user.email = userDto.email;
         await user.save();
-        const { id, name, email } = user;
-        return {
-            id,
-            name,
-            email,
-        };
     }
     async updateAvatar(userId, { image }) {
         const user = await this.userModel.findById(userId);
@@ -87,7 +87,7 @@ let UserService = class UserService {
         const user = new this.userModel(userData);
         return user.save();
     }
-    async delete(id) {
+    async deleteProfile(id) {
         await this.userModel.findByIdAndDelete(id).exec();
     }
 };
@@ -95,6 +95,6 @@ exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(user_model_1.UserModel)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, config_1.ConfigService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

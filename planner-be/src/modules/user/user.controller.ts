@@ -2,7 +2,12 @@ import { Controller, Body, Param, Delete, Put, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Auth } from 'src/decorators/auth.decorator';
 import { User } from 'src/decorators/user.decorator';
-import { UpdateUserDto } from 'src/typing/dto';
+import {
+  UpdateNameDto,
+  UpdateEmailDto,
+  UpdatePasswordDto,
+  UpdateAvatarDto,
+} from './dto';
 
 @Controller('user')
 export class UserController {
@@ -14,28 +19,33 @@ export class UserController {
     return this.userService.getByID(id);
   }
 
-  @Get()
+  @Put('name')
   @Auth()
-  async getUser(@User('id') id: string) {
-    return this.userService.getByID(id);
+  async updateName(@User('id') id: string, @Body() dto: UpdateNameDto) {
+    return await this.userService.updateName(id, dto);
   }
 
-  @Put('profile')
+  @Put('email')
   @Auth()
-  async update(@User('id') id: string, @Body() dto: UpdateUserDto) {
-    return await this.userService.update(id, dto);
+  async updateEmail(@User('id') id: string, @Body() dto: UpdateEmailDto) {
+    return await this.userService.updateEmail(id, dto);
+  }
+
+  @Put('password')
+  @Auth()
+  async updatePassword(@User('id') id: string, @Body() dto: UpdatePasswordDto) {
+    return await this.userService.updatePassword(id, dto);
   }
 
   @Put('avatar')
   @Auth()
-  async updateAvatar(@User('id') id: string, @Body() dto: { image: string }) {
+  async updateAvatar(@User('id') id: string, @Body() dto: UpdateAvatarDto) {
     return await this.userService.updateAvatar(id, dto);
   }
 
-  @Delete(':id')
+  @Delete()
   @Auth()
-  async delete(@Param('id') id: string) {
-    await this.userService.delete(id);
-    return { message: 'Profile deleted successfully' };
+  async delete(@User('id') id: string) {
+    await this.userService.deleteProfile(id);
   }
 }

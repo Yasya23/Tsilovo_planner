@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { UpdateUserDto } from 'src/typing/dto';
+import { UpdateNameDto, UpdateEmailDto, UpdatePasswordDto, UpdateAvatarDto } from './dto';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
@@ -8,24 +8,13 @@ export declare class UserController {
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    getUser(id: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/user.model").UserModel & Required<{
+    updateName(id: string, dto: UpdateNameDto): Promise<void>;
+    updateEmail(id: string, dto: UpdateEmailDto): Promise<void>;
+    updatePassword(id: string, dto: UpdatePasswordDto): Promise<void>;
+    updateAvatar(id: string, dto: UpdateAvatarDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/user.model").UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    update(id: string, dto: UpdateUserDto): Promise<{
-        id: any;
-        name: string;
-        email: string;
-    }>;
-    updateAvatar(id: string, dto: {
-        image: string;
-    }): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/user.model").UserModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    delete(id: string): Promise<{
-        message: string;
-    }>;
+    delete(id: string): Promise<void>;
 }

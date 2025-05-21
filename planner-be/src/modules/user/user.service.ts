@@ -6,13 +6,20 @@ import {
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/models/user.model';
-import { UpdateUserDto } from 'src/typing/dto';
+import {
+  UpdateAvatarDto,
+  UpdatePasswordDto,
+  UpdateNameDto,
+  UpdateEmailDto,
+} from './dto';
 import { genSalt, hash, compare } from 'bcryptjs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
+    private readonly configService: ConfigService,
   ) {}
 
   async getAllUsers(): Promise<any[]> {
@@ -29,52 +36,48 @@ export class UserService {
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
+  async updateName(userId: string, userDto: UpdateNameDto) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    user.name = userDto.name;
+    await user.save();
+  }
 
-  async update(userId: string, userDto: UpdateUserDto) {
+  async updatePassword(userId: string, userDto: UpdatePasswordDto) {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
+    const isPasswordValid = await compare(userDto.password, user.password);
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Old password is incorrect');
+    }
+    const saltHash = Number(this.configService.get('PASSWORD_SALT'));
+    const salt = await genSalt(saltHash);
+    user.password = await hash(userDto.password, salt);
+    await user.save();
+  }
+
+  async updateEmail(userId: string, userDto: UpdateEmailDto) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
     const isEmailUnique = await this.userModel.findOne({
       email: userDto.email,
     });
-
-    const isEmailTheSame = userDto.email === user.email;
-    if (
-      userDto.email &&
-      !isEmailTheSame &&
-      isEmailUnique &&
-      userId === isEmailUnique.id
-    ) {
+    if (isEmailUnique) {
       throw new NotFoundException('This email address is already used');
     }
-    if (userDto.newPassword) {
-      if (!userDto.password) {
-        throw new BadRequestException(
-          'Old password is required to update the password',
-        );
-      }
-      const isPasswordValid = await compare(userDto.password, user.password);
 
-      if (!isPasswordValid) {
-        throw new BadRequestException('Old password is incorrect');
-      }
-      const salt = await genSalt(10);
-      user.password = await hash(userDto.newPassword, salt);
+    const isPasswordValid = await compare(userDto.password, user.password);
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Old password is incorrect');
     }
-    if (userDto.email && !isEmailTheSame) user.email = userDto.email;
-    if (userDto.name) user.name = userDto.name;
-    if (!!userDto.isAdmin) user.isAdmin = true;
-
+    user.email = userDto.email;
     await user.save();
-    const { id, name, email } = user;
-    return {
-      id,
-      name,
-      email,
-    };
   }
 
-  async updateAvatar(userId: string, { image }: { image: string }) {
+  async updateAvatar(userId: string, { image }: UpdateAvatarDto) {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
@@ -91,7 +94,8 @@ export class UserService {
     return user.save();
   }
 
-  async delete(id: string) {
+  async deleteProfile(id: string) {
+    //Todo list on email
     await this.userModel.findByIdAndDelete(id).exec();
   }
 }
