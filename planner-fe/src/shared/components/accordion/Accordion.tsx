@@ -70,7 +70,9 @@ export const AccordionUsage = ({ items, level = 0 }: AccordionProps) => {
               {item.title}
             </Typography>
           </AccordionSummary>
-          <AccordionDetails>{item.description}</AccordionDetails>
+          <AccordionDetails className={styles.Details}>
+            {item.description}
+          </AccordionDetails>
         </Accordion>
       ))}
     </div>

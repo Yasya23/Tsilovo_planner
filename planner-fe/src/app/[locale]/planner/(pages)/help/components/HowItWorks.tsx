@@ -5,7 +5,7 @@ import { AccordionUsage } from '@/shared/components/accordion/Accordion';
 import styles from './HowItWorks.module.scss';
 
 export const HowItWorks = () => {
-  const t = useTranslations('Common.help');
+  const t = useTranslations('Help');
 
   const qa = t.raw('qa') as { title: string; description: string }[];
 

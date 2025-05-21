@@ -14,7 +14,7 @@ type GoalsListProps = {
 };
 export const GoalsList = ({ goals }: GoalsListProps) => {
   return (
-    <div className={styles.AccordionContent}>
+    <div className={styles.GoalsList}>
       <AccordionUsage
         items={goals.map((goal) => ({
           title: (

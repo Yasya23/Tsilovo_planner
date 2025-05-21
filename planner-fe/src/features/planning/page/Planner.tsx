@@ -24,23 +24,27 @@ export const Planner = () => {
     isPending,
   } = usePlanning();
 
-  if (isPending) return <Skeleton />;
-
-  if (isError) return <ErrorMessage message={t('error')} />;
-
   return (
     <div className={styles.Planner}>
       <h1 className={styles.Title}>{t('title')}</h1>
-      <div className={styles.Header}>
-        <GoalsList
-          activeGoals={activeGoals}
-          createGoal={createGoal}
-          updateGoal={updateGoal}
-          deleteGoal={deleteGoal}
-        />
-        <WeeklyStatistic statistics={weeklyStatistics} />
-      </div>
-      <WeeklyTodo />
+      {isPending ? (
+        <Skeleton />
+      ) : isError ? (
+        <ErrorMessage message={t('error')} />
+      ) : (
+        <>
+          <div className={styles.Header}>
+            <GoalsList
+              activeGoals={activeGoals}
+              createGoal={createGoal}
+              updateGoal={updateGoal}
+              deleteGoal={deleteGoal}
+            />
+            <WeeklyStatistic statistics={weeklyStatistics} />
+          </div>
+          <WeeklyTodo />
+        </>
+      )}
     </div>
   );
 };

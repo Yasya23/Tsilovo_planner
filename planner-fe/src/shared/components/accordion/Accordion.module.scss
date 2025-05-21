@@ -1,3 +1,5 @@
+@use '@/styles/_variables' as *;
+
 .Accordion {
   .Wrapper {
     background-color: var(--color-bg);
@@ -6,7 +8,11 @@
   }
 
   .Title {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: clamp(1rem, 5vw, 1.2rem);
+    width: 100%;
+  }
+
+  .Details {
+    background-color: $secondary-transparent;
   }
 }

@@ -3,13 +3,17 @@
 .Tasks {
   width: 100%;
   border: 1px solid $secondary;
+  background-color: var(--bg-color);
 
   & .Task {
     position: relative;
     counter-increment: list-counter;
     padding: 0.5rem 0.5rem 0.5rem 1.8rem;
     font-size: clamp(1rem, 5vw, 1.2rem);
-    border-bottom: 1px solid $secondary;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $secondary;
+    }
   }
 
   .Task::before {

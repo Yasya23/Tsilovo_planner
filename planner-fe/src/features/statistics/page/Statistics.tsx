@@ -25,13 +25,14 @@ export const Statistics = () => {
 
   const t = useTranslations('Common');
 
-  if (isPending) return <Skeleton />;
-
   return (
     <div className={styles.Statistics}>
       <h1 className={styles.Title}>{t('statistics.annualStatistics')}</h1>
       <p className={styles.Notification}>{t('statistics.notification')}</p>
-      {isError || !statistics?.monthlyStats ? (
+
+      {isPending ? (
+        <Skeleton />
+      ) : isError || !statistics?.monthlyStats ? (
         <ErrorMessage error={t('statistics.error')} />
       ) : (
         <>

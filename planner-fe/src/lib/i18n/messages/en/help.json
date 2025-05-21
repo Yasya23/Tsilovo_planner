@@ -1,0 +1,27 @@
+{
+  "Help": {
+    "title": "How it works",
+    "qa": [
+      {
+        "title": "What is the main goal of this planner?",
+        "description": "This planner helps you focus on five key goals to gradually achieve meaningful results across different areas of life."
+      },
+      {
+        "title": "How many goals can I have at once?",
+        "description": "The optimal number of active goals is 5. This helps avoid overload and maintain focus."
+      },
+      {
+        "title": "How many tasks can I add?",
+        "description": "You can add an unlimited number of tasks per goal, but no more than 20 tasks per day to maintain a healthy workload balance."
+      },
+      {
+        "title": "How does the planner support motivation?",
+        "description": "The system tracks completed tasks and emphasizes achievements rather than failures, which helps reduce stress and increase motivation."
+      },
+      {
+        "title": "Can I track my progress?",
+        "description": "Yes, the planner provides statistics for each goal and overall progress, helping you understand your pace and plan next steps."
+      }
+    ]
+  }
+}

@@ -1,11 +1,15 @@
 @use '@/styles/_variables.scss' as *;
 
+.GoalsList {
+  width: 100%;
+}
 .Goal {
   display: flex;
+  width: 100%;
+  font-weight: 400;
+  font-size: clamp(1rem, 5vw, 1.2rem);
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
-  font-size: 1rem;
 
   &:not(:last-child) {
     border-bottom: 1px solid $secondary;
@@ -13,6 +17,5 @@
 
   .GoalTitle {
     flex-grow: 1;
-
   }
 }
