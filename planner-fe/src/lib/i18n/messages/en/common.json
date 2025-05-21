@@ -68,14 +68,16 @@
       "title": "Settings",
       "maxImageSize": "Maximum image size is 1MB",
       "fileTooLarge": "File is too large. Maximum size is 1MB",
-      "uploadError": "Error uploading image. Please try again",
+      "updateError": "An error occurred while updating your information. Please try again.",
+      "success": "Your information has been successfully updated.",
       "changePassword": "Change password",
       "changeEmail": "Change email",
       "forgetPassword": "Forgot password?",
       "deleteAccount": "Delete account",
       "googleAuth": "Google authentication",
       "deleteNotification": "Note: After deleting the account, all data will be deleted",
-      "changeName": "Change name"
+      "changeName": "Change name",
+      "successDelete": "To delete your profile, please follow the instructions sent to your email."
     },
     "placeholders": {
       "addTask": "Add task",

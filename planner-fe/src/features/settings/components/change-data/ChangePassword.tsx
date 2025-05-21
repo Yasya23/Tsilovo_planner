@@ -11,6 +11,7 @@ import Input from '@/shared/components/input/Input';
 import icons from '@/shared/icons/icons';
 
 import { createUpdatePasswordSchema } from '@/features/settings/helpers/update-password-schema';
+import { useChangePassword } from '@/features/settings/hooks/useChangePassword';
 
 import styles from './ChangeData.module.scss';
 
@@ -20,15 +21,8 @@ type FormValues = {
   confirmPassword: string;
 };
 
-type ChangePasswordsProps = {
-  isPending: boolean;
-  updatePassword: (data: FormValues) => void;
-};
-
-export const ChangePassword = ({
-  isPending,
-  updatePassword,
-}: ChangePasswordsProps) => {
+export const ChangePassword = () => {
+  const { changePassword, isPending } = useChangePassword();
   const t = useTranslations('Common');
   const updatePasswordSchema = createUpdatePasswordSchema(t);
 
@@ -48,80 +42,78 @@ export const ChangePassword = ({
   });
 
   const onSubmit = (values: FormValues) => {
-    updatePassword(values);
+    const { password, newPassword } = values;
+    changePassword({ password, newPassword });
   };
 
-  const disabledInput = isPending || isSubmitting;
+  const disabledInput = isSubmitting || isPending;
   const disabledButton = disabledInput || !isValid;
 
-  console.log(errors, dirtyFields);
   return (
     <div className={styles.Wrapper}>
       <h2 className={styles.Title}>{t('settings.changePassword')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
-        <fieldset disabled={isPending}>
-          <Input
-            {...register('password', {
-              onBlur: (e) => {
-                if (!e.target.value.trim()) {
-                  clearErrors('password');
-                }
-              },
-            })}
-            type="password"
-            label={t('form.labels.password')}
-            placeholder={t('form.placeholders.oldPassword')}
-            icon={<icons.Home />}
-            hasAbilityHideValue
-            error={errors.password?.message}
-            disabled={disabledInput}
-            isDirty={dirtyFields.password}
-          />
+        <Input
+          {...register('password', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('password');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.password')}
+          placeholder={t('form.placeholders.oldPassword')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.password?.message}
+          disabled={disabledInput}
+          isDirty={dirtyFields.password}
+        />
 
-          <Input
-            {...register('newPassword', {
-              onBlur: (e) => {
-                if (!e.target.value.trim()) {
-                  clearErrors('newPassword');
-                }
-              },
-            })}
-            type="password"
-            label={t('form.labels.password')}
-            placeholder={t('form.placeholders.newPassword')}
-            icon={<icons.Home />}
-            hasAbilityHideValue
-            error={errors.newPassword?.message}
-            disabled={disabledInput}
-            isDirty={dirtyFields.newPassword}
-          />
+        <Input
+          {...register('newPassword', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('newPassword');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.password')}
+          placeholder={t('form.placeholders.newPassword')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.newPassword?.message}
+          disabled={disabledInput}
+          isDirty={dirtyFields.newPassword}
+        />
 
-          <Input
-            {...register('confirmPassword', {
-              onBlur: (e) => {
-                if (!e.target.value.trim()) {
-                  clearErrors('confirmPassword');
-                }
-              },
-            })}
-            type="password"
-            label={t('form.labels.confirmPassword')}
-            placeholder={t('form.placeholders.confirmNewPassword')}
-            icon={<icons.Home />}
-            hasAbilityHideValue
-            error={errors.confirmPassword?.message}
-            disabled={disabledInput}
-            isDirty={dirtyFields.confirmPassword}
-          />
+        <Input
+          {...register('confirmPassword', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('confirmPassword');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.confirmPassword')}
+          placeholder={t('form.placeholders.confirmNewPassword')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.confirmPassword?.message}
+          disabled={disabledInput}
+          isDirty={dirtyFields.confirmPassword}
+        />
 
-          <ButtonCustom
-            disabled={disabledButton}
-            type="submit"
-            name={t('buttons.update')}
-            style="outlined"
-            onClick={handleSubmit(onSubmit)}
-          />
-        </fieldset>
+        <ButtonCustom
+          disabled={disabledButton}
+          type="submit"
+          name={t('buttons.update')}
+          style="outlined"
+          onClick={handleSubmit(onSubmit)}
+        />
       </form>
     </div>
   );

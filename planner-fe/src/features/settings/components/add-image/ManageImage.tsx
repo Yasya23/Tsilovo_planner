@@ -6,30 +6,23 @@ import { useTranslations } from 'next-intl';
 
 import { Avatar } from '@/shared/components/avatar/Avatar';
 import { ButtonCustom } from '@/shared/components/buttons/Button';
+import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { useUploadImage } from '@/features/settings/hooks/useUploadImages';
 
 import styles from './ManageImage.module.scss';
 
-type AddImageProps = {
-  imageUrl?: string;
-  name?: string;
-  onUpdate?: () => void;
-};
+export const AddImage = () => {
+  const { user, refetch, isPending } = useAuthContext();
 
-export const AddImage = ({ imageUrl, name, onUpdate }: AddImageProps) => {
   const t = useTranslations('Common');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { handleFileChange, isUploading, error, isPendingProfileUpdate } =
     useUploadImage({
-      defaultImageUrl: imageUrl,
-
-      onProfileUpdate: () => {
-        if (onUpdate) {
-          onUpdate();
-        }
-      },
+      defaultImageUrl: user?.image,
+      onProfileUpdate: () => refetch(),
     });
 
   const handleButtonClick = (e: React.MouseEvent) => {
@@ -37,11 +30,16 @@ export const AddImage = ({ imageUrl, name, onUpdate }: AddImageProps) => {
     fileInputRef.current?.click();
   };
 
-  const isLoading = isUploading || isPendingProfileUpdate;
+  const isLoading = isUploading || isPendingProfileUpdate || isPending || !user;
 
   return (
     <div className={styles.Wrapper}>
-      <Avatar size="large" name={name} imageUrl={imageUrl} />
+      {isPending && !user ? (
+        <SkeletonLoader count={1} width={70} height={70} variant="circular" />
+      ) : (
+        <Avatar size="large" name={user?.name} imageUrl={user?.image} />
+      )}
+
       <div className={styles.Button}>
         <input
           type="file"

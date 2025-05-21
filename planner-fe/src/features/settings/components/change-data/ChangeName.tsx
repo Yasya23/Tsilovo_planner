@@ -8,46 +8,53 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
 import Input from '@/shared/components/input/Input';
+import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import icons from '@/shared/icons/icons';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { updateNameSchema } from '@/features/settings/helpers/update-name-schema';
+import { useChangeName } from '@/features/settings/hooks/useChangeName';
+import { ChangeNameType } from '@/features/settings/types/updateData';
 
 import styles from './ChangeData.module.scss';
 
-type FormValues = { name: string };
-
-type Props = {
-  name: string;
-  isPending: boolean;
-  updateName: (payload: FormValues) => void;
-};
-
-export const ChangeName = ({ isPending, updateName, name }: Props) => {
+export const ChangeName = () => {
+  const { user, refetch } = useAuthContext();
   const t = useTranslations('Common');
+  const { changeName, isPending } = useChangeName(refetch);
 
   const {
     register,
     handleSubmit,
     clearErrors,
     formState: { errors, isSubmitting, isDirty, isValid },
-  } = useForm<FormValues>({
+  } = useForm<ChangeNameType>({
     resolver: yupResolver(updateNameSchema(t)),
     mode: 'onChange',
     defaultValues: { name: '' },
   });
 
-  const onSubmit = (values: FormValues) => updateName(values);
+  const onSubmit = (values: ChangeNameType) => {
+    changeName(values);
+  };
 
   const errorMessage = errors.name?.message;
-  const disabledInput = isPending || isSubmitting;
+  const disabledInput = isSubmitting || !user;
   const disabledButton = disabledInput || !!errorMessage || !isValid;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.Wrapper}>
       <h2 className={styles.Title}>{t('settings.changeName')}</h2>
-      <p className={styles.OldData}>
-        {t('form.labels.name')}: {name}
-      </p>
+      {isPending || !user ? (
+        <div className={styles.OldData}>
+          <SkeletonLoader count={1} width={100} />
+        </div>
+      ) : (
+        <p className={styles.OldData}>
+          {t('form.labels.name')}: {user.name}
+        </p>
+      )}
+
       <Input
         {...register('name', {
           onBlur: (e) => {

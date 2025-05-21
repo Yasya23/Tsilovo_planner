@@ -16,7 +16,7 @@ export const useUploadImage = (options?: {
   defaultImageUrl?: string;
   onProfileUpdate?: () => void;
 }) => {
-  const t = useTranslations('Common');
+  const t = useTranslations('Common.settings');
   const { edgestore } = useEdgeStore();
 
   const [isUploading, setIsUploading] = useState(false);
@@ -27,16 +27,15 @@ export const useUploadImage = (options?: {
 
   const updateProfileMutation = useMutation({
     mutationFn: (imageUrl: string) => {
-      return UserService.updateProfile(imageUrl);
+      return UserService.changeAvatar(imageUrl);
     },
     onSuccess: () => {
       if (options?.onProfileUpdate) {
         options.onProfileUpdate();
       }
     },
-    onError: (err) => {
-      console.error('Error updating profile:', err);
-      setError(t('settings.profileUpdateError'));
+    onError: () => {
+      setError(t('profileUpdateError'));
       setPreviewUrl(options?.defaultImageUrl);
     },
   });
@@ -46,7 +45,7 @@ export const useUploadImage = (options?: {
     console.log(file);
 
     if (file.size > MAX_FILE_SIZE) {
-      setError(t('settings.fileTooLarge'));
+      setError(t('fileTooLarge'));
       return null;
     }
 
@@ -74,8 +73,7 @@ export const useUploadImage = (options?: {
 
       return res.url;
     } catch (err) {
-      console.error('Error uploading image:', err);
-      setError(t('settings.uploadError'));
+      setError(t('updateError'));
       setPreviewUrl(options?.defaultImageUrl);
       return null;
     } finally {

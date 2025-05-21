@@ -17,26 +17,16 @@ export const Settings = () => {
   const t = useTranslations('Common.settings');
   const { user, refetch, isPending } = useAuthContext();
 
-  if (!user || isPending) {
-    return <div>Loading</div>;
-  }
+
 
   return (
     <div className={styles.Wrapper}>
       <h1 className={styles.Title}>{t('title')}</h1>
-      <AddImage imageUrl={user?.image} name={user?.name} onUpdate={refetch} />
+      <AddImage />
       <div className={styles.FormsWrapper}>
-        <ChangePassword updatePassword={(data: any) => {}} isPending={false} />
-        <ChangeEmail
-          email={user?.email}
-          updateEmail={(data: any) => {}}
-          isPending={false}
-        />
-        <ChangeName
-          name={user?.name}
-          updateName={(data: any) => {}}
-          isPending={false}
-        />
+        <ChangePassword updatePassword={(data: any) => {}} />
+        <ChangeEmail email={user?.email} updateEmail={(data: any) => {}} />
+        <ChangeName name={user?.name} updateName={(data: any) => {}} />
       </div>
       <div className={styles.Delete}>
         <ButtonCustom

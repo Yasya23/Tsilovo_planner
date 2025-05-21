@@ -1,3 +1,7 @@
 export const services = {
-  avatar: '/user/avatar',
+  updateAvatar: '/user/avatar',
+  updateName: '/user/name',
+  updateEmail: '/user/email',
+  updatePassword: '/user/password',
+  deleteProfile: '/user',
 };

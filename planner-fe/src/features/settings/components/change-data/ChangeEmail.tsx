@@ -8,28 +8,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
 import Input from '@/shared/components/input/Input';
+import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import icons from '@/shared/icons/icons';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { createEmailSchema } from '@/features/settings/helpers/update-email-schema';
+import { useChangeEmail } from '@/features/settings/hooks/useChangeEmail';
+import { ChangeEmailType } from '@/features/settings/types/updateData';
 
 import styles from './ChangeData.module.scss';
 
-type FormValues = {
-  email: string;
-  password: string;
-};
-
-type ChangeEmailProps = {
-  email: string;
-  isPending: boolean;
-  updateEmail: (data: FormValues) => void;
-};
-
-export const ChangeEmail = ({
-  email,
-  isPending,
-  updateEmail,
-}: ChangeEmailProps) => {
+export const ChangeEmail = () => {
+  const { user, refetch } = useAuthContext();
+  const { changeEmail, isPending } = useChangeEmail(refetch);
   const t = useTranslations('Common');
   const updateEmailSchema = createEmailSchema(t);
 
@@ -38,7 +29,7 @@ export const ChangeEmail = ({
     handleSubmit,
     clearErrors,
     formState: { errors, isSubmitting, dirtyFields, isValid },
-  } = useForm<FormValues>({
+  } = useForm<ChangeEmailType>({
     resolver: yupResolver(updateEmailSchema),
     mode: 'onChange',
     defaultValues: {
@@ -47,65 +38,70 @@ export const ChangeEmail = ({
     },
   });
 
-  const onSubmit = (values: FormValues) => {
-    updateEmail(values);
+  const onSubmit = (values: ChangeEmailType) => {
+    changeEmail(values);
   };
 
-  const disabledInput = isPending || isSubmitting;
+  const disabledInput = isSubmitting || !user;
   const disabledButton = disabledInput || !isValid;
 
   return (
     <div className={styles.Wrapper}>
       <h2 className={styles.Title}>{t('settings.changeEmail')}</h2>
-      <p className={styles.OldData}>
-        {t('form.labels.email')} : {email}
-      </p>
+      {isPending || !user ? (
+        <div className={styles.OldData}>
+          <SkeletonLoader count={1} width={100} />
+        </div>
+      ) : (
+        <p className={styles.OldData}>
+          {t('form.labels.email')} : {user.email}
+        </p>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
-        <fieldset disabled={isPending}>
-          <Input
-            {...register('email', {
-              onBlur: (e) => {
-                if (!e.target.value.trim()) {
-                  clearErrors('email');
-                }
-              },
-            })}
-            type="email"
-            label={t('form.labels.newEmail')}
-            placeholder={t('form.placeholders.newEmail')}
-            icon={<icons.Home />}
-            hasAbilityHideValue
-            error={errors.email?.message}
-            isDirty={dirtyFields.email}
-            disabled={disabledInput}
-          />
+        <Input
+          {...register('email', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('email');
+              }
+            },
+          })}
+          type="email"
+          label={t('form.labels.newEmail')}
+          placeholder={t('form.placeholders.newEmail')}
+          icon={<icons.Home />}
+          hasAbilityHideValue
+          error={errors.email?.message}
+          isDirty={dirtyFields.email}
+          disabled={disabledInput}
+        />
 
-          <Input
-            {...register('password', {
-              onBlur: (e) => {
-                if (!e.target.value.trim()) {
-                  clearErrors('password');
-                }
-              },
-            })}
-            type="password"
-            label={t('form.labels.password')}
-            placeholder={t('form.placeholders.password')}
-            icon={<icons.Password />}
-            hasAbilityHideValue
-            error={errors.password?.message}
-            isDirty={dirtyFields.password}
-            disabled={disabledInput}
-          />
+        <Input
+          {...register('password', {
+            onBlur: (e) => {
+              if (!e.target.value.trim()) {
+                clearErrors('password');
+              }
+            },
+          })}
+          type="password"
+          label={t('form.labels.password')}
+          placeholder={t('form.placeholders.password')}
+          icon={<icons.Password />}
+          hasAbilityHideValue
+          error={errors.password?.message}
+          isDirty={dirtyFields.password}
+          disabled={disabledInput}
+        />
 
-          <ButtonCustom
-            disabled={disabledButton}
-            name={t('buttons.update')}
-            style="outlined"
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-          />
-        </fieldset>
+        <ButtonCustom
+          disabled={disabledButton}
+          name={t('buttons.update')}
+          style="outlined"
+          type="submit"
+          onClick={handleSubmit(onSubmit)}
+        />
       </form>
     </div>
   );
