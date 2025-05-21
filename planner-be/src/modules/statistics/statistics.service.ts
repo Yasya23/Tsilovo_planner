@@ -48,7 +48,6 @@ export class StatisticsService {
         new Date(weekStart),
         new Date(weekEnd),
       );
-      console.log('tasks', tasks);
 
       if (!tasks.length) {
         this.logger.warn(`No completed tasks for user ${userId}`);
@@ -133,18 +132,14 @@ export class StatisticsService {
       const monthStats = userStats.monthlyStats.find(
         (m) => m.month === currentMonth,
       );
-      console.log(monthStats);
 
       if (monthStats) {
-        console.log(1);
-
         for (const newGoal of goalStatsArray) {
           const existingGoal = monthStats.goals.find(
             (g) => g.goalId === newGoal.goalId,
           );
 
           if (!existingGoal) monthStats.goals.push(newGoal);
-          console.log('existingGoal', newGoal);
         }
 
         monthStats.totalCompleted = monthStats.goals.reduce(

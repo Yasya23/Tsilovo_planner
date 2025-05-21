@@ -3,7 +3,6 @@ import { Task } from '@/features/statistics/types/statistics.type';
 import styles from './TasksList.module.scss';
 
 export const TasksList = ({ tasks }: { tasks: Task[] }) => {
-  console.log(tasks);
   if (!tasks) return null;
 
   return (

@@ -32,6 +32,7 @@ The scope should be the name of the module affected (as perceived by the person 
 - `ui`: User interface changes
 - `db`: Database related changes
 - `config`: Configuration changes
+- `feature`: Feature changes
 
 ### Description
 

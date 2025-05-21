@@ -22,7 +22,6 @@ const statistics_model_1 = require("../../models/statistics.model");
 const tasks_service_1 = require("../tasks/tasks.service");
 const date_service_1 = require("../date/date.service");
 const schedule_1 = require("@nestjs/schedule");
-const inspector_1 = require("inspector");
 let StatisticsService = StatisticsService_1 = class StatisticsService {
     constructor(statisticsModel, userService, dateService, taskService) {
         this.statisticsModel = statisticsModel;
@@ -47,7 +46,6 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         for (const user of users) {
             const userId = user._id.toString();
             const tasks = await this.taskService.getUserTasksForStatistic(userId, new Date(weekStart), new Date(weekEnd));
-            inspector_1.console.log('tasks', tasks);
             if (!tasks.length) {
                 this.logger.warn(`No completed tasks for user ${userId}`);
                 continue;
@@ -105,14 +103,11 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         const addNewMonthStats = () => userStats.monthlyStats.push(monthlyStats);
         const updateUserStatistics = async () => {
             const monthStats = userStats.monthlyStats.find((m) => m.month === currentMonth);
-            inspector_1.console.log(monthStats);
             if (monthStats) {
-                inspector_1.console.log(1);
                 for (const newGoal of goalStatsArray) {
                     const existingGoal = monthStats.goals.find((g) => g.goalId === newGoal.goalId);
                     if (!existingGoal)
                         monthStats.goals.push(newGoal);
-                    inspector_1.console.log('existingGoal', newGoal);
                 }
                 monthStats.totalCompleted = monthStats.goals.reduce((acc, m) => acc + m.completedTasks, 0);
                 monthStats.totalGoals = monthStats.goals.length;

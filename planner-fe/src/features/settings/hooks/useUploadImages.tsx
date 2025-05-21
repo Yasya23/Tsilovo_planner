@@ -42,7 +42,6 @@ export const useUploadImage = (options?: {
 
   const uploadImage = async (file: File): Promise<string | null> => {
     if (!file) return null;
-    console.log(file);
 
     if (file.size > MAX_FILE_SIZE) {
       setError(t('fileTooLarge'));
@@ -59,7 +58,6 @@ export const useUploadImage = (options?: {
       const res = await edgestore.publicFiles.upload({
         file,
         onProgressChange: (progress) => {
-          console.log(progress);
         },
       });
 
