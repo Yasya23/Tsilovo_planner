@@ -5,5 +5,5 @@ export const services = {
   logout: '/auth/logout',
   googleAuth: '/auth/google',
   token: 'auth/access-token',
-  userProfile: '/user',
+  userProfile: '/user/profile',
 };

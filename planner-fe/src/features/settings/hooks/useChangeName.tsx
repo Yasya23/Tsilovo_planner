@@ -8,7 +8,7 @@ import { UserService } from '@/features/settings/services/user.service';
 
 import { ChangeNameType } from '../types/updateData';
 
-export const useChangeName = (onUpdate: () => void) => {
+export const useChangeName = (onUpdate: () => void, reset: () => void) => {
   const t = useTranslations('Common.settings');
 
   const changeName = useMutation({
@@ -16,6 +16,7 @@ export const useChangeName = (onUpdate: () => void) => {
     onSuccess: () => {
       onUpdate();
       toast.success(t('success'));
+      reset();
     },
     onError: () => toast.error(t('updateError')),
   });

@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
 import icons from '@/shared/icons/icons';
-import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { AddImage } from '@/features/settings/components/add-image/ManageImage';
 import { ChangeEmail } from '@/features/settings/components/change-data/ChangeEmail';
@@ -15,18 +14,15 @@ import styles from './Settings.module.scss';
 
 export const Settings = () => {
   const t = useTranslations('Common.settings');
-  const { user, refetch, isPending } = useAuthContext();
-
-
 
   return (
     <div className={styles.Wrapper}>
       <h1 className={styles.Title}>{t('title')}</h1>
       <AddImage />
       <div className={styles.FormsWrapper}>
-        <ChangePassword updatePassword={(data: any) => {}} />
-        <ChangeEmail email={user?.email} updateEmail={(data: any) => {}} />
-        <ChangeName name={user?.name} updateName={(data: any) => {}} />
+        <ChangePassword />
+        <ChangeEmail />
+        <ChangeName />
       </div>
       <div className={styles.Delete}>
         <ButtonCustom

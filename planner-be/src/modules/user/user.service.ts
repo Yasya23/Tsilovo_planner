@@ -54,7 +54,7 @@ export class UserService {
     }
     const saltHash = Number(this.configService.get('PASSWORD_SALT'));
     const salt = await genSalt(saltHash);
-    user.password = await hash(userDto.password, salt);
+    user.password = await hash(userDto.newPassword, salt);
     await user.save();
   }
 

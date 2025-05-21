@@ -2,35 +2,37 @@ import { Formats, TranslationValues } from 'next-intl';
 
 import * as yup from 'yup';
 
-export const createUpdatePasswordSchema = (t: {
-  <TargetKey extends any>(
+export const createUpdatePasswordSchema = (
+  t: <TargetKey extends any>(
     key: TargetKey,
     values?: TranslationValues,
     formats?: Formats
-  ): string;
-}) => {
+  ) => string
+) => {
   return yup.object().shape({
     password: yup
       .string()
       .min(6, t('form.validation.password.minLength'))
+      .max(20, t('form.validation.maxLength'))
       .required(t('form.validation.password.required')),
+
     newPassword: yup
       .string()
       .min(6, t('form.validation.password.minLength'))
-      .required(t('form.validation.confirmPassword.required')),
+      .max(20, t('form.validation.maxLength'))
+      .matches(
+        /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]+$/,
+        t('form.validation.password.allowedSymbols')
+      )
+      .notOneOf([yup.ref('password')], t('form.validation.password.notSame'))
+      .required(t('form.validation.password.required')),
+
     confirmPassword: yup
       .string()
       .required(t('form.validation.confirmPassword.required'))
-      .when('newPassword', {
-        is: (newPassword: string) => !!newPassword,
-        then: (schema) =>
-          schema
-            .oneOf(
-              [yup.ref('newPassword')],
-              t('form.validation.confirmPassword.match')
-            )
-            .required(t('form.validation.confirmPassword.required')),
-        otherwise: (schema) => schema.notRequired(),
-      }),
+      .oneOf(
+        [yup.ref('newPassword')],
+        t('form.validation.confirmPassword.match')
+      ),
   });
 };

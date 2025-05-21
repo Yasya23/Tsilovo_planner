@@ -21,12 +21,12 @@ import styles from './ChangeData.module.scss';
 export const ChangeName = () => {
   const { user, refetch } = useAuthContext();
   const t = useTranslations('Common');
-  const { changeName, isPending } = useChangeName(refetch);
 
   const {
     register,
     handleSubmit,
     clearErrors,
+    reset,
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm<ChangeNameType>({
     resolver: yupResolver(updateNameSchema(t)),
@@ -34,12 +34,14 @@ export const ChangeName = () => {
     defaultValues: { name: '' },
   });
 
+  const { changeName, isPending } = useChangeName(refetch, reset);
+
   const onSubmit = (values: ChangeNameType) => {
     changeName(values);
   };
 
   const errorMessage = errors.name?.message;
-  const disabledInput = isSubmitting || !user;
+  const disabledInput = isSubmitting || !user || isPending;
   const disabledButton = disabledInput || !!errorMessage || !isValid;
 
   return (

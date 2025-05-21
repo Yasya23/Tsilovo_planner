@@ -27,6 +27,7 @@ interface InputProps {
   isLabelVisibilityHidden?: boolean;
   disabled?: boolean;
   placeholder?: string;
+  maxLength?: number;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -44,6 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       isDirty,
       hasAbilityHideValue = false,
       disabled = false,
+      maxLength = 50,
       ...rest
     },
     ref
@@ -83,6 +85,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             className={styles.Input}
             ref={ref}
+            maxLength={maxLength}
             {...rest}
           />
 

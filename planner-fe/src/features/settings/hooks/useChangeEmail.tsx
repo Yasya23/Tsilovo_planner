@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { UserService } from '@/features/settings/services/user.service';
 import { ChangeEmailType } from '@/features/settings/types/updateData';
 
-export const useChangeEmail = (onUpdate: () => void) => {
+export const useChangeEmail = (onUpdate: () => void, reset: () => void) => {
   const t = useTranslations('Common.settings');
 
   const changeEmail = useMutation({
@@ -15,9 +15,10 @@ export const useChangeEmail = (onUpdate: () => void) => {
     onSuccess: () => {
       onUpdate();
       toast.success(t('success'));
+      reset();
     },
     onError: () => {
-      toast.error(t('updateError'));
+      toast.error(t('updateEmailError'));
     },
   });
 

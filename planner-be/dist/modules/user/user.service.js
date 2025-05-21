@@ -53,7 +53,7 @@ let UserService = class UserService {
         }
         const saltHash = Number(this.configService.get('PASSWORD_SALT'));
         const salt = await (0, bcryptjs_1.genSalt)(saltHash);
-        user.password = await (0, bcryptjs_1.hash)(userDto.password, salt);
+        user.password = await (0, bcryptjs_1.hash)(userDto.newPassword, salt);
         await user.save();
     }
     async updateEmail(userId, userDto) {

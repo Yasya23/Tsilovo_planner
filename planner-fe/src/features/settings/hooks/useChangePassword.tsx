@@ -12,19 +12,20 @@ import { UserService } from '@/features/settings/services/user.service';
 
 import { ChangePasswordType } from '../types/updateData';
 
-export const useChangePassword = () => {
+export const useChangePassword = (reset: () => void) => {
   const { logout } = useAuthentication();
   const router = useRouter();
   const t = useTranslations('Common.settings');
 
   const changePassword = useMutation({
-    mutationFn: (values: ChangePasswordType) => UserService.changePassword(values),
+    mutationFn: (values: ChangePasswordType) =>
+      UserService.changePassword(values),
     onSuccess: () => {
       toast.success(t('success'));
       logout();
-      router.push(routes.login);
+      reset();
     },
-    onError: () => toast.error(t('updateError')),
+    onError: () => toast.error(t('updatePasswordError')),
   });
 
   return {

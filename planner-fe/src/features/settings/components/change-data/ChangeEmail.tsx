@@ -20,7 +20,7 @@ import styles from './ChangeData.module.scss';
 
 export const ChangeEmail = () => {
   const { user, refetch } = useAuthContext();
-  const { changeEmail, isPending } = useChangeEmail(refetch);
+
   const t = useTranslations('Common');
   const updateEmailSchema = createEmailSchema(t);
 
@@ -28,6 +28,7 @@ export const ChangeEmail = () => {
     register,
     handleSubmit,
     clearErrors,
+    reset,
     formState: { errors, isSubmitting, dirtyFields, isValid },
   } = useForm<ChangeEmailType>({
     resolver: yupResolver(updateEmailSchema),
@@ -38,11 +39,14 @@ export const ChangeEmail = () => {
     },
   });
 
+  const { changeEmail, isPending } = useChangeEmail(refetch, reset);
+
   const onSubmit = (values: ChangeEmailType) => {
     changeEmail(values);
   };
 
-  const disabledInput = isSubmitting || !user;
+  const googleProvider = user?.provider === 'google';
+  const disabledInput = isSubmitting || !user || googleProvider;
   const disabledButton = disabledInput || !isValid;
 
   return (
@@ -58,51 +62,56 @@ export const ChangeEmail = () => {
         </p>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
-        <Input
-          {...register('email', {
-            onBlur: (e) => {
-              if (!e.target.value.trim()) {
-                clearErrors('email');
-              }
-            },
-          })}
-          type="email"
-          label={t('form.labels.newEmail')}
-          placeholder={t('form.placeholders.newEmail')}
-          icon={<icons.Home />}
-          hasAbilityHideValue
-          error={errors.email?.message}
-          isDirty={dirtyFields.email}
-          disabled={disabledInput}
-        />
+      {googleProvider ? (
+        <p className={styles.NotAllowedToChange}>
+          {t('settings.googleProvider')}
+        </p>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.Form}>
+          <Input
+            {...register('email', {
+              onBlur: (e) => {
+                if (!e.target.value.trim()) {
+                  clearErrors('email');
+                }
+              },
+            })}
+            type="email"
+            label={t('form.labels.newEmail')}
+            placeholder={t('form.placeholders.newEmail')}
+            icon={<icons.Home />}
+            hasAbilityHideValue
+            error={errors.email?.message}
+            isDirty={dirtyFields.email}
+            disabled={disabledInput}
+          />
 
-        <Input
-          {...register('password', {
-            onBlur: (e) => {
-              if (!e.target.value.trim()) {
-                clearErrors('password');
-              }
-            },
-          })}
-          type="password"
-          label={t('form.labels.password')}
-          placeholder={t('form.placeholders.password')}
-          icon={<icons.Password />}
-          hasAbilityHideValue
-          error={errors.password?.message}
-          isDirty={dirtyFields.password}
-          disabled={disabledInput}
-        />
-
-        <ButtonCustom
-          disabled={disabledButton}
-          name={t('buttons.update')}
-          style="outlined"
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-        />
-      </form>
+          <Input
+            {...register('password', {
+              onBlur: (e) => {
+                if (!e.target.value.trim()) {
+                  clearErrors('password');
+                }
+              },
+            })}
+            type="password"
+            label={t('form.labels.password')}
+            placeholder={t('form.placeholders.password')}
+            icon={<icons.Password />}
+            hasAbilityHideValue
+            error={errors.password?.message}
+            isDirty={dirtyFields.password}
+            disabled={disabledInput}
+          />
+          <ButtonCustom
+            disabled={disabledButton}
+            name={t('buttons.update')}
+            style="outlined"
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+          />
+        </form>
+      )}
     </div>
   );
 };

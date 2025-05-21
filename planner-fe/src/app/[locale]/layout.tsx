@@ -44,7 +44,7 @@ export async function generateMetadata({
     },
     description: t('description'),
     icons: {
-      icon: '/icon.ico',
+      icon: '/public/icon.ico',
     },
     openGraph: {
       type: 'website',
@@ -82,7 +82,7 @@ export default async function RootLayout({
               <AuthProvider>
                 <ThemeProvider>{children}</ThemeProvider>
                 <Toaster
-                  position="top-right"
+                  position="top-center"
                   toastOptions={{
                     duration: 7000,
                     style: {

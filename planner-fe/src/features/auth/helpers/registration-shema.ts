@@ -14,8 +14,9 @@ export const createRegistrationSchema = (t: {
   return yup.object().shape({
     name: yup
       .string()
-      .matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄ]+$/, t('form.validation.name.letters'))
+      .matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄ\s]+$/, t('form.validation.name.letters'))
       .min(3, t('form.validation.name.minLength'))
+      .max(20, t('form.validation.maxLength'))
       .required(t('form.validation.name.required')),
     email: yup
       .string()
@@ -24,6 +25,11 @@ export const createRegistrationSchema = (t: {
     password: yup
       .string()
       .min(6, t('form.validation.password.minLength'))
+      .max(20, t('form.validation.maxLength'))
+      .matches(
+        /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?`~]+$/,
+        t('form.validation.password.allowedSymbols')
+      )
       .required(t('form.validation.password.required')),
     confirmPassword: yup
       .string()

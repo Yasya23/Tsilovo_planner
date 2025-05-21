@@ -38,7 +38,7 @@ export const useAuthentication = () => {
     try {
       await AuthenticationService.logout();
       queryClient.setQueryData([queries.user], null);
-      router.push(routes.home);
+      router.push(routes.login);
     } catch (error) {
       toast.error(t('errors.logoutError'));
     }
