@@ -44,7 +44,7 @@ export async function generateMetadata({
     },
     description: t('description'),
     icons: {
-      icon: '/public/icon.ico',
+      icon: '/images/icon.ico',
     },
     openGraph: {
       type: 'website',
