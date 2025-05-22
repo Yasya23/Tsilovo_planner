@@ -75,7 +75,7 @@ export const ManageGoals = ({
           className={styles.EmojiButton}
           type="button"
         >
-          {localGoal.emoji || '@'}
+          {localGoal.emoji || defaultGoal.emoji}
         </button>
         {isEmojiPickerOpen && (
           <EmojiPickerCompoment

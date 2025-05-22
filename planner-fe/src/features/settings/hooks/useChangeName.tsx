@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { UserService } from '@/features/settings/services/user.service';
 
-import { ChangeNameType } from '../types/updateData';
+import { ChangeNameType } from '../types/settings';
 
 export const useChangeName = (onUpdate: () => void, reset: () => void) => {
   const t = useTranslations('Common.settings');

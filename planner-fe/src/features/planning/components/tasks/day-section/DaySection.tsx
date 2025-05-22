@@ -29,9 +29,12 @@ export const DaySection = ({ date, dayTasks }: DaySectionProps) => {
   const { updateTask, createTask, deleteTask, isCreatingTask, isUpdatingTask } =
     useTask();
   const t = useTranslations('Common');
+
   const [manageTask, setManageTask] = useState<CreateTask | null>(null);
+
   const { orderedGoals, completedTasksNumber, notCompletedTasksNumber } =
     filterTasksByGoals(dayTasks, activeGoals);
+
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   const hasId = (task: Task | CreateTask) => '_id' in task;

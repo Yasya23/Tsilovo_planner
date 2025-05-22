@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
@@ -9,6 +13,7 @@ import { TaskService } from '../tasks/tasks.service';
 
 @Injectable()
 export class GoalsService {
+  MAX_GOALS = 5;
   constructor(
     @InjectModel(GoalModel)
     private readonly goalModel: ModelType<GoalModel>,
@@ -58,6 +63,11 @@ export class GoalsService {
   }
 
   async create(dto: CreateGoalDto, userId: string) {
+    const goals = await this.goalModel.find({ userId, isActive: true }).exec();
+
+    if (goals.length >= this.MAX_GOALS) {
+      throw new BadRequestException('Maximum number of goals reached');
+    }
     const goal = new this.goalModel({
       ...dto,
       userId,
@@ -82,9 +92,9 @@ export class GoalsService {
     return goal.save();
   }
 
-  async delete(dto: UpdateGoalDto) {
-    const taskId = new Types.ObjectId(dto._id);
-    const goal = await this.goalModel.findById(taskId);
+  async delete(goalId: string) {
+    console.log(goalId);
+    const goal = await this.goalModel.findById(goalId);
     if (!goal) {
       throw new NotFoundException('Goal not found');
     }

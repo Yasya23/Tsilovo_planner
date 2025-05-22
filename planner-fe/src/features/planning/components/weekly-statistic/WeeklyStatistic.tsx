@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 
 import classNames from 'classnames';
-import { stat } from 'fs';
 
 import icons from '@/shared/icons/icons';
 

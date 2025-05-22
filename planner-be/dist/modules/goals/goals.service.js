@@ -24,6 +24,7 @@ let GoalsService = class GoalsService {
         this.goalModel = goalModel;
         this.dateService = dateService;
         this.taskService = taskService;
+        this.MAX_GOALS = 5;
     }
     async getActiveGoals(userId) {
         const { currentWeek, nextWeek } = this.dateService.getWeekData();
@@ -52,6 +53,10 @@ let GoalsService = class GoalsService {
         };
     }
     async create(dto, userId) {
+        const goals = await this.goalModel.find({ userId, isActive: true }).exec();
+        if (goals.length >= this.MAX_GOALS) {
+            throw new common_1.BadRequestException('Maximum number of goals reached');
+        }
         const goal = new this.goalModel({
             ...dto,
             userId,
@@ -70,9 +75,9 @@ let GoalsService = class GoalsService {
         goal.isActive = dto.isActive;
         return goal.save();
     }
-    async delete(dto) {
-        const taskId = new mongoose_1.Types.ObjectId(dto._id);
-        const goal = await this.goalModel.findById(taskId);
+    async delete(goalId) {
+        console.log(goalId);
+        const goal = await this.goalModel.findById(goalId);
         if (!goal) {
             throw new common_1.NotFoundException('Goal not found');
         }

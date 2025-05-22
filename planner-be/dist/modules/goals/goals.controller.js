@@ -31,8 +31,8 @@ let GoalsController = class GoalsController {
     async updateGoal(dto) {
         return await this.goalService.update(dto);
     }
-    async deleteGoal(dto) {
-        return await this.goalService.delete(dto);
+    async deleteGoal(goalId) {
+        return await this.goalService.delete(goalId);
     }
 };
 exports.GoalsController = GoalsController;
@@ -66,7 +66,7 @@ __decorate([
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [ManageGoalDto_1.UpdateGoalDto]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], GoalsController.prototype, "deleteGoal", null);
 exports.GoalsController = GoalsController = __decorate([

@@ -6,7 +6,7 @@ import {
   ChangeEmailType,
   ChangeNameType,
   ChangePasswordType,
-} from '../types/updateData';
+} from '../types/settings';
 
 export const UserService = {
   async changeAvatar(imageUrl: string): Promise<void> {

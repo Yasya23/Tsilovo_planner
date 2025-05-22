@@ -14,7 +14,7 @@ import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { updateNameSchema } from '@/features/settings/helpers/update-name-schema';
 import { useChangeName } from '@/features/settings/hooks/useChangeName';
-import { ChangeNameType } from '@/features/settings/types/updateData';
+import { ChangeNameType } from '@/features/settings/types/settings';
 
 import styles from './ChangeData.module.scss';
 

@@ -5,12 +5,11 @@ import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
 
-import { routes } from '@/shared/constants/routes';
 import { useAuthentication } from '@/shared/hooks/useAuthentication';
 
 import { UserService } from '@/features/settings/services/user.service';
 
-import { ChangePasswordType } from '../types/updateData';
+import { ChangePasswordType } from '../types/settings';
 
 export const useChangePassword = (reset: () => void) => {
   const { logout } = useAuthentication();

@@ -28,7 +28,7 @@ export const GoalServices = {
     return data;
   },
 
-  async delete(goal: Goal): Promise<void> {
-    await axiosAuth.delete(services.goals, { data: goal });
+  async delete(_id: string): Promise<void> {
+    await axiosAuth.delete(services.goals, { data: { _id } });
   },
 };

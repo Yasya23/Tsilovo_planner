@@ -48,7 +48,9 @@ export const useTask = () => {
     mutationFn: TaskServices.delete,
     onMutate: async (deletedTaskId: string) => {
       await queryClient.cancelQueries({ queryKey: [queries.planning] });
+
       const previousData = queryClient.getQueryData([queries.planning]);
+
       queryClient.setQueryData(
         [queries.planning],
         (oldData: ActiveGoalsData) => ({

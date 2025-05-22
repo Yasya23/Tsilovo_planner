@@ -9,6 +9,7 @@ import icons from '@/shared/icons/icons';
 
 import { ManageGoals } from '@/features/planning/components/goals/manage-goal/ManageGoal';
 import { limits } from '@/features/planning/constants/limits';
+import { useGoalLogic } from '@/features/planning/hooks/useGoals';
 import {
   ActiveGoal,
   CreateGoal,
@@ -19,23 +20,15 @@ import styles from './GoalsList.module.scss';
 
 type GoalsListProps = {
   activeGoals: ActiveGoal[];
-  createGoal: (goal: CreateGoal) => void;
-  updateGoal: (goal: Goal) => void;
-  deleteGoal: (goal: Goal) => void;
 };
 
-export const GoalsList = ({
-  activeGoals,
-  createGoal,
-  updateGoal,
-  deleteGoal,
-}: GoalsListProps) => {
+export const GoalsList = ({ activeGoals }: GoalsListProps) => {
   const t = useTranslations('Common');
-
+  const { createGoal, updateGoal, deleteGoal, isPending } = useGoalLogic();
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [addingGoal, setAddingGoal] = useState(false);
 
-  const handleSaveGoal = (goalData: CreateGoal | Goal) => {
+  const handleSaveGoal = async (goalData: CreateGoal | Goal) => {
     if (!goalData.title.length) return;
 
     if ('_id' in goalData) {
@@ -64,7 +57,7 @@ export const GoalsList = ({
                 goal={goal}
                 onSave={handleSaveGoal}
                 onCancel={handleCancel}
-                onDelete={() => deleteGoal(goal)}
+                onDelete={() => deleteGoal(goal._id)}
               />
             ) : (
               <div className={styles.Content}>
@@ -78,6 +71,7 @@ export const GoalsList = ({
                   onClick={() => setEditingGoalId(goal._id)}
                   size="small"
                   color="default"
+                  disabled={isPending}
                 />
               </div>
             )}
@@ -102,6 +96,7 @@ export const GoalsList = ({
             name={t('buttons.addGoal')}
             onClick={() => setAddingGoal(true)}
             size="small"
+            disabled={isPending}
           />
           <p className={styles.Description}>{t('buttons.addGoal')}</p>
         </div>

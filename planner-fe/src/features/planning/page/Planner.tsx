@@ -14,15 +14,7 @@ import styles from './Planner.module.scss';
 
 export const Planner = () => {
   const t = useTranslations('Common.planning');
-  const {
-    weeklyStatistics,
-    activeGoals,
-    createGoal,
-    updateGoal,
-    deleteGoal,
-    isError,
-    isPending,
-  } = usePlanning();
+  const { weeklyStatistics, activeGoals, isError, isPending } = usePlanning();
 
   return (
     <div className={styles.Planner}>
@@ -34,12 +26,7 @@ export const Planner = () => {
       ) : (
         <>
           <div className={styles.Header}>
-            <GoalsList
-              activeGoals={activeGoals}
-              createGoal={createGoal}
-              updateGoal={updateGoal}
-              deleteGoal={deleteGoal}
-            />
+            <GoalsList activeGoals={activeGoals} />
             <WeeklyStatistic statistics={weeklyStatistics} />
           </div>
           <WeeklyTodo />

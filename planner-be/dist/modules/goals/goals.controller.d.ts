@@ -28,7 +28,7 @@ export declare class GoalsController {
     } & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    deleteGoal(dto: UpdateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/goal.model").GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/goal.model").GoalModel & {
+    deleteGoal(goalId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/goal.model").GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/goal.model").GoalModel & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

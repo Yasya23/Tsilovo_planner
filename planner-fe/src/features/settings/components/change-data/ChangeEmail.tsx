@@ -14,7 +14,7 @@ import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { createEmailSchema } from '@/features/settings/helpers/update-email-schema';
 import { useChangeEmail } from '@/features/settings/hooks/useChangeEmail';
-import { ChangeEmailType } from '@/features/settings/types/updateData';
+import { ChangeEmailType } from '@/features/settings/types/settings';
 
 import styles from './ChangeData.module.scss';
 

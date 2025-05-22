@@ -8,6 +8,7 @@ export declare class GoalsService {
     private readonly goalModel;
     private readonly dateService;
     private readonly taskService;
+    MAX_GOALS: number;
     constructor(goalModel: ModelType<GoalModel>, dateService: DateService, taskService: TaskService);
     getActiveGoals(userId: string): Promise<{
         activeGoals: {
@@ -34,7 +35,7 @@ export declare class GoalsService {
     } & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    delete(dto: UpdateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
+    delete(goalId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
         _id: Types.ObjectId;
     } & {
         __v: number;

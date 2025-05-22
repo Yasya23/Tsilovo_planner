@@ -31,7 +31,6 @@ export const WeeklyTodo = () => {
 
   const { handleDragEnd } = useDragDropHandler({
     weeksData: optimisticWeeks,
-    updateTask,
     updatedWeek: async (weeksData, taskToMove) => {
       startTransition(() => {
         addOptimisticWeeks(weeksData);

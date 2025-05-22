@@ -28,7 +28,7 @@ export class GoalsController {
 
   @Delete()
   @Auth()
-  async deleteGoal(@Body() dto: UpdateGoalDto) {
-    return await this.goalService.delete(dto);
+  async deleteGoal(@Body() goalId: string) {
+    return await this.goalService.delete(goalId);
   }
 }
