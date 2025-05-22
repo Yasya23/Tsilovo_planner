@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 
+import { useRouter } from '@/lib/i18n/navigation';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { queries } from '@/shared/constants/queries';

@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useEdgeStore } from '@/lib/edgestore';
-import { useMutation } from '@tanstack/react-query';
 
 import { UserService } from '@/features/settings/services/user.service';
 
@@ -20,25 +19,12 @@ export const useUploadImage = (options?: {
   const { edgestore } = useEdgeStore();
 
   const [isUploading, setIsUploading] = useState(false);
+  const [isPendingProfileUpdate, setIsPendingProfileUpdate] = useState(false);
+  const [isProfileUpdateError, setIsProfileUpdateError] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(
     options?.defaultImageUrl
   );
-
-  const updateProfileMutation = useMutation({
-    mutationFn: (imageUrl: string) => {
-      return UserService.changeAvatar(imageUrl);
-    },
-    onSuccess: () => {
-      if (options?.onProfileUpdate) {
-        options.onProfileUpdate();
-      }
-    },
-    onError: () => {
-      setError(t('profileUpdateError'));
-      setPreviewUrl(options?.defaultImageUrl);
-    },
-  });
 
   const uploadImage = async (file: File): Promise<string | null> => {
     if (!file) return null;
@@ -50,6 +36,7 @@ export const useUploadImage = (options?: {
 
     setError(null);
     setIsUploading(true);
+    setIsProfileUpdateError(false);
 
     try {
       const objectUrl = URL.createObjectURL(file);
@@ -58,6 +45,7 @@ export const useUploadImage = (options?: {
       const res = await edgestore.publicFiles.upload({
         file,
         onProgressChange: (progress) => {
+          // Optional: handle progress updates
         },
       });
 
@@ -65,7 +53,17 @@ export const useUploadImage = (options?: {
         if (options?.onSuccess) {
           await options.onSuccess(res.url);
         } else {
-          updateProfileMutation.mutate(res.url);
+          setIsPendingProfileUpdate(true);
+          try {
+            await UserService.changeAvatar(res.url);
+            options?.onProfileUpdate?.();
+          } catch (err) {
+            setIsProfileUpdateError(true);
+            setError(t('profileUpdateError'));
+            setPreviewUrl(options?.defaultImageUrl);
+          } finally {
+            setIsPendingProfileUpdate(false);
+          }
         }
       }
 
@@ -88,6 +86,8 @@ export const useUploadImage = (options?: {
 
   const reset = () => {
     setIsUploading(false);
+    setIsPendingProfileUpdate(false);
+    setIsProfileUpdateError(false);
     setError(null);
     setPreviewUrl(options?.defaultImageUrl);
   };
@@ -100,7 +100,7 @@ export const useUploadImage = (options?: {
     error,
     previewUrl,
     setPreviewUrl,
-    isPendingProfileUpdate: updateProfileMutation.isPending,
-    isProfileUpdateError: updateProfileMutation.isError,
+    isPendingProfileUpdate,
+    isProfileUpdateError,
   };
 };

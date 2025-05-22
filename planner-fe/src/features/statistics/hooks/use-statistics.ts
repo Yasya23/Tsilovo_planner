@@ -4,14 +4,13 @@ import { getStatistics } from '../services/statistics.service';
 import { UserStatistics } from '../types/statistics.type';
 
 export const useStatistics = (year: string) => {
-  const { data, isPending, isError, refetch } = useQuery<UserStatistics>({
+  const { data, isPending, isError } = useQuery<UserStatistics>({
     queryKey: ['user-statistics', year],
     queryFn: () => getStatistics(year),
     refetchOnWindowFocus: false,
   });
 
   return {
-    refetch,
     data,
     isPending,
     isError,

@@ -1,9 +1,7 @@
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-
-import { useMutation } from '@tanstack/react-query';
 
 import { useAuthentication } from '@/shared/hooks/useAuthentication';
 
@@ -13,22 +11,25 @@ import { ChangePasswordType } from '../types/settings';
 
 export const useChangePassword = (reset: () => void) => {
   const { logout } = useAuthentication();
-  const router = useRouter();
   const t = useTranslations('Common.settings');
+  const [isPending, setIsPending] = useState(false);
 
-  const changePassword = useMutation({
-    mutationFn: (values: ChangePasswordType) =>
-      UserService.changePassword(values),
-    onSuccess: () => {
+  const changePassword = async (values: ChangePasswordType) => {
+    setIsPending(true);
+    try {
+      await UserService.changePassword(values);
       toast.success(t('success'));
       logout();
       reset();
-    },
-    onError: () => toast.error(t('updatePasswordError')),
-  });
+    } catch (error) {
+      toast.error(t('updatePasswordError'));
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   return {
-    changePassword: changePassword.mutate,
-    isPending: changePassword.isPending,
+    changePassword,
+    isPending,
   };
 };
