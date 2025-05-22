@@ -29,7 +29,8 @@
       "or": "or",
       "uploadImage": "Upload image",
       "uploading": "Uploading...",
-      "update": "Update"
+      "update": "Update",
+      "restorePassword": "Restore password"
     },
     "errors": {
       "general": "Something went wrong...",
@@ -80,7 +81,8 @@
       "deleteNotification": "Note: After deleting the account, all data will be deleted",
       "changeName": "Change name",
       "successDelete": "To delete your profile, please follow the instructions sent to your email.",
-      "googleProvider": "You cannot change this information because you signed in with a Google account. "
+      "googleProvider": "You cannot change this information because you signed in with a Google account. ",
+      "resetPasswordEmailSuccess": "Follow the instructions sent to your email to reset your password."
     },
     "placeholders": {
       "addTask": "Add task",
@@ -103,6 +105,7 @@
       "goals": "Goals",
       "error": "Oops, something went wrong...",
       "noGoalsMessage": "Add goals before adding tasks",
+      "forbiddenDeleteTask": "Goal with active tasks can't be deleted",
       "createTask": {
         "error": "Failed to create task. Please try again.",
         "success": "Task created successfully."
@@ -216,7 +219,8 @@
       "messages": {
         "notRegistered": "Not registered yet?",
         "alreadyRegistered": "Already registered?",
-        "forgotPassword": "Forgot your password?"
+        "forgotPassword": "Forgot your password?",
+        "resetPassword": "Password reset"
       }
     }
   }

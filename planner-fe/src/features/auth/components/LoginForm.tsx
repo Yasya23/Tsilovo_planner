@@ -103,6 +103,15 @@ export const LoginForm = ({ isPending, login }: LoginFormValuesProps) => {
             style="text"
           />
         </div>
+
+        <div>
+          {t('form.messages.forgotPassword')}
+          <ButtonCustom
+            href={routes.forgotPassword}
+            name={t('buttons.restorePassword')}
+            style="text"
+          />
+        </div>
       </fieldset>
     </form>
   );

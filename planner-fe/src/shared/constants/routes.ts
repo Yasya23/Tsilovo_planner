@@ -6,4 +6,5 @@ export const routes = {
   statistics: '/planner/statistics',
   settings: '/planner/settings',
   help: '/planner/help',
+  forgotPassword: '/forgot-password',
 };

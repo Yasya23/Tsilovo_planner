@@ -117,7 +117,7 @@ export const ManageGoals = ({
             {
               icon: <icons.Trash />,
               title: !!goal?.pendingTasks
-                ? t('notifications.forbiddenDeleteTask')
+                ? t('planning.forbiddenDeleteTask')
                 : t('buttons.delete'),
               action: () => {
                 if ('_id' in localGoal && onDelete) onDelete(localGoal as Goal);
