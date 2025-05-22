@@ -2,23 +2,15 @@ import { Formats, TranslationValues } from 'next-intl';
 
 import * as yup from 'yup';
 
-import { emailRegx } from '@/shared/utils/email-regx';
+import {
+  getEmailField,
+  getPasswordField,
+  TFunction,
+} from '@/shared/helpers/validation-schemas';
 
-export const createEmailSchema = (t: {
-  <TargetKey extends any>(
-    key: TargetKey,
-    values?: TranslationValues,
-    formats?: Formats
-  ): string;
-}) => {
+export const updateEmailSchema = (t: TFunction) => {
   return yup.object().shape({
-    email: yup
-      .string()
-      .matches(emailRegx, t('form.validation.email.invalid'))
-      .required(t('form.validation.email.required')),
-    password: yup
-      .string()
-      .min(6, t('form.validation.password.minLength'))
-      .required(t('form.validation.password.required')),
+    email: getEmailField(t),
+    password: getPasswordField(t),
   });
 };

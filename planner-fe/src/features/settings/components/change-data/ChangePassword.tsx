@@ -11,7 +11,7 @@ import Input from '@/shared/components/input/Input';
 import { useAuthentication } from '@/shared/hooks/useAuthentication';
 import icons from '@/shared/icons/icons';
 
-import { createUpdatePasswordSchema } from '@/features/settings/helpers/update-password-schema';
+import { updatePasswordSchema } from '@/features/settings/helpers/update-password-schema';
 import { useChangePassword } from '@/features/settings/hooks/useChangePassword';
 
 import styles from './ChangeData.module.scss';
@@ -25,7 +25,6 @@ type FormValues = {
 export const ChangePassword = () => {
   const { user } = useAuthentication();
   const t = useTranslations('Common');
-  const updatePasswordSchema = createUpdatePasswordSchema(t);
 
   const {
     register,
@@ -34,7 +33,7 @@ export const ChangePassword = () => {
     reset,
     formState: { errors, dirtyFields, isValid, isSubmitting },
   } = useForm<FormValues>({
-    resolver: yupResolver(updatePasswordSchema),
+    resolver: yupResolver(updatePasswordSchema(t)),
     mode: 'onChange',
     defaultValues: {
       password: '',

@@ -12,7 +12,7 @@ import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import icons from '@/shared/icons/icons';
 import { useAuthContext } from '@/shared/providers/AuthProvider';
 
-import { createEmailSchema } from '@/features/settings/helpers/update-email-schema';
+import { updateEmailSchema } from '@/features/settings/helpers/update-email-schema';
 import { useChangeEmail } from '@/features/settings/hooks/useChangeEmail';
 import { ChangeEmailType } from '@/features/settings/types/settings';
 
@@ -22,7 +22,6 @@ export const ChangeEmail = () => {
   const { user, refetch } = useAuthContext();
 
   const t = useTranslations('Common');
-  const updateEmailSchema = createEmailSchema(t);
 
   const {
     register,
@@ -31,7 +30,7 @@ export const ChangeEmail = () => {
     reset,
     formState: { errors, isSubmitting, dirtyFields, isValid },
   } = useForm<ChangeEmailType>({
-    resolver: yupResolver(updateEmailSchema),
+    resolver: yupResolver(updateEmailSchema(t)),
     mode: 'onChange',
     defaultValues: {
       email: '',
