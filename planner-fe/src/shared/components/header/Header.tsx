@@ -1,6 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
 import classNames from 'classnames';
 
@@ -13,6 +14,10 @@ import Logo from '../logo/Logo';
 import styles from './Header.module.scss';
 
 export const Header = () => {
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  const isHomePage = pathname === `${routes.home}${locale}`;
   const isSticky = useScrollThreshold(150);
   const t = useTranslations('Common.buttons');
 
@@ -24,11 +29,13 @@ export const Header = () => {
         <Logo />
         <div className={styles.Menu}>
           <LanguageToggle />
-          <ButtonCustom
-            href={routes.planner}
-            name={t('startPlanning')}
-            style="contained"
-          />
+          {isHomePage && (
+            <ButtonCustom
+              href={routes.planner}
+              name={t('startPlanning')}
+              style="contained"
+            />
+          )}
         </div>
       </div>
     </header>
