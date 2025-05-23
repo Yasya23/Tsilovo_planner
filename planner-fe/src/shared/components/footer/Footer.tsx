@@ -19,7 +19,7 @@ export const Footer = () => {
             <p className={styles.SocialMedia}>
               <TooltipCustom title="GitHub">
                 <Link
-                  href="https://github.com/Yasya23/personalPlanner"
+                  href="https://github.com/Yasya23/Tsilovo_planner"
                   aria-label="GitHub"
                 >
                   <icons.GitHub />

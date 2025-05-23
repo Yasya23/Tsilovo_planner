@@ -1,5 +1,14 @@
 @use '@/styles/_variables' as *;
 
+[data-theme='dark'] {
+  .Button {
+    &.Disabled {
+      border-color: $secondary;
+      color: $secondary;
+    }
+  }
+}
+
 .Button {
   &.Outline {
     border-color: $primary;

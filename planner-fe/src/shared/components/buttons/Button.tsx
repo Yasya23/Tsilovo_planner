@@ -50,6 +50,7 @@ export const ButtonCustom = ({
       className={classNames(styles.Button, {
         [styles.Outline]: boldText,
         [styles.Contained]: color === 'secondary' && !boldText,
+        [styles.Disabled]: disabled,
       })}
     >
       {name}
