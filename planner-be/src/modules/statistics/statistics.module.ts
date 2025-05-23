@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
 import { StatisticsController } from './statistics.controller';
-import { StatisticsModel } from 'src/models/statistics.model';
+import { StatisticsModel } from './model/statistics.model';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from '../user/user.module';

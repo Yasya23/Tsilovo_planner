@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto, RegistrationDto } from 'src/typing/dto';
+import { AuthDto, RegistrationDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { clearAuthCookies, setAuthCookies } from './helpers/auth';
@@ -56,7 +56,7 @@ export class AuthController {
     return { message: 'Logged out successfully' };
   }
 
-  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('access-token')
   async refresh(
     @Req() req: Request,

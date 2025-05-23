@@ -3,12 +3,11 @@ import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { NotFoundException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { StatisticsModel } from 'src/models/statistics.model';
+import { StatisticsModel } from './model/statistics.model';
 import { TaskService } from '../tasks/tasks.service';
 import { DateService } from '../date/date.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { TaskType } from './types/task.type';
-import { console } from 'inspector';
 
 @Injectable()
 export class StatisticsService {

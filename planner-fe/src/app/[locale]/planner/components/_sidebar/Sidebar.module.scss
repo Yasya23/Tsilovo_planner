@@ -22,6 +22,11 @@ $link-active-bg: rgba(158, 158, 158, 0.189);
   &.Disabled {
     opacity: 0.7;
     pointer-events: none;
+
+    & .Logout {
+      pointer-events: visible;
+      opacity: 1;
+    }
   }
 
   .Header {

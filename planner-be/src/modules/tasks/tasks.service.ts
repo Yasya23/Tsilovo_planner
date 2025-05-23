@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
-import { CreateTaskDto, TaskDto } from './dto/task.dto';
+import { CreateTaskDto, TaskDto } from './dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { TaskModel } from 'src/modules/tasks/model/tasks.model';
 import { Types } from 'mongoose';

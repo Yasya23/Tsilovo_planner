@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { TaskController } from './tasks.controller';
-import { TaskModel } from 'src/modules/tasks/model/tasks.model';
+import { TaskModel } from './model/tasks.model';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule } from '@nestjs/config';
 import { StatisticsModule } from '../statistics/statistics.module';
