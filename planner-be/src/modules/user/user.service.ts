@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { UserModel } from 'src/models/user.model';
+import { UserModel } from 'src/modules/user/model/user.model';
 import {
   UpdateAvatarDto,
   UpdatePasswordDto,

@@ -3,7 +3,7 @@ import { GoalsController } from './goals.controller';
 import { GoalsService } from './goals.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule } from '@nestjs/config';
-import { GoalModel } from 'src/models/goal.model';
+import { GoalModel } from 'src/modules/goals/model/goal.model';
 import { DateModule } from '../date/date.module';
 import { TaskModule } from '../tasks/tasks.module';
 

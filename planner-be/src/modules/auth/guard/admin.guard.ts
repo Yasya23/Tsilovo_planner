@@ -3,7 +3,7 @@ import {
   ExecutionContext,
   ForbiddenException,
 } from '@nestjs/common';
-import { UserModel } from 'src/models/user.model';
+import { UserModel } from 'src/modules/user/model/user.model';
 
 export class AdminGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {

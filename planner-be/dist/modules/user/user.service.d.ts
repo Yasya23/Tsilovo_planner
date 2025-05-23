@@ -1,5 +1,5 @@
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { UserModel } from 'src/models/user.model';
+import { UserModel } from 'src/modules/user/model/user.model';
 import { UpdateAvatarDto, UpdatePasswordDto, UpdateNameDto, UpdateEmailDto } from './dto';
 import { ConfigService } from '@nestjs/config';
 export declare class UserService {

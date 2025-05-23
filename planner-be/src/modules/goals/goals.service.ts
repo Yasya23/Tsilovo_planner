@@ -6,7 +6,7 @@ import {
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
-import { GoalModel } from 'src/models/goal.model';
+import { GoalModel } from 'src/modules/goals/model/goal.model';
 import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { DateService } from '../date/date.service';
 import { TaskService } from '../tasks/tasks.service';

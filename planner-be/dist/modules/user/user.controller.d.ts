@@ -3,7 +3,7 @@ import { UpdateNameDto, UpdateEmailDto, UpdatePasswordDto, UpdateAvatarDto } fro
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    getUserProfile(id: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/user.model").UserModel & Required<{
+    getUserProfile(id: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("./model/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("./model/user.model").UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {
         __v: number;
@@ -11,7 +11,7 @@ export declare class UserController {
     updateName(id: string, dto: UpdateNameDto): Promise<void>;
     updateEmail(id: string, dto: UpdateEmailDto): Promise<void>;
     updatePassword(id: string, dto: UpdatePasswordDto): Promise<void>;
-    updateAvatar(id: string, dto: UpdateAvatarDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/user.model").UserModel & Required<{
+    updateAvatar(id: string, dto: UpdateAvatarDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("./model/user.model").UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("./model/user.model").UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {
         __v: number;

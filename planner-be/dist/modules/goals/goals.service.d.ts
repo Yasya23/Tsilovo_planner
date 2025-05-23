@@ -1,6 +1,6 @@
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
-import { GoalModel } from 'src/models/goal.model';
+import { GoalModel } from 'src/modules/goals/model/goal.model';
 import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { DateService } from '../date/date.service';
 import { TaskService } from '../tasks/tasks.service';
@@ -19,25 +19,25 @@ export declare class GoalsService {
             pendingTasks: number;
         }[];
         dates: string[];
-        tasks: (import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../../models/tasks.model").TaskModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../../models/tasks.model").TaskModel & Required<{
+        tasks: (import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../tasks/model/tasks.model").TaskModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../tasks/model/tasks.model").TaskModel & Required<{
             _id: Types.ObjectId;
         }> & {
             __v: number;
         }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction)[];
     }>;
-    create(dto: CreateGoalDto, userId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
+    create(dto: CreateGoalDto, userId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & Required<{
         _id: Types.ObjectId;
-    } & {
+    }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    update(dto: UpdateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
+    update(dto: UpdateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & Required<{
         _id: Types.ObjectId;
-    } & {
+    }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    delete(goalId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & {
+    delete(goalId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<GoalModel & Required<{
         _id: Types.ObjectId;
-    } & {
+    }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
 }

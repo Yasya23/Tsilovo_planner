@@ -2,7 +2,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from 'nestjs-typegoose';
-import { UserModel } from 'src/models/user.model';
+import { UserModel } from 'src/modules/user/model/user.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';

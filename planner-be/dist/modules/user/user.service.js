@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
-const user_model_1 = require("../../models/user.model");
+const user_model_1 = require("./model/user.model");
 const bcryptjs_1 = require("bcryptjs");
 const config_1 = require("@nestjs/config");
 let UserService = class UserService {

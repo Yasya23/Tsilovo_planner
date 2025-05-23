@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
 const common_1 = require("@nestjs/common");
 const tasks_service_1 = require("./tasks.service");
 const auth_decorator_1 = require("../../decorators/auth.decorator");
 const user_decorator_1 = require("../../decorators/user.decorator");
-const dto_1 = require("../../typing/dto");
+const dto_1 = require("src/typing/dto");
 let TaskController = class TaskController {
     constructor(taskService) {
         this.taskService = taskService;
@@ -39,7 +40,7 @@ __decorate([
     __param(0, (0, user_decorator_1.User)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.CreateTaskDto]),
+    __metadata("design:paramtypes", [String, typeof (_a = typeof dto_1.CreateTaskDto !== "undefined" && dto_1.CreateTaskDto) === "function" ? _a : Object]),
     __metadata("design:returntype", Promise)
 ], TaskController.prototype, "create", null);
 __decorate([
@@ -47,7 +48,7 @@ __decorate([
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.TaskDto]),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.TaskDto !== "undefined" && dto_1.TaskDto) === "function" ? _b : Object]),
     __metadata("design:returntype", Promise)
 ], TaskController.prototype, "update", null);
 __decorate([

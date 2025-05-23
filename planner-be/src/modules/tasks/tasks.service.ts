@@ -6,7 +6,7 @@ import {
 import { InjectModel } from 'nestjs-typegoose';
 import { CreateTaskDto, TaskDto } from './dto/task.dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { TaskModel } from 'src/models/tasks.model';
+import { TaskModel } from 'src/modules/tasks/model/tasks.model';
 import { Types } from 'mongoose';
 
 @Injectable()

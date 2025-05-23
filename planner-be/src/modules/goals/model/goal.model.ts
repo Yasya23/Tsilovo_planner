@@ -1,9 +1,9 @@
 import { prop, Ref } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { Types } from 'mongoose';
-import { TaskModel } from './tasks.model';
+import { TaskModel } from '../../tasks/model/tasks.model';
 
-export interface UserModel extends Base {}
+export interface GoalModel extends Base {}
 
 export class GoalModel extends TimeStamps {
   @prop({ required: true })
