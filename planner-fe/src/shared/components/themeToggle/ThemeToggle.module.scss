@@ -2,8 +2,8 @@
 
 .Wrapper {
   display: flex;
-  justify-content: space-between;
-  width: 90px;
+  justify-content: center;
+  gap: 2px;
   border: 1px solid $secondary;
   border-radius: 16px;
   overflow: hidden;
