@@ -30,7 +30,8 @@
       "uploadImage": "Завантажити зображення",
       "uploading": "Завантаження...",
       "update": "Оновити",
-      "restorePassword": "Відновити пароль"
+      "restorePassword": "Відновити пароль",
+      "startPlanning": "Розпочати планування"
     },
     "settings": {
       "title": "Налаштування",

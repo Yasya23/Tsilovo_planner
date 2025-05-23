@@ -30,7 +30,8 @@
       "uploadImage": "Upload image",
       "uploading": "Uploading...",
       "update": "Update",
-      "restorePassword": "Restore password"
+      "restorePassword": "Restore password",
+      "startPlanning": "Start planning"
     },
     "errors": {
       "general": "Something went wrong...",

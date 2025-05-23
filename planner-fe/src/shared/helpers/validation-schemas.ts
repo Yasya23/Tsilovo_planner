@@ -2,7 +2,8 @@ import { Formats, TranslationValues } from 'next-intl';
 
 import * as yup from 'yup';
 
-import { emailRegx } from '@/shared/utils/email-regx';
+const emailRegx =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export type TFunction = {
   <TargetKey extends any>(

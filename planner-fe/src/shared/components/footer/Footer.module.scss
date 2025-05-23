@@ -11,7 +11,7 @@
   margin: 0 auto;
 }
 
-.Settings {
+.Wrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -21,21 +21,22 @@
 }
 
 .Info {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: clamp(0.7rem, 3vw, 0.9rem);
-  color: $secondary;
+  .SocialMedia {
+    display: flex;
+    padding: 10px 0;
+    gap: 10px;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: color 0.3s ease-in-out;
 
-  &Link {
     a {
-      color: var(--text-color);
-      text-decoration: underline;
+      @include hover {
+        color: $primary;
+      }
     }
   }
+}
 
-  &Copyright {
-    color: $secondary;
-  }
+.InfoCopyright {
+  color: $secondary;
 }

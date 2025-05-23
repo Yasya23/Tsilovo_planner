@@ -1,0 +1,111 @@
+@use '@/styles/_variables' as *;
+@use '@/styles/_mixins' as *;
+
+.Wrapper {
+  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: clamp(2rem, 10vw, 8rem) 10px;
+  width: 100%;
+  align-items: center;
+  max-width: $xl;
+
+  @include lg {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .Title {
+    font-size: clamp(1.2rem, 10vw, 3.5rem);
+    font-weight: 600;
+    text-align: left;
+
+    span {
+      display: block;
+      width: 9ch;
+      overflow: hidden;
+      white-space: nowrap;
+      animation:
+        typing 1.5s steps(8) infinite alternate,
+        blink 0.5s step-end infinite alternate;
+      border-right: 2px solid $primary-soft;
+      color: $primary;
+    }
+  }
+
+  .ListWrapper {
+    position: relative;
+
+    .IconDecor {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: clamp(-24px, 10vw, 5rem);
+      color: $primary-soft;
+      transform: rotate(-10deg);
+      z-index: -1;
+      animation: floatDecor 3s ease-in-out infinite;
+    }
+  }
+
+  .List {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+
+    .ListItem {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+
+      &.stress p span {
+        text-decoration: line-through;
+        color: $secondary;
+      }
+
+      &.goals p span {
+        color: $primary;
+        font-weight: 600;
+      }
+
+      svg {
+        font-size: 1.3rem;
+        color: $accent;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.ButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(1rem, 5vw, 3rem);
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes floatDecor {
+  0% {
+    transform: rotate(-10deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-10deg) translateY(-10px);
+  }
+  100% {
+    transform: rotate(-10deg) translateY(0);
+  }
+}

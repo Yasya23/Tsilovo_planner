@@ -1,5 +1,20 @@
 {
   "HomePage": {
-    "title": "Plan your <span>day effectively </span>with our planner"
+    "hero": {
+      "title": "Plan simply. Achieve confidently with <span>Tsiľovo.</span>",
+      "features": {
+        "goals": "Up <span>to 5</span> active goals at once",
+        "focus": "Focus on completed tasks",
+        "stress": "Less <span>stress</span>, more results",
+        "progress": "Visual progress tracking"
+      }
+    },
+    "showcase": {
+      "title": "See the planer in action",
+      "planner": "Planner",
+      "statistics": "Statistics",
+      "settings": "Settings",
+      "help": "How it works"
+    }
   }
 }

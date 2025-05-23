@@ -1,3 +1,4 @@
+import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import {
   FiActivity,
@@ -60,6 +61,7 @@ const icons = {
   CheckCircle: FiCheckCircle,
   FiChevronsLeft: FiChevronsLeft,
   Google: FcGoogle,
+  GitHub: FaGithub,
 };
 
 export default icons;

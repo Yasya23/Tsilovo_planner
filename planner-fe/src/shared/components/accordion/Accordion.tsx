@@ -9,40 +9,6 @@ import icons from '@/shared/icons/icons';
 
 import styles from './Accordion.module.scss';
 
-// type AccordionItem = {
-//   title: React.ReactNode | string;
-//   description: React.ReactNode | string;
-// };
-
-// type AccordionProps = {
-//   items: AccordionItem[];
-// };
-
-// export const AccordionUsage = ({ items }: AccordionProps) => {
-//   return (
-//     <div className={styles.Accordion}>
-//       {items.map((item, index) => (
-//         <Accordion key={index} className={styles.Wrapper}>
-//           <AccordionSummary
-//             expandIcon={<icons.ChevronDown />}
-//             aria-controls={`panel${index}-content`}
-//             id={`panel${index}-header`}
-//           >
-//             <Typography
-//               component="div"
-//               sx={{ width: '100%' }}
-//               className={styles.Title}
-//             >
-//               {item.title}
-//             </Typography>
-//           </AccordionSummary>
-//           <AccordionDetails>{item.description}</AccordionDetails>
-//         </Accordion>
-//       ))}
-//     </div>
-//   );
-// };
-
 type AccordionItem = {
   title: React.ReactNode | string;
   description: React.ReactNode | string;
@@ -50,7 +16,7 @@ type AccordionItem = {
 
 type AccordionProps = {
   items: AccordionItem[];
-  level?: number; // optional depth level for styling
+  level?: number;
 };
 
 export const AccordionUsage = ({ items, level = 0 }: AccordionProps) => {

@@ -46,8 +46,10 @@ export const ButtonCustom = ({
       href={`/${locale}/${href}`}
       startIcon={iconStart}
       endIcon={iconEnd}
-      className={classNames({
-        [styles.Button]: boldText,
+      size="medium"
+      className={classNames(styles.Button, {
+        [styles.Outline]: boldText,
+        [styles.Contained]: color === 'secondary' && !boldText,
       })}
     >
       {name}

@@ -11,7 +11,7 @@ interface Props {
   type?: 'button' | 'submit' | 'reset';
   showName?: boolean;
   hasTooltip?: boolean;
-  color?: 'secondary' | 'default' | 'warning';
+  color?: 'default' | 'warning';
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
 }
