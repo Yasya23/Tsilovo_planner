@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import { Avatar } from '@/shared/components/avatar/Avatar';
 import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import LanguageToggle from '@/shared/components/LanguageSwitch';
-import Logo from '@/shared/components/logo/Logo';
 import LogOut from '@/shared/components/LogOut';
 import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
 import TeamSwitcher from '@/shared/components/theme-toggle/ThemeToggle';
@@ -63,7 +62,6 @@ export const Sidebar = () => {
       })}
     >
       <div className={styles.Header}>
-        <Logo />
         {!isMenuOpen ? (
           <div className={styles.MobileMenuIcon}>
             <IconButtonCustom

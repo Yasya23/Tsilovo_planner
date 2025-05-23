@@ -1,7 +1,7 @@
 import { Controller, Body, Delete, Put, Get } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Auth } from 'src/decorators/auth.decorator';
-import { User } from 'src/decorators/user.decorator';
+import { Auth } from 'src/modules/auth/decorator/auth.decorator';
+import { User } from 'src/modules/user/decorator/user.decorator';
 import {
   UpdateNameDto,
   UpdateEmailDto,

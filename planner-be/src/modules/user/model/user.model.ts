@@ -19,3 +19,5 @@ export class UserModel extends TimeStamps {
   @prop({ default: 'local' })
   provider: string;
 }
+
+export type UserModelType = keyof UserModel;

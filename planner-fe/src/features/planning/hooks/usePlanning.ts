@@ -22,6 +22,7 @@ export const usePlanning = () => {
       const data = await GoalServices.getActive();
       return data;
     },
+    retry: 3,
   });
 
   const createTask = useMutation({

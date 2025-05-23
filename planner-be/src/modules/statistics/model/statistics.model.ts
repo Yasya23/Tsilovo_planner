@@ -1,6 +1,5 @@
-import { prop, Ref } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import { TaskModel } from '../modules/tasks/model/tasks.model';
 import { TaskType } from 'src/modules/statistics/types/task.type';
 
 export interface StatisticsModel extends Base {}
