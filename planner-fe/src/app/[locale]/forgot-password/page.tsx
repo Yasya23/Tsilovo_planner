@@ -1,6 +1,6 @@
 import { ForgotPassword } from '@/features/forgot-password/page/ForgotPassword';
 
-export const page = () => {
+const page = () => {
   return <ForgotPassword />;
 };
 
