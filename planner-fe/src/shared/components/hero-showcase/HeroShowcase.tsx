@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import classNames from 'classnames';
 
-import styles from './HeroShowcase.module.scss';
+import styles from './Showcase.module.scss';
 
 const menuItems = [
   {

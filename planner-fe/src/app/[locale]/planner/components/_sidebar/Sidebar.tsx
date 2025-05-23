@@ -14,7 +14,7 @@ import { IconButtonCustom } from '@/shared/components/buttons/IconButton';
 import LanguageToggle from '@/shared/components/LanguageSwitch';
 import LogOut from '@/shared/components/LogOut';
 import { SkeletonLoader } from '@/shared/components/SkeletonLoader';
-import TeamSwitcher from '@/shared/components/themeToggle/ThemeToggle';
+import TeamSwitcher from '@/shared/components/theme-toggle/ThemeToggle';
 import { routes } from '@/shared/constants/routes';
 import useWidthThreshold from '@/shared/hooks/useWidthThreshold';
 import icons from '@/shared/icons/icons';

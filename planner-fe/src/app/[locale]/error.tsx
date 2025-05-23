@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorMessage } from '@/shared/components/errorMessage/ErrorMessage';
+import { ErrorMessage } from '@/shared/components/error-message/ErrorMessage';
 import DefaultLayout from '@/shared/components/layouts/Default';
 
 const ServerError = () => {

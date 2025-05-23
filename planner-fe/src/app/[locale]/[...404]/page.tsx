@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { ErrorMessage } from '@/shared/components/errorMessage/ErrorMessage';
+import { ErrorMessage } from '@/shared/components/error-message/ErrorMessage';
 import { DefaultLayout } from '@/shared/components/layouts/Default';
 
 export const metadata: Metadata = {

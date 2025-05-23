@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import Logo from '@/shared/components/logo/Logo';
-import ThemeToggle from '@/shared/components/themeToggle/ThemeToggle';
+import ThemeToggle from '@/shared/components/theme-toggle/ThemeToggle';
 import TooltipCustom from '@/shared/components/Tooltip';
 import icons from '@/shared/icons/icons';
 
