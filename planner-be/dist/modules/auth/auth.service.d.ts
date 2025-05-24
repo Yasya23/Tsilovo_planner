@@ -14,6 +14,8 @@ export declare class AuthService {
     register(registrationDto: RegistrationDto): Promise<{
         accessToken: string;
         refreshToken: string;
+        name: string;
+        email: string;
     }>;
     getNewTokens(refreshToken: string): Promise<{
         accessToken: string;
@@ -22,6 +24,9 @@ export declare class AuthService {
     googleLogin(userData: any): Promise<{
         accessToken: string;
         refreshToken: string;
+        name: string;
+        email: string;
+        isNewUser: boolean;
     }>;
     private createTokenPair;
 }

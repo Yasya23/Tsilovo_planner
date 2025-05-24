@@ -9,9 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
-const strategies_1 = require("./strategies");
-const google_strategy_1 = require("./strategies/google.strategy");
 const jwt_config_1 = require("../../config/jwt.config");
+const strategies_1 = require("./strategies");
+const resend_module_1 = require("../resend/resend.module");
 const user_model_1 = require("../user/model/user.model");
 const user_module_1 = require("../user/user.module");
 const common_1 = require("@nestjs/common");
@@ -36,13 +36,14 @@ exports.AuthModule = AuthModule = __decorate([
             config_1.ConfigModule,
             passport_1.PassportModule,
             user_module_1.UserModule,
+            resend_module_1.ResendModule,
             jwt_1.JwtModule.registerAsync({
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
                 useFactory: jwt_config_1.getJWTDbConfig,
             }),
         ],
-        providers: [auth_service_1.AuthService, strategies_1.JwtStrategy, google_strategy_1.GoogleStrategy],
+        providers: [auth_service_1.AuthService, strategies_1.JwtStrategy, strategies_1.GoogleStrategy],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);

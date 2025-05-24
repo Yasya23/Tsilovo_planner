@@ -10,6 +10,7 @@ exports.UserModule = void 0;
 const user_model_1 = require("./model/user.model");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
+const resend_module_1 = require("../resend/resend.module");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
@@ -28,6 +29,7 @@ exports.UserModule = UserModule = __decorate([
                 },
             ]),
             config_1.ConfigModule,
+            resend_module_1.ResendModule,
         ],
         providers: [user_service_1.UserService],
         controllers: [user_controller_1.UserController],

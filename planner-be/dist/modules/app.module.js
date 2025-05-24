@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const mongo_config_1 = require("../config/mongo.config");
 const auth_module_1 = require("./auth/auth.module");
+const mongo_config_1 = require("../config/mongo.config");
 const goals_module_1 = require("./goals/goals.module");
 const statistics_module_1 = require("./statistics/statistics.module");
 const tasks_module_1 = require("./tasks/tasks.module");

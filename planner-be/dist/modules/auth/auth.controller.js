@@ -16,15 +16,18 @@ exports.AuthController = void 0;
 const auth_service_1 = require("./auth.service");
 const dto_1 = require("./dto");
 const auth_1 = require("./helpers/auth");
+const resend_service_1 = require("../resend/resend.service");
+const locale_decorator_1 = require("../../shared/decorator/locale.decorator");
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const passport_1 = require("@nestjs/passport");
 const throttler_1 = require("@nestjs/throttler");
 let AuthController = class AuthController {
-    constructor(authService, configService) {
+    constructor(authService, configService, resendService) {
         this.authService = authService;
         this.configService = configService;
+        this.resendService = resendService;
     }
     async login(dto, res) {
         const { accessToken, refreshToken } = await this.authService.login(dto);
@@ -33,9 +36,15 @@ let AuthController = class AuthController {
             message: 'Login successful',
         };
     }
-    async register(dto, res) {
-        const { accessToken, refreshToken } = await this.authService.register(dto);
+    async register(dto, locale, res) {
+        const { accessToken, refreshToken, name, email } = await this.authService.register(dto);
         (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
+        this.resendService.sendEmail({
+            subject: 'welcome',
+            to: email,
+            name,
+            locale,
+        });
         return {
             message: 'Registration successful',
         };
@@ -64,11 +73,19 @@ let AuthController = class AuthController {
         }
     }
     async googleAuth() { }
-    async googleCallback(req, res) {
-        const locale = req.cookies?.NEXT_LOCALE ?? 'en';
+    async googleCallback(locale, req, res) {
         try {
-            const { accessToken, refreshToken } = await this.authService.googleLogin(req.user);
+            const { accessToken, refreshToken, name, email, isNewUser } = await this.authService.googleLogin(req.user);
+            console.log(name, email, isNewUser);
             (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
+            if (isNewUser) {
+                this.resendService.sendEmail({
+                    subject: 'welcome',
+                    to: email,
+                    name,
+                    locale,
+                });
+            }
             res.redirect(`${this.configService.get('FRONTEND_URL')}/${locale}/planner`);
             return;
         }
@@ -91,9 +108,10 @@ __decorate([
     (0, throttler_1.Throttle)({ default: { limit: 5, ttl: 60000 } }),
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __param(1, (0, locale_decorator_1.Locale)()),
+    __param(2, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.RegistrationDto, Object]),
+    __metadata("design:paramtypes", [dto_1.RegistrationDto, String, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
@@ -122,15 +140,17 @@ __decorate([
 __decorate([
     (0, common_1.Get)('google/callback'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
+    __param(0, (0, locale_decorator_1.Locale)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "googleCallback", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
-        config_1.ConfigService])
+        config_1.ConfigService,
+        resend_service_1.ResendService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

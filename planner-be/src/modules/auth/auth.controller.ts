@@ -1,6 +1,8 @@
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from './dto';
 import { clearAuthCookies, setAuthCookies } from '@/auth/helpers/auth';
+import { ResendService } from '@/modules/resend/resend.service';
+import { Locale, LocaleType } from '@/shared/decorator/locale.decorator';
 import {
   Body,
   Controller,
@@ -21,6 +23,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
+    private readonly resendService: ResendService,
   ) {}
 
   @Throttle({ default: { limit: 5, ttl: 60000 } })
@@ -39,12 +42,20 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() dto: RegistrationDto,
+    @Locale() locale: LocaleType,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { accessToken, refreshToken } = await this.authService.register(dto);
+    const { accessToken, refreshToken, name, email } =
+      await this.authService.register(dto);
 
     setAuthCookies(res, accessToken, refreshToken);
 
+    this.resendService.sendEmail({
+      subject: 'welcome',
+      to: email,
+      name,
+      locale,
+    });
     return {
       message: 'Registration successful',
     };
@@ -91,15 +102,24 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleCallback(@Req() req: Request, @Res() res: Response) {
-    const locale = req.cookies?.NEXT_LOCALE ?? 'en';
+  async googleCallback(
+    @Locale() locale: LocaleType,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
     try {
-      const { accessToken, refreshToken } = await this.authService.googleLogin(
-        req.user,
-      );
-
+      const { accessToken, refreshToken, name, email, isNewUser } =
+        await this.authService.googleLogin(req.user);
+      console.log(name, email, isNewUser);
       setAuthCookies(res, accessToken, refreshToken);
-
+      if (isNewUser) {
+        this.resendService.sendEmail({
+          subject: 'welcome',
+          to: email,
+          name,
+          locale,
+        });
+      }
       res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/planner`,
       );

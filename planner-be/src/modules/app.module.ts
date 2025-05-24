@@ -1,9 +1,9 @@
-import { getMongoDbConfig } from '../config/mongo.config';
-import { AuthModule } from './auth/auth.module';
-import { GoalsModule } from './goals/goals.module';
-import { StatisticsModule } from './statistics/statistics.module';
-import { TaskModule } from './tasks/tasks.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from '@/auth/auth.module';
+import { getMongoDbConfig } from '@/config/mongo.config';
+import { GoalsModule } from '@/goals/goals.module';
+import { StatisticsModule } from '@/statistics/statistics.module';
+import { TaskModule } from '@/tasks/tasks.module';
+import { UserModule } from '@/user/user.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';

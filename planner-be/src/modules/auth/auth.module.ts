@@ -1,8 +1,8 @@
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './strategies';
-import { GoogleStrategy } from './strategies/google.strategy';
 import { getJWTDbConfig } from '@/config/jwt.config';
+import { GoogleStrategy, JwtStrategy } from '@/modules/auth/strategies';
+import { ResendModule } from '@/modules/resend/resend.module';
 import { UserModel } from '@/modules/user/model/user.model';
 import { UserModule } from '@/user/user.module';
 import { Module } from '@nestjs/common';
@@ -24,6 +24,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
     ConfigModule,
     PassportModule,
     UserModule,
+    ResendModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

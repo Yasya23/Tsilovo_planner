@@ -35,4 +35,12 @@ __decorate([
     (0, typegoose_1.prop)({ default: 'local' }),
     __metadata("design:type", String)
 ], UserModel.prototype, "provider", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ default: true }),
+    __metadata("design:type", Boolean)
+], UserModel.prototype, "isActive", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", Date)
+], UserModel.prototype, "deletedAt", void 0);
 //# sourceMappingURL=user.model.js.map

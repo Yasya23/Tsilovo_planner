@@ -1,13 +1,23 @@
 import {
+  ForgetPasswordDto,
+  PasswordDto,
   UpdateAvatarDto,
   UpdateEmailDto,
   UpdateNameDto,
-  UpdatePasswordDto,
 } from './dto';
 import { UserService } from './user.service';
-import { Auth } from '@/auth/decorators/auth.decorator';
+import { Auth } from '@/auth/decorator/auth.decorator';
+import { Locale, LocaleType } from '@/shared/decorator/locale.decorator';
 import { User } from '@/user/decorator/user.decorator';
-import { Body, Controller, Delete, Get, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -19,6 +29,27 @@ export class UserController {
     return this.userService.getByID(id);
   }
 
+  @Post('forgot-password')
+  async forgetPassword(
+    @Body() dto: ForgetPasswordDto,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.forgotPassword(dto, locale);
+  }
+
+  @Post('reset-password')
+  async resetPassword(
+    @Query('token') token: string,
+    @Body() dto: PasswordDto,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.resetPasswordWithToken(
+      token,
+      dto.newPassword,
+      locale,
+    );
+  }
+
   @Put('name')
   @Auth()
   async updateName(@User('id') id: string, @Body() dto: UpdateNameDto) {
@@ -27,14 +58,22 @@ export class UserController {
 
   @Put('email')
   @Auth()
-  async updateEmail(@User('id') id: string, @Body() dto: UpdateEmailDto) {
-    await this.userService.updateEmail(id, dto);
+  async updateEmail(
+    @User('id') id: string,
+    @Body() dto: UpdateEmailDto,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.updateEmail(id, dto, locale);
   }
 
   @Put('password')
   @Auth()
-  async updatePassword(@User('id') id: string, @Body() dto: UpdatePasswordDto) {
-    await this.userService.updatePassword(id, dto);
+  async updatePassword(
+    @User('id') id: string,
+    @Body() dto: PasswordDto,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.updatePassword(id, dto, locale);
   }
 
   @Put('avatar')
@@ -47,5 +86,13 @@ export class UserController {
   @Auth()
   async delete(@User('id') id: string) {
     await this.userService.deleteProfile(id);
+  }
+
+  @Delete('confirm')
+  async confirmDelete(
+    @Query('token') token: string,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.deleteAccountWithToken(token, locale);
   }
 }

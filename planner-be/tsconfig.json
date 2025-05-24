@@ -16,7 +16,9 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
+      "@shared/*": ["shared/*"],
       "@/config/*": ["config/*"],
+      "@/strategies/*": ["strategies/*"],
       "@/modules/*": ["modules/*"],
       "@/auth/*": ["modules/auth/*"],
       "@/date/*": ["modules/date/*"],

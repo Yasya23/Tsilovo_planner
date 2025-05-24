@@ -15,7 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const dto_1 = require("./dto");
 const user_service_1 = require("./user.service");
-const auth_decorator_1 = require("../auth/decorators/auth.decorator");
+const auth_decorator_1 = require("../auth/decorator/auth.decorator");
+const locale_decorator_1 = require("../../shared/decorator/locale.decorator");
 const user_decorator_1 = require("./decorator/user.decorator");
 const common_1 = require("@nestjs/common");
 let UserController = class UserController {
@@ -25,20 +26,29 @@ let UserController = class UserController {
     async getUserProfile(id) {
         return this.userService.getByID(id);
     }
+    async forgetPassword(dto, locale) {
+        await this.userService.forgotPassword(dto, locale);
+    }
+    async resetPassword(token, dto, locale) {
+        await this.userService.resetPasswordWithToken(token, dto.newPassword, locale);
+    }
     async updateName(id, dto) {
         await this.userService.updateName(id, dto);
     }
-    async updateEmail(id, dto) {
-        await this.userService.updateEmail(id, dto);
+    async updateEmail(id, dto, locale) {
+        await this.userService.updateEmail(id, dto, locale);
     }
-    async updatePassword(id, dto) {
-        await this.userService.updatePassword(id, dto);
+    async updatePassword(id, dto, locale) {
+        await this.userService.updatePassword(id, dto, locale);
     }
     async updateAvatar(id, dto) {
         return await this.userService.updateAvatar(id, dto);
     }
     async delete(id) {
         await this.userService.deleteProfile(id);
+    }
+    async confirmDelete(token, locale) {
+        await this.userService.deleteAccountWithToken(token, locale);
     }
 };
 exports.UserController = UserController;
@@ -50,6 +60,23 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserProfile", null);
+__decorate([
+    (0, common_1.Post)('forgot-password'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, locale_decorator_1.Locale)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.ForgetPasswordDto, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "forgetPassword", null);
+__decorate([
+    (0, common_1.Post)('reset-password'),
+    __param(0, (0, common_1.Query)('token')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, locale_decorator_1.Locale)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, dto_1.PasswordDto, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "resetPassword", null);
 __decorate([
     (0, common_1.Put)('name'),
     (0, auth_decorator_1.Auth)(),
@@ -64,8 +91,9 @@ __decorate([
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, user_decorator_1.User)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, locale_decorator_1.Locale)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.UpdateEmailDto]),
+    __metadata("design:paramtypes", [String, dto_1.UpdateEmailDto, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateEmail", null);
 __decorate([
@@ -73,8 +101,9 @@ __decorate([
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, user_decorator_1.User)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, locale_decorator_1.Locale)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.UpdatePasswordDto]),
+    __metadata("design:paramtypes", [String, dto_1.PasswordDto, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updatePassword", null);
 __decorate([
@@ -94,6 +123,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Delete)('confirm'),
+    __param(0, (0, common_1.Query)('token')),
+    __param(1, (0, locale_decorator_1.Locale)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "confirmDelete", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

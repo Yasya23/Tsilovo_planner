@@ -18,6 +18,12 @@ export class UserModel extends TimeStamps {
 
   @prop({ default: 'local' })
   provider: string;
+
+  @prop({ default: true })
+  isActive?: boolean;
+
+  @prop()
+  deletedAt?: Date;
 }
 
 export type UserModelType = keyof UserModel;

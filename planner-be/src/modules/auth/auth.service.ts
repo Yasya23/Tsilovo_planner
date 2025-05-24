@@ -67,6 +67,8 @@ export class AuthService {
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
+      name: newUser.name,
+      email: newUser.email,
     };
   }
 
@@ -104,7 +106,10 @@ export class AuthService {
   async googleLogin(userData: any) {
     let user = await this.userService.findByEmail(userData.email);
 
+    let isNewUser = false;
+
     if (!user) {
+      isNewUser = true;
       user = await this.userService.create({
         name: userData.name || 'Anonim',
         email: userData.email,
@@ -123,6 +128,9 @@ export class AuthService {
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
+      name: user.name,
+      email: user.email,
+      isNewUser,
     };
   }
 

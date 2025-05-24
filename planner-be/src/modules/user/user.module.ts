@@ -1,6 +1,7 @@
 import { UserModel } from './model/user.model';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { ResendModule } from '@/modules/resend/resend.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
@@ -16,6 +17,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
       },
     ]),
     ConfigModule,
+    ResendModule,
   ],
   providers: [UserService],
   controllers: [UserController],
