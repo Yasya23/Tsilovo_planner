@@ -1,10 +1,10 @@
-import { ModelType } from '@typegoose/typegoose/lib/types';
-import { NotFoundException } from '@nestjs/common';
-import { UserService } from '../user/user.service';
 import { StatisticsModel } from './model/statistics.model';
-import { TaskService } from '../tasks/tasks.service';
-import { DateService } from '../date/date.service';
 import { TaskType } from './types/task.type';
+import { DateService } from '@/date/date.service';
+import { TaskService } from '@/tasks/tasks.service';
+import { UserService } from '@/user/user.service';
+import { NotFoundException } from '@nestjs/common';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 export declare class StatisticsService {
     private readonly statisticsModel;
     private readonly userService;

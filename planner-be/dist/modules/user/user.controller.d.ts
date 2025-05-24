@@ -1,5 +1,5 @@
+import { UpdateAvatarDto, UpdateEmailDto, UpdateNameDto, UpdatePasswordDto } from './dto';
 import { UserService } from './user.service';
-import { UpdateNameDto, UpdateEmailDto, UpdatePasswordDto, UpdateAvatarDto } from './dto';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);

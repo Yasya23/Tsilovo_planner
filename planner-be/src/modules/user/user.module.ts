@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserModel } from './model/user.model';
 import { UserController } from './user.controller';
-import { UserModel } from 'src/modules/user/model/user.model';
-import { TypegooseModule } from 'nestjs-typegoose';
+import { UserService } from './user.service';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypegooseModule } from 'nestjs-typegoose';
+
 @Module({
   imports: [
     TypegooseModule.forFeature([

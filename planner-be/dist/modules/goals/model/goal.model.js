@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoalModel = void 0;
+const tasks_model_1 = require("../../tasks/model/tasks.model");
 const typegoose_1 = require("@typegoose/typegoose");
 const defaultClasses_1 = require("@typegoose/typegoose/lib/defaultClasses");
 const mongoose_1 = require("mongoose");
-const tasks_model_1 = require("../../tasks/model/tasks.model");
 class GoalModel extends defaultClasses_1.TimeStamps {
 }
 exports.GoalModel = GoalModel;

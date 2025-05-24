@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DateModule = void 0;
-const common_1 = require("@nestjs/common");
 const date_service_1 = require("./date.service");
+const common_1 = require("@nestjs/common");
 let DateModule = class DateModule {
 };
 exports.DateModule = DateModule;

@@ -1,14 +1,15 @@
+import { AuthDto, RegistrationDto } from './dto';
+import { JwtPayload } from './types/jwt-payload.type';
+import { UserService } from '@/user/user.service';
 import {
   BadRequestException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthDto, RegistrationDto } from './dto';
-import { hash, genSalt, compare } from 'bcryptjs';
-import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../user/user.service';
-import { JwtPayload } from './types/jwt-payload.type';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { compare, genSalt, hash } from 'bcryptjs';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -79,7 +80,7 @@ export class AuthService {
       payload = await this.jwtService.verifyAsync<JwtPayload>(refreshToken, {
         secret: this.configService.get<string>('JWT_SECRET'),
       });
-    } catch (err) {
+    } catch {
       throw new UnauthorizedException('Invalid or expired refresh token');
     }
 

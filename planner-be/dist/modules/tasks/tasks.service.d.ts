@@ -1,6 +1,6 @@
 import { CreateTaskDto, TaskDto } from './dto';
+import { TaskModel } from './model/tasks.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { TaskModel } from 'src/modules/tasks/model/tasks.model';
 import { Types } from 'mongoose';
 export declare class TaskService {
     private readonly taskModel;

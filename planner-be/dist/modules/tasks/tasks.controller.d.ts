@@ -1,5 +1,5 @@
-import { TaskService } from './tasks.service';
 import { CreateTaskDto, TaskDto } from './dto';
+import { TaskService } from './tasks.service';
 export declare class TaskController {
     private readonly taskService;
     constructor(taskService: TaskService);

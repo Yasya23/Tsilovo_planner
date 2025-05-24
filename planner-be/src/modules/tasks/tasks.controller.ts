@@ -1,8 +1,8 @@
-import { Controller, Body, Put, Delete, Post } from '@nestjs/common';
-import { TaskService } from './tasks.service';
-import { Auth } from 'src/modules/auth/decorator/auth.decorator';
-import { User } from 'src/modules/user/decorator/user.decorator';
 import { CreateTaskDto, TaskDto } from './dto';
+import { TaskService } from './tasks.service';
+import { Auth } from '@/auth/decorator/auth.decorator';
+import { User } from '@/user/decorator/user.decorator';
+import { Body, Controller, Delete, Post, Put } from '@nestjs/common';
 
 @Controller('tasks')
 export class TaskController {

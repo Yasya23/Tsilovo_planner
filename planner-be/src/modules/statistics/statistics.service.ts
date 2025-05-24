@@ -1,13 +1,13 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectModel } from 'nestjs-typegoose';
-import { ModelType } from '@typegoose/typegoose/lib/types';
-import { NotFoundException } from '@nestjs/common';
-import { UserService } from '../user/user.service';
 import { StatisticsModel } from './model/statistics.model';
-import { TaskService } from '../tasks/tasks.service';
-import { DateService } from '../date/date.service';
-import { Cron, CronExpression } from '@nestjs/schedule';
 import { TaskType } from './types/task.type';
+import { DateService } from '@/date/date.service';
+import { TaskService } from '@/tasks/tasks.service';
+import { UserService } from '@/user/user.service';
+import { Injectable, Logger } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class StatisticsService {
@@ -33,7 +33,7 @@ export class StatisticsService {
     return staistics;
   }
 
-  @Cron(CronExpression.EVERY_30_SECONDS)
+  @Cron(CronExpression.EVERY_WEEK)
   async updateWeeklyStatistics() {
     this.logger.log('Updating weekly statistics...');
 
@@ -106,7 +106,7 @@ export class StatisticsService {
       }),
     );
 
-    let userStats = await this.statisticsModel.findOne({ userId });
+    const userStats = await this.statisticsModel.findOne({ userId });
 
     const monthlyStats = {
       month: currentMonth,

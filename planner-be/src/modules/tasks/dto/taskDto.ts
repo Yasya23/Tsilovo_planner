@@ -1,10 +1,5 @@
-import {
-  IsBoolean,
-  IsString,
-  IsDate,
-  IsMongoId,
-} from 'class-validator';
 import { Transform } from 'class-transformer';
+import { IsBoolean, IsDate, IsMongoId, IsString } from 'class-validator';
 
 export class CreateTaskDto {
   @IsBoolean()

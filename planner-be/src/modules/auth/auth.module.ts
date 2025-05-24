@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserModel } from 'src/modules/user/model/user.model';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { getJWTDbConfig } from 'src/config/jwt.config';
+import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { getJWTDbConfig } from '@/config/jwt.config';
+import { UserModel } from '@/modules/user/model/user.model';
+import { UserModule } from '@/user/user.module';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { UserModule } from '../user/user.module';
+import { TypegooseModule } from 'nestjs-typegoose';
+
 @Module({
   imports: [
     TypegooseModule.forFeature([

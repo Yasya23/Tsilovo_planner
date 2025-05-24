@@ -7,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-const schedule_1 = require("@nestjs/schedule");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
 const mongo_config_1 = require("../config/mongo.config");
 const auth_module_1 = require("./auth/auth.module");
-const user_module_1 = require("./user/user.module");
-const tasks_module_1 = require("./tasks/tasks.module");
 const goals_module_1 = require("./goals/goals.module");
 const statistics_module_1 = require("./statistics/statistics.module");
-const throttler_1 = require("@nestjs/throttler");
+const tasks_module_1 = require("./tasks/tasks.module");
+const user_module_1 = require("./user/user.module");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const core_1 = require("@nestjs/core");
+const schedule_1 = require("@nestjs/schedule");
+const throttler_1 = require("@nestjs/throttler");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;

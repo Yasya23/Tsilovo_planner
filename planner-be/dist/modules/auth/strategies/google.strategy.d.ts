@@ -1,7 +1,7 @@
-import { VerifyCallback } from 'passport-google-oauth20';
+import { UserModel } from '@/user/model/user.model';
 import { ConfigService } from '@nestjs/config';
-import { UserModel } from 'src/modules/user/model/user.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { VerifyCallback } from 'passport-google-oauth20';
 declare const GoogleStrategy_base: new (...args: any) => any;
 export declare class GoogleStrategy extends GoogleStrategy_base {
     private readonly configService;

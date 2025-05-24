@@ -1,4 +1,32 @@
 {
-	"singleQuote": true,
-	"trailingComma": "all"
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrderParserPlugins": [
+    "typescript",
+    "classProperties",
+    "decorators-legacy"
+  ],
+  "importsOrder": [
+    "^@nestjs/(.*)$",
+    "^nestjs/(.*)$",
+    "^reflect-metadata$",
+    "<THIRD_PARTY_MODULES>",
+    "^@/config/(.*)$",
+    "^@/modules/(.*)$",
+    "^@/auth/(.*)$",
+    "^@/date/(.*)$",
+    "^@/statistics/(.*)$",
+    "^@/tasks/(.*)$",
+    "^@/user/(.*)$",
+    "^@/shared/(.*)$",
+    "^@/src/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrderSeparation": true
 }

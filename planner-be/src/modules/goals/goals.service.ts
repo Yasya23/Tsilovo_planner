@@ -1,15 +1,15 @@
+import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
+import { GoalModel } from './model/goal.model';
+import { DateService } from '@/date/date.service';
+import { TaskService } from '@/tasks/tasks.service';
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
-import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
-import { GoalModel } from 'src/modules/goals/model/goal.model';
-import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
-import { DateService } from '../date/date.service';
-import { TaskService } from '../tasks/tasks.service';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class GoalsService {
@@ -93,7 +93,6 @@ export class GoalsService {
   }
 
   async delete(goalId: string) {
-    console.log(goalId);
     const goal = await this.goalModel.findById(goalId);
     if (!goal) {
       throw new NotFoundException('Goal not found');

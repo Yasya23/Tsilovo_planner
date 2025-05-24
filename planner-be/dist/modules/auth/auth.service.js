@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
-const common_1 = require("@nestjs/common");
-const bcryptjs_1 = require("bcryptjs");
-const jwt_1 = require("@nestjs/jwt");
 const user_service_1 = require("../user/user.service");
+const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const jwt_1 = require("@nestjs/jwt");
+const bcryptjs_1 = require("bcryptjs");
 let AuthService = class AuthService {
     constructor(configService, jwtService, userService) {
         this.configService = configService;
@@ -70,7 +70,7 @@ let AuthService = class AuthService {
                 secret: this.configService.get('JWT_SECRET'),
             });
         }
-        catch (err) {
+        catch {
             throw new common_1.UnauthorizedException('Invalid or expired refresh token');
         }
         const user = await this.userService.getByID(payload.id);

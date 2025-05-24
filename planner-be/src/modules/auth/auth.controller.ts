@@ -1,3 +1,6 @@
+import { AuthService } from './auth.service';
+import { AuthDto, RegistrationDto } from './dto';
+import { clearAuthCookies, setAuthCookies } from '@/auth/helpers/auth';
 import {
   Body,
   Controller,
@@ -8,13 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UnauthorizedException } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthDto, RegistrationDto } from './dto';
-import { AuthGuard } from '@nestjs/passport';
-import { Request, Response } from 'express';
-import { clearAuthCookies, setAuthCookies } from './helpers/auth';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from '@nestjs/passport';
 import { Throttle } from '@nestjs/throttler';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -80,7 +80,7 @@ export class AuthController {
       };
     } catch (err) {
       clearAuthCookies(res);
-      console.error('Token refresh failed:', err?.message || err);
+      console.error('Token refresh failed:', err);
       throw new UnauthorizedException('Refresh token invalid or expired');
     }
   }
@@ -100,11 +100,12 @@ export class AuthController {
 
       setAuthCookies(res, accessToken, refreshToken);
 
-      return res.redirect(
+      res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/planner`,
       );
-    } catch (err) {
-      return res.redirect(
+      return;
+    } catch {
+      res.redirect(
         `${this.configService.get('FRONTEND_URL')}/${locale}/login?error=oauth_failed`,
       );
     }

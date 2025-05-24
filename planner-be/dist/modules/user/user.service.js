@@ -13,11 +13,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const common_1 = require("@nestjs/common");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
 const user_model_1 = require("./model/user.model");
-const bcryptjs_1 = require("bcryptjs");
+const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const bcryptjs_1 = require("bcryptjs");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let UserService = class UserService {
     constructor(userModel, configService) {
         this.userModel = userModel;

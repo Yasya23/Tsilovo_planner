@@ -13,13 +13,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-const common_1 = require("@nestjs/common");
-const common_2 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const dto_1 = require("./dto");
-const passport_1 = require("@nestjs/passport");
 const auth_1 = require("./helpers/auth");
+const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const passport_1 = require("@nestjs/passport");
 const throttler_1 = require("@nestjs/throttler");
 let AuthController = class AuthController {
     constructor(authService, configService) {
@@ -59,7 +59,7 @@ let AuthController = class AuthController {
         }
         catch (err) {
             (0, auth_1.clearAuthCookies)(res);
-            console.error('Token refresh failed:', err?.message || err);
+            console.error('Token refresh failed:', err);
             throw new common_2.UnauthorizedException('Refresh token invalid or expired');
         }
     }
@@ -69,10 +69,11 @@ let AuthController = class AuthController {
         try {
             const { accessToken, refreshToken } = await this.authService.googleLogin(req.user);
             (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
-            return res.redirect(`${this.configService.get('FRONTEND_URL')}/${locale}/planner`);
+            res.redirect(`${this.configService.get('FRONTEND_URL')}/${locale}/planner`);
+            return;
         }
-        catch (err) {
-            return res.redirect(`${this.configService.get('FRONTEND_URL')}/${locale}/login?error=oauth_failed`);
+        catch {
+            res.redirect(`${this.configService.get('FRONTEND_URL')}/${locale}/login?error=oauth_failed`);
         }
     }
 };

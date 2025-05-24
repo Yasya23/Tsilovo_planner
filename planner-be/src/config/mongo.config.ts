@@ -5,6 +5,6 @@ export const getMongoDbConfig = async (
   configService: ConfigService,
 ): Promise<TypegooseModuleOptions> => {
   return {
-    uri: configService.get('MONGO_URI'),
+    uri: configService.get('MONGO_URI') || '',
   };
 };

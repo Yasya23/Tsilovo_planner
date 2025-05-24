@@ -1,13 +1,13 @@
+import { CreateTaskDto, TaskDto } from './dto';
+import { TaskModel } from './model/tasks.model';
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
-import { InjectModel } from 'nestjs-typegoose';
-import { CreateTaskDto, TaskDto } from './dto';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { TaskModel } from 'src/modules/tasks/model/tasks.model';
 import { Types } from 'mongoose';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class TaskService {

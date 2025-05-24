@@ -13,11 +13,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
-const common_1 = require("@nestjs/common");
+const dto_1 = require("./dto");
 const tasks_service_1 = require("./tasks.service");
 const auth_decorator_1 = require("../auth/decorator/auth.decorator");
 const user_decorator_1 = require("../user/decorator/user.decorator");
-const dto_1 = require("./dto");
+const common_1 = require("@nestjs/common");
 let TaskController = class TaskController {
     constructor(taskService) {
         this.taskService = taskService;

@@ -1,4 +1,4 @@
-import { IsBoolean, IsString, IsOptional, IsMongoId } from 'class-validator';
+import { IsBoolean, IsMongoId, IsOptional, IsString } from 'class-validator';
 
 export class CreateGoalDto {
   @IsString()

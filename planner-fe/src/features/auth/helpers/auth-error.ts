@@ -7,8 +7,8 @@ export const authErrorMessage = (
   const isUnauthorized = error?.response?.status === 401;
   const userExists = error?.response?.status === 400;
   return isUnauthorized && type === 'login'
-    ? `loginError`
+    ? 'loginError'
     : userExists && type === 'register'
-      ? `registerError`
+      ? 'registerError'
       : 'generalAuthError';
 };

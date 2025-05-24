@@ -1,7 +1,7 @@
-import { ModelType } from '@typegoose/typegoose/lib/types';
-import { UserModel } from 'src/modules/user/model/user.model';
-import { UpdateAvatarDto, UpdatePasswordDto, UpdateNameDto, UpdateEmailDto } from './dto';
+import { UpdateAvatarDto, UpdateEmailDto, UpdateNameDto, UpdatePasswordDto } from './dto';
+import { UserModel } from '@/user/model/user.model';
 import { ConfigService } from '@nestjs/config';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 export declare class UserService {
     private readonly userModel;
     private readonly configService;

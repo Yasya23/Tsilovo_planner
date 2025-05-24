@@ -1,8 +1,8 @@
-import { Controller, Get, Body, Put, Delete, Post } from '@nestjs/common';
+import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { GoalsService } from './goals.service';
-import { Auth } from 'src/modules/auth/decorator/auth.decorator';
-import { User } from 'src/modules/user/decorator/user.decorator';
-import { UpdateGoalDto, CreateGoalDto } from './dto/ManageGoalDto';
+import { Auth } from '@/auth/decorator/auth.decorator';
+import { User } from '@/user/decorator/user.decorator';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 
 @Controller('goals')
 export class GoalsController {

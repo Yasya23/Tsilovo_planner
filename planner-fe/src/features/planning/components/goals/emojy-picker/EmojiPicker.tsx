@@ -32,4 +32,3 @@ export const EmojiPickerCompoment: React.FC<EmojiPickerProps> = ({
     </div>
   );
 };
-

@@ -7,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoalsModule = void 0;
-const common_1 = require("@nestjs/common");
 const goals_controller_1 = require("./goals.controller");
 const goals_service_1 = require("./goals.service");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const config_1 = require("@nestjs/config");
-const goal_model_1 = require("./model/goal.model");
 const date_module_1 = require("../date/date.module");
+const goal_model_1 = require("./model/goal.model");
 const tasks_module_1 = require("../tasks/tasks.module");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let GoalsModule = class GoalsModule {
 };
 exports.GoalsModule = GoalsModule;

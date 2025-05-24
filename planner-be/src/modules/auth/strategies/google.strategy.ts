@@ -1,10 +1,10 @@
+import { UserModel } from '@/user/model/user.model';
 import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { ConfigService } from '@nestjs/config';
-import { InjectModel } from 'nestjs-typegoose';
-import { UserModel } from 'src/modules/user/model/user.model';
+import { PassportStrategy } from '@nestjs/passport';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { InjectModel } from 'nestjs-typegoose';
+import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {

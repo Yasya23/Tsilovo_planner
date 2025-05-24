@@ -1,12 +1,12 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { StatisticsService } from './statistics.service';
-import { StatisticsController } from './statistics.controller';
 import { StatisticsModel } from './model/statistics.model';
-import { TypegooseModule } from 'nestjs-typegoose';
+import { StatisticsController } from './statistics.controller';
+import { StatisticsService } from './statistics.service';
+import { DateModule } from '@/date/date.module';
+import { TaskModule } from '@/tasks/tasks.module';
+import { UserModule } from '@/user/user.module';
+import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from '../user/user.module';
-import { DateModule } from '../date/date.module';
-import { TaskModule } from '../tasks/tasks.module';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 @Module({
   imports: [

@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
-const common_1 = require("@nestjs/common");
-const user_service_1 = require("./user.service");
-const user_controller_1 = require("./user.controller");
 const user_model_1 = require("./model/user.model");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
+const user_controller_1 = require("./user.controller");
+const user_service_1 = require("./user.service");
+const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;

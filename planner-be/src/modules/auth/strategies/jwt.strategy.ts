@@ -1,11 +1,11 @@
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, ExtractJwt } from 'passport-jwt';
-import { ConfigService } from '@nestjs/config';
-import { InjectModel } from 'nestjs-typegoose';
-import { UserModel } from 'src/modules/user/model/user.model';
-import { ModelType } from '@typegoose/typegoose/lib/types';
+import { UserModel } from '@/user/model/user.model';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { PassportStrategy } from '@nestjs/passport';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
+import { InjectModel } from 'nestjs-typegoose';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 
 interface JwtPayload {
   id: string;

@@ -7,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
-const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
-const user_model_1 = require("../user/model/user.model");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const config_1 = require("@nestjs/config");
-const jwt_1 = require("@nestjs/jwt");
-const jwt_config_1 = require("../../config/jwt.config");
+const auth_service_1 = require("./auth.service");
 const strategies_1 = require("./strategies");
 const google_strategy_1 = require("./strategies/google.strategy");
-const passport_1 = require("@nestjs/passport");
+const jwt_config_1 = require("../../config/jwt.config");
+const user_model_1 = require("../user/model/user.model");
 const user_module_1 = require("../user/user.module");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+const jwt_1 = require("@nestjs/jwt");
+const passport_1 = require("@nestjs/passport");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;

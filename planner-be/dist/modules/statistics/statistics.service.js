@@ -14,14 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var StatisticsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatisticsService = void 0;
-const common_1 = require("@nestjs/common");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const common_2 = require("@nestjs/common");
-const user_service_1 = require("../user/user.service");
 const statistics_model_1 = require("./model/statistics.model");
-const tasks_service_1 = require("../tasks/tasks.service");
 const date_service_1 = require("../date/date.service");
+const tasks_service_1 = require("../tasks/tasks.service");
+const user_service_1 = require("../user/user.service");
+const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let StatisticsService = StatisticsService_1 = class StatisticsService {
     constructor(statisticsModel, userService, dateService, taskService) {
         this.statisticsModel = statisticsModel;
@@ -83,7 +83,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
             emoji: data.emoji,
             tasks: data.tasks,
         }));
-        let userStats = await this.statisticsModel.findOne({ userId });
+        const userStats = await this.statisticsModel.findOne({ userId });
         const monthlyStats = {
             month: currentMonth,
             totalCompleted: tasks.length,
@@ -132,7 +132,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
 };
 exports.StatisticsService = StatisticsService;
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_30_SECONDS),
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

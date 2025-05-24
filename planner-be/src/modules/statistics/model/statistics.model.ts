@@ -1,6 +1,6 @@
+import { TaskType } from '@/statistics/types/task.type';
 import { prop } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import { TaskType } from 'src/modules/statistics/types/task.type';
 
 export interface StatisticsModel extends Base {}
 

@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from './dto';
-import { Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { Request, Response } from 'express';
 export declare class AuthController {
     private readonly authService;
     private readonly configService;

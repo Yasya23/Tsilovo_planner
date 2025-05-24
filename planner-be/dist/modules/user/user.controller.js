@@ -13,11 +13,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
-const common_1 = require("@nestjs/common");
-const user_service_1 = require("./user.service");
-const auth_decorator_1 = require("../auth/decorator/auth.decorator");
-const user_decorator_1 = require("./decorator/user.decorator");
 const dto_1 = require("./dto");
+const user_service_1 = require("./user.service");
+const auth_decorator_1 = require("../auth/decorators/auth.decorator");
+const user_decorator_1 = require("./decorator/user.decorator");
+const common_1 = require("@nestjs/common");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -26,13 +26,13 @@ let UserController = class UserController {
         return this.userService.getByID(id);
     }
     async updateName(id, dto) {
-        return await this.userService.updateName(id, dto);
+        await this.userService.updateName(id, dto);
     }
     async updateEmail(id, dto) {
-        return await this.userService.updateEmail(id, dto);
+        await this.userService.updateEmail(id, dto);
     }
     async updatePassword(id, dto) {
-        return await this.userService.updatePassword(id, dto);
+        await this.userService.updatePassword(id, dto);
     }
     async updateAvatar(id, dto) {
         return await this.userService.updateAvatar(id, dto);

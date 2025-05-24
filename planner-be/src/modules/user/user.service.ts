@@ -1,19 +1,19 @@
 import {
+  UpdateAvatarDto,
+  UpdateEmailDto,
+  UpdateNameDto,
+  UpdatePasswordDto,
+} from './dto';
+import { UserModel } from '@/user/model/user.model';
+import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
-import { InjectModel } from 'nestjs-typegoose';
-import { ModelType } from '@typegoose/typegoose/lib/types';
-import { UserModel } from 'src/modules/user/model/user.model';
-import {
-  UpdateAvatarDto,
-  UpdatePasswordDto,
-  UpdateNameDto,
-  UpdateEmailDto,
-} from './dto';
-import { genSalt, hash, compare } from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { compare, genSalt, hash } from 'bcryptjs';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
 export class UserService {

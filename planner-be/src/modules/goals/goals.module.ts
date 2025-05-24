@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
 import { GoalsController } from './goals.controller';
 import { GoalsService } from './goals.service';
-import { TypegooseModule } from 'nestjs-typegoose';
+import { DateModule } from '@/date/date.module';
+import { GoalModel } from '@/modules/goals/model/goal.model';
+import { TaskModule } from '@/tasks/tasks.module';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { GoalModel } from 'src/modules/goals/model/goal.model';
-import { DateModule } from '../date/date.module';
-import { TaskModule } from '../tasks/tasks.module';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 @Module({
   imports: [

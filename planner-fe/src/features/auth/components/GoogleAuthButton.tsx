@@ -4,8 +4,9 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
-import { services } from '@/features/auth/constants/api-services';
 import icons from '@/shared/icons/icons';
+
+import { services } from '@/features/auth/constants/api-services';
 
 export const GoogleAuthButton = ({ disabled }: { disabled?: boolean }) => {
   const t = useTranslations('Common.buttons');

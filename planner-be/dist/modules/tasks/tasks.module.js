@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskModule = void 0;
-const common_1 = require("@nestjs/common");
-const tasks_service_1 = require("./tasks.service");
-const tasks_controller_1 = require("./tasks.controller");
-const tasks_model_1 = require("./model/tasks.model");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const config_1 = require("@nestjs/config");
 const statistics_module_1 = require("../statistics/statistics.module");
+const tasks_model_1 = require("./model/tasks.model");
+const tasks_controller_1 = require("./tasks.controller");
+const tasks_service_1 = require("./tasks.service");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let TaskModule = class TaskModule {
 };
 exports.TaskModule = TaskModule;

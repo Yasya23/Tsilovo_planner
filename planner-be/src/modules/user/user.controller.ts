@@ -1,13 +1,13 @@
-import { Controller, Body, Delete, Put, Get } from '@nestjs/common';
-import { UserService } from './user.service';
-import { Auth } from 'src/modules/auth/decorator/auth.decorator';
-import { User } from 'src/modules/user/decorator/user.decorator';
 import {
-  UpdateNameDto,
-  UpdateEmailDto,
-  UpdatePasswordDto,
   UpdateAvatarDto,
+  UpdateEmailDto,
+  UpdateNameDto,
+  UpdatePasswordDto,
 } from './dto';
+import { UserService } from './user.service';
+import { Auth } from '@/auth/decorators/auth.decorator';
+import { User } from '@/user/decorator/user.decorator';
+import { Body, Controller, Delete, Get, Put } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -22,19 +22,19 @@ export class UserController {
   @Put('name')
   @Auth()
   async updateName(@User('id') id: string, @Body() dto: UpdateNameDto) {
-    return await this.userService.updateName(id, dto);
+    await this.userService.updateName(id, dto);
   }
 
   @Put('email')
   @Auth()
   async updateEmail(@User('id') id: string, @Body() dto: UpdateEmailDto) {
-    return await this.userService.updateEmail(id, dto);
+    await this.userService.updateEmail(id, dto);
   }
 
   @Put('password')
   @Auth()
   async updatePassword(@User('id') id: string, @Body() dto: UpdatePasswordDto) {
-    return await this.userService.updatePassword(id, dto);
+    await this.userService.updatePassword(id, dto);
   }
 
   @Put('avatar')

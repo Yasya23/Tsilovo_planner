@@ -1,4 +1,4 @@
-import { UserModel } from 'src/modules/user/model/user.model';
+import { UserModel } from '@/user/model/user.model';
 interface AuthInfo {
     message?: string;
 }

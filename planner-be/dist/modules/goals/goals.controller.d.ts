@@ -1,5 +1,5 @@
+import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { GoalsService } from './goals.service';
-import { UpdateGoalDto, CreateGoalDto } from './dto/ManageGoalDto';
 export declare class GoalsController {
     private readonly goalService;
     constructor(goalService: GoalsService);

@@ -13,12 +13,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoalsService = void 0;
-const common_1 = require("@nestjs/common");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const mongoose_1 = require("mongoose");
 const goal_model_1 = require("./model/goal.model");
 const date_service_1 = require("../date/date.service");
 const tasks_service_1 = require("../tasks/tasks.service");
+const common_1 = require("@nestjs/common");
+const mongoose_1 = require("mongoose");
+const nestjs_typegoose_1 = require("nestjs-typegoose");
 let GoalsService = class GoalsService {
     constructor(goalModel, dateService, taskService) {
         this.goalModel = goalModel;
@@ -76,7 +76,6 @@ let GoalsService = class GoalsService {
         return goal.save();
     }
     async delete(goalId) {
-        console.log(goalId);
         const goal = await this.goalModel.findById(goalId);
         if (!goal) {
             throw new common_1.NotFoundException('Goal not found');

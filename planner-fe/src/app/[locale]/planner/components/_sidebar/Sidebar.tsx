@@ -24,7 +24,7 @@ import styles from './Sidebar.module.scss';
 
 const menuItems = [
   {
-    labelKey: `sidebar.planner`,
+    labelKey: 'sidebar.planner',
     href: routes.planner,
     icon: <icons.Calendar />,
   },

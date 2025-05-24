@@ -1,7 +1,7 @@
-import { Strategy } from 'passport-jwt';
+import { UserModel } from '@/user/model/user.model';
 import { ConfigService } from '@nestjs/config';
-import { UserModel } from 'src/modules/user/model/user.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { Strategy } from 'passport-jwt';
 interface JwtPayload {
     id: string;
 }

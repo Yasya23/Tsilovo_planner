@@ -1,7 +1,11 @@
-import classNames from 'classnames';
 import { useTranslations } from 'next-intl';
-import { isDateToday } from '@/features/planning/helpers/is-today';
+
+import classNames from 'classnames';
+
 import icons from '@/shared/icons/icons';
+
+import { isDateToday } from '@/features/planning/helpers/is-today';
+
 import styles from './DayHeader.module.scss';
 
 type DayHeaderProps = {
@@ -20,7 +24,8 @@ export const DayHeader = ({
     <div
       className={classNames(styles.Header, {
         [styles.Active]: isToday,
-      })}>
+      })}
+    >
       <h3 className={styles.HeaderTitle}>
         {isToday && <icons.Calendar />}
         {t(`${new Date(date).getDay()}`)}

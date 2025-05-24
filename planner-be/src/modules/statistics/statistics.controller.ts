@@ -1,7 +1,7 @@
-import { Controller, Get, Query } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
-import { Auth } from 'src/modules/auth/decorator/auth.decorator';
-import { User } from 'src/modules/user/decorator/user.decorator';
+import { Auth } from '@/auth/decorator/auth.decorator';
+import { User } from '@/user/decorator/user.decorator';
+import { Controller, Get, Query } from '@nestjs/common';
 
 @Controller('statistics')
 export class StatisticsController {
