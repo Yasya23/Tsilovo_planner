@@ -43,4 +43,8 @@ __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", Date)
 ], UserModel.prototype, "deletedAt", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", String)
+], UserModel.prototype, "oldEmail", void 0);
 //# sourceMappingURL=user.model.js.map

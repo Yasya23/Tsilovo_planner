@@ -1,14 +1,14 @@
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from './dto';
-import { ResendService } from '@/modules/resend/resend.service';
+import { MailService } from '@/modules/mail/mail.service';
 import { LocaleType } from '@/shared/decorator/locale.decorator';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 export declare class AuthController {
     private readonly authService;
     private readonly configService;
-    private readonly resendService;
-    constructor(authService: AuthService, configService: ConfigService, resendService: ResendService);
+    private readonly MailService;
+    constructor(authService: AuthService, configService: ConfigService, MailService: MailService);
     login(dto: AuthDto, res: Response): Promise<{
         message: string;
     }>;

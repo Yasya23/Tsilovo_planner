@@ -1,9 +1,9 @@
 import { LocaleType } from '@/shared/decorator/locale.decorator';
 import { ConfigService } from '@nestjs/config';
 type Subjects = 'account deletion confirmation' | 'welcome' | 'reset password' | 'password has changed' | 'email has changed' | 'account was deleted';
-export declare class ResendService {
+export declare class MailService {
     private readonly configService;
-    private resend;
+    private transporter;
     constructor(configService: ConfigService);
     sendEmail({ to, subject, token, locale, name, }: {
         to: string;

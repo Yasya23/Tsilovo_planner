@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import * as Handlebars from 'handlebars';
+import * as nodemailer from 'nodemailer';
 import * as path from 'path';
-import { Resend } from 'resend';
 
 type Subjects =
   | 'account deletion confirmation'
@@ -15,11 +15,19 @@ type Subjects =
   | 'account was deleted';
 
 @Injectable()
-export class ResendService {
-  private resend: Resend;
+export class MailService {
+  private transporter: nodemailer.Transporter;
 
   constructor(private readonly configService: ConfigService) {
-    this.resend = new Resend(this.configService.get<string>('RESEND_API_KEY'));
+    this.transporter = nodemailer.createTransport({
+      host: this.configService.get('SMTP_HOST'),
+      port: this.configService.get<number>('SMTP_PORT'),
+      secure: this.configService.get<boolean>('SMTP_SECURE'),
+      auth: {
+        user: this.configService.get<string>('SMTP_USER'),
+        pass: this.configService.get<string>('SMTP_PASS'),
+      },
+    });
   }
 
   async sendEmail({
@@ -36,15 +44,11 @@ export class ResendService {
     name?: string;
     email?: string;
   }): Promise<void> {
-    const html = this.generateHtmlBySubject({
-      subject,
-      token,
-      locale,
-      name,
-    });
+    const html = this.generateHtmlBySubject({ subject, token, locale, name });
     const appName = locale === 'uk' ? 'Цільово' : 'Tsil`ovo';
-    await this.resend.emails.send({
-      from: `${appName} <onboarding@resend.dev>`,
+
+    await this.transporter.sendMail({
+      from: `"${appName}" <${this.configService.get('SMTP_FROM')}>`,
       to,
       subject,
       html,
@@ -67,8 +71,8 @@ export class ResendService {
       process.cwd(),
       'src',
       'modules',
-      'resend',
-      'mail-templates',
+      'mail',
+      'templates',
       locale,
       `${templateName}.hbs`,
     );

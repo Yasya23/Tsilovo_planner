@@ -30,7 +30,7 @@ let UserController = class UserController {
         await this.userService.forgotPassword(dto, locale);
     }
     async resetPassword(token, dto, locale) {
-        await this.userService.resetPasswordWithToken(token, dto.newPassword, locale);
+        await this.userService.resetPasswordWithToken(token, dto, locale);
     }
     async updateName(id, dto) {
         await this.userService.updateName(id, dto);
@@ -44,8 +44,8 @@ let UserController = class UserController {
     async updateAvatar(id, dto) {
         return await this.userService.updateAvatar(id, dto);
     }
-    async delete(id) {
-        await this.userService.deleteProfile(id);
+    async delete(id, locale) {
+        await this.userService.deleteProfile(id, locale);
     }
     async confirmDelete(token, locale) {
         await this.userService.deleteAccountWithToken(token, locale);
@@ -74,7 +74,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, locale_decorator_1.Locale)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.PasswordDto, String]),
+    __metadata("design:paramtypes", [String, dto_1.ResetPasswordDto, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "resetPassword", null);
 __decorate([
@@ -119,8 +119,9 @@ __decorate([
     (0, common_1.Delete)(),
     (0, auth_decorator_1.Auth)(),
     __param(0, (0, user_decorator_1.User)('id')),
+    __param(1, (0, locale_decorator_1.Locale)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "delete", null);
 __decorate([

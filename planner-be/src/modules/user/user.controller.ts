@@ -1,6 +1,7 @@
 import {
   ForgetPasswordDto,
   PasswordDto,
+  ResetPasswordDto,
   UpdateAvatarDto,
   UpdateEmailDto,
   UpdateNameDto,
@@ -40,14 +41,10 @@ export class UserController {
   @Post('reset-password')
   async resetPassword(
     @Query('token') token: string,
-    @Body() dto: PasswordDto,
+    @Body() dto: ResetPasswordDto,
     @Locale() locale: LocaleType,
   ) {
-    await this.userService.resetPasswordWithToken(
-      token,
-      dto.newPassword,
-      locale,
-    );
+    await this.userService.resetPasswordWithToken(token, dto, locale);
   }
 
   @Put('name')
@@ -84,8 +81,8 @@ export class UserController {
 
   @Delete()
   @Auth()
-  async delete(@User('id') id: string) {
-    await this.userService.deleteProfile(id);
+  async delete(@User('id') id: string, @Locale() locale: LocaleType) {
+    await this.userService.deleteProfile(id, locale);
   }
 
   @Delete('confirm')

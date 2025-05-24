@@ -42,28 +42,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResendService = void 0;
+exports.MailService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const fs = __importStar(require("fs"));
 const Handlebars = __importStar(require("handlebars"));
+const nodemailer = __importStar(require("nodemailer"));
 const path = __importStar(require("path"));
-const resend_1 = require("resend");
-let ResendService = class ResendService {
+let MailService = class MailService {
     constructor(configService) {
         this.configService = configService;
-        this.resend = new resend_1.Resend(this.configService.get('RESEND_API_KEY'));
+        this.transporter = nodemailer.createTransport({
+            host: this.configService.get('SMTP_HOST'),
+            port: this.configService.get('SMTP_PORT'),
+            secure: this.configService.get('SMTP_SECURE'),
+            auth: {
+                user: this.configService.get('SMTP_USER'),
+                pass: this.configService.get('SMTP_PASS'),
+            },
+        });
     }
     async sendEmail({ to, subject, token, locale, name, }) {
-        const html = this.generateHtmlBySubject({
-            subject,
-            token,
-            locale,
-            name,
-        });
+        const html = this.generateHtmlBySubject({ subject, token, locale, name });
         const appName = locale === 'uk' ? 'Цільово' : 'Tsil`ovo';
-        await this.resend.emails.send({
-            from: `${appName} <onboarding@resend.dev>`,
+        await this.transporter.sendMail({
+            from: `"${appName}" <${this.configService.get('SMTP_FROM')}>`,
             to,
             subject,
             html,
@@ -71,7 +74,7 @@ let ResendService = class ResendService {
     }
     generateHtmlBySubject({ subject, token, locale, name, }) {
         const templateName = this.getTemplateNameBySubject(subject);
-        const filePath = path.resolve(process.cwd(), 'src', 'modules', 'resend', 'mail-templates', locale, `${templateName}.hbs`);
+        const filePath = path.resolve(process.cwd(), 'src', 'modules', 'mail', 'templates', locale, `${templateName}.hbs`);
         if (!fs.existsSync(filePath)) {
             throw new Error(`Email template not found: ${filePath}`);
         }
@@ -111,9 +114,9 @@ let ResendService = class ResendService {
         }
     }
 };
-exports.ResendService = ResendService;
-exports.ResendService = ResendService = __decorate([
+exports.MailService = MailService;
+exports.MailService = MailService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [config_1.ConfigService])
-], ResendService);
-//# sourceMappingURL=resend.service.js.map
+], MailService);
+//# sourceMappingURL=mail.service.js.map

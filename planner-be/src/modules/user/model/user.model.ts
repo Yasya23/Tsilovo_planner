@@ -24,6 +24,9 @@ export class UserModel extends TimeStamps {
 
   @prop()
   deletedAt?: Date;
+
+  @prop()
+  oldEmail?: string;
 }
 
 export type UserModelType = keyof UserModel;

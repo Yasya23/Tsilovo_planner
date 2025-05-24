@@ -11,20 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var UserService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const resend_service_1 = require("../resend/resend.service");
+const mail_service_1 = require("../mail/mail.service");
 const user_model_1 = require("./model/user.model");
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const schedule_1 = require("@nestjs/schedule");
 const bcryptjs_1 = require("bcryptjs");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
-let UserService = class UserService {
-    constructor(userModel, configService, resendService) {
+let UserService = UserService_1 = class UserService {
+    constructor(userModel, configService, mailService) {
         this.userModel = userModel;
         this.configService = configService;
-        this.resendService = resendService;
+        this.mailService = mailService;
+        this.logger = new common_2.Logger(UserService_1.name);
     }
     async getAllUsers() {
         const users = await this.userModel.find().exec();
@@ -65,6 +69,12 @@ let UserService = class UserService {
         const salt = await (0, bcryptjs_1.genSalt)(saltHash);
         user.password = await (0, bcryptjs_1.hash)(userDto.newPassword, salt);
         await user.save();
+        this.mailService.sendEmail({
+            to: user.email,
+            subject: 'password has changed',
+            locale: locale,
+            name: user.name,
+        });
     }
     async updateEmail(userId, userDto, locale) {
         const user = await this.userModel.findById(userId);
@@ -80,8 +90,16 @@ let UserService = class UserService {
         if (!isPasswordValid) {
             throw new common_1.BadRequestException('Old password is incorrect');
         }
+        const oldEmail = user.email;
         user.email = userDto.email;
+        user.oldEmail = oldEmail;
         await user.save();
+        this.mailService.sendEmail({
+            to: oldEmail,
+            subject: 'email has changed',
+            locale: locale,
+            name: user.name,
+        });
     }
     async updateAvatar(userId, { image }) {
         const user = await this.userModel.findById(userId);
@@ -90,15 +108,28 @@ let UserService = class UserService {
         user.image = image;
         return await user.save();
     }
-    async deleteProfile(id) {
+    async deleteProfile(id, locale) {
+        const user = await this.userModel.findById(id);
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        const token = this.generateActionToken(id, 'delete');
+        this.mailService.sendEmail({
+            to: user.email,
+            subject: 'account deletion confirmation',
+            token: token,
+            locale: locale,
+            name: user.name,
+        });
     }
     async forgotPassword({ email }, locale) {
         const user = await this.userModel.findOne({ email });
         if (!user)
             throw new common_1.NotFoundException('User not found');
+        if (user.provider === 'google')
+            throw new common_1.BadRequestException('User with google account cannot reset password');
         const id = user._id.toString();
         const token = this.generateActionToken(id, 'reset');
-        await this.resendService.sendEmail({
+        await this.mailService.sendEmail({
             to: email,
             subject: 'reset password',
             token: token,
@@ -106,7 +137,7 @@ let UserService = class UserService {
             name: user.name,
         });
     }
-    async resetPasswordWithToken(token, newPassword, locale) {
+    async resetPasswordWithToken(token, { password }, locale) {
         const secret = this.configService.get('JWT_SECRET');
         let payload;
         try {
@@ -122,27 +153,58 @@ let UserService = class UserService {
         if (!user)
             throw new common_1.NotFoundException('User not found');
         const salt = await (0, bcryptjs_1.genSalt)(Number(this.configService.get('PASSWORD_SALT')));
-        user.password = await (0, bcryptjs_1.hash)(newPassword, salt);
+        user.password = await (0, bcryptjs_1.hash)(password, salt);
         await user.save();
+        this.mailService.sendEmail({
+            to: user.email,
+            subject: 'password has changed',
+            locale: locale,
+            name: user.name,
+        });
     }
     async deleteAccountWithToken(token, locale) {
         const payload = (0, jsonwebtoken_1.verify)(token, this.configService.get('JWT_SECRET'));
         if (payload.type !== 'delete')
             throw new common_1.BadRequestException('Invalid token');
-        const date = new Date();
-        await this.userModel.findByIdAndUpdate({ isAcive: false, deletedAt: date });
+        const user = await this.userModel.findById(payload.id);
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        await this.userModel.findByIdAndUpdate(user._id, {
+            isActive: false,
+            deletedAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        });
+        this.mailService.sendEmail({
+            to: user.email,
+            subject: 'account was deleted',
+            locale: locale,
+            name: user.name,
+        });
     }
     generateActionToken(userId, action) {
         const payload = { id: userId, type: action };
         const secret = this.configService.get('JWT_SECRET');
         return (0, jsonwebtoken_1.sign)(payload, secret, { expiresIn: '15m' });
     }
+    async handleDeleteCron() {
+        this.logger.log('Running weekly user deletion cron job');
+        const result = await this.userModel.deleteMany({
+            isActive: false,
+            deletedAt: { $lte: new Date() },
+        });
+        this.logger.log(`Deleted ${result.deletedCount} accounts`);
+    }
 };
 exports.UserService = UserService;
-exports.UserService = UserService = __decorate([
+__decorate([
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserService.prototype, "handleDeleteCron", null);
+exports.UserService = UserService = UserService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(user_model_1.UserModel)),
     __metadata("design:paramtypes", [Object, config_1.ConfigService,
-        resend_service_1.ResendService])
+        mail_service_1.MailService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

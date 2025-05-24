@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from './dto';
 import { clearAuthCookies, setAuthCookies } from '@/auth/helpers/auth';
-import { ResendService } from '@/modules/resend/resend.service';
+import { MailService } from '@/modules/mail/mail.service';
 import { Locale, LocaleType } from '@/shared/decorator/locale.decorator';
 import {
   Body,
@@ -23,7 +23,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
-    private readonly resendService: ResendService,
+    private readonly MailService: MailService,
   ) {}
 
   @Throttle({ default: { limit: 5, ttl: 60000 } })
@@ -50,7 +50,7 @@ export class AuthController {
 
     setAuthCookies(res, accessToken, refreshToken);
 
-    this.resendService.sendEmail({
+    this.MailService.sendEmail({
       subject: 'welcome',
       to: email,
       name,
@@ -113,7 +113,7 @@ export class AuthController {
       console.log(name, email, isNewUser);
       setAuthCookies(res, accessToken, refreshToken);
       if (isNewUser) {
-        this.resendService.sendEmail({
+        this.MailService.sendEmail({
           subject: 'welcome',
           to: email,
           name,

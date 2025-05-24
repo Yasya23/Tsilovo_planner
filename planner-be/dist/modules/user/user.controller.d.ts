@@ -1,4 +1,4 @@
-import { ForgetPasswordDto, PasswordDto, UpdateAvatarDto, UpdateEmailDto, UpdateNameDto } from './dto';
+import { ForgetPasswordDto, PasswordDto, ResetPasswordDto, UpdateAvatarDto, UpdateEmailDto, UpdateNameDto } from './dto';
 import { UserService } from './user.service';
 import { LocaleType } from '@/shared/decorator/locale.decorator';
 export declare class UserController {
@@ -10,7 +10,7 @@ export declare class UserController {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
     forgetPassword(dto: ForgetPasswordDto, locale: LocaleType): Promise<void>;
-    resetPassword(token: string, dto: PasswordDto, locale: LocaleType): Promise<void>;
+    resetPassword(token: string, dto: ResetPasswordDto, locale: LocaleType): Promise<void>;
     updateName(id: string, dto: UpdateNameDto): Promise<void>;
     updateEmail(id: string, dto: UpdateEmailDto, locale: LocaleType): Promise<void>;
     updatePassword(id: string, dto: PasswordDto, locale: LocaleType): Promise<void>;
@@ -19,6 +19,6 @@ export declare class UserController {
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    delete(id: string): Promise<void>;
+    delete(id: string, locale: LocaleType): Promise<void>;
     confirmDelete(token: string, locale: LocaleType): Promise<void>;
 }

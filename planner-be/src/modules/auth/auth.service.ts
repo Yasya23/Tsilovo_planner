@@ -20,8 +20,15 @@ export class AuthService {
 
   async login(loginDto: AuthDto) {
     const user = await this.userService.findByEmail(loginDto.email);
+
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
+    }
+
+    if (user.provider === 'google') {
+      throw new BadRequestException(
+        'User with google account cannot login with email and password',
+      );
     }
 
     const isPasswordValid = await compare(loginDto.password, user.password);

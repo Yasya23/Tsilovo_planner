@@ -26,6 +26,9 @@ let AuthService = class AuthService {
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid email or password');
         }
+        if (user.provider === 'google') {
+            throw new common_1.BadRequestException('User with google account cannot login with email and password');
+        }
         const isPasswordValid = await (0, bcryptjs_1.compare)(loginDto.password, user.password);
         if (!isPasswordValid) {
             throw new common_1.UnauthorizedException('Invalid email or password');

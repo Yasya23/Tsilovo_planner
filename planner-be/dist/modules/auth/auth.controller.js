@@ -16,7 +16,7 @@ exports.AuthController = void 0;
 const auth_service_1 = require("./auth.service");
 const dto_1 = require("./dto");
 const auth_1 = require("./helpers/auth");
-const resend_service_1 = require("../resend/resend.service");
+const mail_service_1 = require("../mail/mail.service");
 const locale_decorator_1 = require("../../shared/decorator/locale.decorator");
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
@@ -24,10 +24,10 @@ const config_1 = require("@nestjs/config");
 const passport_1 = require("@nestjs/passport");
 const throttler_1 = require("@nestjs/throttler");
 let AuthController = class AuthController {
-    constructor(authService, configService, resendService) {
+    constructor(authService, configService, MailService) {
         this.authService = authService;
         this.configService = configService;
-        this.resendService = resendService;
+        this.MailService = MailService;
     }
     async login(dto, res) {
         const { accessToken, refreshToken } = await this.authService.login(dto);
@@ -39,7 +39,7 @@ let AuthController = class AuthController {
     async register(dto, locale, res) {
         const { accessToken, refreshToken, name, email } = await this.authService.register(dto);
         (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
-        this.resendService.sendEmail({
+        this.MailService.sendEmail({
             subject: 'welcome',
             to: email,
             name,
@@ -79,7 +79,7 @@ let AuthController = class AuthController {
             console.log(name, email, isNewUser);
             (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
             if (isNewUser) {
-                this.resendService.sendEmail({
+                this.MailService.sendEmail({
                     subject: 'welcome',
                     to: email,
                     name,
@@ -151,6 +151,6 @@ exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
         config_1.ConfigService,
-        resend_service_1.ResendService])
+        mail_service_1.MailService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map
