@@ -16,6 +16,12 @@ export declare class UserService {
     }> & {
         __v: number;
     }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
+    getProfile(id: string): Promise<{
+        name: string;
+        email: string;
+        image: string;
+        provider: string;
+    }>;
     findByEmail(email: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {

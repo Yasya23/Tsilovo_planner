@@ -13,7 +13,7 @@ import styles from './AuthForm.module.scss';
 
 export const AuthForm = ({ mode }: { mode: 'login' | 'register' }) => {
   const t = useTranslations('Common');
-  const { isPending, error, login, register } = useAuth();
+  const { isPending, login, register } = useAuth();
 
   return (
     <DefaultLayout>

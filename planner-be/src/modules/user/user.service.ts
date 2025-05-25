@@ -46,6 +46,16 @@ export class UserService {
     return user;
   }
 
+  async getProfile(id: string) {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) throw new NotFoundException('User not found');
+    return {
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      provider: user.provider,
+    };
+  }
   async findByEmail(email: string) {
     return this.userModel.findOne({ email }).exec();
   }

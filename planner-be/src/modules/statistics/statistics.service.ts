@@ -24,7 +24,7 @@ export class StatisticsService {
   async getYearlyStatistics(userId: string, year: string) {
     const staistics = await this.statisticsModel
       .findOne({ userId, year })
-      .select('-__v -_id -createdAt -updatedAt')
+      .select('-__v -_id -createdAt -updatedAt -userId')
       .lean();
 
     if (!staistics)

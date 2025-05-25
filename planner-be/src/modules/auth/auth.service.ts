@@ -21,6 +21,10 @@ export class AuthService {
   async login(loginDto: AuthDto) {
     const user = await this.userService.findByEmail(loginDto.email);
 
+    if (!user.isActive) {
+      throw new BadRequestException('User is not active');
+    }
+
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }

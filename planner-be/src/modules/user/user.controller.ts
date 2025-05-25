@@ -27,7 +27,7 @@ export class UserController {
   @Get('profile')
   @Auth()
   async getUserProfile(@User('id') id: string) {
-    return this.userService.getByID(id);
+    return this.userService.getProfile(id);
   }
 
   @Post('forgot-password')
@@ -44,7 +44,6 @@ export class UserController {
     @Body() dto: ResetPasswordDto,
     @Locale() locale: LocaleType,
   ) {
-    console.log(token);
     await this.userService.resetPasswordWithToken(token, dto, locale);
   }
 

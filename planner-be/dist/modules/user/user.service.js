@@ -43,6 +43,17 @@ let UserService = UserService_1 = class UserService {
             throw new common_1.NotFoundException('User not found');
         return user;
     }
+    async getProfile(id) {
+        const user = await this.userModel.findById(id).exec();
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        return {
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            provider: user.provider,
+        };
+    }
     async findByEmail(email) {
         return this.userModel.findOne({ email }).exec();
     }

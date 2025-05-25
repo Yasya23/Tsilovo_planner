@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { ErrorMessage } from '@/shared/components/error-message/ErrorMessage';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { GoalsList } from '@/features/planning/components/goals/goals-list/GoalsList';
 import { Skeleton } from '@/features/planning/components/skeleton/Skeleton';
@@ -15,14 +15,15 @@ import styles from './Planner.module.scss';
 export const Planner = () => {
   const t = useTranslations('Common.planning');
   const { weeklyStatistics, activeGoals, isError, isPending } = usePlanning();
+  const { logout } = useAuthContext();
+
+  if (isError && !activeGoals) logout();
 
   return (
     <div className={styles.Planner}>
       <h1 className={styles.Title}>{t('title')}</h1>
       {isPending ? (
         <Skeleton />
-      ) : isError ? (
-        <ErrorMessage message={t('error')} />
       ) : (
         <>
           <div className={styles.Header}>

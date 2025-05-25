@@ -24,13 +24,12 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async getUserProfile(id) {
-        return this.userService.getByID(id);
+        return this.userService.getProfile(id);
     }
     async forgetPassword(dto, locale) {
         await this.userService.forgotPassword(dto, locale);
     }
     async resetPassword(token, dto, locale) {
-        console.log(token);
         await this.userService.resetPasswordWithToken(token, dto, locale);
     }
     async updateName(id, dto) {
