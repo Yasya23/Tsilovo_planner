@@ -15,7 +15,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['node_modules/*', '.next/*', 'build/*'],
+    ignores: ['node_modules/*', '.next/*', 'build/*', 'next.config.ts'],
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],

@@ -9,7 +9,7 @@ import { createWeeklyStatistics } from '@/features/planning/helpers/weekly-stati
 import { GoalServices } from '@/features/planning/services/goals.service';
 import { TaskServices } from '@/features/planning/services/tasks.service';
 import { ActiveGoalsData } from '@/features/planning/types/goals.type';
-import { CreateTask, Task } from '@/features/planning/types/task.type';
+import { Task } from '@/features/planning/types/task.type';
 
 export const usePlanning = () => {
   const t = useTranslations('Common.planning');

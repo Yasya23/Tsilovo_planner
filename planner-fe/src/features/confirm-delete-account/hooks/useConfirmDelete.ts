@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 
 import { useRouter } from '@/lib/i18n/navigation';
+import { error } from 'console';
 
 import { routes } from '@/shared/constants/routes';
 
@@ -24,8 +25,8 @@ export const useConfirmDelete = () => {
     try {
       await ConfirmService.confirmDeleteAccount(token);
       toast.success(t('success'));
-      router.push(routes.home);
-    } catch (error) {
+      router.replace(routes.home);
+    } catch {
       toast.error(t('error'));
     } finally {
       setIsPending(false);

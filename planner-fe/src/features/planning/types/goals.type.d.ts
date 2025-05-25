@@ -1,4 +1,4 @@
-import { Task, WeeklyTasks } from './task.type';
+import { Task } from './task.type';
 
 export type CreateGoal = {
   title: string;

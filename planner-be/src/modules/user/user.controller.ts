@@ -11,15 +11,7 @@ import { UserService } from './user.service';
 import { Auth } from '@/auth/decorator/auth.decorator';
 import { Locale, LocaleType } from '@/shared/decorator/locale.decorator';
 import { User } from '@/user/decorator/user.decorator';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -46,6 +38,19 @@ export class UserController {
     @Locale() locale: LocaleType,
   ): Promise<void> {
     await this.userService.resetPasswordWithToken(token, dto, locale);
+  }
+
+  @Post('delete')
+  @Auth()
+  async delete(@User('id') id: string, @Locale() locale: LocaleType) {
+    await this.userService.deleteProfile(id, locale);
+  }
+  @Post('confirm-delete')
+  async confirmDelete(
+    @Query('token') token: string,
+    @Locale() locale: LocaleType,
+  ) {
+    await this.userService.deleteAccountWithToken(token, locale);
   }
 
   @Put('name')
@@ -84,22 +89,5 @@ export class UserController {
     @Body() dto: UpdateAvatarDto,
   ): Promise<void> {
     await this.userService.updateAvatar(id, dto);
-  }
-
-  @Delete()
-  @Auth()
-  async delete(
-    @User('id') id: string,
-    @Locale() locale: LocaleType,
-  ): Promise<void> {
-    await this.userService.deleteProfile(id, locale);
-  }
-
-  @Delete('confirm-delete')
-  async confirmDelete(
-    @Query('token') token: string,
-    @Locale() locale: LocaleType,
-  ): Promise<void> {
-    await this.userService.deleteAccountWithToken(token, locale);
   }
 }

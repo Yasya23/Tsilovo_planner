@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import toast from 'react-hot-toast';
 
 import { useTranslations } from 'next-intl';
@@ -7,12 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { queries } from '@/features/planning/constants/queries';
 import { GoalServices } from '@/features/planning/services/goals.service';
-import {
-  ActiveGoal,
-  ActiveGoalsData,
-  CreateGoal,
-  Goal,
-} from '@/features/planning/types/goals.type';
+import { ActiveGoalsData, Goal } from '@/features/planning/types/goals.type';
 
 export const useGoalLogic = () => {
   const t = useTranslations('Common.planning');

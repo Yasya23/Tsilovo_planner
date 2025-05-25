@@ -24,7 +24,7 @@ export const useResetPassword = () => {
     try {
       await ResetPasswordService.resetPassword(password, token);
       toast.success(t('success'));
-      router.push(routes.login);
+      router.replace(routes.login);
     } catch (error) {
       toast.error(t('error'));
     } finally {

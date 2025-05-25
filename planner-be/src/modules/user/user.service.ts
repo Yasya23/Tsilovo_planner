@@ -146,7 +146,7 @@ export class UserService {
     await user.save();
   }
 
-  async deleteProfile(id: string, locale: LocaleType): Promise<void> {
+  async deleteProfile(id: string, locale: LocaleType) {
     const user = await this.userModel.findById(id);
 
     if (!user) throw new NotFoundException('User not found');
@@ -221,10 +221,7 @@ export class UserService {
     });
   }
 
-  async deleteAccountWithToken(
-    token: string,
-    locale: LocaleType,
-  ): Promise<void> {
+  async deleteAccountWithToken(token: string, locale: LocaleType) {
     const payload = verify(token, this.configService.get('JWT_SECRET')) as {
       id: string;
       type: string;

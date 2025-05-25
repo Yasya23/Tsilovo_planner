@@ -29,6 +29,6 @@ export const UserService = {
   },
 
   async deleteProfile(): Promise<void> {
-    await axiosAuth.delete(services.deleteProfile);
+    await axiosAuth.post(services.deleteProfile);
   },
 };

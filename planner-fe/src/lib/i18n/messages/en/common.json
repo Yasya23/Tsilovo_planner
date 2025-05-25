@@ -48,11 +48,11 @@
       "success": "Your password has been successfully changed."
     },
     "errors": {
-      "general": "Something went wrong...",
+      "general": "Something went wrong...Please try again or write a support ticket..",
       "registerError": "User with this email already exists",
       "loginError": "Invalid email or password",
-      "generalAuthError": "An error occurred. Please try again.",
-      "logoutError": "Error logging out. Please try again."
+      "generalAuthError": "An error occurred. Please try again or write a support ticket.",
+      "logoutError": "Error logging out. Please try again or write a support ticket.."
     },
 
     "help": {

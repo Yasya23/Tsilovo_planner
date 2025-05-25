@@ -3,5 +3,5 @@ export const services = {
   updateName: '/user/name',
   updateEmail: '/user/email',
   updatePassword: '/user/password',
-  deleteProfile: '/user',
+  deleteProfile: '/user/delete',
 };

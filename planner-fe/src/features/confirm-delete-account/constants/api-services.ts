@@ -1,3 +1,3 @@
 export const services = {
-  token: 'user/confirm-delete',
+  confirmDelete: 'user/confirm-delete',
 };

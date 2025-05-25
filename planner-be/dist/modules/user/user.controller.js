@@ -32,6 +32,12 @@ let UserController = class UserController {
     async resetPassword(token, dto, locale) {
         await this.userService.resetPasswordWithToken(token, dto, locale);
     }
+    async delete(id, locale) {
+        await this.userService.deleteProfile(id, locale);
+    }
+    async confirmDelete(token, locale) {
+        await this.userService.deleteAccountWithToken(token, locale);
+    }
     async updateName(id, dto) {
         await this.userService.updateName(id, dto);
     }
@@ -43,12 +49,6 @@ let UserController = class UserController {
     }
     async updateAvatar(id, dto) {
         await this.userService.updateAvatar(id, dto);
-    }
-    async delete(id, locale) {
-        await this.userService.deleteProfile(id, locale);
-    }
-    async confirmDelete(token, locale) {
-        await this.userService.deleteAccountWithToken(token, locale);
     }
 };
 exports.UserController = UserController;
@@ -77,6 +77,23 @@ __decorate([
     __metadata("design:paramtypes", [String, dto_1.ResetPasswordDto, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "resetPassword", null);
+__decorate([
+    (0, common_1.Post)('delete'),
+    (0, auth_decorator_1.Auth)(),
+    __param(0, (0, user_decorator_1.User)('id')),
+    __param(1, (0, locale_decorator_1.Locale)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Post)('confirm-delete'),
+    __param(0, (0, common_1.Query)('token')),
+    __param(1, (0, locale_decorator_1.Locale)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "confirmDelete", null);
 __decorate([
     (0, common_1.Put)('name'),
     (0, auth_decorator_1.Auth)(),
@@ -115,23 +132,6 @@ __decorate([
     __metadata("design:paramtypes", [String, dto_1.UpdateAvatarDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateAvatar", null);
-__decorate([
-    (0, common_1.Delete)(),
-    (0, auth_decorator_1.Auth)(),
-    __param(0, (0, user_decorator_1.User)('id')),
-    __param(1, (0, locale_decorator_1.Locale)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "delete", null);
-__decorate([
-    (0, common_1.Delete)('confirm-delete'),
-    __param(0, (0, common_1.Query)('token')),
-    __param(1, (0, locale_decorator_1.Locale)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "confirmDelete", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
