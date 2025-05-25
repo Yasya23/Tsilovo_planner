@@ -119,7 +119,7 @@ let UserService = UserService_1 = class UserService {
         if (!user)
             throw new common_1.NotFoundException('User not found');
         user.image = image;
-        return await user.save();
+        await user.save();
     }
     async deleteProfile(id, locale) {
         const user = await this.userModel.findById(id);

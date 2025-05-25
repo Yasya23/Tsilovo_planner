@@ -62,7 +62,7 @@ let GoalsService = class GoalsService {
             userId,
             isActive: dto.isActive ?? true,
         });
-        return goal.save();
+        await goal.save();
     }
     async update(dto) {
         const taskId = new mongoose_1.Types.ObjectId(dto._id);
@@ -73,7 +73,7 @@ let GoalsService = class GoalsService {
         goal.title = dto.title;
         goal.emoji = dto.emoji;
         goal.isActive = dto.isActive;
-        return goal.save();
+        await goal.save();
     }
     async delete(goalId) {
         const goal = await this.goalModel.findById(goalId);
@@ -81,7 +81,7 @@ let GoalsService = class GoalsService {
             throw new common_1.NotFoundException('Goal not found');
         }
         goal.isActive = false;
-        return goal.save();
+        await goal.save();
     }
 };
 exports.GoalsService = GoalsService;

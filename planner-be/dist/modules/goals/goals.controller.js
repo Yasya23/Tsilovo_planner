@@ -26,13 +26,13 @@ let GoalsController = class GoalsController {
         return this.goalService.getActiveGoals(userId);
     }
     async createGoal(userId, dto) {
-        return await this.goalService.create(dto, userId);
+        await this.goalService.create(dto, userId);
     }
     async updateGoal(dto) {
-        return await this.goalService.update(dto);
+        await this.goalService.update(dto);
     }
     async deleteGoal(goalId) {
-        return await this.goalService.delete(goalId);
+        await this.goalService.delete(goalId);
     }
 };
 exports.GoalsController = GoalsController;

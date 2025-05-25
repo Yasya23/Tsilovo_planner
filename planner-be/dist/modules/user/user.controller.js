@@ -42,7 +42,7 @@ let UserController = class UserController {
         await this.userService.updatePassword(id, dto, locale);
     }
     async updateAvatar(id, dto) {
-        return await this.userService.updateAvatar(id, dto);
+        await this.userService.updateAvatar(id, dto);
     }
     async delete(id, locale) {
         await this.userService.deleteProfile(id, locale);

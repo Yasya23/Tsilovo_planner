@@ -20,10 +20,10 @@ export class TaskService {
     goalIds: Types.ObjectId[],
     startDate: Date,
     endDate: Date,
-  ) {
-    return await this.taskModel
+  ): Promise<TaskModel[]> {
+    return this.taskModel
       .find({
-        goalId: { $in: goalIds.map((id) => new Types.ObjectId(id)) },
+        goalId: { $in: goalIds },
         date: { $gte: startDate, $lte: endDate },
       })
       .select('goalId title date isCompleted')
@@ -34,10 +34,10 @@ export class TaskService {
     userId: string,
     startDate: Date,
     endDate: Date,
-  ) {
-    const tasks = await this.taskModel
+  ): Promise<TaskModel[]> {
+    return this.taskModel
       .find({
-        userId: userId,
+        userId: new Types.ObjectId(userId),
         isCompleted: true,
         date: { $gte: startDate, $lte: endDate },
       })
@@ -47,42 +47,37 @@ export class TaskService {
         select: '_id emoji title',
       })
       .exec();
-
-    return tasks;
   }
 
-  async create(userId: string, dto: CreateTaskDto) {
-    if (!userId || !dto.goalId || !dto.title || !dto.date) {
+  async create(userId: string, dto: CreateTaskDto): Promise<TaskModel> {
+    if (!dto.goalId || !dto.title || !dto.date) {
       throw new BadRequestException('Missing required fields');
     }
 
-    return await this.taskModel.create({
+    return this.taskModel.create({
       ...dto,
       userId: new Types.ObjectId(userId),
       goalId: new Types.ObjectId(dto.goalId),
     });
   }
 
-  async update(dto: TaskDto) {
-    const task = await this.taskModel.findByIdAndUpdate(dto._id, dto, {
+  async update(dto: TaskDto): Promise<TaskModel> {
+    const updatedTask = await this.taskModel.findByIdAndUpdate(dto._id, dto, {
       new: true,
       runValidators: true,
     });
 
-    if (!task) {
-      throw new NotFoundException(`Task with id ${dto._id} not found`);
+    if (!updatedTask) {
+      throw new NotFoundException('Task not found');
     }
 
-    return task;
+    return updatedTask;
   }
 
-  async delete(taskId: string) {
-    const task = await this.taskModel.findByIdAndDelete(taskId);
-
-    if (!task) {
-      throw new NotFoundException(`Task with id ${taskId} not found`);
+  async delete(taskId: string): Promise<void> {
+    const deletedTask = await this.taskModel.findByIdAndDelete(taskId);
+    if (!deletedTask) {
+      throw new NotFoundException('Task not found');
     }
-
-    return task;
   }
 }

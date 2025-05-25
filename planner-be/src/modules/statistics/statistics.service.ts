@@ -21,20 +21,23 @@ export class StatisticsService {
     private readonly taskService: TaskService,
   ) {}
 
-  async getYearlyStatistics(userId: string, year: string) {
+  async getYearlyStatistics(
+    userId: string,
+    year: string,
+  ): Promise<StatisticsModel> {
     const staistics = await this.statisticsModel
       .findOne({ userId, year })
       .select('-__v -_id -createdAt -updatedAt -userId')
       .lean();
 
     if (!staistics)
-      return new NotFoundException(`Staristics for year ${year} not found`);
+      throw new NotFoundException(`Staristics for year ${year} not found`);
 
     return staistics;
   }
 
   @Cron(CronExpression.EVERY_WEEK)
-  async updateWeeklyStatistics() {
+  async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
     const { weekStart, weekEnd } = this.dateService.getLastWeekData();
@@ -57,7 +60,7 @@ export class StatisticsService {
     }
   }
 
-  async saveStatistics(userId: string, tasks: TaskType[]) {
+  async saveStatistics(userId: string, tasks: TaskType[]): Promise<void> {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
 

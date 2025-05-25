@@ -23,13 +23,13 @@ let TaskController = class TaskController {
         this.taskService = taskService;
     }
     async create(userId, dto) {
-        return await this.taskService.create(userId, dto);
+        await this.taskService.create(userId, dto);
     }
     async update(dto) {
-        return await this.taskService.update(dto);
+        await this.taskService.update(dto);
     }
     async delete(taskId) {
-        return await this.taskService.delete(taskId);
+        await this.taskService.delete(taskId);
     }
 };
 exports.TaskController = TaskController;

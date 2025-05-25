@@ -31,7 +31,7 @@ export class UserService {
     private readonly mailService: MailService,
   ) {}
 
-  async getAllUsers(): Promise<any[]> {
+  async getAllUsers(): Promise<UserModel[]> {
     const users = await this.userModel.find().exec();
 
     if (!users || users.length === 0) {
@@ -40,13 +40,13 @@ export class UserService {
     return users;
   }
 
-  async getByID(id: string) {
+  async getByID(id: string): Promise<UserModel> {
     const user = await this.userModel.findById(id).exec();
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
-  async getProfile(id: string) {
+  async getProfile(id: string): Promise<Partial<UserModel>> {
     const user = await this.userModel.findById(id).exec();
     if (!user) throw new NotFoundException('User not found');
     return {
@@ -56,15 +56,15 @@ export class UserService {
       provider: user.provider,
     };
   }
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<UserModel> {
     return this.userModel.findOne({ email }).exec();
   }
 
-  async create(userData: Partial<UserModel>) {
+  async create(userData: Partial<UserModel>): Promise<UserModel> {
     const user = new this.userModel(userData);
     return user.save();
   }
-  async updateName(userId: string, userDto: UpdateNameDto) {
+  async updateName(userId: string, userDto: UpdateNameDto): Promise<void> {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
     user.name = userDto.name;
@@ -75,7 +75,7 @@ export class UserService {
     userId: string,
     userDto: PasswordDto,
     locale: LocaleType,
-  ) {
+  ): Promise<void> {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
@@ -104,7 +104,7 @@ export class UserService {
     userId: string,
     userDto: UpdateEmailDto,
     locale: LocaleType,
-  ) {
+  ): Promise<void> {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
@@ -135,15 +135,18 @@ export class UserService {
     });
   }
 
-  async updateAvatar(userId: string, { image }: UpdateAvatarDto) {
+  async updateAvatar(
+    userId: string,
+    { image }: UpdateAvatarDto,
+  ): Promise<void> {
     const user = await this.userModel.findById(userId);
     if (!user) throw new NotFoundException('User not found');
 
     user.image = image;
-    return await user.save();
+    await user.save();
   }
 
-  async deleteProfile(id: string, locale: LocaleType) {
+  async deleteProfile(id: string, locale: LocaleType): Promise<void> {
     const user = await this.userModel.findById(id);
 
     if (!user) throw new NotFoundException('User not found');
@@ -159,7 +162,10 @@ export class UserService {
     });
   }
 
-  async forgotPassword({ email }: ForgetPasswordDto, locale: LocaleType) {
+  async forgotPassword(
+    { email }: ForgetPasswordDto,
+    locale: LocaleType,
+  ): Promise<void> {
     const user = await this.userModel.findOne({ email });
     if (!user) throw new NotFoundException('User not found');
 
@@ -184,7 +190,7 @@ export class UserService {
     token: string,
     { password }: ResetPasswordDto,
     locale: LocaleType,
-  ) {
+  ): Promise<void> {
     const secret = this.configService.get('JWT_SECRET');
     let payload: any;
 
@@ -215,7 +221,10 @@ export class UserService {
     });
   }
 
-  async deleteAccountWithToken(token: string, locale: LocaleType) {
+  async deleteAccountWithToken(
+    token: string,
+    locale: LocaleType,
+  ): Promise<void> {
     const payload = verify(token, this.configService.get('JWT_SECRET')) as {
       id: string;
       type: string;
@@ -225,6 +234,7 @@ export class UserService {
 
     const user = await this.userModel.findById(payload.id);
     if (!user) throw new NotFoundException('User not found');
+
     await this.userModel.findByIdAndUpdate(user._id, {
       isActive: false,
       deletedAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),

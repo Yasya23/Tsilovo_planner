@@ -1,4 +1,4 @@
-import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
+import { ActiveGoalsResponse, CreateGoalDto, UpdateGoalDto } from './dto';
 import { GoalModel } from './model/goal.model';
 import { DateService } from '@/date/date.service';
 import { TaskService } from '@/tasks/tasks.service';
@@ -21,7 +21,7 @@ export class GoalsService {
     private readonly taskService: TaskService,
   ) {}
 
-  async getActiveGoals(userId: string) {
+  async getActiveGoals(userId: string): Promise<ActiveGoalsResponse> {
     const { currentWeek, nextWeek } = this.dateService.getWeekData();
 
     const weekStart = new Date(currentWeek.weekStart);
@@ -62,7 +62,7 @@ export class GoalsService {
     };
   }
 
-  async create(dto: CreateGoalDto, userId: string) {
+  async create(dto: CreateGoalDto, userId: string): Promise<void> {
     const goals = await this.goalModel.find({ userId, isActive: true }).exec();
 
     if (goals.length >= this.MAX_GOALS) {
@@ -74,10 +74,10 @@ export class GoalsService {
       isActive: dto.isActive ?? true,
     });
 
-    return goal.save();
+    await goal.save();
   }
 
-  async update(dto: UpdateGoalDto) {
+  async update(dto: UpdateGoalDto): Promise<void> {
     const taskId = new Types.ObjectId(dto._id);
 
     const goal = await this.goalModel.findById(taskId);
@@ -89,16 +89,16 @@ export class GoalsService {
     goal.emoji = dto.emoji;
     goal.isActive = dto.isActive;
 
-    return goal.save();
+    await goal.save();
   }
 
-  async delete(goalId: string) {
+  async delete(goalId: string): Promise<void> {
     const goal = await this.goalModel.findById(goalId);
     if (!goal) {
       throw new NotFoundException('Goal not found');
     }
 
     goal.isActive = false;
-    return goal.save();
+    await goal.save();
   }
 }

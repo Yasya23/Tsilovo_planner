@@ -36,7 +36,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
             .select('-__v -_id -createdAt -updatedAt -userId')
             .lean();
         if (!staistics)
-            return new common_2.NotFoundException(`Staristics for year ${year} not found`);
+            throw new common_2.NotFoundException(`Staristics for year ${year} not found`);
         return staistics;
     }
     async updateWeeklyStatistics() {

@@ -10,36 +10,15 @@ export declare class UserService {
     private readonly mailService;
     private readonly logger;
     constructor(userModel: ModelType<UserModel>, configService: ConfigService, mailService: MailService);
-    getAllUsers(): Promise<any[]>;
-    getByID(id: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    getProfile(id: string): Promise<{
-        name: string;
-        email: string;
-        image: string;
-        provider: string;
-    }>;
-    findByEmail(email: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    create(userData: Partial<UserModel>): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
+    getAllUsers(): Promise<UserModel[]>;
+    getByID(id: string): Promise<UserModel>;
+    getProfile(id: string): Promise<Partial<UserModel>>;
+    findByEmail(email: string): Promise<UserModel>;
+    create(userData: Partial<UserModel>): Promise<UserModel>;
     updateName(userId: string, userDto: UpdateNameDto): Promise<void>;
     updatePassword(userId: string, userDto: PasswordDto, locale: LocaleType): Promise<void>;
     updateEmail(userId: string, userDto: UpdateEmailDto, locale: LocaleType): Promise<void>;
-    updateAvatar(userId: string, { image }: UpdateAvatarDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, UserModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<UserModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
+    updateAvatar(userId: string, { image }: UpdateAvatarDto): Promise<void>;
     deleteProfile(id: string, locale: LocaleType): Promise<void>;
     forgotPassword({ email }: ForgetPasswordDto, locale: LocaleType): Promise<void>;
     resetPasswordWithToken(token: string, { password }: ResetPasswordDto, locale: LocaleType): Promise<void>;

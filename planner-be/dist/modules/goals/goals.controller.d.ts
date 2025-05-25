@@ -1,36 +1,11 @@
+import { ActiveGoalsResponse } from './dto';
 import { CreateGoalDto, UpdateGoalDto } from './dto/ManageGoalDto';
 import { GoalsService } from './goals.service';
 export declare class GoalsController {
     private readonly goalService;
     constructor(goalService: GoalsService);
-    getActiveGoals(userId: string): Promise<{
-        activeGoals: {
-            _id: import("mongoose").Types.ObjectId;
-            title: string;
-            emoji: string;
-            isActive: boolean;
-            pendingTasks: number;
-        }[];
-        dates: string[];
-        tasks: (import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("../tasks/model/tasks.model").TaskModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("../tasks/model/tasks.model").TaskModel & Required<{
-            _id: import("mongoose").Types.ObjectId;
-        }> & {
-            __v: number;
-        }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction)[];
-    }>;
-    createGoal(userId: string, dto: CreateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("./model/goal.model").GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("./model/goal.model").GoalModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    updateGoal(dto: UpdateGoalDto): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("./model/goal.model").GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("./model/goal.model").GoalModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
-    deleteGoal(goalId: string): Promise<import("mongoose").Document<unknown, import("@typegoose/typegoose/lib/types").BeAnObject, import("./model/goal.model").GoalModel, import("@typegoose/typegoose/lib/types").BeAnyObject> & Omit<import("./model/goal.model").GoalModel & Required<{
-        _id: import("mongoose").Types.ObjectId;
-    }> & {
-        __v: number;
-    }, "typegooseName"> & import("@typegoose/typegoose/lib/types").IObjectWithTypegooseFunction>;
+    getActiveGoals(userId: string): Promise<ActiveGoalsResponse>;
+    createGoal(userId: string, dto: CreateGoalDto): Promise<void>;
+    updateGoal(dto: UpdateGoalDto): Promise<void>;
+    deleteGoal(goalId: string): Promise<void>;
 }
