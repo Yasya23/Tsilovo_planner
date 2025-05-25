@@ -1,5 +1,5 @@
 import { AuthDto, RegistrationDto } from './dto';
-import { JwtPayload } from './types/jwt-payload.type';
+import { JwtPayload, UserGoogleType } from './types';
 import { UserService } from '@/user/user.service';
 import {
   BadRequestException,
@@ -21,12 +21,12 @@ export class AuthService {
   async login(loginDto: AuthDto) {
     const user = await this.userService.findByEmail(loginDto.email);
 
-    if (!user.isActive) {
-      throw new BadRequestException('User is not active');
-    }
-
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
+    }
+
+    if (!user.isActive) {
+      throw new BadRequestException('User is not active');
     }
 
     if (user.provider === 'google') {
@@ -84,9 +84,8 @@ export class AuthService {
   }
 
   async getNewTokens(refreshToken: string) {
-    if (!refreshToken) {
+    if (!refreshToken)
       throw new UnauthorizedException('Refresh token is missing');
-    }
 
     let payload: JwtPayload;
     try {
@@ -98,23 +97,28 @@ export class AuthService {
     }
 
     const user = await this.userService.getByID(payload.id);
-    if (!user) {
-      throw new UnauthorizedException('User not found');
+    if (!user) throw new UnauthorizedException('User not found');
+
+    if (user.dataChangedAt) {
+      const issuedAt = (payload.iat ?? 0) * 1000;
+      const changedAt = new Date(user.dataChangedAt).getTime();
+
+      const isTokenInvalid = issuedAt < changedAt;
+
+      if (isTokenInvalid) {
+        throw new UnauthorizedException('Token is no longer valid');
+      }
     }
 
     const tokens = await this.createTokenPair(user.id);
-
     if (!tokens.accessToken || !tokens.refreshToken) {
       throw new UnauthorizedException('Failed to create new tokens');
     }
 
-    return {
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
-    };
+    return tokens;
   }
 
-  async googleLogin(userData: any) {
+  async googleLogin(userData: UserGoogleType) {
     let user = await this.userService.findByEmail(userData.email);
 
     let isNewUser = false;
@@ -128,6 +132,10 @@ export class AuthService {
         image: userData.picture,
         provider: 'google',
       });
+    }
+
+    if (!user.isActive) {
+      throw new BadRequestException('User is not active');
     }
 
     const tokens = await this.createTokenPair(user.id);

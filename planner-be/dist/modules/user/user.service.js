@@ -79,6 +79,7 @@ let UserService = UserService_1 = class UserService {
         const saltHash = Number(this.configService.get('PASSWORD_SALT'));
         const salt = await (0, bcryptjs_1.genSalt)(saltHash);
         user.password = await (0, bcryptjs_1.hash)(userDto.newPassword, salt);
+        user.dataChangedAt = new Date();
         await user.save();
         this.mailService.sendEmail({
             to: user.email,
@@ -104,6 +105,7 @@ let UserService = UserService_1 = class UserService {
         const oldEmail = user.email;
         user.email = userDto.email;
         user.oldEmail = oldEmail;
+        user.dataChangedAt = new Date();
         await user.save();
         this.mailService.sendEmail({
             to: oldEmail,
@@ -165,6 +167,7 @@ let UserService = UserService_1 = class UserService {
             throw new common_1.NotFoundException('User not found');
         const salt = await (0, bcryptjs_1.genSalt)(Number(this.configService.get('PASSWORD_SALT')));
         user.password = await (0, bcryptjs_1.hash)(password, salt);
+        user.dataChangedAt = new Date();
         await user.save();
         this.mailService.sendEmail({
             to: user.email,
@@ -183,6 +186,7 @@ let UserService = UserService_1 = class UserService {
         await this.userModel.findByIdAndUpdate(user._id, {
             isActive: false,
             deletedAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            dataChangedAt: new Date(),
         });
         this.mailService.sendEmail({
             to: user.email,

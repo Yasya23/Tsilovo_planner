@@ -1,4 +1,5 @@
 import { AuthDto, RegistrationDto } from './dto';
+import { UserGoogleType } from './types';
 import { UserService } from '@/user/user.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -18,10 +19,10 @@ export declare class AuthService {
         email: string;
     }>;
     getNewTokens(refreshToken: string): Promise<{
-        accessToken: string;
         refreshToken: string;
+        accessToken: string;
     }>;
-    googleLogin(userData: any): Promise<{
+    googleLogin(userData: UserGoogleType): Promise<{
         accessToken: string;
         refreshToken: string;
         name: string;

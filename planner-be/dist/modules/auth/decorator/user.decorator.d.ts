@@ -1,1 +1,1 @@
-export declare const User: (...dataOrPipes: any[]) => ParameterDecorator;
+export declare const User: (...dataOrPipes: (keyof import("@/user/model/user.model").UserModel | import("@nestjs/common").PipeTransform<any, any> | import("@nestjs/common").Type<import("@nestjs/common").PipeTransform<any, any>>)[]) => ParameterDecorator;

@@ -1,4 +1,4 @@
-import { UserModelType } from '../model/user.model';
+import { UserModelType } from '@/user/model/user.model';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export const User = createParamDecorator(

@@ -1,5 +1,6 @@
 import { AuthService } from './auth.service';
 import { AuthDto, RegistrationDto } from './dto';
+import { UserGoogleType } from './types';
 import { clearAuthCookies, setAuthCookies } from '@/auth/helpers/auth';
 import { MailService } from '@/modules/mail/mail.service';
 import { Locale, LocaleType } from '@/shared/decorator/locale.decorator';
@@ -109,9 +110,10 @@ export class AuthController {
   ) {
     try {
       const { accessToken, refreshToken, name, email, isNewUser } =
-        await this.authService.googleLogin(req.user);
-      console.log(name, email, isNewUser);
+        await this.authService.googleLogin(req.user as UserGoogleType);
+
       setAuthCookies(res, accessToken, refreshToken);
+
       if (isNewUser) {
         this.MailService.sendEmail({
           subject: 'welcome',

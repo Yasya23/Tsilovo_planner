@@ -23,11 +23,11 @@ let AuthService = class AuthService {
     }
     async login(loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
-        if (!user.isActive) {
-            throw new common_1.BadRequestException('User is not active');
-        }
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid email or password');
+        }
+        if (!user.isActive) {
+            throw new common_1.BadRequestException('User is not active');
         }
         if (user.provider === 'google') {
             throw new common_1.BadRequestException('User with google account cannot login with email and password');
@@ -69,9 +69,8 @@ let AuthService = class AuthService {
         };
     }
     async getNewTokens(refreshToken) {
-        if (!refreshToken) {
+        if (!refreshToken)
             throw new common_1.UnauthorizedException('Refresh token is missing');
-        }
         let payload;
         try {
             payload = await this.jwtService.verifyAsync(refreshToken, {
@@ -82,17 +81,21 @@ let AuthService = class AuthService {
             throw new common_1.UnauthorizedException('Invalid or expired refresh token');
         }
         const user = await this.userService.getByID(payload.id);
-        if (!user) {
+        if (!user)
             throw new common_1.UnauthorizedException('User not found');
+        if (user.dataChangedAt) {
+            const issuedAt = (payload.iat ?? 0) * 1000;
+            const changedAt = new Date(user.dataChangedAt).getTime();
+            const isTokenInvalid = issuedAt < changedAt;
+            if (isTokenInvalid) {
+                throw new common_1.UnauthorizedException('Token is no longer valid');
+            }
         }
         const tokens = await this.createTokenPair(user.id);
         if (!tokens.accessToken || !tokens.refreshToken) {
             throw new common_1.UnauthorizedException('Failed to create new tokens');
         }
-        return {
-            accessToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken,
-        };
+        return tokens;
     }
     async googleLogin(userData) {
         let user = await this.userService.findByEmail(userData.email);
@@ -106,6 +109,9 @@ let AuthService = class AuthService {
                 image: userData.picture,
                 provider: 'google',
             });
+        }
+        if (!user.isActive) {
+            throw new common_1.BadRequestException('User is not active');
         }
         const tokens = await this.createTokenPair(user.id);
         if (!tokens.accessToken || !tokens.refreshToken) {

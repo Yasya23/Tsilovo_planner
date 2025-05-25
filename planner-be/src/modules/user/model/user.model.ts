@@ -27,6 +27,9 @@ export class UserModel extends TimeStamps {
 
   @prop()
   oldEmail?: string;
+
+  @prop()
+  dataChangedAt?: Date;
 }
 
 export type UserModelType = keyof UserModel;

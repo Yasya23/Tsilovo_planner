@@ -14,6 +14,37 @@ type Subjects =
   | 'email has changed'
   | 'account was deleted';
 
+const title = {
+  name: {
+    en: 'Tsil`ovo',
+    uk: 'Цільово',
+  },
+  'account deletion confirmation': {
+    en: 'Account Deletion Confirmation',
+    uk: 'Підтвердження видалення облікового запису',
+  },
+  welcome: {
+    en: 'Welcome',
+    uk: 'Ласкаво просимо',
+  },
+  'reset password': {
+    en: 'Reset Password',
+    uk: 'Скинути пароль',
+  },
+  'password has changed': {
+    en: 'Password has changed',
+    uk: 'Пароль змінено',
+  },
+  'email has changed': {
+    en: 'Email has changed',
+    uk: 'Email змінено',
+  },
+  'account was deleted': {
+    en: 'Account was deleted',
+    uk: 'Обліковий запис був видалений',
+  },
+};
+
 @Injectable()
 export class MailService {
   private transporter: nodemailer.Transporter;
@@ -45,12 +76,13 @@ export class MailService {
     email?: string;
   }): Promise<void> {
     const html = this.generateHtmlBySubject({ subject, token, locale, name });
-    const appName = locale === 'uk' ? 'Цільово' : 'Tsil`ovo';
+    const appName = title.name[locale];
+    const emailTitle = title[subject][locale];
 
     await this.transporter.sendMail({
       from: `"${appName}" <${this.configService.get('SMTP_FROM')}>`,
       to,
-      subject,
+      subject: emailTitle,
       html,
     });
   }

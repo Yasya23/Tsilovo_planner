@@ -86,7 +86,10 @@ export class UserService {
     }
     const saltHash = Number(this.configService.get('PASSWORD_SALT'));
     const salt = await genSalt(saltHash);
+
     user.password = await hash(userDto.newPassword, salt);
+    user.dataChangedAt = new Date();
+
     await user.save();
 
     this.mailService.sendEmail({
@@ -120,6 +123,8 @@ export class UserService {
     const oldEmail = user.email;
     user.email = userDto.email;
     user.oldEmail = oldEmail;
+    user.dataChangedAt = new Date();
+
     await user.save();
 
     this.mailService.sendEmail({
@@ -198,6 +203,8 @@ export class UserService {
 
     const salt = await genSalt(Number(this.configService.get('PASSWORD_SALT')));
     user.password = await hash(password, salt);
+    user.dataChangedAt = new Date();
+
     await user.save();
 
     this.mailService.sendEmail({
@@ -221,6 +228,7 @@ export class UserService {
     await this.userModel.findByIdAndUpdate(user._id, {
       isActive: false,
       deletedAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      dataChangedAt: new Date(),
     });
 
     this.mailService.sendEmail({

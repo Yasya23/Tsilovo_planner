@@ -33,19 +33,19 @@
       "restorePassword": "Restore password",
       "startPlanning": "Start planning"
     },
-    "forgetPassword": {
-      "errorForgetPassword": "An error occurred. If you registered using Google, you cannot change your password. If not, please try again or write a support ticket.",
-      "successResetPassword": "Follow the instructions sent to your email to reset your password."
+    "forgotPassword": {
+      "error": "An error occurred. If you registered using Google, you cannot change your password. If not, please try again or write a support ticket.",
+      "success": "Follow the instructions sent to your email to reset your password."
     },
     "deleteAccount": {
       "confirmDeleteAccount": "Are you sure you want to delete your account? This action is irreversible.",
       "deleteAccount": "Delete account",
-      "errorDeleteAccount": "An error occurred while deleting your account. Please try again or write a support ticket.",
-      "successDeleteAccount": "Your account has been successfully deleted."
+      "error": "An error occurred while deleting your account. Please try again or write a support ticket.",
+      "success": "Your account has been successfully deleted."
     },
     "resetPassword": {
-      "errorResetPassword": "An error occurred while resetting your password. Please try again or write a support ticket.",
-      "successResetPassword": "Your password has been successfully changed."
+      "error": "An error occurred while resetting your password. Please try again or write a support ticket.",
+      "success": "Your password has been successfully changed."
     },
     "errors": {
       "general": "Something went wrong...",

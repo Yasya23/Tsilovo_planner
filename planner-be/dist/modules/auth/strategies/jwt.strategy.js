@@ -45,6 +45,14 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         if (!user) {
             throw new common_1.UnauthorizedException('User not found or token invalid');
         }
+        if (user.dataChangedAt) {
+            const issuedAt = (payload.iat ?? 0) * 1000;
+            const changedAt = new Date(user.dataChangedAt).getTime();
+            const isTokenInvalid = issuedAt < changedAt;
+            if (isTokenInvalid) {
+                throw new common_1.UnauthorizedException('Token is no longer valid');
+            }
+        }
         return user;
     }
 };

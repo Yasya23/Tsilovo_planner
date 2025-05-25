@@ -76,7 +76,6 @@ let AuthController = class AuthController {
     async googleCallback(locale, req, res) {
         try {
             const { accessToken, refreshToken, name, email, isNewUser } = await this.authService.googleLogin(req.user);
-            console.log(name, email, isNewUser);
             (0, auth_1.setAuthCookies)(res, accessToken, refreshToken);
             if (isNewUser) {
                 this.MailService.sendEmail({

@@ -10,5 +10,6 @@ export declare class UserModel extends TimeStamps {
     isActive?: boolean;
     deletedAt?: Date;
     oldEmail?: string;
+    dataChangedAt?: Date;
 }
 export type UserModelType = keyof UserModel;
