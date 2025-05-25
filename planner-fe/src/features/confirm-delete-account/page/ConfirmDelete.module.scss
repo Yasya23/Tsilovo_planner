@@ -1,0 +1,16 @@
+.Wrapper {
+  flex-grow: 1;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .Title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: clamp(1rem, 5vw, 1.2rem);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}

@@ -83,9 +83,9 @@ let MailService = class MailService {
         const urlBase = this.configService.get('FRONTEND_URL');
         const supportEmail = this.configService.get('SUPPORT_EMAIL');
         const url = subject === 'account deletion confirmation'
-            ? `${urlBase}/confirm-delete?token=${token}`
+            ? `${urlBase}/${locale}/confirm-delete?token=${token}`
             : subject === 'reset password'
-                ? `${urlBase}/reset-password?token=${token}`
+                ? `${urlBase}/${locale}/reset-password?token=${token}`
                 : undefined;
         return template({
             subject,
@@ -98,7 +98,7 @@ let MailService = class MailService {
     getTemplateNameBySubject(subject) {
         switch (subject.toLowerCase()) {
             case 'account deletion confirmation':
-                return 'account-deletion-confirmation';
+                return 'delete-confirmation';
             case 'welcome':
                 return 'welcome';
             case 'reset password':

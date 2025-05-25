@@ -10,10 +10,12 @@ import { ChangeEmail } from '@/features/settings/components/change-data/ChangeEm
 import { ChangeName } from '@/features/settings/components/change-data/ChangeName';
 import { ChangePassword } from '@/features/settings/components/change-data/ChangePassword';
 
+import { useDeleteProfile } from '../hooks/useDeleteProfile';
 import styles from './Settings.module.scss';
 
 export const Settings = () => {
   const t = useTranslations('Common.settings');
+  const { deleteProfile, isPending } = useDeleteProfile();
 
   return (
     <div className={styles.Wrapper}>
@@ -26,9 +28,12 @@ export const Settings = () => {
       </div>
       <div className={styles.Delete}>
         <ButtonCustom
+          onClick={deleteProfile}
+          disabled={isPending}
           color="error"
           name={t('deleteAccount')}
           style="outlined"
+          type="button"
           iconStart={<icons.Trash />}
         />
         <p className={styles.Note}>{t('deleteNotification')}</p>

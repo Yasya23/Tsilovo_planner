@@ -44,6 +44,7 @@ export class UserController {
     @Body() dto: ResetPasswordDto,
     @Locale() locale: LocaleType,
   ) {
+    console.log(token);
     await this.userService.resetPasswordWithToken(token, dto, locale);
   }
 
@@ -85,7 +86,7 @@ export class UserController {
     await this.userService.deleteProfile(id, locale);
   }
 
-  @Delete('confirm')
+  @Delete('confirm-delete')
   async confirmDelete(
     @Query('token') token: string,
     @Locale() locale: LocaleType,

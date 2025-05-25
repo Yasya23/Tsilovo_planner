@@ -21,8 +21,7 @@ export const useDeleteProfile = () => {
     try {
       await UserService.deleteProfile();
       toast.success(t('successDelete'));
-      logout();
-      router.push(routes.login);
+      await logout();
     } catch (error) {
       toast.error(t('updateError'));
     } finally {

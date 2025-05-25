@@ -89,9 +89,9 @@ export class MailService {
 
     const url =
       subject === 'account deletion confirmation'
-        ? `${urlBase}/confirm-delete?token=${token}`
+        ? `${urlBase}/${locale}/confirm-delete?token=${token}`
         : subject === 'reset password'
-          ? `${urlBase}/reset-password?token=${token}`
+          ? `${urlBase}/${locale}/reset-password?token=${token}`
           : undefined;
 
     return template({
@@ -106,7 +106,7 @@ export class MailService {
   private getTemplateNameBySubject(subject: string): string {
     switch (subject.toLowerCase()) {
       case 'account deletion confirmation':
-        return 'account-deletion-confirmation';
+        return 'delete-confirmation';
       case 'welcome':
         return 'welcome';
       case 'reset password':

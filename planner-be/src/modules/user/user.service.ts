@@ -134,6 +134,7 @@ export class UserService {
     if (!user) throw new NotFoundException('User not found');
 
     const token = this.generateActionToken(id, 'delete');
+
     this.mailService.sendEmail({
       to: user.email,
       subject: 'account deletion confirmation',

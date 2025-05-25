@@ -6,4 +6,5 @@ export const services = {
   googleAuth: '/auth/google',
   token: 'auth/access-token',
   userProfile: '/user/profile',
+  confirmDeleteProfile: 'user/confirm-delete',
 };

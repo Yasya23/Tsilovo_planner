@@ -8,23 +8,23 @@ import { useRouter } from '@/lib/i18n/navigation';
 
 import { routes } from '@/shared/constants/routes';
 
-import { ResetPasswordService } from '@/features/reset-password/services/resetPassword.service';
+import { ConfirmService } from '@/features/confirm-delete-account/services/confirm.service';
 
-export const useResetPassword = () => {
-  const router = useRouter();
-  const t = useTranslations('Common.resetPassword');
+export const useConfirmDelete = () => {
+  const t = useTranslations('Common.deleteAccount');
   const [isPending, setIsPending] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const token = searchParams.get('token');
 
-  const resetPassword = async (password: string) => {
+  const confirmDeleteAccount = async () => {
     if (!token) return;
 
     setIsPending(true);
     try {
-      await ResetPasswordService.resetPassword(password, token);
+      await ConfirmService.confirmDeleteAccount(token);
       toast.success(t('success'));
-      router.push(routes.login);
+      router.push(routes.home);
     } catch (error) {
       toast.error(t('error'));
     } finally {
@@ -33,7 +33,7 @@ export const useResetPassword = () => {
   };
 
   return {
-    resetPassword,
+    confirmDeleteAccount,
     isPending,
     tokenExists: !!token,
   };

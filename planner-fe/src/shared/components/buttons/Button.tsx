@@ -35,7 +35,6 @@ export const ButtonCustom = ({
 }: ButtonProps) => {
   const locale = useLocale();
   const boldText = style === 'outlined' || style === 'text';
-
   return (
     <Button
       type={type}
@@ -43,7 +42,7 @@ export const ButtonCustom = ({
       color={color}
       disabled={disabled}
       onClick={href ? undefined : onClick}
-      href={`/${locale}/${href}`}
+      href={href ? `/${locale}/${href}` : ''}
       startIcon={iconStart}
       endIcon={iconEnd}
       size="medium"

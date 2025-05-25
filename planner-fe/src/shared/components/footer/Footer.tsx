@@ -26,7 +26,10 @@ export const Footer = () => {
                 </Link>
               </TooltipCustom>
               <TooltipCustom title="Email">
-                <Link href="mailto:yana.zahoruiko@gmail.com" aria-label="Email">
+                <Link
+                  href="mailto:tsilovo.planner@gmail.com"
+                  aria-label="Email"
+                >
                   <icons.Mail />
                 </Link>
               </TooltipCustom>

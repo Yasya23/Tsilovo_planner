@@ -33,6 +33,20 @@
       "restorePassword": "Restore password",
       "startPlanning": "Start planning"
     },
+    "forgetPassword": {
+      "errorForgetPassword": "An error occurred. If you registered using Google, you cannot change your password. If not, please try again or write a support ticket.",
+      "successResetPassword": "Follow the instructions sent to your email to reset your password."
+    },
+    "deleteAccount": {
+      "confirmDeleteAccount": "Are you sure you want to delete your account? This action is irreversible.",
+      "deleteAccount": "Delete account",
+      "errorDeleteAccount": "An error occurred while deleting your account. Please try again or write a support ticket.",
+      "successDeleteAccount": "Your account has been successfully deleted."
+    },
+    "resetPassword": {
+      "errorResetPassword": "An error occurred while resetting your password. Please try again or write a support ticket.",
+      "successResetPassword": "Your password has been successfully changed."
+    },
     "errors": {
       "general": "Something went wrong...",
       "registerError": "User with this email already exists",
@@ -72,7 +86,7 @@
       "fileTooLarge": "File is too large. Maximum size is 1MB",
       "updateError": "An error occurred while updating your information. Please try again.",
       "updatePasswordError": "An error occurred while updating your password. Please check an old password and try again.",
-      "updangeEmailError": "An error occurred while updating your email. Please check that account with this email doesn't exist.",
+      "updateEmailError": "An error occurred while updating your email. Please check that account with this email doesn't exist.",
       "success": "Your information has been successfully updated.",
       "changePassword": "Change password",
       "changeEmail": "Change email",

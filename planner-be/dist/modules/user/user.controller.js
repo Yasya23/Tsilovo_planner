@@ -30,6 +30,7 @@ let UserController = class UserController {
         await this.userService.forgotPassword(dto, locale);
     }
     async resetPassword(token, dto, locale) {
+        console.log(token);
         await this.userService.resetPasswordWithToken(token, dto, locale);
     }
     async updateName(id, dto) {
@@ -125,7 +126,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "delete", null);
 __decorate([
-    (0, common_1.Delete)('confirm'),
+    (0, common_1.Delete)('confirm-delete'),
     __param(0, (0, common_1.Query)('token')),
     __param(1, (0, locale_decorator_1.Locale)()),
     __metadata("design:type", Function),

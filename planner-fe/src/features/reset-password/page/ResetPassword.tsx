@@ -24,7 +24,7 @@ type FormValues = {
 export const ResetPassword = () => {
   const t = useTranslations('Common');
   const schema = resetPasswordSchema(t);
-  const { resetPassword, isPending } = useResetPassword();
+  const { resetPassword, isPending, tokenExists } = useResetPassword();
 
   const {
     register,
@@ -44,7 +44,7 @@ export const ResetPassword = () => {
     resetPassword(values.password);
   };
 
-  const disabledInput = isPending || isSubmitting;
+  const disabledInput = isPending || isSubmitting || !tokenExists;
   const disabledButton = disabledInput || !isValid;
 
   return (
