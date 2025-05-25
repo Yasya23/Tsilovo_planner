@@ -3,16 +3,12 @@ import toast from 'react-hot-toast';
 
 import { useTranslations } from 'next-intl';
 
-import { useRouter } from '@/lib/i18n/navigation';
-
-import { routes } from '@/shared/constants/routes';
-import { useAuthentication } from '@/shared/hooks/useAuthentication';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { UserService } from '@/features/settings/services/user.service';
 
 export const useDeleteProfile = () => {
-  const { logout } = useAuthentication();
-  const router = useRouter();
+  const { logout } = useAuthContext();
   const t = useTranslations('Common.settings');
   const [isPending, setIsPending] = useState(false);
 
@@ -21,7 +17,7 @@ export const useDeleteProfile = () => {
     try {
       await UserService.deleteProfile();
       toast.success(t('successDelete'));
-      await logout();
+      logout();
     } catch (error) {
       toast.error(t('updateError'));
     } finally {

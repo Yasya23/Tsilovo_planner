@@ -3,20 +3,23 @@ import toast from 'react-hot-toast';
 
 import { useTranslations } from 'next-intl';
 
+import { useAuthContext } from '@/shared/providers/AuthProvider';
+
 import { UserService } from '@/features/settings/services/user.service';
 import { ChangeEmailType } from '@/features/settings/types/settings';
 
-export const useChangeEmail = (onUpdate: () => void, reset: () => void) => {
+export const useChangeEmail = () => {
   const t = useTranslations('Common.settings');
+  const { logout } = useAuthContext();
+
   const [isPending, setIsPending] = useState(false);
 
   const changeEmail = async (values: ChangeEmailType) => {
     setIsPending(true);
     try {
       await UserService.changeEmail(values);
-      onUpdate();
       toast.success(t('success'));
-      reset();
+      logout();
     } catch (error) {
       toast.error(t('updateEmailError'));
     } finally {

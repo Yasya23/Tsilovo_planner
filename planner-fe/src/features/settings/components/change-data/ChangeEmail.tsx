@@ -19,7 +19,8 @@ import { ChangeEmailType } from '@/features/settings/types/settings';
 import styles from './ChangeData.module.scss';
 
 export const ChangeEmail = () => {
-  const { user, refetch } = useAuthContext();
+  const { user } = useAuthContext();
+  const { changeEmail, isPending } = useChangeEmail();
 
   const t = useTranslations('Common');
 
@@ -27,7 +28,6 @@ export const ChangeEmail = () => {
     register,
     handleSubmit,
     clearErrors,
-    reset,
     formState: { errors, isSubmitting, dirtyFields, isValid },
   } = useForm<ChangeEmailType>({
     resolver: yupResolver(updateEmailSchema(t)),
@@ -37,8 +37,6 @@ export const ChangeEmail = () => {
       password: '',
     },
   });
-
-  const { changeEmail, isPending } = useChangeEmail(refetch, reset);
 
   const onSubmit = (values: ChangeEmailType) => {
     changeEmail(values);

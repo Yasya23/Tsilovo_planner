@@ -8,8 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ButtonCustom } from '@/shared/components/buttons/Button';
 import Input from '@/shared/components/input/Input';
-import { useAuthentication } from '@/shared/hooks/useAuthentication';
 import icons from '@/shared/icons/icons';
+import { useAuthContext } from '@/shared/providers/AuthProvider';
 
 import { updatePasswordSchema } from '@/features/settings/helpers/update-password-schema';
 import { useChangePassword } from '@/features/settings/hooks/useChangePassword';
@@ -23,14 +23,13 @@ type FormValues = {
 };
 
 export const ChangePassword = () => {
-  const { user } = useAuthentication();
+  const { user } = useAuthContext();
   const t = useTranslations('Common');
 
   const {
     register,
     handleSubmit,
     clearErrors,
-    reset,
     formState: { errors, dirtyFields, isValid, isSubmitting },
   } = useForm<FormValues>({
     resolver: yupResolver(updatePasswordSchema(t)),
@@ -41,7 +40,7 @@ export const ChangePassword = () => {
       confirmPassword: '',
     },
   });
-  const { changePassword, isPending } = useChangePassword(reset);
+  const { changePassword, isPending } = useChangePassword();
 
   const onSubmit = (values: FormValues) => {
     const { password, newPassword } = values;
