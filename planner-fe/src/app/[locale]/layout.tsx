@@ -87,7 +87,7 @@ export default async function RootLayout({
                     duration: 7000,
                     style: {
                       width: '350px',
-                      height: '70px',
+                      minHeight: '70px',
                       maxWidth: '100%',
                     },
                   }}
