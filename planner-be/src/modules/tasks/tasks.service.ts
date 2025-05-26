@@ -80,4 +80,8 @@ export class TaskService {
       throw new NotFoundException('Task not found');
     }
   }
+
+  async deleteAllTasks(userId: string): Promise<void> {
+    await this.taskModel.deleteMany({ userId });
+  }
 }

@@ -12,6 +12,7 @@ export declare class StatisticsService {
     private readonly logger;
     constructor(statisticsModel: ModelType<StatisticsModel>, userService: UserService, dateService: DateService, taskService: TaskService);
     getYearlyStatistics(userId: string, year: string): Promise<StatisticsModel>;
+    deleteStatistics(userId: string): Promise<void>;
     updateWeeklyStatistics(): Promise<void>;
     saveStatistics(userId: string, tasks: TaskType[]): Promise<void>;
 }

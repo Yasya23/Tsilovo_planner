@@ -83,6 +83,9 @@ let GoalsService = class GoalsService {
         goal.isActive = false;
         await goal.save();
     }
+    async deleteAllGoals(userId) {
+        await this.goalModel.deleteMany({ userId });
+    }
 };
 exports.GoalsService = GoalsService;
 exports.GoalsService = GoalsService = __decorate([

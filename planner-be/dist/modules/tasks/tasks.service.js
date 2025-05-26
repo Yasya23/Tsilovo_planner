@@ -70,6 +70,9 @@ let TaskService = class TaskService {
             throw new common_1.NotFoundException('Task not found');
         }
     }
+    async deleteAllTasks(userId) {
+        await this.taskModel.deleteMany({ userId });
+    }
 };
 exports.TaskService = TaskService;
 exports.TaskService = TaskService = __decorate([

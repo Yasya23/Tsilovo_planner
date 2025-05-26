@@ -3,8 +3,13 @@ import { TaskType } from './types/task.type';
 import { DateService } from '@/date/date.service';
 import { TaskService } from '@/tasks/tasks.service';
 import { UserService } from '@/user/user.service';
-import { Injectable, Logger } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
@@ -16,6 +21,7 @@ export class StatisticsService {
   constructor(
     @InjectModel(StatisticsModel)
     private readonly statisticsModel: ModelType<StatisticsModel>,
+    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
     private readonly dateService: DateService,
     private readonly taskService: TaskService,
@@ -34,6 +40,10 @@ export class StatisticsService {
       throw new NotFoundException(`Staristics for year ${year} not found`);
 
     return staistics;
+  }
+
+  async deleteStatistics(userId: string): Promise<void> {
+    await this.statisticsModel.deleteMany({ userId });
   }
 
   @Cron(CronExpression.EVERY_WEEK)

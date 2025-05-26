@@ -13,4 +13,5 @@ export declare class GoalsService {
     create(dto: CreateGoalDto, userId: string): Promise<void>;
     update(dto: UpdateGoalDto): Promise<void>;
     delete(goalId: string): Promise<void>;
+    deleteAllGoals(userId: string): Promise<void>;
 }

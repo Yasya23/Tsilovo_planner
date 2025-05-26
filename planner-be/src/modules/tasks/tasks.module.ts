@@ -1,4 +1,3 @@
-import { StatisticsModule } from '../statistics/statistics.module';
 import { TaskModel } from './model/tasks.model';
 import { TaskController } from './tasks.controller';
 import { TaskService } from './tasks.service';
@@ -17,7 +16,6 @@ import { TypegooseModule } from 'nestjs-typegoose';
       },
     ]),
     ConfigModule,
-    StatisticsModule,
   ],
   providers: [TaskService],
   controllers: [TaskController],

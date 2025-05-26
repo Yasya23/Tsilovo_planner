@@ -6,8 +6,11 @@ import {
   UpdateEmailDto,
   UpdateNameDto,
 } from './dto';
+import { GoalsService } from '@/goals/goals.service';
 import { MailService } from '@/modules/mail/mail.service';
+import { StatisticsService } from '@/modules/statistics/statistics.service';
 import { LocaleType } from '@/shared/decorator/locale.decorator';
+import { TaskService } from '@/tasks/tasks.service';
 import { UserModel } from '@/user/model/user.model';
 import {
   BadRequestException,
@@ -29,6 +32,9 @@ export class UserService {
     @InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
     private readonly configService: ConfigService,
     private readonly mailService: MailService,
+    private readonly goalsService: GoalsService,
+    private readonly tasksService: TaskService,
+    private readonly statisticsService: StatisticsService,
   ) {}
 
   async getAllUsers(): Promise<UserModel[]> {
@@ -255,12 +261,31 @@ export class UserService {
   @Cron(CronExpression.EVERY_WEEK)
   async handleDeleteCron() {
     this.logger.log('Running weekly user deletion cron job');
-
-    const result = await this.userModel.deleteMany({
+    const users = await this.userModel.find({
       isActive: false,
       deletedAt: { $lte: new Date() },
     });
 
-    this.logger.log(`Deleted ${result.deletedCount} accounts`);
+    const results = await Promise.allSettled(
+      users.map(async (user) => {
+        const userId = user._id.toString();
+
+        await this.statisticsService.deleteStatistics(userId);
+        await this.tasksService.deleteAllTasks(userId);
+        await this.goalsService.deleteAllGoals(userId);
+        await this.userModel.findByIdAndDelete(userId);
+
+        return userId;
+      }),
+    );
+
+    results.forEach((result, index) => {
+      const userId = users[index]._id.toString();
+      if (result.status === 'fulfilled') {
+        this.logger.log(`Successfully deleted user ${userId}`);
+      } else {
+        this.logger.error(`Failed to delete user ${userId}: ${result.reason}`);
+      }
+    });
   }
 }

@@ -19,7 +19,6 @@ const date_service_1 = require("../date/date.service");
 const tasks_service_1 = require("../tasks/tasks.service");
 const user_service_1 = require("../user/user.service");
 const common_1 = require("@nestjs/common");
-const common_2 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 let StatisticsService = StatisticsService_1 = class StatisticsService {
@@ -36,8 +35,11 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
             .select('-__v -_id -createdAt -updatedAt -userId')
             .lean();
         if (!staistics)
-            throw new common_2.NotFoundException(`Staristics for year ${year} not found`);
+            throw new common_1.NotFoundException(`Staristics for year ${year} not found`);
         return staistics;
+    }
+    async deleteStatistics(userId) {
+        await this.statisticsModel.deleteMany({ userId });
     }
     async updateWeeklyStatistics() {
         this.logger.log('Updating weekly statistics...');
@@ -140,6 +142,7 @@ __decorate([
 exports.StatisticsService = StatisticsService = StatisticsService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(statistics_model_1.StatisticsModel)),
+    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => user_service_1.UserService))),
     __metadata("design:paramtypes", [Object, user_service_1.UserService,
         date_service_1.DateService,
         tasks_service_1.TaskService])

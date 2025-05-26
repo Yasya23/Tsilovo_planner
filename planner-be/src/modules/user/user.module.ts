@@ -1,8 +1,11 @@
 import { UserController } from './user.controller';
+import { GoalsModule } from '@/goals/goals.module';
 import { MailModule } from '@/modules/mail/mail.module';
+import { StatisticsModule } from '@/modules/statistics/statistics.module';
+import { TaskModule } from '@/tasks/tasks.module';
 import { UserModel } from '@/user/model/user.model';
 import { UserService } from '@/user/user.service';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
 
@@ -18,6 +21,9 @@ import { TypegooseModule } from 'nestjs-typegoose';
     ]),
     ConfigModule,
     MailModule,
+    GoalsModule,
+    TaskModule,
+    forwardRef(() => StatisticsModule),
   ],
   providers: [UserService],
   controllers: [UserController],

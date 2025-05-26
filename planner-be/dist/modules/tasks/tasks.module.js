@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskModule = void 0;
-const statistics_module_1 = require("../statistics/statistics.module");
 const tasks_model_1 = require("./model/tasks.model");
 const tasks_controller_1 = require("./tasks.controller");
 const tasks_service_1 = require("./tasks.service");
@@ -29,7 +28,6 @@ exports.TaskModule = TaskModule = __decorate([
                 },
             ]),
             config_1.ConfigModule,
-            statistics_module_1.StatisticsModule,
         ],
         providers: [tasks_service_1.TaskService],
         controllers: [tasks_controller_1.TaskController],

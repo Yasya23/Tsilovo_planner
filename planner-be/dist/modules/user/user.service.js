@@ -14,7 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var UserService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
+const goals_service_1 = require("../goals/goals.service");
 const mail_service_1 = require("../mail/mail.service");
+const statistics_service_1 = require("../statistics/statistics.service");
+const tasks_service_1 = require("../tasks/tasks.service");
 const user_model_1 = require("./model/user.model");
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
@@ -24,10 +27,13 @@ const bcryptjs_1 = require("bcryptjs");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 let UserService = UserService_1 = class UserService {
-    constructor(userModel, configService, mailService) {
+    constructor(userModel, configService, mailService, goalsService, tasksService, statisticsService) {
         this.userModel = userModel;
         this.configService = configService;
         this.mailService = mailService;
+        this.goalsService = goalsService;
+        this.tasksService = tasksService;
+        this.statisticsService = statisticsService;
         this.logger = new common_2.Logger(UserService_1.name);
     }
     async getAllUsers() {
@@ -202,11 +208,27 @@ let UserService = UserService_1 = class UserService {
     }
     async handleDeleteCron() {
         this.logger.log('Running weekly user deletion cron job');
-        const result = await this.userModel.deleteMany({
+        const users = await this.userModel.find({
             isActive: false,
             deletedAt: { $lte: new Date() },
         });
-        this.logger.log(`Deleted ${result.deletedCount} accounts`);
+        const results = await Promise.allSettled(users.map(async (user) => {
+            const userId = user._id.toString();
+            await this.statisticsService.deleteStatistics(userId);
+            await this.tasksService.deleteAllTasks(userId);
+            await this.goalsService.deleteAllGoals(userId);
+            await this.userModel.findByIdAndDelete(userId);
+            return userId;
+        }));
+        results.forEach((result, index) => {
+            const userId = users[index]._id.toString();
+            if (result.status === 'fulfilled') {
+                this.logger.log(`Successfully deleted user ${userId}`);
+            }
+            else {
+                this.logger.error(`Failed to delete user ${userId}: ${result.reason}`);
+            }
+        });
     }
 };
 exports.UserService = UserService;
@@ -220,6 +242,9 @@ exports.UserService = UserService = UserService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(user_model_1.UserModel)),
     __metadata("design:paramtypes", [Object, config_1.ConfigService,
-        mail_service_1.MailService])
+        mail_service_1.MailService,
+        goals_service_1.GoalsService,
+        tasks_service_1.TaskService,
+        statistics_service_1.StatisticsService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

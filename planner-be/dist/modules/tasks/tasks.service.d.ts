@@ -10,4 +10,5 @@ export declare class TaskService {
     create(userId: string, dto: CreateTaskDto): Promise<TaskModel>;
     update(dto: TaskDto): Promise<TaskModel>;
     delete(taskId: string): Promise<void>;
+    deleteAllTasks(userId: string): Promise<void>;
 }

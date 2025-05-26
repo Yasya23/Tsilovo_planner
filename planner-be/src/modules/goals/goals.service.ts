@@ -101,4 +101,8 @@ export class GoalsService {
     goal.isActive = false;
     await goal.save();
   }
+
+  async deleteAllGoals(userId: string): Promise<void> {
+    await this.goalModel.deleteMany({ userId });
+  }
 }

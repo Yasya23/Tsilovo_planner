@@ -35,6 +35,7 @@ exports.GoalsModule = GoalsModule = __decorate([
         ],
         providers: [goals_service_1.GoalsService],
         controllers: [goals_controller_1.GoalsController],
+        exports: [goals_service_1.GoalsService],
     })
 ], GoalsModule);
 //# sourceMappingURL=goals.module.js.map

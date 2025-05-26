@@ -23,5 +23,6 @@ import { TypegooseModule } from 'nestjs-typegoose';
   ],
   providers: [GoalsService],
   controllers: [GoalsController],
+  exports: [GoalsService],
 })
 export class GoalsModule {}

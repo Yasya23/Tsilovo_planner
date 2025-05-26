@@ -1,6 +1,9 @@
 import { ForgetPasswordDto, PasswordDto, ResetPasswordDto, UpdateAvatarDto, UpdateEmailDto, UpdateNameDto } from './dto';
+import { GoalsService } from '@/goals/goals.service';
 import { MailService } from '@/modules/mail/mail.service';
+import { StatisticsService } from '@/modules/statistics/statistics.service';
 import { LocaleType } from '@/shared/decorator/locale.decorator';
+import { TaskService } from '@/tasks/tasks.service';
 import { UserModel } from '@/user/model/user.model';
 import { ConfigService } from '@nestjs/config';
 import { ModelType } from '@typegoose/typegoose/lib/types';
@@ -8,8 +11,11 @@ export declare class UserService {
     private readonly userModel;
     private readonly configService;
     private readonly mailService;
+    private readonly goalsService;
+    private readonly tasksService;
+    private readonly statisticsService;
     private readonly logger;
-    constructor(userModel: ModelType<UserModel>, configService: ConfigService, mailService: MailService);
+    constructor(userModel: ModelType<UserModel>, configService: ConfigService, mailService: MailService, goalsService: GoalsService, tasksService: TaskService, statisticsService: StatisticsService);
     getAllUsers(): Promise<UserModel[]>;
     getByID(id: string): Promise<UserModel>;
     getProfile(id: string): Promise<Partial<UserModel>>;
