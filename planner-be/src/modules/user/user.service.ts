@@ -159,7 +159,7 @@ export class UserService {
 
     const token = this.generateActionToken(id, 'delete');
 
-    this.mailService.sendEmail({
+    await this.mailService.sendEmail({
       to: user.email,
       subject: 'account deletion confirmation',
       token: token,

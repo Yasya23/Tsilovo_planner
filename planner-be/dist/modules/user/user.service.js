@@ -132,7 +132,7 @@ let UserService = UserService_1 = class UserService {
         if (!user)
             throw new common_1.NotFoundException('User not found');
         const token = this.generateActionToken(id, 'delete');
-        this.mailService.sendEmail({
+        await this.mailService.sendEmail({
             to: user.email,
             subject: 'account deletion confirmation',
             token: token,
