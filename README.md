@@ -15,6 +15,7 @@ Plan up to **5 goals at a time**, manage daily tasks, track weekly and yearly pr
 
 - 📌 Set up to **5 active goals**
 - ✅ Add, edit, complete, and reorder **daily tasks** (up to 20/day per goal)
+- 📆 **Weekly planning** with automatic **unlocking of the new week every Sunday**
 - 📊 Weekly and yearly **statistics and insights**
 - 🌗 **Dark/light theme** toggle (auto-detects system theme)
 - 🌍 **Multilingual support** (Ukrainian 🇺🇦 and English 🇬🇧)
