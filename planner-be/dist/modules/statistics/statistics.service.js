@@ -43,8 +43,9 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
     }
     async updateWeeklyStatistics() {
         this.logger.log('Updating weekly statistics...');
-        const { weekStart, weekEnd } = this.dateService.getLastWeekData();
         const users = await this.userService.getAllUsers();
+        const weekStart = '2025-06-01';
+        const weekEnd = '2025-06-15';
         for (const user of users) {
             const userId = user._id.toString();
             const tasks = await this.taskService.getUserTasksForStatistic(userId, new Date(weekStart), new Date(weekEnd));
@@ -134,7 +135,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
 };
 exports.StatisticsService = StatisticsService;
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_MINUTE),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

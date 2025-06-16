@@ -10,7 +10,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
 
@@ -46,13 +46,12 @@ export class StatisticsService {
     await this.statisticsModel.deleteMany({ userId });
   }
 
-  @Cron(CronExpression.EVERY_WEEK)
+  @Cron('1 0 * * 1')
   async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
     const { weekStart, weekEnd } = this.dateService.getLastWeekData();
     const users = await this.userService.getAllUsers();
-
     for (const user of users) {
       const userId = user._id.toString();
       const tasks = await this.taskService.getUserTasksForStatistic(
