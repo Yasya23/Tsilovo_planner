@@ -35,21 +35,46 @@ export class MonthlyStats {
   goals: GoalStats[];
 }
 
+export class YearlyStats {
+  @prop({ required: true, default: () => new Date().getFullYear() })
+  year: number;
+
+  @prop({ required: true, default: 0 })
+  totalCompleted: number;
+
+  @prop({ required: true, default: 0 })
+  totalGoals: number;
+
+  @prop({ type: () => [MonthlyStats], default: [] })
+  monthlyStats: MonthlyStats[];
+}
+
 export class StatisticsModel extends TimeStamps {
   @prop({ required: true })
   userId: string;
 
+  @prop({ type: () => [String], default: [] })
+  availableYears: string[];
+
+  @prop({ type: () => [YearlyStats], default: [] })
+  yearlyStats: YearlyStats[];
+}
+
+export class StatisticsByYearResponse extends TimeStamps {
   @prop({ required: true })
+  userId: string;
+
+  @prop({ type: () => [String], default: [] })
+  availableYears: string[];
+
+  @prop({ required: true, default: () => new Date().getFullYear() })
   year: number;
 
-  @prop({ required: true })
+  @prop({ required: true, default: 0 })
   totalCompleted: number;
 
-  @prop({ required: true })
+  @prop({ required: true, default: 0 })
   totalGoals: number;
-
-  @prop({ type: () => [Number], default: [] })
-  availableYears: number[];
 
   @prop({ type: () => [MonthlyStats], default: [] })
   monthlyStats: MonthlyStats[];

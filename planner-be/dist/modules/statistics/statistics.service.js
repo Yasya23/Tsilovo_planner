@@ -30,22 +30,31 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         this.logger = new common_1.Logger(StatisticsService_1.name);
     }
     async getYearlyStatistics(userId, year) {
-        const staistics = await this.statisticsModel
-            .findOne({ userId, year })
+        const statistics = await this.statisticsModel
+            .findOne({ userId, 'yearlyStats.year': year }, { 'yearlyStats.$': 1, availableYears: 1, _id: 0 })
             .select('-__v -_id -createdAt -updatedAt -userId')
             .lean();
-        if (!staistics)
+        if (!statistics)
             throw new common_1.NotFoundException(`Staristics for year ${year} not found`);
-        return staistics;
+        const { availableYears, yearlyStats } = statistics;
+        const [yearStats] = yearlyStats;
+        yearStats.monthlyStats.sort((a, b) => b.month - a.month);
+        const response = {
+            userId,
+            availableYears,
+            ...yearStats,
+        };
+        return response;
     }
     async deleteStatistics(userId) {
         await this.statisticsModel.deleteMany({ userId });
     }
     async updateWeeklyStatistics() {
         this.logger.log('Updating weekly statistics...');
+        const weekEnd = new Date();
+        const weekStart = new Date(weekEnd);
+        weekStart.setDate(weekEnd.getDate() - 7);
         const users = await this.userService.getAllUsers();
-        const weekStart = '2025-06-01';
-        const weekEnd = '2025-06-15';
         for (const user of users) {
             const userId = user._id.toString();
             const tasks = await this.taskService.getUserTasksForStatistic(userId, new Date(weekStart), new Date(weekEnd));
@@ -57,85 +66,130 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
         }
     }
     async saveStatistics(userId, tasks) {
-        const currentYear = new Date().getFullYear();
-        const currentMonth = new Date().getMonth() + 1;
-        const goalMap = new Map();
-        for (const task of tasks) {
-            const goalId = task.goalId._id.toString();
-            const emoji = task.goalId.emoji;
-            if (!goalMap.has(goalId)) {
-                goalMap.set(goalId, {
-                    completedTasks: 0,
-                    tasks: [],
-                    title: task.goalId.title,
-                    emoji: emoji,
-                });
-            }
-            const goalStats = goalMap.get(goalId);
-            const taskId = task._id.toString();
-            const existingTaskIds = new Set(goalStats.tasks.map((t) => t._id.toString()));
-            if (!existingTaskIds.has(taskId)) {
-                goalStats.tasks.push(task);
-                goalStats.completedTasks = goalStats.tasks.length;
-            }
-        }
-        const goalStatsArray = Array.from(goalMap.entries()).map(([goalId, data]) => ({
-            goalId,
-            completedTasks: data.completedTasks,
-            title: data.title,
-            emoji: data.emoji,
-            tasks: data.tasks,
-        }));
         const userStats = await this.statisticsModel.findOne({ userId });
-        const monthlyStats = {
-            month: currentMonth,
-            totalCompleted: tasks.length,
-            totalGoals: goalStatsArray.length,
-            goals: goalStatsArray,
-        };
-        const createUserStatistics = async () => {
-            return await this.statisticsModel.create({
-                userId,
-                year: currentYear,
-                totalCompleted: tasks.length,
-                totalGoals: goalStatsArray.length,
-                availableYears: [currentYear],
-                monthlyStats: [monthlyStats],
-            });
-        };
-        const addNewMonthStats = () => userStats.monthlyStats.push(monthlyStats);
-        const updateUserStatistics = async () => {
-            const monthStats = userStats.monthlyStats.find((m) => m.month === currentMonth);
-            if (monthStats) {
-                for (const newGoal of goalStatsArray) {
-                    const existingGoal = monthStats.goals.find((g) => g.goalId === newGoal.goalId);
-                    if (!existingGoal)
-                        monthStats.goals.push(newGoal);
-                }
-                monthStats.totalCompleted = monthStats.goals.reduce((acc, m) => acc + m.completedTasks, 0);
-                monthStats.totalGoals = monthStats.goals.length;
-            }
-            else {
-                addNewMonthStats();
-            }
-            userStats.totalCompleted = userStats.monthlyStats.reduce((acc, m) => acc + m.totalCompleted, 0);
-            userStats.totalGoals = userStats.monthlyStats.reduce((acc, m) => acc + m.totalGoals, 0);
-            if (!userStats.availableYears.includes(currentYear)) {
-                userStats.availableYears.push(currentYear);
-            }
-            await userStats.save();
-        };
         if (!userStats) {
-            await createUserStatistics();
+            await this.createUserStatistics(userId, tasks);
         }
         else {
-            await updateUserStatistics();
+            await this.updateUserStatistics(userStats, tasks);
         }
+    }
+    async createUserStatistics(userId, tasks) {
+        const filteredTasks = this.groupTasksByYearMonth(tasks);
+        const allYears = Object.keys(filteredTasks);
+        const yearlyStats = allYears.map((year) => {
+            const monthlyStats = this.createMonthlyStatsByYear(filteredTasks[year]);
+            this.logger.log(`userId: ${userId}:`, monthlyStats);
+            const totalCompleted = monthlyStats.reduce((acc, m) => acc + m.totalCompleted, 0);
+            const totalGoals = monthlyStats.reduce((acc, m) => acc + m.totalGoals, 0);
+            return {
+                year: Number(year),
+                totalGoals,
+                totalCompleted,
+                monthlyStats,
+            };
+        });
+        await this.statisticsModel.create({
+            userId,
+            availableYears: allYears,
+            yearlyStats,
+        });
+    }
+    async updateUserStatistics(userStats, tasks) {
+        const filteredTasks = this.groupTasksByYearMonth(tasks);
+        for (const [year, months] of Object.entries(filteredTasks)) {
+            let yearStats = userStats.yearlyStats.find((ys) => ys.year === +year);
+            if (!yearStats) {
+                yearStats = {
+                    year: +year,
+                    totalGoals: 0,
+                    totalCompleted: 0,
+                    monthlyStats: [],
+                };
+                userStats.yearlyStats.push(yearStats);
+                userStats.availableYears.push(year);
+            }
+            for (const [month, monthTasks] of Object.entries(months)) {
+                let monthStats = yearStats.monthlyStats.find((ms) => ms.month === +month);
+                const goals = this.filterTasksByGoals(monthTasks);
+                const totalCompleted = goals.reduce((acc, g) => acc + g.completedTasks, 0);
+                const totalGoals = goals.length;
+                if (!monthStats) {
+                    yearStats.monthlyStats.push({
+                        month: +month,
+                        totalGoals,
+                        totalCompleted,
+                        goals,
+                    });
+                }
+                else {
+                    monthStats.goals = goals;
+                    monthStats.totalGoals = totalGoals;
+                    monthStats.totalCompleted = totalCompleted;
+                }
+            }
+            yearStats.totalGoals = yearStats.monthlyStats.reduce((acc, m) => acc + m.totalGoals, 0);
+            yearStats.totalCompleted = yearStats.monthlyStats.reduce((acc, m) => acc + m.totalCompleted, 0);
+        }
+        await userStats.save();
+    }
+    createMonthlyStatsByYear(tasks) {
+        const newTasks = Object.entries(tasks);
+        const monthlyStatistics = [];
+        newTasks.forEach((data) => {
+            const [month, monthlyTasks] = data;
+            const monthStatsTemplate = {
+                month: +month,
+                totalGoals: 0,
+                totalCompleted: 0,
+                goals: [],
+            };
+            const filteredGoals = this.filterTasksByGoals(monthlyTasks);
+            monthStatsTemplate.goals = [...filteredGoals];
+            monthStatsTemplate.totalCompleted = filteredGoals.reduce((acc, m) => acc + m.completedTasks, 0);
+            monthStatsTemplate.totalGoals = monthStatsTemplate.goals.length;
+            monthlyStatistics.push(monthStatsTemplate);
+        });
+        return monthlyStatistics;
+    }
+    groupTasksByYearMonth(tasks) {
+        return tasks.reduce((acc, task) => {
+            const year = task.date.getFullYear();
+            const month = task.date.getMonth();
+            if (!acc[year])
+                acc[year] = {};
+            if (!acc[year][month])
+                acc[year][month] = [];
+            acc[year][month].push(task);
+            return acc;
+        }, {});
+    }
+    filterTasksByGoals(tasks) {
+        const goalsData = {};
+        tasks.forEach((task) => {
+            const { _id, title: taskTitle } = task;
+            const { _id: goalId, emoji, title } = task.goalId;
+            if (!goalsData[goalId]) {
+                goalsData[goalId] = {
+                    goalId,
+                    title,
+                    emoji,
+                    completedTasks: 0,
+                    tasks: [],
+                };
+            }
+            const alreadyExists = goalsData[goalId].tasks.some((t) => t.id.toString() === _id.toString());
+            if (!alreadyExists) {
+                goalsData[goalId].tasks.push({ id: _id, title: taskTitle });
+                goalsData[goalId].completedTasks += 1;
+            }
+        });
+        return Object.values(goalsData);
     }
 };
 exports.StatisticsService = StatisticsService;
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_MINUTE),
+    (0, schedule_1.Cron)('0 0 * * 1'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

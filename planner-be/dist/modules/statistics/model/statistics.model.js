@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StatisticsModel = exports.MonthlyStats = exports.GoalStats = void 0;
+exports.StatisticsByYearResponse = exports.StatisticsModel = exports.YearlyStats = exports.MonthlyStats = exports.GoalStats = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const defaultClasses_1 = require("@typegoose/typegoose/lib/defaultClasses");
 class GoalStats {
@@ -54,6 +54,25 @@ __decorate([
     (0, typegoose_1.prop)({ type: () => [GoalStats], default: [] }),
     __metadata("design:type", Array)
 ], MonthlyStats.prototype, "goals", void 0);
+class YearlyStats {
+}
+exports.YearlyStats = YearlyStats;
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: () => new Date().getFullYear() }),
+    __metadata("design:type", Number)
+], YearlyStats.prototype, "year", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: 0 }),
+    __metadata("design:type", Number)
+], YearlyStats.prototype, "totalCompleted", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: 0 }),
+    __metadata("design:type", Number)
+], YearlyStats.prototype, "totalGoals", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ type: () => [MonthlyStats], default: [] }),
+    __metadata("design:type", Array)
+], YearlyStats.prototype, "monthlyStats", void 0);
 class StatisticsModel extends defaultClasses_1.TimeStamps {
 }
 exports.StatisticsModel = StatisticsModel;
@@ -62,23 +81,38 @@ __decorate([
     __metadata("design:type", String)
 ], StatisticsModel.prototype, "userId", void 0);
 __decorate([
-    (0, typegoose_1.prop)({ required: true }),
-    __metadata("design:type", Number)
-], StatisticsModel.prototype, "year", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ required: true }),
-    __metadata("design:type", Number)
-], StatisticsModel.prototype, "totalCompleted", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ required: true }),
-    __metadata("design:type", Number)
-], StatisticsModel.prototype, "totalGoals", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ type: () => [Number], default: [] }),
+    (0, typegoose_1.prop)({ type: () => [String], default: [] }),
     __metadata("design:type", Array)
 ], StatisticsModel.prototype, "availableYears", void 0);
 __decorate([
+    (0, typegoose_1.prop)({ type: () => [YearlyStats], default: [] }),
+    __metadata("design:type", Array)
+], StatisticsModel.prototype, "yearlyStats", void 0);
+class StatisticsByYearResponse extends defaultClasses_1.TimeStamps {
+}
+exports.StatisticsByYearResponse = StatisticsByYearResponse;
+__decorate([
+    (0, typegoose_1.prop)({ required: true }),
+    __metadata("design:type", String)
+], StatisticsByYearResponse.prototype, "userId", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ type: () => [String], default: [] }),
+    __metadata("design:type", Array)
+], StatisticsByYearResponse.prototype, "availableYears", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: () => new Date().getFullYear() }),
+    __metadata("design:type", Number)
+], StatisticsByYearResponse.prototype, "year", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: 0 }),
+    __metadata("design:type", Number)
+], StatisticsByYearResponse.prototype, "totalCompleted", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ required: true, default: 0 }),
+    __metadata("design:type", Number)
+], StatisticsByYearResponse.prototype, "totalGoals", void 0);
+__decorate([
     (0, typegoose_1.prop)({ type: () => [MonthlyStats], default: [] }),
     __metadata("design:type", Array)
-], StatisticsModel.prototype, "monthlyStats", void 0);
+], StatisticsByYearResponse.prototype, "monthlyStats", void 0);
 //# sourceMappingURL=statistics.model.js.map

@@ -1,4 +1,4 @@
-import { StatisticsModel } from './model/statistics.model';
+import { StatisticsByYearResponse, StatisticsModel } from './model/statistics.model';
 import { TaskType } from './types/task.type';
 import { DateService } from '@/date/date.service';
 import { TaskService } from '@/tasks/tasks.service';
@@ -11,8 +11,13 @@ export declare class StatisticsService {
     private readonly taskService;
     private readonly logger;
     constructor(statisticsModel: ModelType<StatisticsModel>, userService: UserService, dateService: DateService, taskService: TaskService);
-    getYearlyStatistics(userId: string, year: string): Promise<StatisticsModel>;
+    getYearlyStatistics(userId: string, year: string): Promise<StatisticsByYearResponse>;
     deleteStatistics(userId: string): Promise<void>;
     updateWeeklyStatistics(): Promise<void>;
     saveStatistics(userId: string, tasks: TaskType[]): Promise<void>;
+    private createUserStatistics;
+    private updateUserStatistics;
+    private createMonthlyStatsByYear;
+    private groupTasksByYearMonth;
+    private filterTasksByGoals;
 }
