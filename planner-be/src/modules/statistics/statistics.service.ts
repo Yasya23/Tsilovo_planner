@@ -75,7 +75,6 @@ export class StatisticsService {
     this.logger.log('Updating weekly statistics...');
 
     const weekEnd = new Date();
-    // const weekStart = '2025-01-10T13:00:00Z';
     const weekStart = new Date(weekEnd);
     weekStart.setDate(weekEnd.getDate() - 7);
 

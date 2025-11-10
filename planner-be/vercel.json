@@ -10,7 +10,7 @@
   "crons": [
     {
       "path": "/api/statistics/cron",
-      "schedule": "* * * * *"
+      "schedule": "30 1 * * 1"
     }
   ],
   "routes": [
