@@ -15,11 +15,22 @@ export declare class MonthlyStats {
     totalCompleted: number;
     goals: GoalStats[];
 }
-export declare class StatisticsModel extends TimeStamps {
-    userId: string;
+export declare class YearlyStats {
     year: number;
     totalCompleted: number;
     totalGoals: number;
-    availableYears: number[];
+    monthlyStats: MonthlyStats[];
+}
+export declare class StatisticsModel extends TimeStamps {
+    userId: string;
+    availableYears: string[];
+    yearlyStats: YearlyStats[];
+}
+export declare class StatisticsByYearResponse extends TimeStamps {
+    userId: string;
+    availableYears: string[];
+    year: number;
+    totalCompleted: number;
+    totalGoals: number;
     monthlyStats: MonthlyStats[];
 }
