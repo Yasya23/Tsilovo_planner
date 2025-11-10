@@ -35,7 +35,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
             .select('-__v -_id -createdAt -updatedAt -userId')
             .lean();
         if (!statistics)
-            throw new common_1.NotFoundException(`Staristics for year ${year} not found`);
+            throw new common_1.NotFoundException(`Statistics for year ${year} not found`);
         const { availableYears, yearlyStats } = statistics;
         const [yearStats] = yearlyStats;
         yearStats.monthlyStats.sort((a, b) => b.month - a.month);
@@ -189,7 +189,7 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
 };
 exports.StatisticsService = StatisticsService;
 __decorate([
-    (0, schedule_1.Cron)('0 0 * * 1'),
+    (0, schedule_1.Cron)('30 1 * * 1'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

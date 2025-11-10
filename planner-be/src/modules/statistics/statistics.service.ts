@@ -50,7 +50,7 @@ export class StatisticsService {
       .lean();
 
     if (!statistics)
-      throw new NotFoundException(`Staristics for year ${year} not found`);
+      throw new NotFoundException(`Statistics for year ${year} not found`);
 
     const { availableYears, yearlyStats } = statistics;
     const [yearStats] = yearlyStats;
@@ -69,7 +69,7 @@ export class StatisticsService {
     await this.statisticsModel.deleteMany({ userId });
   }
 
-  @Cron('0 0 * * 1')
+  @Cron('30 1 * * 1')
   async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
