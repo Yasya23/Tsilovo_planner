@@ -20,7 +20,6 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
 
@@ -69,8 +68,6 @@ export class StatisticsService {
     await this.statisticsModel.deleteMany({ userId });
   }
 
-  // @Cron('30 1 * * 1')
-  // @Cron('* * * * *')
   async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
