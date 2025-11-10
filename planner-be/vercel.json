@@ -7,6 +7,12 @@
       "use": "@vercel/node"
     }
   ],
+  "crons": [
+    {
+      "path": "/api/statistics/cron",
+      "schedule": "* * * * *"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",

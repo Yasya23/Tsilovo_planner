@@ -19,7 +19,6 @@ const date_service_1 = require("../date/date.service");
 const tasks_service_1 = require("../tasks/tasks.service");
 const user_service_1 = require("../user/user.service");
 const common_1 = require("@nestjs/common");
-const schedule_1 = require("@nestjs/schedule");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 let StatisticsService = StatisticsService_1 = class StatisticsService {
     constructor(statisticsModel, userService, dateService, taskService) {
@@ -76,10 +75,10 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
     }
     async createUserStatistics(userId, tasks) {
         const filteredTasks = this.groupTasksByYearMonth(tasks);
+        this.logger.log(`tasks: ${tasks}:`, filteredTasks);
         const allYears = Object.keys(filteredTasks);
         const yearlyStats = allYears.map((year) => {
             const monthlyStats = this.createMonthlyStatsByYear(filteredTasks[year]);
-            this.logger.log(`userId: ${userId}:`, monthlyStats);
             const totalCompleted = monthlyStats.reduce((acc, m) => acc + m.totalCompleted, 0);
             const totalGoals = monthlyStats.reduce((acc, m) => acc + m.totalGoals, 0);
             return {
@@ -155,7 +154,8 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
     groupTasksByYearMonth(tasks) {
         return tasks.reduce((acc, task) => {
             const year = task.date.getFullYear();
-            const month = task.date.getMonth();
+            const monthIndex = task.date.getMonth();
+            const month = monthIndex + 1;
             if (!acc[year])
                 acc[year] = {};
             if (!acc[year][month])
@@ -188,12 +188,6 @@ let StatisticsService = StatisticsService_1 = class StatisticsService {
     }
 };
 exports.StatisticsService = StatisticsService;
-__decorate([
-    (0, schedule_1.Cron)('30 1 * * 1'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], StatisticsService.prototype, "updateWeeklyStatistics", null);
 exports.StatisticsService = StatisticsService = StatisticsService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_typegoose_1.InjectModel)(statistics_model_1.StatisticsModel)),

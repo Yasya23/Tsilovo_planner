@@ -24,6 +24,9 @@ let StatisticsController = class StatisticsController {
     async get(userId, year) {
         return await this.statisticsService.getYearlyStatistics(userId, year);
     }
+    async updateStatistics() {
+        return await this.statisticsService.updateWeeklyStatistics();
+    }
 };
 exports.StatisticsController = StatisticsController;
 __decorate([
@@ -35,6 +38,12 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], StatisticsController.prototype, "get", null);
+__decorate([
+    (0, common_1.Get)('cron'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], StatisticsController.prototype, "updateStatistics", null);
 exports.StatisticsController = StatisticsController = __decorate([
     (0, common_1.Controller)('statistics'),
     __metadata("design:paramtypes", [statistics_service_1.StatisticsService])
