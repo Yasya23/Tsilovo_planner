@@ -46,7 +46,7 @@ export class StatisticsService {
     await this.statisticsModel.deleteMany({ userId });
   }
 
-  @Cron('1 0 * * 1')
+  @Cron('30 1 * * 1')
   async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
