@@ -12,4 +12,9 @@ export class StatisticsController {
   async get(@User('id') userId: string, @Query('year') year: string) {
     return await this.statisticsService.getYearlyStatistics(userId, year);
   }
+
+  @Get('cron')
+  async updateStatistics() {
+    return await this.statisticsService.updateWeeklyStatistics();
+  }
 }

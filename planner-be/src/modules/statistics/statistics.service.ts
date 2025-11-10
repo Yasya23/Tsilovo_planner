@@ -69,12 +69,12 @@ export class StatisticsService {
     await this.statisticsModel.deleteMany({ userId });
   }
 
-  @Cron('30 1 * * 1')
+  // @Cron('30 1 * * 1')
+  // @Cron('* * * * *')
   async updateWeeklyStatistics(): Promise<void> {
     this.logger.log('Updating weekly statistics...');
 
     const weekEnd = new Date();
-
     const weekStart = new Date(weekEnd);
     weekStart.setDate(weekEnd.getDate() - 7);
 
@@ -108,12 +108,11 @@ export class StatisticsService {
 
   private async createUserStatistics(userId: string, tasks: TaskType[]) {
     const filteredTasks = this.groupTasksByYearMonth(tasks);
-
+    this.logger.log(`tasks: ${tasks}:`, filteredTasks);
     const allYears = Object.keys(filteredTasks);
 
     const yearlyStats = allYears.map((year) => {
       const monthlyStats = this.createMonthlyStatsByYear(filteredTasks[year]);
-      this.logger.log(`userId: ${userId}:`, monthlyStats);
 
       const totalCompleted = monthlyStats.reduce(
         (acc, m) => acc + m.totalCompleted,
@@ -229,7 +228,8 @@ export class StatisticsService {
   private groupTasksByYearMonth(tasks: TaskType[]): FilteredTasksByYears {
     return tasks.reduce((acc, task) => {
       const year = task.date.getFullYear();
-      const month = task.date.getMonth();
+      const monthIndex = task.date.getMonth();
+      const month = monthIndex + 1;
 
       if (!acc[year]) acc[year] = {};
       if (!acc[year][month]) acc[year][month] = [];
